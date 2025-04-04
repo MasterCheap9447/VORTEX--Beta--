@@ -556,6 +556,7 @@ animations = [{
 floor_stop_on_slope = false
 floor_max_angle = 1.0472
 script = ExtResource("1_uyujk")
+THRUST_FORCE = 20.0
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
@@ -831,8 +832,4 @@ sprite_frames = SubResource("SpriteFrames_4114p")
 [node name="stamina_recharge" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tazer" method="tazer_weapon"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tri_form" method="tazer_on"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tazer" method="tri_form_on"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tri_form" method="tri_form_change"]
 [connection signal="timeout" from="stamina_recharge" to="." method="_on_stamina_recharge_timeout"]

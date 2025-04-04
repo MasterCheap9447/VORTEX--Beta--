@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 
+
 ### SIGNALS ###
 signal change_to_tri_form
 signal change_to_tazer
@@ -15,7 +16,6 @@ var weapon_number: int = 1
 var is_sliding: bool = false
 var wall_jump_count: float = 0.0
 var air_jump_count: float = 0.0
-var stamina: int = 3
 var speed
 
 
@@ -41,52 +41,47 @@ var speed
 
 ### EXPORT VARIABLES ###
 @export_group("CAMERA VARIABLES")
-@export var SENSITIVITY: float = 0.005
-@export var FOV: float = 100
+@export_range(0.0001, 0.001) var SENSITIVITY: float = 0.005
+@export_range(70,140) var FOV: int = 110
+
 @export_group("MOVEMENT VARIABLES")
+
 @export_subgroup("Ground Movement Variables")
-@export var SLIDE_SPEED: float = 24.0
-@export var SPEED: float = 16.0
-@export var GROUND_ACCELERATION : float = 20.0
-@export var GROUND_DECELERATION : float = 14.0
-@export var GROUND_FRICTION : float = 8.0
-@export var JUMP_FORCE: float = 10.0
-@export var DASH_FORCE: float = 30.0
-@export var SLAM_FORCE: float = 45.0
+@export_range(20,26) var SLIDE_SPEED: float = 24.0
+@export_range(12,20) var SPEED: float = 16.0
+@export_range(18,22) var GROUND_ACCELERATION : float = 20.0
+@export_range(12,16) var GROUND_DECELERATION : float = 14.0
+@export_range(6,10) var GROUND_FRICTION : float = 8.0
+@export_range(6,14) var JUMP_FORCE: float = 10.0
+@export_range(26,34) var DASH_FORCE: float = 30.0
 
 @export_subgroup("Aerial Movement Variables")
-@export var AIR_CAP: float = 0.85
-@export var AIR_ACCELERATION: float = 800.0
-@export var AIR_SPEED: float = 500.0
+@export_range(0.5,1) var AIR_CAP: float = 0.85
+@export_range(750,900) var AIR_ACCELERATION: float = 800.0
+@export_range(450,600) var AIR_SPEED: float = 500.0
+@export_range(5,40) var THRUST_FORCE: float = 8.0
+@export_range(60, 140) var SLAM_FORCE: float = 80.0
+@export_range(20,80) var AIR_FRICTION: float = 40.0
 
 @export_group("GENERAL")
-@export var HEALTH: float = 100.0
+@export var FUEL: float = 100.0
 
 
 ### CONSTANTS ###
-const HEADBOB_AMPLITUDE = 0.08
-const HEADBOB_FREQUENCY = 1.5
+const HEADBOB_AMPLITUDE: float = 0.08
+const HEADBOB_FREQUENCY: float = 1.5
+const DASH_CONSUMPTION: float = 1.0
+const THRUSTER_CONSUMPTION: float = 0.15
+const SLAM_CONSUMPTION: float = 1.5
+const MAX_THRUST_SPEED: float = 60.0
 
 
 ### GENERAL FUNCTIONING ###
-func _process(delta: float) -> void:
-	
-	## Stamina Control
-	stamina = clamp(stamina, 0, 3)
-	if stamina == 3:
-		stamina_visual.frame = 0
-	elif stamina == 2:
-		stamina_visual.frame = 1
-	elif stamina == 1:
-		stamina_visual.frame = 2
-	else:
-		stamina_visual.frame = 3
-	
-	## Health
-	HEALTH = clamp(HEALTH, 0.0, 100.0)
-	health_bar.value = HEALTH
-	if HEALTH <= 0:
-		global_position = spawn_point
+func _process(_delta: float) -> void:
+
+	## Fuel
+	FUEL = clamp(FUEL, 0.0, 100.0)
+	health_bar.value = FUEL
 	
 	## Gun camera and Normal camera Relation
 	gun_camera.set_global_transform(camera.get_global_transform())
@@ -101,7 +96,6 @@ func _ready() -> void:
 	tri_form.visible = false
 	global_position = spawn_point
 	clamp(JUMP_FORCE, 10.0, 20.0)
-	clamp(stamina, 0.0, 3.0)
 	ran.randomize()
 	gun_camera.global_transform.basis = camera.global_transform.basis
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -114,15 +108,19 @@ func _physics_process(delta: float) -> void:
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
 	## Dash Implement
-	if Input.is_action_just_pressed("dash") && stamina>0:
-		velocity = neck.transform.basis * Vector3(0, 0, -DASH_FORCE)
-		stamina -= 1
+	if Input.is_action_just_pressed("dash") && FUEL>0.0:
+		velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
+		FUEL -= DASH_CONSUMPTION
+
+	## Thruster Implementation
+	if Input.is_action_pressed("thrust"):
+		handle_thruster(delta, wish_direction)
 	
-	## Stamina Recharging
-	if is_on_floor():
-		if stamina_recharge.is_stopped():
-			stamina_recharge.start()
-	
+	## Slam Implementation
+	if Input.is_action_just_pressed("slam") && !is_on_floor():
+		velocity.y *= -SLAM_FORCE
+		FUEL -= SLAM_CONSUMPTION
+
 	## Control Movement
 	if is_on_floor():
 		if Input.is_action_pressed("slide"):
@@ -152,10 +150,6 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_FORCE
 			air_jump_count += 1
 		handle_air_physics(delta)
-		if stamina > 0:
-			if Input.is_action_just_pressed("slide") && stamina>0:
-				velocity.y -= SLAM_FORCE
-				stamina -= 1
 	
 	move_and_slide()
 
@@ -191,13 +185,33 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 ## DAMAGE
-func damage(poison):
-	HEALTH -= poison * 5
-	if HEALTH <= 0:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_tree().change_scene_to_file("res://assets/scenes/death_screen.tscn")
+func damage(_poison):
+	#HEALTH -= poison * 5
+	#if HEALTH <= 0:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#get_tree().change_scene_to_file("res://assets/scenes/death_screen.tscn")
+	pass
 
 
+### HANDLING THRUSTER ###
+func handle_thruster(delta:float,_dir:Vector3) -> void:
+	## Thrust
+	if velocity.y < MAX_THRUST_SPEED:
+		if Input.is_action_pressed("jump"):
+			self.velocity += neck.transform.basis * Vector3(0,THRUST_FORCE,0) * delta
+			FUEL -= THRUSTER_CONSUMPTION
+		elif Input.is_action_pressed("forward"):
+			self.velocity += neck.transform.basis * Vector3(0,0,-THRUST_FORCE) * delta
+			FUEL -= THRUSTER_CONSUMPTION
+		elif Input.is_action_pressed("backward"):
+			self.velocity += neck.transform.basis * Vector3(0,0,THRUST_FORCE) * delta
+			FUEL -= THRUSTER_CONSUMPTION
+		elif Input.is_action_pressed("left"):
+			self.velocity += neck.transform.basis * Vector3(-THRUST_FORCE,0,0) * delta
+			FUEL -= THRUSTER_CONSUMPTION
+		elif Input.is_action_pressed("right"):
+			self.velocity += neck.transform.basis * Vector3(-THRUST_FORCE,0,0) * delta
+			FUEL -= THRUSTER_CONSUMPTION
 
 ### HANDLING ALL MEDIUM MOVEMENTS ###
 func handle_air_physics(delta) -> void:
@@ -210,6 +224,7 @@ func handle_air_physics(delta) -> void:
 		var acceleration_speed = AIR_ACCELERATION * AIR_SPEED * delta
 		acceleration_speed = min(acceleration_speed, add_speed_till_cap)
 		velocity += acceleration_speed * wish_direction
+	pass
 
 func handle_ground_physics(delta) -> void:
 	var cur_speed_in_wish_direction = velocity.dot(wish_direction)
@@ -227,6 +242,7 @@ func handle_ground_physics(delta) -> void:
 	if velocity.length() > 0:
 		new_speed /= velocity.length()
 	velocity *= new_speed
+	pass
 
 func handle_wall_physics(_delta) -> void:
 	velocity.x = wish_direction.x * SPEED
@@ -245,6 +261,7 @@ func handle_wall_physics(_delta) -> void:
 			velocity.y = -SPEED / 2
 		if Input.is_action_pressed("right"):
 			velocity.y = SPEED / 2
+	pass
 
 
 
@@ -254,12 +271,15 @@ func _headbob_effect(delta):
 	var y = sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_AMPLITUDE
 	headbob_time += delta * velocity.length()
 	camera.transform.origin = Vector3(x, y, 0)
+	pass
 func _fov_alter(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, SLIDE_SPEED)
 	var target_fov = FOV + 1 * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, 12 * delta)
+	pass
 
 
 func _on_stamina_recharge_timeout() -> void:
-	if is_on_floor():
-		stamina += 1
+	#if is_on_floor():
+		#stamina += 1
+	pass
