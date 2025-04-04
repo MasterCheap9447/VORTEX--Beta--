@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=64 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://1tybpec2s8w2" path="res://assets/scripts/player/MOVEMENT/player_movement_script.gd" id="1_uyujk"]
 [ext_resource type="Script" uid="uid://bvb8yresx8y88" path="res://assets/scripts/general/sub_viewport.gd" id="2_06cj7"]
@@ -469,6 +469,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_aej10")
 
+[sub_resource type="Animation" id="Animation_s1a5k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blast:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
 [sub_resource type="Animation" id="Animation_3irjl"]
 resource_name = "shoot"
 length = 0.9
@@ -483,7 +498,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.07, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1.07177, 1, 1),
 "update": 0,
-"values": [Vector3(0.591, -1, -1.244), Vector3(0.591, -1, -0.4), Vector3(0.591, -1, -1.4), Vector3(0.591, -1, -1.244)]
+"values": [Vector3(0.591184, 0.861763, -1.24398), Vector3(0.591, 1, -0.4), Vector3(0.591, 0.6, -1.4), Vector3(0.591184, 0.861763, -1.24398)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -524,6 +539,7 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s1a5k"]
 _data = {
+&"RESET": SubResource("Animation_s1a5k"),
 &"shoot": SubResource("Animation_3irjl")
 }
 
@@ -592,7 +608,6 @@ current = true
 [node name="WEAPONS" type="Node3D" parent="NECK/camera"]
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
-visible = false
 script = ExtResource("2_bfnip")
 
 [node name="barrel position 1" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
@@ -652,17 +667,18 @@ libraries = {
 &"": SubResource("AnimationLibrary_dpfgd")
 }
 
-[node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
-transform = Transform3D(-1.086e-06, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.086e-06, 0.591, -1, -1.244)
+[node name="quad_form" type="Node3D" parent="NECK/camera/WEAPONS"]
+transform = Transform3D(-1.086e-06, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.086e-06, 0.591184, -1.2959, -1.24398)
+visible = false
 script = ExtResource("6_p1n6j")
 
-[node name="blast_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/tri_form"]
+[node name="blast_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/quad_form"]
 transform = Transform3D(3.33333, 0, 1.09139e-11, 0, 3.33333, 0, -1.09139e-11, 0, 3.33333, -4.31548, 2.84891, 1.56164e-05)
 light_color = Color(1, 0.738287, 0.322382, 1)
 light_energy = 3.0
 omni_range = 6.0
 
-[node name="blast" type="Sprite3D" parent="NECK/camera/WEAPONS/tri_form"]
+[node name="blast" type="Sprite3D" parent="NECK/camera/WEAPONS/quad_form"]
 transform = Transform3D(-4.34399e-05, 0, 12, 0, 12, 0, -12, 0, -4.34399e-05, -5.57281, 1.52919, 0.135904)
 billboard = 1
 texture_filter = 0
@@ -671,79 +687,79 @@ hframes = 3
 vframes = 3
 frame = 8
 
-[node name="tri_form_blast_effect" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-1.20666e-05, 0, 3.33333, 0, 3.33333, 0, -3.33333, 0, -1.20666e-05, 4.66078, -3.18033, 1.9706)
+[node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/quad_form"]
+transform = Transform3D(-4.37121e-08, 0, 1, 0, 0.999999, 0, -0.999999, 0, -4.37119e-08, -5.47422, 1.18894, -0.353993)
+target_position = Vector3(0, 0, -1)
+
+[node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/quad_form"]
+transform = Transform3D(-4.37128e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37128e-08, -5.30916, 1.08012, 0.384471)
+target_position = Vector3(0, 0, -1)
+
+[node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/quad_form"]
+transform = Transform3D(-4.37124e-08, 0, 1, 0, 0.999999, 0, -0.999999, 0, -4.37119e-08, -5.30916, 1.88329, 0.349491)
+target_position = Vector3(0, 0, -1)
+
+[node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/quad_form"]
+transform = Transform3D(-4.37117e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37124e-08, -5.45894, 1.88717, -0.34622)
+target_position = Vector3(0, 0, -1)
+
+[node name="model" type="Node3D" parent="NECK/camera/WEAPONS/quad_form"]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, -0.961509, 0)
+
+[node name="quad_form_blast_effect" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/quad_form/model"]
+transform = Transform3D(-1.20666e-05, 0, 3.33333, 0, 3.33333, 0, -3.33333, 0, -1.20666e-05, 4.66078, -2.21882, 1.9706)
 stream = ExtResource("4_s1a5k")
 attenuation_model = 2
 volume_db = 15.0
 panning_strength = 0.0
 
-[node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-4.37121e-08, 0, 1, 0, 0.999999, 0, -0.999999, 0, -4.37119e-08, -5.47422, 1.18894, -0.353993)
-target_position = Vector3(0, 0, -1)
-
-[node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-4.37128e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37128e-08, -5.30916, 1.08012, 0.384471)
-target_position = Vector3(0, 0, -1)
-
-[node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-4.37124e-08, 0, 1, 0, 0.999999, 0, -0.999999, 0, -4.37119e-08, -5.30916, 1.88329, 0.349491)
-target_position = Vector3(0, 0, -1)
-
-[node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-4.37117e-08, 0, 0.999999, 0, 0.999999, 0, -0.999999, 0, -4.37124e-08, -5.45894, 1.88717, -0.34622)
-target_position = Vector3(0, 0, -1)
-
-[node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, -0.961509, 0)
-
-[node name="barrel 1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="barrel 1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.0163334, -2.9984, 1.16616e-11, 0.499733, 0.0980003, 7.13951e-10, -7.13951e-10, -7.00028e-11, 0.5, -2.53726, 1.91248, -0.514944)
 layers = 2
 material_override = SubResource("StandardMaterial3D_3irjl")
 mesh = SubResource("ArrayMesh_lvma8")
 skeleton = NodePath("")
 
-[node name="barrel 2" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="barrel 2" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.0163334, -2.9984, 1.16616e-11, 0.499733, 0.0980003, 7.13951e-10, -7.13951e-10, -7.00028e-11, 0.5, -2.53903, 1.91254, 0.524633)
 layers = 2
 material_override = SubResource("StandardMaterial3D_3irjl")
 mesh = SubResource("ArrayMesh_54s5v")
 skeleton = NodePath("")
 
-[node name="barrel 3" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="barrel 3" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.0163334, -2.9984, 1.16653e-11, 0.499733, 0.0980003, 7.13951e-10, -7.13951e-10, -7.00027e-11, 0.5, -2.5046, 2.91194, -0.514944)
 layers = 2
 material_override = SubResource("StandardMaterial3D_3irjl")
 mesh = SubResource("ArrayMesh_vqq2o")
 skeleton = NodePath("")
 
-[node name="barrel 4" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="barrel 4" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.0163334, -2.9984, 1.16653e-11, 0.499733, 0.0980003, 7.13951e-10, -7.13951e-10, -7.00027e-11, 0.5, -2.50637, 2.912, 0.524633)
 layers = 2
 material_override = SubResource("StandardMaterial3D_3irjl")
 mesh = SubResource("ArrayMesh_hu6m6")
 skeleton = NodePath("")
 
-[node name="pump" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="pump" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.0392001, -1.19936, 2.8006e-11, 1.19936, 0.0392001, 1.71348e-09, -1.71348e-09, -2.79989e-11, 1.2, -3.71336, 2.43576, 2.38419e-07)
 layers = 2
 mesh = SubResource("ArrayMesh_3mklc")
 skeleton = NodePath("")
 
-[node name="container" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="container" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(1.2488, 0.0408161, 2.91749e-11, -0.0408161, 1.2488, 1.78412e-09, 2.91358e-11, -1.78412e-09, 1.24947, -0.0437183, 2.33157, 5.96046e-07)
 layers = 2
 mesh = SubResource("ArrayMesh_wi7by")
 skeleton = NodePath("")
 
-[node name="handle" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+[node name="handle" type="MeshInstance3D" parent="NECK/camera/WEAPONS/quad_form/model"]
 transform = Transform3D(0.455836, -0.432262, 9.13403e-12, 0.24368, 0.808603, 5.59359e-10, -3.58581e-10, -1.14452e-09, 0.391735, 1.18417, 0.784168, 0)
 layers = 2
 mesh = SubResource("ArrayMesh_5i6pa")
 skeleton = NodePath("")
 
-[node name="animation_player" type="AnimationPlayer" parent="NECK/camera/WEAPONS/tri_form"]
+[node name="animation_player" type="AnimationPlayer" parent="NECK/camera/WEAPONS/quad_form"]
 libraries = {
 &"": SubResource("AnimationLibrary_s1a5k")
 }
@@ -832,7 +848,4 @@ sprite_frames = SubResource("SpriteFrames_4114p")
 one_shot = true
 
 [connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tazer" method="tazer_weapon"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tri_form" method="tazer_on"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tazer" method="tri_form_on"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tri_form" method="tri_form_change"]
 [connection signal="timeout" from="stamina_recharge" to="." method="_on_stamina_recharge_timeout"]
