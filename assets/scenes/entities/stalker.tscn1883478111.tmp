@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://euqsrn247k3j"]
+
+[ext_resource type="Script" uid="uid://bodid7sbvbxtd" path="res://assets/scripts/enemies/stalker.gd" id="1_6ntl0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6ntl0"]
+rough = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ha7t1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ntl0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ntl0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_060bn"]
+material = SubResource("StandardMaterial3D_6ntl0")
+size = Vector3(1, 0.25, 0.5)
+
+[sub_resource type="Curve" id="Curve_6ntl0"]
+_data = [Vector2(0, 0), 0.0, 2.96825, 0, 0, Vector2(0.829493, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.12022, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ntl0"]
+curve = SubResource("Curve_6ntl0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tj8v2"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 7.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_6ntl0")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_060bn"]
+albedo_color = Color(0.69246, 1.841e-06, 7.70092e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tj8v2"]
+material = SubResource("StandardMaterial3D_060bn")
+radius = 0.25
+height = 0.5
+rings = 16
+
+[node name="stalker" type="RigidBody3D" groups=["Enemy"]]
+collision_mask = 5
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_6ntl0")
+script = ExtResource("1_6ntl0")
+DAMAGE = 1.0
+
+[node name="model" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.57522e-15, -4.37114e-08, 1, -1, -4.37114e-08, 2.66454e-15, 4.37114e-08, -1, -4.37114e-08, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_ha7t1")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(4.57522e-15, -4.37114e-08, 1, -1, -4.37114e-08, 2.66454e-15, 4.37114e-08, -1, -4.37114e-08, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_6ntl0")
+
+[node name="locater" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.25
+
+[node name="checker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+
+[node name="kala chashma" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+mesh = SubResource("BoxMesh_060bn")
+
+[node name="blood particles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.636859, 0)
+emitting = false
+amount = 64
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tj8v2")
+draw_pass_1 = SubResource("SphereMesh_tj8v2")
+
+[node name="blood spawn" type="Node3D" parent="."]
+
+[node name="detect" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+target_position = Vector3(0, 0, -1)
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true
+
+[node name="caste" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]

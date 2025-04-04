@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://gp7qx3b1wjx2"]
+
+[ext_resource type="Script" uid="uid://dcaju38ltvvor" path="res://assets/scripts/death_screen.gd" id="1_pd44o"]
+[ext_resource type="Texture2D" uid="uid://dw1ecde41xnv6" path="res://assets/textures/ui/death_screen.png" id="2_bro27"]
+[ext_resource type="Texture2D" uid="uid://56ylunfjncji" path="res://assets/textures/ui/background.png" id="2_r7gjp"]
+[ext_resource type="AudioStream" uid="uid://ctm4pylvq8xho" path="res://assets/sounds/main_music.mp3" id="4_k5gjv"]
+
+[node name="death screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pd44o")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(959.111, 539.5)
+scale = Vector2(1.66512, 1.66512)
+texture = ExtResource("2_r7gjp")
+
+[node name="screen" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bro27")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(265, 1006)
+stream = ExtResource("4_k5gjv")
+autoplay = true

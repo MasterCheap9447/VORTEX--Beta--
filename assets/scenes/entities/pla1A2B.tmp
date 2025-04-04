@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://ku6ibvl13qva"]
+
+[ext_resource type="Script" path="res://assets/scripts/player/player_general.gd" id="1_7c51q"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
+height = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_quxwc"]
+height = 3.0
+
+[node name="player" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_7c51q")
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CapsuleShape3D_5elu0")
+
+[node name="body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CapsuleMesh_quxwc")
+
+[node name="NECK" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="camera" type="Camera3D" parent="NECK"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.154252)
+current = true
+
+[node name="STATE MACHINE" type="Node" parent="."]
+
+[node name="idle" type="Node" parent="STATE MACHINE"]
+
+[node name="sprinting" type="Node" parent="STATE MACHINE"]
+
+[node name="sliding" type="Node" parent="STATE MACHINE"]

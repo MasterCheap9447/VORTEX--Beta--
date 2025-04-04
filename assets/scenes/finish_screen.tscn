@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://xlmkxt8cm0uo"]
+
+[ext_resource type="Script" uid="uid://cqpmjbeteyot0" path="res://assets/scripts/finish_screen.gd" id="1_4sqqh"]
+[ext_resource type="Texture2D" uid="uid://56ylunfjncji" path="res://assets/textures/ui/background.png" id="1_r3spr"]
+[ext_resource type="Texture2D" uid="uid://c85klye8fsmu" path="res://assets/textures/ui/finish_screen.png" id="2_4sqqh"]
+[ext_resource type="AudioStream" uid="uid://ctm4pylvq8xho" path="res://assets/sounds/main_music.mp3" id="4_xy3w1"]
+
+[node name="finish screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4sqqh")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(988.445, 556)
+scale = Vector2(1.71605, 1.71605)
+texture = ExtResource("1_r3spr")
+
+[node name="score" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4sqqh")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(265, 1006)
+stream = ExtResource("4_xy3w1")
+autoplay = true

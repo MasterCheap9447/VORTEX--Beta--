@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dro8vd4wfs8y1"]
+
+[ext_resource type="Script" uid="uid://brqv32auxr8tk" path="res://assets/scripts/bosses/eye_of_cthullu/eyes.gd" id="1_rxxt0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ll5no"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rxxt0"]
+material = SubResource("StandardMaterial3D_ll5no")
+radius = 0.2
+height = 0.4
+
+[node name="eyes" type="Node3D"]
+script = ExtResource("1_rxxt0")
+
+[node name="model" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_rxxt0")
+
+[node name="check" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.5)
+
+[node name="life" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="life" to="." method="_on_life_timeout"]

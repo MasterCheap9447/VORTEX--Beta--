@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdosgjge5dd4n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_birv5"]
+cull_mode = 1
+depth_draw_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 0, 0, 0.596078)
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+backlight_enabled = true
+refraction_scale = 1.0
+grow = true
+grow_amount = 1.0
+proximity_fade_enabled = true
+proximity_fade_distance = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_5vlrc"]
+material = SubResource("StandardMaterial3D_birv5")
+radius = 10.0
+height = 5.0
+radial_segments = 16
+rings = 8
+
+[node name="cloud" type="Node3D"]
+
+[node name="mass" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_5vlrc")
