@@ -813,7 +813,9 @@ offset_bottom = -80.0
 grow_vertical = 0
 theme_override_styles/background = SubResource("StyleBoxEmpty_fj81o")
 theme_override_styles/fill = SubResource("StyleBoxFlat_itj73")
+step = 1.0
 value = 100.0
+rounded = true
 
 [node name="weapon inspector" type="TextureRect" parent="UI/health bar"]
 layout_mode = 0

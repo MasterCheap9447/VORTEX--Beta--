@@ -122,6 +122,7 @@ func _physics_process(delta: float) -> void:
 			if is_on_floor():
 				is_sliding = true
 			elif !is_on_floor():
+				is_sliding = false
 				velocity.y = -SLAM_FORCE
 				FUEL -= SLAM_CONSUMPTION
 		else:
@@ -132,6 +133,8 @@ func _physics_process(delta: float) -> void:
 		if is_sliding:
 			speed = move_toward(speed, SLIDE_SPEED, delta*4)
 			scale = lerp(scale, Vector3(1,0.5,1), delta * 8)
+			if Input.is_action_just_pressed("jump"):
+				velocity.y = JUMP_FORCE * 2
 		else:
 			speed = SPEED
 			scale = lerp(scale, Vector3(1,1,1), delta * 8)
