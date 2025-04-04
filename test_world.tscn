@@ -35,19 +35,4 @@ material = SubResource("StandardMaterial3D_lf0gk")
 
 [node name="player" parent="." instance=ExtResource("2_gy3sr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92791, 4.44123, 0.392744)
-SENSITIVITY = 0.005
-FOV = 110
-SLIDE_SPEED = 24.0
-SPEED = 16.0
-GROUND_ACCELERATION = 20.0
-GROUND_DECELERATION = 14.0
-GROUND_FRICTION = 8.0
-JUMP_FORCE = 10.0
-DASH_FORCE = 30.0
-AIR_CAP = 0.85
-AIR_ACCELERATION = 800.0
-AIR_SPEED = 500.0
 THRUST_FORCE = 40.0
-SLAM_FORCE = 80.0
-AIR_FRICTION = 40.0
-FUEL = 100.0

@@ -26,6 +26,7 @@ func _process(delta: float) -> void:
 			zap.frame = 1
 			zap_emission.visible = true
 		if Input.is_action_just_released("alt shoot"):
+			print("TAZER SHOT ITS ALTERNATE")
 			model.rotation.z = 0.0
 			end_time = time
 			voltage = start_time - end_time
@@ -33,9 +34,11 @@ func _process(delta: float) -> void:
 			alternate_frie()
 			zap_emission.visible = false
 			zap.frame = 0
+	
 	# primary firing
 		if Input.is_action_pressed("shoot"):
 			if !animation_player.is_playing():
+				print("TAZER SHOT ITS PRIMARY")
 				animation_player.play("shoot")
 				zap_emission.visible = true
 				zap_effect.play()
@@ -44,10 +47,6 @@ func _process(delta: float) -> void:
 			zap_emission.visible = false
 
 
-func tazer_weapon() -> void:
-	equiped = true
-func tri_form_on() -> void:
-	equiped = false
 
 func primary_fire() -> void:
 	voltage = 3
@@ -65,3 +64,10 @@ func alternate_frie() -> void:
 			if target.is_in_group("Enemy"):
 				if target.has_method("tazer_hit"):
 					target.tazer_hit(damage, voltage)
+
+
+func _on_player_change_to_tazer() -> void:
+	print("TAZER IS RECIEVING THE SIGNAL")
+	equiped = true
+func _on_player_change_to_tri_form() -> void:
+	equiped = false

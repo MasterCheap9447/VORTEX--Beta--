@@ -16,6 +16,7 @@ var weapon_number: int = 1
 var is_sliding: bool = false
 var wall_jump_count: float = 0.0
 var air_jump_count: float = 0.0
+var lift
 var speed
 
 
@@ -59,7 +60,7 @@ var speed
 @export_range(0.5,1) var AIR_CAP: float = 0.85
 @export_range(750,900) var AIR_ACCELERATION: float = 800.0
 @export_range(450,600) var AIR_SPEED: float = 500.0
-@export_range(5,40) var THRUST_FORCE: float = 8.0
+@export_range(1,5) var THRUST_FORCE: float = 8.0
 @export_range(60, 140) var SLAM_FORCE: float = 80.0
 @export_range(20,80) var AIR_FRICTION: float = 40.0
 
@@ -73,12 +74,12 @@ const HEADBOB_FREQUENCY: float = 1.5
 const DASH_CONSUMPTION: float = 1.0
 const THRUSTER_CONSUMPTION: float = 0.15
 const SLAM_CONSUMPTION: float = 1.5
-const MAX_THRUST_SPEED: float = 60.0
+const MAX_THRUST_SPEED: float = 2.0
 
 
 ### GENERAL FUNCTIONING ###
 func _process(_delta: float) -> void:
-
+	print(velocity)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
 	health_bar.value = FUEL
@@ -113,12 +114,15 @@ func _physics_process(delta: float) -> void:
 		FUEL -= DASH_CONSUMPTION
 
 	## Thruster Implementation
-	if Input.is_action_pressed("thrust"):
+	if Input.is_action_pressed("thrust") && FUEL>0.0:
 		handle_thruster(delta, wish_direction)
+	elif Input.is_action_just_released("thrust"):
+		clamp(velocity.y, 0, 999999)
+		velocity.y = move_toward(velocity.y, get_gravity().y, delta*9999)
 	
 	## Slam Implementation
-	if Input.is_action_just_pressed("slam") && !is_on_floor():
-		velocity.y *= -SLAM_FORCE
+	if Input.is_action_just_pressed("slam") && !is_on_floor() && FUEL>0.0:
+		velocity.y = -SLAM_FORCE
 		FUEL -= SLAM_CONSUMPTION
 
 	## Control Movement
@@ -194,24 +198,19 @@ func damage(_poison):
 
 
 ### HANDLING THRUSTER ###
-func handle_thruster(delta:float,_dir:Vector3) -> void:
+func handle_thruster(delta:float, dir:Vector3) -> void:
 	## Thrust
-	if velocity.y < MAX_THRUST_SPEED:
-		if Input.is_action_pressed("jump"):
-			self.velocity += neck.transform.basis * Vector3(0,THRUST_FORCE,0) * delta
-			FUEL -= THRUSTER_CONSUMPTION
-		elif Input.is_action_pressed("forward"):
-			self.velocity += neck.transform.basis * Vector3(0,0,-THRUST_FORCE) * delta
-			FUEL -= THRUSTER_CONSUMPTION
-		elif Input.is_action_pressed("backward"):
-			self.velocity += neck.transform.basis * Vector3(0,0,THRUST_FORCE) * delta
-			FUEL -= THRUSTER_CONSUMPTION
-		elif Input.is_action_pressed("left"):
-			self.velocity += neck.transform.basis * Vector3(-THRUST_FORCE,0,0) * delta
-			FUEL -= THRUSTER_CONSUMPTION
-		elif Input.is_action_pressed("right"):
-			self.velocity += neck.transform.basis * Vector3(-THRUST_FORCE,0,0) * delta
-			FUEL -= THRUSTER_CONSUMPTION
+	velocity.y = THRUST_FORCE
+	FUEL -= THRUSTER_CONSUMPTION
+	if dir:
+		self.velocity.x = move_toward(velocity.x, THRUST_FORCE, delta)
+		self.velocity.z = move_toward(velocity.z, THRUST_FORCE, delta)
+		FUEL -= THRUSTER_CONSUMPTION/2
+	else:
+		self.velocity.x = move_toward(velocity.x, 0.0, delta * 12)
+		self.velocity.z = move_toward(velocity.z, 0.0, delta * 12)
+	pass
+
 
 ### HANDLING ALL MEDIUM MOVEMENTS ###
 func handle_air_physics(delta) -> void:
@@ -219,11 +218,11 @@ func handle_air_physics(delta) -> void:
 	velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 	var cur_speed_in_wish_direction = velocity.dot(wish_direction)
 	var capped_speed = min((AIR_SPEED*wish_direction).length(), AIR_CAP)
-	var add_speed_till_cap = capped_speed - cur_speed_in_wish_direction
+	var add_speed_till_cap = (capped_speed - cur_speed_in_wish_direction)
 	if add_speed_till_cap > 0:
 		var acceleration_speed = AIR_ACCELERATION * AIR_SPEED * delta
 		acceleration_speed = min(acceleration_speed, add_speed_till_cap)
-		velocity += acceleration_speed * wish_direction
+		velocity += acceleration_speed * wish_direction 
 	pass
 
 func handle_ground_physics(delta) -> void:

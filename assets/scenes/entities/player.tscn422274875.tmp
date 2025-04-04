@@ -556,7 +556,7 @@ animations = [{
 floor_stop_on_slope = false
 floor_max_angle = 1.0472
 script = ExtResource("1_uyujk")
-THRUST_FORCE = 1.0
+THRUST_FORCE = 20.0
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
@@ -657,7 +657,7 @@ transform = Transform3D(-1.086e-06, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.086e-06, 0.59
 script = ExtResource("6_p1n6j")
 
 [node name="blast_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 3.27417e-12, 0, 1, 0, -3.27417e-12, 0, 1, -4.31548, 2.84891, 1.56164e-05)
+transform = Transform3D(3.33333, 0, 1.09139e-11, 0, 3.33333, 0, -1.09139e-11, 0, 3.33333, -4.31548, 2.84891, 1.56164e-05)
 light_color = Color(1, 0.738287, 0.322382, 1)
 light_energy = 3.0
 omni_range = 6.0
@@ -831,8 +831,4 @@ sprite_frames = SubResource("SpriteFrames_4114p")
 [node name="stamina_recharge" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_tazer"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tri_form" method="_on_player_change_to_tazer"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_tri_form"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tri_form" method="_on_player_change_to_tri_form"]
 [connection signal="timeout" from="stamina_recharge" to="." method="_on_stamina_recharge_timeout"]
