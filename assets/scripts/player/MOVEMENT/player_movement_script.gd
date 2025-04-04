@@ -79,7 +79,7 @@ const MAX_THRUST_SPEED: float = 2.0
 
 ### GENERAL FUNCTIONING ###
 func _process(_delta: float) -> void:
-	print(velocity)
+	print(wish_direction)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
 	health_bar.value = FUEL
@@ -112,28 +112,33 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") && FUEL>0.0:
 		velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
 		FUEL -= DASH_CONSUMPTION
-
-	## Thruster Implementation
-	if Input.is_action_pressed("thrust") && FUEL>0.0:
-		handle_thruster(delta, wish_direction)
-	elif Input.is_action_just_released("thrust"):
-		clamp(velocity.y, 0, 999999)
-		velocity.y = move_toward(velocity.y, get_gravity().y, delta*9999)
+	if FUEL > 0.0:
+		## Dash Implamentation
+		if Input.is_action_just_pressed("dash"):
+			velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
+			FUEL -= DASH_CONSUMPTION
+		if Input.is_action_pressed("slide"):
+			## Slam Implementation
+			if is_on_floor():
+				is_sliding = true
+			elif !is_on_floor():
+				velocity.y = -SLAM_FORCE
+				FUEL -= SLAM_CONSUMPTION
+		else:
+			is_sliding = false
 	
-	## Slam Implementation
-	if Input.is_action_just_pressed("slam") && !is_on_floor() && FUEL>0.0:
-		velocity.y = -SLAM_FORCE
-		FUEL -= SLAM_CONSUMPTION
-
 	## Control Movement
 	if is_on_floor():
-		if Input.is_action_pressed("slide"):
-			speed = SLIDE_SPEED
+		if is_sliding:
+			speed = move_toward(speed, SLIDE_SPEED, delta*4)
+			scale = lerp(scale, Vector3(1,0.5,1), delta * 8)
 		else:
 			speed = SPEED
+			scale = lerp(scale, Vector3(1,1,1), delta * 8)
 		wall_jump_count = 0
 		air_jump_count = 0
-		handle_ground_physics(delta)
+		if !is_sliding:
+			handle_ground_physics(delta)
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = JUMP_FORCE
 		if Input.is_action_just_pressed("slide"):
