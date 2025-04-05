@@ -22,12 +22,12 @@ func _process(delta: float) -> void:
 	if equiped:
 		if Input.is_action_pressed("alt shoot"):
 			start_time = time
-			model.rotation.z -= 1
+			model.rotation.x -= 1
 			zap.frame = 1
 			zap_emission.visible = true
 		if Input.is_action_just_released("alt shoot"):
 			print("TAZER SHOT ITS ALTERNATE")
-			model.rotation.z = 0.0
+			model.rotation.x = 0.0
 			end_time = time
 			voltage = start_time - end_time
 			zap_effect.play()

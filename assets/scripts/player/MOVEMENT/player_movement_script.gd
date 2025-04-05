@@ -14,22 +14,23 @@ var ran = RandomNumberGenerator.new()
 var spawn_point = Vector3(0.0, 12.0, 0.0)
 var weapon_number: int = 1
 var is_sliding: bool = false
+var is_dashing: bool = false
 var wall_jump_count: float = 0.0
-var lift
+var volume:float = 0.0
 var speed
 
 
 ## SCENE NODES
 @onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
-@onready var tri_form_crosshair: TextureRect = $"UI/quad form crosshair"
+@onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
 
 @onready var neck: Node3D = $NECK
 @onready var camera: Camera3D = $NECK/camera
 @onready var gun_camera: Camera3D = $"UI/viewport/sub viewport/gun_camera"
 
-@onready var health_bar: ProgressBar = $"UI/health bar"
-@onready var stamina_visual: AnimatedSprite2D = $"UI/health bar/stamina visual"
-@onready var stamina_recharge: Timer = $stamina_recharge
+@onready var fuel_bar: TextureProgressBar = $"UI/container/fuel"
+@onready var fuel_percentage: RichTextLabel = $UI/container/fuel/percentage
+@onready var revv: AudioStreamPlayer3D = $revv
 
 @onready var tri_form: Node3D = $NECK/camera/WEAPONS/tri_form
 @onready var tazer: Node3D = $NECK/camera/WEAPONS/tazer
@@ -79,14 +80,18 @@ const MAX_THRUST_SPEED: float = 15.0
 
 ### GENERAL FUNCTIONING ###
 func _process(delta: float) -> void:
+	$pump.pitch_scale = ran.randf_range(1,3)
+	$clank.pitch_scale = ran.randf_range(1,3)
+	
 	var clamped_velocity = clamp(velocity.length(), 2, MAX_THRUST_SPEED)
-	JUMP_FORCE = 10 * clamped_velocity * delta
-	JUMP_FORCE = clamp(JUMP_FORCE, 10, 100)
+	JUMP_FORCE = 10 * clamped_velocity 
+	JUMP_FORCE = clamp(JUMP_FORCE, 10, 15)
 	
 	print(wish_direction)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
-	health_bar.value = FUEL
+	fuel_bar.value = FUEL
+	fuel_percentage.text = str(floor(FUEL),"%")
 	
 	## Gun camera and Normal camera Relation
 	gun_camera.set_global_transform(camera.get_global_transform())
@@ -108,12 +113,24 @@ func _ready() -> void:
 
 ### MOVEMENT IMPLEMENTATION ###
 func _physics_process(delta: float) -> void:
+	volume = clamp(volume,-100, -40)
+	revv.volume_db = -volume
+	print(volume)
+	
 	## Directional Variables
 	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
 	## Thrust Implementation
 	if FUEL >= THRUSTER_CONSUMPTION:
+		if Input.is_action_just_pressed("thrust"):
+			volume = move_toward(volume, 140.0, delta * 4)
+			$"NECK/Thrust Flame".emitting = true
+			revv.play()
+		if !Input.is_action_pressed("thrust"):
+			volume = move_toward(volume, 0.0, delta * 4)
+			$"NECK/Thrust Flame".emitting = false
+			revv.stream_paused = true
 		if Input.is_action_pressed("thrust"):
 			handle_thruster(delta, wish_direction)
 		elif Input.is_action_just_released("thrust"):
@@ -121,13 +138,12 @@ func _physics_process(delta: float) -> void:
 	## Dash Implementation
 	if FUEL >= DASH_CONSUMPTION:
 		if Input.is_action_just_pressed("dash"):
-			if Input.is_action_just_pressed("movement"):
+			if wish_direction:
 				velocity = wish_direction * DASH_FORCE
 				FUEL -= DASH_CONSUMPTION
-			elif !Input.is_action_just_pressed("movement"):
-				print("DASHING")
-				velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
-				FUEL -= DASH_CONSUMPTION
+				is_dashing = true
+				await get_tree().create_timer(0.3).timeout
+				is_dashing = false
 	## Slam Implementation
 	if FUEL >= SLAM_CONSUMPTION:
 		if Input.is_action_just_pressed("slide"):
@@ -139,20 +155,27 @@ func _physics_process(delta: float) -> void:
 	if FUEL > 0:
 		if Input.is_action_pressed("slide"):
 			is_sliding = true
-		else:
-			is_sliding = false
+	else:
+		volume = move_toward(volume, 0.0, delta * 4)
+		is_sliding = false
+		$"NECK/Thrust Flame".emitting = false
+		revv.stream_paused = true
+	if !Input.is_action_pressed("slide"):
+		is_sliding = false
 	
 	## Jumping Control
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
 			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
 			velocity += JUMP_FORCE * jump_direction
+			$pump.play()
 	elif is_on_wall_only():
 		var wall_normal = (get_wall_normal()).normalized()
 		if Input.is_action_just_pressed("jump"):
 			if wall_jump_count <= 3:
 				velocity = (wall_normal) * JUMP_FORCE / 1.5
 				velocity.y += JUMP_FORCE
+				$pump.play()
 			else:
 				velocity = (wall_normal) * JUMP_FORCE / 3
 	
@@ -160,6 +183,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		camera.rotation.z = clamp(camera.rotation.z, 0.0, 0.25)
 		if is_sliding:
+			velocity = (neck.transform.basis) * Vector3(0, 0, -SLIDE_SPEED)
 			camera.rotation.z = move_toward(camera.rotation.z, 0.25, delta)
 			speed = move_toward(velocity.length(), SLIDE_SPEED, delta*4)
 			scale = lerp(scale, Vector3(1,0.45,1), delta * 8)
@@ -172,13 +196,15 @@ func _physics_process(delta: float) -> void:
 		wall_jump_count = 0
 		if !is_sliding:
 			handle_ground_physics(delta)
-		if Input.is_action_just_pressed("slide"):
-			velocity = (neck.transform.basis) * Vector3(0, 0, -SLIDE_SPEED)
-			is_sliding = true
 	elif is_on_wall_only():
 		velocity.y = -2.4
 	elif !is_on_floor() && !is_on_wall():
 		handle_air_physics(delta)
+	
+	if is_dashing:
+		velocity.y = 0
+	else:
+		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 	
 	move_and_slide()
 
@@ -233,6 +259,7 @@ func handle_thruster(delta:float, dir:Vector3) -> void:
 	else:
 		self.velocity.x = move_toward(velocity.x, 0.0, delta * 12)
 		self.velocity.z = move_toward(velocity.z, 0.0, delta * 12)
+	$clank.stop()
 	pass
 
 
@@ -247,6 +274,7 @@ func handle_air_physics(delta) -> void:
 		var acceleration_speed = AIR_ACCELERATION * AIR_SPEED * delta
 		acceleration_speed = min(acceleration_speed, add_speed_till_cap)
 		velocity += acceleration_speed * wish_direction 
+	$clank.stop()
 	pass
 
 func handle_ground_physics(delta) -> void:
@@ -258,6 +286,11 @@ func handle_ground_physics(delta) -> void:
 		velocity += accel_speed * wish_direction
 	_headbob_effect(delta)
 	camera.rotation.z = 0.0
+	if !$clank.playing:
+		if velocity.length() != 0:
+			$clank.play()
+		else:
+			$clank.stop()
 	
 	var control = max(velocity.length(), GROUND_DECELERATION)
 	var drop = control * GROUND_FRICTION * delta
@@ -284,6 +317,7 @@ func handle_wall_physics(_delta) -> void:
 			velocity.y = -SPEED / 2
 		if Input.is_action_pressed("right"):
 			velocity.y = SPEED / 2
+	$clank.stop()
 	pass
 
 

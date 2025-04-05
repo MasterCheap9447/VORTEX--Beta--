@@ -33,6 +33,10 @@ mouse_cursor/custom_image="uid://cwaey0xd1k7nf"
 Player=""
 Enemy=""
 
+[gui]
+
+theme/custom_font="uid://bl0qu0orxlshe"
+
 [input]
 
 jump={

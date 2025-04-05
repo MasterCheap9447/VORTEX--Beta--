@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp1w5wbsiokim"
-path="res://.godot/imported/font.png-fd5a5bd2cf70bb84815da30eba0f04c7.ctex"
+uid="uid://bsdhu3s4ynjk5"
+path="res://.godot/imported/tazer_texture.png-c1588f3ba0f3653927da08850eb2f0d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/font.png"
-dest_files=["res://.godot/imported/font.png-fd5a5bd2cf70bb84815da30eba0f04c7.ctex"]
+source_file="res://assets/models/player/weapons/tazer/texture/tazer_texture.png"
+dest_files=["res://.godot/imported/tazer_texture.png-c1588f3ba0f3653927da08850eb2f0d8.ctex"]
 
 [params]
 

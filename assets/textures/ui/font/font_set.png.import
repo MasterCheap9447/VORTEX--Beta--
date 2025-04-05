@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qj3jkoytbh1j"
-path="res://.godot/imported/stamina_full.png-34dbf47c5f8a714c72d692470c6a69dc.ctex"
+uid="uid://b5ocx45x5t5ox"
+path="res://.godot/imported/font_set.png-48a8ffc4d5c96409f50ef67073b6bf5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/stamina bar/stamina_full.png"
-dest_files=["res://.godot/imported/stamina_full.png-34dbf47c5f8a714c72d692470c6a69dc.ctex"]
+source_file="res://assets/textures/ui/font/font_set.png"
+dest_files=["res://.godot/imported/font_set.png-48a8ffc4d5c96409f50ef67073b6bf5b.ctex"]
 
 [params]
 

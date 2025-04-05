@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e718yt20ddac"
-path="res://.godot/imported/stamina_one_third.png-67780b42fce47f4a4aa51f274d990b7a.ctex"
+uid="uid://doky47wqn64l5"
+path="res://.godot/imported/fuel_bar_under.png-5fe366634e440a4fda79612557e7f37c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/stamina bar/stamina_one_third.png"
-dest_files=["res://.godot/imported/stamina_one_third.png-67780b42fce47f4a4aa51f274d990b7a.ctex"]
+source_file="res://assets/textures/ui/fuel/fuel_bar_under.png"
+dest_files=["res://.godot/imported/fuel_bar_under.png-5fe366634e440a4fda79612557e7f37c.ctex"]
 
 [params]
 
