@@ -43,6 +43,7 @@ var speed
 @export_group("CAMERA VARIABLES")
 @export_range(0.0001, 0.001) var SENSITIVITY: float = 0.005
 @export_range(70,140) var FOV: int = 110
+@export_range(0,50) var FOV_CHANGE: int = 25
 
 @export_group("MOVEMENT VARIABLES")
 
@@ -70,16 +71,17 @@ var speed
 ### CONSTANTS ###
 const HEADBOB_AMPLITUDE: float = 0.08
 const HEADBOB_FREQUENCY: float = 1.5
-const DASH_CONSUMPTION: float = 1.0
-const THRUSTER_CONSUMPTION: float = 0.15
-const SLAM_CONSUMPTION: float = 1.5
-const MAX_THRUST_SPEED: float = 2.0
+const DASH_CONSUMPTION: float = 7.0
+const THRUSTER_CONSUMPTION: float = 0.5
+const SLAM_CONSUMPTION: float = 10.0
+const MAX_THRUST_SPEED: float = 15.0
 
 
 ### GENERAL FUNCTIONING ###
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var clamped_velocity = clamp(velocity.length(), 2, MAX_THRUST_SPEED)
-	JUMP_FORCE = 10 * clamped_velocity / 2
+	JUMP_FORCE = 10 * clamped_velocity * delta
+	JUMP_FORCE = clamp(JUMP_FORCE, 10, 100)
 	
 	print(wish_direction)
 	## Fuel
@@ -110,24 +112,32 @@ func _physics_process(delta: float) -> void:
 	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
-	if FUEL > 0.0:
-		## Thrust Implementation
+	## Thrust Implementation
+	if FUEL >= THRUSTER_CONSUMPTION:
 		if Input.is_action_pressed("thrust"):
 			handle_thruster(delta, wish_direction)
 		elif Input.is_action_just_released("thrust"):
 			velocity.y = 0
-		## Dash Implementation
+	## Dash Implementation
+	if FUEL >= DASH_CONSUMPTION:
 		if Input.is_action_just_pressed("dash"):
-			if wish_direction != null:
+			if Input.is_action_just_pressed("movement"):
 				velocity = wish_direction * DASH_FORCE
 				FUEL -= DASH_CONSUMPTION
+			elif !Input.is_action_just_pressed("movement"):
+				print("DASHING")
+				velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
+				FUEL -= DASH_CONSUMPTION
+	## Slam Implementation
+	if FUEL >= SLAM_CONSUMPTION:
 		if Input.is_action_just_pressed("slide"):
-			## Slam Implementation
 			if !is_on_floor():
 				is_sliding = false
 				velocity.y = -SLAM_FORCE
 				FUEL -= SLAM_CONSUMPTION
-		elif Input.is_action_pressed("slide"):
+	## Slide Implementation
+	if FUEL > 0:
+		if Input.is_action_pressed("slide"):
 			is_sliding = true
 		else:
 			is_sliding = false
@@ -152,7 +162,7 @@ func _physics_process(delta: float) -> void:
 		if is_sliding:
 			camera.rotation.z = move_toward(camera.rotation.z, 0.25, delta)
 			speed = move_toward(velocity.length(), SLIDE_SPEED, delta*4)
-			scale = lerp(scale, Vector3(1,0.5,1), delta * 8)
+			scale = lerp(scale, Vector3(1,0.45,1), delta * 8)
 			if Input.is_action_just_pressed("jump"):
 				velocity.y = JUMP_FORCE * 2
 		else:
@@ -286,9 +296,9 @@ func _headbob_effect(delta):
 	camera.transform.origin = Vector3(x, y, 0)
 	pass
 func _fov_alter(delta):
-	var velocity_clamped = clamp(velocity.length(), 0.5, SLIDE_SPEED)
-	var target_fov = FOV + 1 * velocity_clamped
-	camera.fov = lerp(camera.fov, target_fov, 12 * delta)
+	var velocity_clamped = clamp(velocity.length(), 0.5, MAX_THRUST_SPEED * 4)
+	var target_fov = FOV + FOV_CHANGE * velocity_clamped
+	camera.fov = lerp(camera.fov, target_fov, delta)
 	pass
 
 

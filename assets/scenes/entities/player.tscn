@@ -556,7 +556,9 @@ animations = [{
 floor_stop_on_slope = false
 floor_max_angle = 1.0472
 script = ExtResource("1_uyujk")
-SLIDE_SPEED = 26.0
+FOV = 80
+FOV_CHANGE = 1
+DASH_FORCE = 34.0
 THRUST_FORCE = 0.1
 
 [node name="collision" type="CollisionShape3D" parent="."]

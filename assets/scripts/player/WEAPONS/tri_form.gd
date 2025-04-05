@@ -14,7 +14,7 @@ var instance
 @onready var barrel_4: RayCast3D = $"barrel 4"
 @onready var blast_effect: AudioStreamPlayer3D = $tri_form_blast_effect
 @export var RECOIL: float = 5.0
-@onready var barrel_position_1: Node3D = $"NECK/camera/WEAPONS/tazer/barrel position 1"
+@onready var barrel_position_1: Node3D = $"barrel position 1"
 
 var pellet = load("res://assets/scenes/projectiles/quad_form_pellet.tscn")
 
