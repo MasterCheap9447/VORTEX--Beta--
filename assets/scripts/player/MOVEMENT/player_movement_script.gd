@@ -15,7 +15,6 @@ var spawn_point = Vector3(0.0, 12.0, 0.0)
 var weapon_number: int = 1
 var is_sliding: bool = false
 var wall_jump_count: float = 0.0
-var air_jump_count: float = 0.0
 var lift
 var speed
 
@@ -60,7 +59,7 @@ var speed
 @export_range(0.5,1) var AIR_CAP: float = 0.85
 @export_range(750,900) var AIR_ACCELERATION: float = 800.0
 @export_range(450,600) var AIR_SPEED: float = 500.0
-@export_range(1,5) var THRUST_FORCE: float = 8.0
+@export_range(0,5) var THRUST_FORCE: float = 8.0
 @export_range(60, 140) var SLAM_FORCE: float = 80.0
 @export_range(20,80) var AIR_FRICTION: float = 40.0
 
@@ -79,6 +78,9 @@ const MAX_THRUST_SPEED: float = 2.0
 
 ### GENERAL FUNCTIONING ###
 func _process(_delta: float) -> void:
+	var clamped_velocity = clamp(velocity.length(), 2, MAX_THRUST_SPEED)
+	JUMP_FORCE = 10 * clamped_velocity / 2
+	
 	print(wish_direction)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
@@ -108,59 +110,64 @@ func _physics_process(delta: float) -> void:
 	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 	
-	## Dash Implement
-	if Input.is_action_just_pressed("dash") && FUEL>0.0:
-		velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
-		FUEL -= DASH_CONSUMPTION
 	if FUEL > 0.0:
-		## Dash Implamentation
+		## Thrust Implementation
+		if Input.is_action_pressed("thrust"):
+			handle_thruster(delta, wish_direction)
+		elif Input.is_action_just_released("thrust"):
+			velocity.y = 0
+		## Dash Implementation
 		if Input.is_action_just_pressed("dash"):
-			velocity = neck.transform.basis * Vector3(0.0, 0.0, -DASH_FORCE)
-			FUEL -= DASH_CONSUMPTION
-		if Input.is_action_pressed("slide"):
+			if wish_direction != null:
+				velocity = wish_direction * DASH_FORCE
+				FUEL -= DASH_CONSUMPTION
+		if Input.is_action_just_pressed("slide"):
 			## Slam Implementation
-			if is_on_floor():
-				is_sliding = true
-			elif !is_on_floor():
+			if !is_on_floor():
 				is_sliding = false
 				velocity.y = -SLAM_FORCE
 				FUEL -= SLAM_CONSUMPTION
+		elif Input.is_action_pressed("slide"):
+			is_sliding = true
 		else:
 			is_sliding = false
 	
+	## Jumping Control
+	if is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
+			velocity += JUMP_FORCE * jump_direction
+	elif is_on_wall_only():
+		var wall_normal = (get_wall_normal()).normalized()
+		if Input.is_action_just_pressed("jump"):
+			if wall_jump_count <= 3:
+				velocity = (wall_normal) * JUMP_FORCE / 1.5
+				velocity.y += JUMP_FORCE
+			else:
+				velocity = (wall_normal) * JUMP_FORCE / 3
+	
 	## Control Movement
 	if is_on_floor():
+		camera.rotation.z = clamp(camera.rotation.z, 0.0, 0.25)
 		if is_sliding:
-			speed = move_toward(speed, SLIDE_SPEED, delta*4)
+			camera.rotation.z = move_toward(camera.rotation.z, 0.25, delta)
+			speed = move_toward(velocity.length(), SLIDE_SPEED, delta*4)
 			scale = lerp(scale, Vector3(1,0.5,1), delta * 8)
 			if Input.is_action_just_pressed("jump"):
 				velocity.y = JUMP_FORCE * 2
 		else:
 			speed = SPEED
 			scale = lerp(scale, Vector3(1,1,1), delta * 8)
+			camera.rotation.z = move_toward(camera.rotation.z, 0.0, delta)
 		wall_jump_count = 0
-		air_jump_count = 0
 		if !is_sliding:
 			handle_ground_physics(delta)
-		if Input.is_action_just_pressed("jump"):
-			velocity.y = JUMP_FORCE
 		if Input.is_action_just_pressed("slide"):
 			velocity = (neck.transform.basis) * Vector3(0, 0, -SLIDE_SPEED)
 			is_sliding = true
 	elif is_on_wall_only():
 		velocity.y = -2.4
-		var wall_normal = (get_wall_normal()).normalized()
-		if Input.is_action_just_pressed("jump"):
-			if wall_jump_count <= 3:
-				velocity = (wall_normal) * JUMP_FORCE / 1.5
-				velocity.y += JUMP_FORCE
-				wall_jump_count += 1
-			else:
-				velocity = (wall_normal) * JUMP_FORCE / 3
 	elif !is_on_floor() && !is_on_wall():
-		if Input.is_action_just_pressed("jump") && air_jump_count < 1:
-			velocity.y = JUMP_FORCE
-			air_jump_count += 1
 		handle_air_physics(delta)
 	
 	move_and_slide()
@@ -208,12 +215,11 @@ func damage(_poison):
 ### HANDLING THRUSTER ###
 func handle_thruster(delta:float, dir:Vector3) -> void:
 	## Thrust
-	velocity.y = THRUST_FORCE
+	velocity.y = clamp(velocity.y, -9999999999999, MAX_THRUST_SPEED)
+	velocity.y += THRUST_FORCE
 	FUEL -= THRUSTER_CONSUMPTION
 	if dir:
-		self.velocity.x = move_toward(velocity.x, THRUST_FORCE, delta)
-		self.velocity.z = move_toward(velocity.z, THRUST_FORCE, delta)
-		FUEL -= THRUSTER_CONSUMPTION/2
+		velocity += neck.transform.basis * Vector3(0,0,-MAX_THRUST_SPEED * 10) * delta
 	else:
 		self.velocity.x = move_toward(velocity.x, 0.0, delta * 12)
 		self.velocity.z = move_toward(velocity.z, 0.0, delta * 12)

@@ -557,7 +557,7 @@ floor_stop_on_slope = false
 floor_max_angle = 1.0472
 script = ExtResource("1_uyujk")
 SLIDE_SPEED = 26.0
-THRUST_FORCE = 1.0
+THRUST_FORCE = 0.1
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
