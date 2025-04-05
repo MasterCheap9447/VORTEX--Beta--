@@ -73,9 +73,9 @@ var speed
 const HEADBOB_AMPLITUDE: float = 0.08
 const HEADBOB_FREQUENCY: float = 1.5
 const DASH_CONSUMPTION: float = 7.0
-const THRUSTER_CONSUMPTION: float = 0.5
+const THRUSTER_CONSUMPTION: float = 0.25
 const SLAM_CONSUMPTION: float = 10.0
-const MAX_THRUST_SPEED: float = 15.0
+const MAX_THRUST_SPEED: float = 7.5
 
 
 ### GENERAL FUNCTIONING ###
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
 	fuel_bar.value = FUEL
-	fuel_percentage.text = str(floor(FUEL),"%")
+	fuel_percentage.text = str(ceil(FUEL),"%")
 	
 	## Gun camera and Normal camera Relation
 	gun_camera.set_global_transform(camera.get_global_transform())
@@ -113,6 +113,7 @@ func _ready() -> void:
 
 ### MOVEMENT IMPLEMENTATION ###
 func _physics_process(delta: float) -> void:
+	
 	volume = clamp(volume,-100, -40)
 	revv.volume_db = -volume
 	print(volume)
@@ -125,11 +126,11 @@ func _physics_process(delta: float) -> void:
 	if FUEL >= THRUSTER_CONSUMPTION:
 		if Input.is_action_just_pressed("thrust"):
 			volume = move_toward(volume, 140.0, delta * 4)
-			$"NECK/Thrust Flame".emitting = true
+			$"NECK/Flame/Thrust Flame".emitting = true
 			revv.play()
 		if !Input.is_action_pressed("thrust"):
 			volume = move_toward(volume, 0.0, delta * 4)
-			$"NECK/Thrust Flame".emitting = false
+			$"NECK/Flame/Thrust Flame".emitting = false
 			revv.stream_paused = true
 		if Input.is_action_pressed("thrust"):
 			handle_thruster(delta, wish_direction)
@@ -158,7 +159,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		volume = move_toward(volume, 0.0, delta * 4)
 		is_sliding = false
-		$"NECK/Thrust Flame".emitting = false
+		$"NECK/Flame/Thrust Flame".emitting = false
 		revv.stream_paused = true
 	if !Input.is_action_pressed("slide"):
 		is_sliding = false

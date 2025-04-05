@@ -15,6 +15,10 @@ background_mode = 2
 sky = SubResource("Sky_1lwx6")
 tonemap_mode = 2
 glow_enabled = true
+glow_strength = 2.0
+glow_bloom = 0.15
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf0gk"]
 albedo_texture = ExtResource("1_dxppu")
