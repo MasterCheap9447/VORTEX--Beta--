@@ -68,7 +68,8 @@ var speed
 @export_range(20,80) var AIR_FRICTION: float = 40.0
 
 @export_group("GENERAL")
-@export var FUEL: float = 100.0
+@export var FUEL: float = 200.0
+@export var HEALTH: float = 100.0
 
 
 ### CONSTANTS ###
@@ -82,6 +83,9 @@ const MAX_THRUST_SPEED: float = 7.5
 
 ### GENERAL FUNCTIONING ###
 func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("0"):
+		damage(1)
 	
 	$"NECK/Flame/Thrust Particle".speed_scale = velocity.length() / 4
 	$"NECK/Flame/Thrust Flame".speed_scale = velocity.length() / 4
@@ -97,7 +101,7 @@ func _process(delta: float) -> void:
 	
 	#print(wish_direction)
 	## Fuel
-	FUEL = clamp(FUEL, 0.0, 100.0)
+	FUEL = clamp(FUEL, 0.0, 200.0)
 	fuel_bar.value = FUEL
 	fuel_percentage.text = str(ceil(FUEL),"%")
 	
@@ -289,11 +293,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 ## DAMAGE
-func damage(_poison):
-	#HEALTH -= poison * 5
-	#if HEALTH <= 0:
-		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		#get_tree().change_scene_to_file("res://assets/scenes/death_screen.tscn")
+func damage(poison):
+	var pick = ran.randi_range(0,12)
+	if pick >= 4:
+		if pick%2 == 0:
+			$"UI/health/left arm".visible = false
+		else:
+			$"UI/health/right arm".visible = false
+	elif pick <= 5 && pick >= 10:
+		if pick%2 == 0:
+			$"UI/health/right leg".visible = false
+		else:
+			$"UI/health/left leg".visible = false
+	elif pick == 11:
+		$UI/health/head.visible = false
+	else:
+		$UI/health/chest.visible = false
 	pass
 
 
