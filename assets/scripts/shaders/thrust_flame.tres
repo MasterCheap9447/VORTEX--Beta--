@@ -167,7 +167,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-504.828, 398.512)
 preview_params/Main_Texture = "Resource(\"res://assets/textures/effects/thruster/Fire_Textures/Flame01.png\")"
 preview_params/Dissolve_Tilling = "Vector2(1, 0.25)"
 preview_params/Dissolve_Speed = "Vector2(0, 1)"

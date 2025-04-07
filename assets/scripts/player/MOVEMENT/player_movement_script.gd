@@ -5,6 +5,7 @@ extends CharacterBody3D
 ### SIGNALS ###
 signal change_to_tri_form
 signal change_to_tazer
+signal change_to_amplifier
 
 
 ### VARIABLES ###
@@ -34,6 +35,7 @@ var speed
 
 @onready var tri_form: Node3D = $NECK/camera/WEAPONS/tri_form
 @onready var tazer: Node3D = $NECK/camera/WEAPONS/tazer
+@onready var amplifier: Node3D = $NECK/camera/WEAPONS/amplifier
 
 @onready var checker: RayCast3D = $NECK/RAYS/checker
 @onready var left_checker: RayCast3D = $"NECK/RAYS/left checker"
@@ -80,14 +82,20 @@ const MAX_THRUST_SPEED: float = 7.5
 
 ### GENERAL FUNCTIONING ###
 func _process(delta: float) -> void:
+	
+	$"NECK/Flame/Thrust Particle".speed_scale = velocity.length() / 4
+	$"NECK/Flame/Thrust Flame".speed_scale = velocity.length() / 4
+	$"NECK/Flame/Thrust Smoke".speed_scale = velocity.length() / 4
+	$"NECK/Flame/Thrust Flare".speed_scale = velocity.length() / 4
+	
 	$pump.pitch_scale = ran.randf_range(1,3)
 	$clank.pitch_scale = ran.randf_range(1,3)
 	
 	var clamped_velocity = clamp(velocity.length(), 2, MAX_THRUST_SPEED)
 	JUMP_FORCE = 10 * clamped_velocity 
-	JUMP_FORCE = clamp(JUMP_FORCE, 10, 15)
+	JUMP_FORCE = clamp(JUMP_FORCE, 12, 15)
 	
-	print(wish_direction)
+	#print(wish_direction)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 100.0)
 	fuel_bar.value = FUEL
@@ -99,11 +107,6 @@ func _process(delta: float) -> void:
 
 ### GOOFY AH CODE I AINT TOUCHINIG ###
 func _ready() -> void:
-	change_to_tazer.emit()
-	tazer_crosshair.visible = true
-	tazer.visible = true
-	tri_form_crosshair.visible = false
-	tri_form.visible = false
 	global_position = spawn_point
 	clamp(JUMP_FORCE, 10.0, 20.0)
 	ran.randomize()
@@ -116,21 +119,36 @@ func _physics_process(delta: float) -> void:
 	
 	volume = clamp(volume,-100, -40)
 	revv.volume_db = -volume
-	print(volume)
+	#print(volume)
 	
 	## Directional Variables
 	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	
+	## Edge Friction
+	if $"NECK/RAYS/floor checker".is_colliding():
+		if !$"NECK/RAYS/air checker".is_colliding():
+			GROUND_DECELERATION = 16.0
+			GROUND_FRICTION = 10.0
+		else:
+			GROUND_DECELERATION = 14.0
+			GROUND_FRICTION = 8.0
 	
 	## Thrust Implementation
 	if FUEL >= THRUSTER_CONSUMPTION:
 		if Input.is_action_just_pressed("thrust"):
 			volume = move_toward(volume, 140.0, delta * 4)
 			$"NECK/Flame/Thrust Flame".emitting = true
+			$"NECK/Flame/Thrust Particle".emitting = true
+			$"NECK/Flame/Thrust Smoke".emitting = true
+			$"NECK/Flame/Thrust Flare".emitting = true
 			revv.play()
 		if !Input.is_action_pressed("thrust"):
 			volume = move_toward(volume, 0.0, delta * 4)
 			$"NECK/Flame/Thrust Flame".emitting = false
+			$"NECK/Flame/Thrust Particle".emitting = false
+			$"NECK/Flame/Thrust Smoke".emitting = false
+			$"NECK/Flame/Thrust Flare".emitting = false
 			revv.stream_paused = true
 		if Input.is_action_pressed("thrust"):
 			handle_thruster(delta, wish_direction)
@@ -141,6 +159,12 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("dash"):
 			if wish_direction:
 				velocity = wish_direction * DASH_FORCE
+				FUEL -= DASH_CONSUMPTION
+				is_dashing = true
+				await get_tree().create_timer(0.3).timeout
+				is_dashing = false
+			if !wish_direction:
+				velocity = neck.transform.basis * Vector3(0,0,-DASH_FORCE)
 				FUEL -= DASH_CONSUMPTION
 				is_dashing = true
 				await get_tree().create_timer(0.3).timeout
@@ -160,6 +184,9 @@ func _physics_process(delta: float) -> void:
 		volume = move_toward(volume, 0.0, delta * 4)
 		is_sliding = false
 		$"NECK/Flame/Thrust Flame".emitting = false
+		$"NECK/Flame/Thrust Particle".emitting = false
+		$"NECK/Flame/Thrust Smoke".emitting = false
+		$"NECK/Flame/Thrust Flare".emitting = false
 		revv.stream_paused = true
 	if !Input.is_action_pressed("slide"):
 		is_sliding = false
@@ -179,6 +206,18 @@ func _physics_process(delta: float) -> void:
 				$pump.play()
 			else:
 				velocity = (wall_normal) * JUMP_FORCE / 3
+	
+	## Jump Buffering
+	if !is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			print("Start timer")
+			$buffer.start()
+	if !$buffer.is_stopped():
+		if is_on_floor():
+			print("jump")
+			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
+			velocity += JUMP_FORCE * jump_direction
+			$pump.play()
 	
 	## Control Movement
 	if is_on_floor():
@@ -225,12 +264,20 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(120))
 	
 	## Weapon Changing
+	if Input.is_action_just_pressed("0"):
+		change_to_amplifier.emit()
+		tazer_crosshair.visible = false
+		tazer.visible = false
+		tri_form_crosshair.visible = false
+		tri_form.visible = false
+		amplifier.visible = true
 	if Input.is_action_just_pressed("1"):
 		change_to_tazer.emit()
 		tazer_crosshair.visible = true
 		tazer.visible = true
 		tri_form_crosshair.visible = false
 		tri_form.visible = false
+		amplifier.visible = false
 	if Input.is_action_just_pressed("2"):
 		change_to_tri_form.emit()
 		weapon_number = 2
@@ -238,6 +285,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		tri_form_crosshair.visible = true
 		tazer_crosshair.visible = false
 		tazer.visible = false
+		amplifier.visible = false
 
 
 ## DAMAGE
@@ -337,7 +385,10 @@ func _fov_alter(delta):
 	pass
 
 
-func _on_stamina_recharge_timeout() -> void:
+func _on_buffer_timeout() -> void:
 	#if is_on_floor():
-		#stamina += 1
+		#print("jump")
+		#var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
+		#velocity += JUMP_FORCE * jump_direction
+		#$pump.play()
 	pass

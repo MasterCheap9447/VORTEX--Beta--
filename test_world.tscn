@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpby1tcpm657o"]
+[gd_scene load_steps=8 format=3 uid="uid://dpby1tcpm657o"]
 
 [ext_resource type="Texture2D" uid="uid://dvdwrklufthao" path="res://assets/textures/maps/floor/floor_texture.png" id="1_dxppu"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="2_gy3sr"]
+[ext_resource type="PackedScene" uid="uid://x1afwgxe6jnf" path="res://assets/scenes/Maps/Antarctica/Level-1/stage_1.tscn" id="3_1lwx6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gy3sr"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -38,5 +39,8 @@ size = Vector3(69, 0.5, 69)
 material = SubResource("StandardMaterial3D_lf0gk")
 
 [node name="player" parent="." instance=ExtResource("2_gy3sr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92791, 0.802484, 0.392744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92791, 18.038, 0.392744)
 THRUST_FORCE = 40.0
+
+[node name="STAGE 1" parent="." instance=ExtResource("3_1lwx6")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 9.01714, 0.4375, 1.02116)

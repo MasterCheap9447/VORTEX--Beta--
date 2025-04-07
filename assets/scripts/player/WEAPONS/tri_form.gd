@@ -14,7 +14,6 @@ var instance
 @onready var barrel_4: RayCast3D = $"barrel 4"
 @onready var blast_effect: AudioStreamPlayer3D = $tri_form_blast_effect
 @export var RECOIL: float = 5.0
-@onready var barrel_position_1: Node3D = $"barrel position 1"
 
 var pellet = load("res://assets/scenes/projectiles/quad_form_pellet.tscn")
 
@@ -58,10 +57,11 @@ func quad_form_shooting() -> void:
 	instance.transform.basis = barrel_4.global_transform.basis
 	get_parent().add_child(instance)
 
+func _on_player_change_to_amplifier() -> void:
+	equiped = false
 
 func _on_player_change_to_tazer() -> void:
 	equiped = false
 
 func _on_player_change_to_tri_form() -> void:
-	print("TRI FORM IS RECEIVING THE SIGNAL")
 	equiped = true
