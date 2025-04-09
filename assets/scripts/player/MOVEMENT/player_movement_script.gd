@@ -9,7 +9,6 @@ signal change_to_amplifier
 
 
 ### VARIABLES ###
-var headbob_time: float = 0.0
 var wish_direction = Vector3.ZERO
 var ran = RandomNumberGenerator.new()
 var spawn_point = Vector3(0.0, 12.0, 0.0)
@@ -43,13 +42,7 @@ var speed
 
 
 ### EXPORT VARIABLES ###
-@export_group("CAMERA VARIABLES")
-@export_range(0.0001, 0.001) var SENSITIVITY: float = 0.005
-@export_range(70,140) var FOV: int = 110
-@export_range(0,50) var FOV_CHANGE: int = 25
-
 @export_group("MOVEMENT VARIABLES")
-
 @export_subgroup("Ground Movement Variables")
 @export_range(20,26) var SLIDE_SPEED: float = 24.0
 @export_range(12,20) var SPEED: float = 16.0
@@ -73,8 +66,7 @@ var speed
 
 
 ### CONSTANTS ###
-const HEADBOB_AMPLITUDE: float = 0.08
-const HEADBOB_FREQUENCY: float = 1.5
+const SENSITIVITY:float = 0.01 
 const DASH_CONSUMPTION: float = 7.0
 const THRUSTER_CONSUMPTION: float = 0.25
 const SLAM_CONSUMPTION: float = 10.0
@@ -83,6 +75,14 @@ const MAX_THRUST_SPEED: float = 7.5
 
 ### GENERAL FUNCTIONING ###
 func _process(delta: float) -> void:
+	
+	## DASHING STRENGTH TWEAKING ##
+	if is_on_floor():
+		DASH_FORCE = 75.0
+	else:
+		DASH_FORCE = 30
+		print(DASH_FORCE)
+	
 	if Input.is_action_just_pressed("0"):
 		damage(1)
 	
@@ -94,11 +94,6 @@ func _process(delta: float) -> void:
 	$pump.pitch_scale = ran.randf_range(1,3)
 	$clank.pitch_scale = ran.randf_range(1,3)
 	
-	#var clamped_velocity = clamp(abs(velocity.y), 2, MAX_THRUST_SPEED)
-	#JUMP_FORCE = 10 * clamped_velocity
-	#JUMP_FORCE = clamp(JUMP_FORCE, 15, 15)
-	
-	#print(wish_direction)
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 200.0)
 	fuel_bar.value = FUEL
@@ -106,6 +101,7 @@ func _process(delta: float) -> void:
 	
 	## Gun camera and Normal camera Relation
 	gun_camera.set_global_transform(camera.get_global_transform())
+	gun_camera.fov = 75
 
 
 ### GOOFY AH CODE I AINT TOUCHINIG ###
@@ -119,11 +115,7 @@ func _ready() -> void:
 
 ### MOVEMENT IMPLEMENTATION ###
 func _physics_process(delta: float) -> void:
-	
-	volume = clamp(volume,-100, -40)
-	revv.volume_db = -volume
-	#print(volume)
-	
+
 	## Directional Variables
 	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
 	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
@@ -138,26 +130,26 @@ func _physics_process(delta: float) -> void:
 			GROUND_FRICTION = 8.0
 	
 	## Thrust Implementation
-	if !is_on_floor():
-		if FUEL >= THRUSTER_CONSUMPTION:
-			if Input.is_action_just_pressed("thrust"):
-				volume = move_toward(volume, 140.0, delta * 4)
-				$"NECK/Flame/Thrust Flame".emitting = true
-				$"NECK/Flame/Thrust Particle".emitting = true
-				$"NECK/Flame/Thrust Smoke".emitting = true
-				$"NECK/Flame/Thrust Flare".emitting = true
-				revv.play()
-			if !Input.is_action_pressed("thrust"):
-				volume = move_toward(volume, 0.0, delta * 4)
-				$"NECK/Flame/Thrust Flame".emitting = false
-				$"NECK/Flame/Thrust Particle".emitting = false
-				$"NECK/Flame/Thrust Smoke".emitting = false
-				$"NECK/Flame/Thrust Flare".emitting = false
-				revv.stream_paused = true
-			if Input.is_action_pressed("thrust"):
-				handle_thruster(delta, wish_direction)
-			elif Input.is_action_just_released("thrust"):
-				velocity.y = 0
+	if FUEL >= THRUSTER_CONSUMPTION:
+		if Input.is_action_just_pressed("thrust"):
+			volume = move_toward(volume, 140.0, delta * 4)
+			$"NECK/Flame/Thrust Flame".emitting = true
+			$"NECK/Flame/Thrust Particle".emitting = true
+			$"NECK/Flame/Thrust Smoke".emitting = true
+			$"NECK/Flame/Thrust Flare".emitting = true
+			revv.play()
+		if !Input.is_action_pressed("thrust"):
+			volume = move_toward(volume, 0.0, delta * 4)
+			$"NECK/Flame/Thrust Flame".emitting = false
+			$"NECK/Flame/Thrust Particle".emitting = false
+			$"NECK/Flame/Thrust Smoke".emitting = false
+			$"NECK/Flame/Thrust Flare".emitting = false
+			revv.stream_paused = true
+		if Input.is_action_pressed("thrust"):
+			handle_thruster(delta, wish_direction)
+			pass
+		elif Input.is_action_just_released("thrust"):
+			velocity.y = 0
 	## Dash Implementation
 	if FUEL >= DASH_CONSUMPTION:
 		if Input.is_action_just_pressed("dash"):
@@ -171,6 +163,13 @@ func _physics_process(delta: float) -> void:
 				is_dashing = true
 				await get_tree().create_timer(0.05).timeout
 				is_dashing = false
+	if FUEL >= SLAM_CONSUMPTION:
+		if Input.is_action_just_pressed("slide"):
+			if !is_on_floor():
+				is_sliding = false
+				velocity = Vector3.ZERO
+				velocity.y = -SLAM_FORCE
+				FUEL -= SLAM_CONSUMPTION
 	## Slide Implementation
 	if FUEL > 0:
 		if Input.is_action_pressed("slide"):
@@ -190,19 +189,23 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		wall_jump_count = 3
 		if Input.is_action_just_pressed("jump"):
-			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
+			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z)
 			velocity += JUMP_FORCE * jump_direction
 			$pump.play()
 	if is_on_wall_only():
 		var wall_normal = get_wall_normal().normalized()
 		if Input.is_action_just_pressed("jump"):
 			if wall_jump_count <= 3:
-				velocity = (wall_normal) * JUMP_FORCE / 1.5
-				velocity.y += JUMP_FORCE
+				velocity = (wall_normal) * JUMP_FORCE
+				velocity.y = JUMP_FORCE * 4
 				wall_jump_count -= 1
 				$pump.play()
 			else:
 				velocity = (wall_normal) * JUMP_FORCE / 3
+	if is_sliding:
+		if Input.is_action_just_pressed("jump"):
+			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z)
+			velocity += JUMP_FORCE * jump_direction * 2
 	
 	## Jump Buffering
 	if !is_on_floor():
@@ -212,27 +215,32 @@ func _physics_process(delta: float) -> void:
 	if !$buffer.is_stopped():
 		if is_on_floor():
 			print("jump")
-			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
+			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z)
 			velocity += JUMP_FORCE * jump_direction
 			$pump.play()
 	
 	## Control Movement
 	if is_on_floor():
+		wall_jump_count = 0
 		camera.rotation.z = clamp(camera.rotation.z, 0.0, 0.25)
+		if !Input.is_action_pressed("slide"):
+			handle_ground_physics(delta)
 		if is_sliding:
-			velocity = (neck.transform.basis) * Vector3(0, 0, -SLIDE_SPEED)
-			camera.rotation.z = move_toward(camera.rotation.z, 0.25, delta)
-			speed = move_toward(velocity.length(), SLIDE_SPEED, delta*4)
-			scale = lerp(scale, Vector3(1,0.45,1), delta * 8)
-			#if Input.is_action_just_pressed("jump"):
-				#velocity.y = JUMP_FORCE
+			wish_direction = null
+			velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+			await get_tree().create_timer(0.05).timeout
+			if Input.is_action_pressed("slide"):
+				velocity = (neck.transform.basis) * Vector3(0, 0, -SLIDE_SPEED)
+				camera.rotation.z = move_toward(camera.rotation.z, 0.25, delta)
+				speed = move_toward(velocity.length(), SLIDE_SPEED, delta*4)
+				scale = lerp(scale, Vector3(1,0.45,1), delta * 8)
+				if Input.is_action_just_pressed("jump"):
+					velocity.y += JUMP_FORCE * 8
+					$pump.play()
 		else:
 			speed = SPEED
 			scale = lerp(scale, Vector3(1,1,1), delta * 8)
 			camera.rotation.z = move_toward(camera.rotation.z, 0.0, delta)
-		wall_jump_count = 0
-		if !is_sliding:
-			handle_ground_physics(delta)
 	elif is_on_wall_only():
 		velocity.y = -2.4
 	elif !is_on_floor() && !is_on_wall():
@@ -312,6 +320,7 @@ func damage(poison):
 ### HANDLING THRUSTER ###
 func handle_thruster(delta:float, dir:Vector3) -> void:
 	## Thrust
+	_goofy_air_physics(delta)
 	velocity.y = clamp(velocity.y, -9999999999999, MAX_THRUST_SPEED)
 	velocity.y += THRUST_FORCE
 	FUEL -= THRUSTER_CONSUMPTION
@@ -325,6 +334,7 @@ func handle_thruster(delta:float, dir:Vector3) -> void:
 
 
 ### HANDLING ALL MEDIUM MOVEMENTS ###
+## Handle Air Normla Moving ##
 func handle_air_physics(delta) -> void:
 	camera.rotation.z = 0.0
 	velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
@@ -338,6 +348,7 @@ func handle_air_physics(delta) -> void:
 	$clank.stop()
 	pass
 
+## Handle Ground Normal Movement ##
 func handle_ground_physics(delta) -> void:
 	var cur_speed_in_wish_direction = velocity.dot(wish_direction)
 	var addd_speed_till_cap = speed - cur_speed_in_wish_direction
@@ -345,7 +356,6 @@ func handle_ground_physics(delta) -> void:
 		var accel_speed = GROUND_ACCELERATION * delta * speed
 		accel_speed = min(accel_speed, addd_speed_till_cap)
 		velocity += accel_speed * wish_direction
-	_headbob_effect(delta)
 	camera.rotation.z = 0.0
 	if !$clank.playing:
 		if velocity.length() != 0:
@@ -359,9 +369,10 @@ func handle_ground_physics(delta) -> void:
 	if velocity.length() > 0:
 		new_speed /= velocity.length()
 	velocity *= new_speed
-	pass
+	pass 
 
-func handle_wall_physics(_delta) -> void:
+## Handle Wall Movement
+func handle_wall_physics(delta) -> void:
 	velocity.x = wish_direction.x * SPEED
 	velocity.z = wish_direction.z * SPEED
 	# left side
@@ -381,26 +392,15 @@ func handle_wall_physics(_delta) -> void:
 	$clank.stop()
 	pass
 
-
-
-### CAMERA ANIMATIONS ###
-func _headbob_effect(delta):
-	var x = cos(headbob_time * HEADBOB_FREQUENCY/2) * HEADBOB_AMPLITUDE
-	var y = sin(headbob_time * HEADBOB_FREQUENCY) * HEADBOB_AMPLITUDE
-	headbob_time += delta * velocity.length()
-	camera.transform.origin = Vector3(x, y, 0)
-	pass
-func _fov_alter(delta):
-	var velocity_clamped = clamp(velocity.length(), 0.5, MAX_THRUST_SPEED * 4)
-	var target_fov = FOV + FOV_CHANGE * velocity_clamped
-	camera.fov = lerp(camera.fov, target_fov, delta)
-	pass
-
-
-func _on_buffer_timeout() -> void:
-	#if is_on_floor():
-		#print("jump")
-		#var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z).normalized()
-		#velocity += JUMP_FORCE * jump_direction
-		#$pump.play()
+func _goofy_air_physics(delta) -> void:
+	if wish_direction:
+		if is_on_floor():
+			velocity.x = wish_direction.x * THRUST_FORCE / 2
+			velocity.z = wish_direction.z * THRUST_FORCE / 2
+		else:
+			velocity.x = lerp(velocity.x, wish_direction.x * THRUST_FORCE/2, delta * 8)
+			velocity.z = lerp(velocity.z, wish_direction.z * THRUST_FORCE/2, delta * 8)
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, delta * 8)
+		velocity.z = move_toward(velocity.z, 0.0, delta * 8)
 	pass

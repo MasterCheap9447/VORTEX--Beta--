@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vfrkmhr1qyhv"
-path.s3tc="res://.godot/imported/tazer_0.png-ea4b1bb8192db047fdb546aba52058bd.s3tc.ctex"
-path.etc2="res://.godot/imported/tazer_0.png-ea4b1bb8192db047fdb546aba52058bd.etc2.ctex"
+uid="uid://coev2bm4vl6lp"
+path.s3tc="res://.godot/imported/tazer_2.png-89cd26b81d73d4616f0c42df6c62fb98.s3tc.ctex"
+path.etc2="res://.godot/imported/tazer_2.png-89cd26b81d73d4616f0c42df6c62fb98.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "5e3cadaa7b8da0ebedc8752d735d55f1"
+"md5": "7f60ed1ea6a27f143a1c665f1c8ca539"
 }
 
 [deps]
 
-source_file="res://assets/models/player/weapons/tazer/source/tazer_0.png"
-dest_files=["res://.godot/imported/tazer_0.png-ea4b1bb8192db047fdb546aba52058bd.s3tc.ctex", "res://.godot/imported/tazer_0.png-ea4b1bb8192db047fdb546aba52058bd.etc2.ctex"]
+source_file="res://assets/models/player/weapons/tazer/source/tazer_2.png"
+dest_files=["res://.godot/imported/tazer_2.png-89cd26b81d73d4616f0c42df6c62fb98.s3tc.ctex", "res://.godot/imported/tazer_2.png-89cd26b81d73d4616f0c42df6c62fb98.etc2.ctex"]
 
 [params]
 
