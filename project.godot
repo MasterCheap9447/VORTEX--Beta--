@@ -127,11 +127,6 @@ exit={
 3d_render/layer_1="Environment"
 3d_render/layer_2="Weapons"
 
-[physics]
-
-3d/physics_engine="Jolt Physics"
-3d/default_gravity=12.0
-
 [rendering]
 
 textures/vram_compression/import_s3tc_bptc=true

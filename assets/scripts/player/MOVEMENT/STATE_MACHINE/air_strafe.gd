@@ -21,6 +21,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _physics_simulation(delta) -> void:
+	player.velocity.y -= 9.8 
+	player.velocity.y = clamp(player.velocity.y, -16, 40)
+	
 	var cur_speed_in_wish_direction = player.velocity.dot(wish_direction)
 	var capped_speed = min((AIR_SPEED*wish_direction).length(), AIR_CAP)
 	var add_speed_till_cap = (capped_speed - cur_speed_in_wish_direction)

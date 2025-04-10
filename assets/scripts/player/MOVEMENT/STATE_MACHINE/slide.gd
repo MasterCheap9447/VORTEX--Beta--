@@ -5,8 +5,8 @@ extends Node
 @onready var neck: Node3D = get_parent().get_parent().get_child(2)
 @onready var slide_direction: Node3D = $"../../slide direction"
 
-const SPEED = 24
-const JUMP_FORCE = 14
+const SPEED = 32
+const JUMP_FORCE = 140
 const SLAM_FORCE = 80
 const SLAM_CONSUMPTION = 20
 
@@ -14,8 +14,6 @@ const SLAM_CONSUMPTION = 20
 var wish_direction: Vector3
 
 func _physics_process(delta: float) -> void:
-	print(global_variables.is_player_sliding)
-	
 	if Input.is_action_pressed("slide"):
 		global_variables.is_player_sliding = true
 	else:
@@ -44,8 +42,8 @@ func _physics_simulation() -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	wish_direction = (slide_direction.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if Input.is_action_pressed("slide"):
-		player.velocity.x = move_toward(player.velocity.x, wish_direction.x * SPEED, 12)
-		player.velocity.z = move_toward(player.velocity.z, wish_direction.z * SPEED, 12)
+		player.velocity.x = move_toward(player.velocity.x, wish_direction.x * SPEED, 16)
+		player.velocity.z = move_toward(player.velocity.z, wish_direction.z * SPEED, 16)
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, 6)
 		player.velocity.z = move_toward(player.velocity.z, 0, 6)

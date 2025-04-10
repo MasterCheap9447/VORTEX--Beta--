@@ -40,38 +40,19 @@ var speed
 @onready var right_checker: RayCast3D = $"NECK/RAYS/right checker"
 
 
-### EXPORT VARIABLES ###
-@export_group("MOVEMENT VARIABLES")
-@export_subgroup("Ground Movement Variables")
-@export_range(6,14) var JUMP_FORCE: float = 10.0
-
-@export_subgroup("Aerial Movement Variables")
-@export_range(0,5) var THRUST_FORCE: float = 8.0
-@export_range(60, 140) var SLAM_FORCE: float = 80.0
-
 @export_group("GENERAL")
 @export var FUEL: float = 200.0
 @export var HEALTH: float = 100.0
 
+@export var JUMP_FORCE: float = 300
 
-### CONSTANTS ###
-const THRUSTER_CONSUMPTION: float = 0.25
-const SLAM_CONSUMPTION: float = 10.0
-const MAX_THRUST_SPEED: float = 7.5
+var gravity = 12
+var is_jumping: bool
 
 
 ### GENERAL FUNCTIONING ###
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("0"):
-		damage(1)
-	
-	$"NECK/Flame/Thrust Particle".speed_scale = velocity.length() / 4
-	$"NECK/Flame/Thrust Flame".speed_scale = velocity.length() / 4
-	$"NECK/Flame/Thrust Smoke".speed_scale = velocity.length() / 4
-	$"NECK/Flame/Thrust Flare".speed_scale = velocity.length() / 4
-	
-	$pump.pitch_scale = ran.randf_range(1,3)
-	$clank.pitch_scale = ran.randf_range(1,3)
+	print(velocity.y)
 	
 	## Fuel
 	FUEL = clamp(FUEL, 0.0, 200.0)
@@ -85,8 +66,6 @@ func _process(_delta: float) -> void:
 
 ### GOOFY AH CODE I AINT TOUCHINIG ###
 func _ready() -> void:
-	global_position = spawn_point
-	clamp(JUMP_FORCE, 10.0, 20.0)
 	ran.randomize()
 	gun_camera.global_transform.basis = camera.global_transform.basis
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -94,47 +73,25 @@ func _ready() -> void:
 
 ### MOVEMENT IMPLEMENTATION ###
 func _physics_process(delta: float) -> void:
-
-	## Directional Variables
-	var input_direction := Input.get_vector("left", "right", "forward", "backward").normalized()
-	wish_direction = (neck.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	
 	## Jumping Control
 	if is_on_floor():
-		wall_jump_count = 3
 		if Input.is_action_just_pressed("jump"):
-			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z)
 			velocity += JUMP_FORCE * jump_direction
-			$pump.play()
-	if is_on_wall_only():
-		var wall_normal = get_wall_normal().normalized()
+	elif is_on_wall_only():
+		var wall_normal = (get_wall_normal()).normalized()
 		if Input.is_action_just_pressed("jump"):
 			if wall_jump_count <= 3:
-				velocity = (wall_normal) * JUMP_FORCE
-				velocity.y = JUMP_FORCE * 4
-				wall_jump_count -= 1
-				$pump.play()
+				velocity = (wall_normal) * JUMP_FORCE / 1.5
+				velocity.y += JUMP_FORCE
 			else:
 				velocity = (wall_normal) * JUMP_FORCE / 3
-	
-	## Jump Buffering
-	if !is_on_floor():
-		if Input.is_action_just_pressed("jump"):
-			print("Start timer")
-			$buffer.start()
-	if !$buffer.is_stopped():
-		if is_on_floor():
-			print("jump")
-			var jump_direction = Vector3(wish_direction.x, 1, wish_direction.z)
-			velocity += JUMP_FORCE * jump_direction
-			$pump.play()
-	
-	## Control Movement
-	if is_on_floor():
-		wall_jump_count = 0
-		camera.rotation.z = clamp(camera.rotation.z, 0.0, 0.25)
-	elif is_on_wall_only():
-		velocity.y = -24
-	
+			#await get_tree().create_timer(1).timeout
+			#velocity.y = 0
+			#await get_tree().create_timer(0.2).timeout
+			#velocity.y -= gravity
+
+	## Directional Variables
 	move_and_slide()
 
 
@@ -181,19 +138,4 @@ func damage(_poison):
 		$UI/health/head.visible = false
 	else:
 		$UI/health/chest.visible = false
-	pass
-
-
-
-func _goofy_air_physics(delta) -> void:
-	if wish_direction:
-		if is_on_floor():
-			velocity.x = wish_direction.x * THRUST_FORCE / 2
-			velocity.z = wish_direction.z * THRUST_FORCE / 2
-		else:
-			velocity.x = lerp(velocity.x, wish_direction.x * THRUST_FORCE/2, delta * 8)
-			velocity.z = lerp(velocity.z, wish_direction.z * THRUST_FORCE/2, delta * 8)
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, delta * 8)
-		velocity.z = move_toward(velocity.z, 0.0, delta * 8)
 	pass

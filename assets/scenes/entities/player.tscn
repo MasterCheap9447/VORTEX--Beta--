@@ -3168,10 +3168,12 @@ light_mode = 1
 
 [node name="player" type="CharacterBody3D" groups=["Player"]]
 floor_stop_on_slope = false
+floor_block_on_wall = false
 floor_max_angle = 1.0472
 script = ExtResource("1_uyujk")
+FUEL = null
+HEALTH = null
 JUMP_FORCE = 14.0
-THRUST_FORCE = 0.5
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
