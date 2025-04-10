@@ -1,4 +1,4 @@
-[gd_scene load_steps=220 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=216 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://1tybpec2s8w2" path="res://assets/scripts/player/MOVEMENT/player_movement_script.gd" id="1_uyujk"]
 [ext_resource type="Script" uid="uid://bvb8yresx8y88" path="res://assets/scripts/general/sub_viewport.gd" id="2_06cj7"]
@@ -26,10 +26,6 @@
 [ext_resource type="AudioStream" uid="uid://b1budobp6456u" path="res://assets/sounds/player/movement/thrust_audio.mp3" id="16_bfnip"]
 [ext_resource type="AudioStream" uid="uid://c78in80nhh4tl" path="res://assets/sounds/player/movement/jump_audio.mp3" id="17_p1n6j"]
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
-[ext_resource type="Script" uid="uid://d1s1dfu70flqw" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/air_strafe.gd" id="19_bjt06"]
-[ext_resource type="Script" uid="uid://cs04pfn5v5np1" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/slide.gd" id="20_mebfi"]
-[ext_resource type="Script" uid="uid://c7kscby5jxstf" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/dash.gd" id="21_4yn3y"]
-[ext_resource type="Script" uid="uid://bj0iunvfdx7dm" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/thrust.gd" id="22_cxwp2"]
 [ext_resource type="Script" uid="uid://co52y7yk6wb24" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/idle.gd" id="27_uylfy"]
 [ext_resource type="Script" uid="uid://bslgfn3s11phb" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/walk.gd" id="28_rnkb8"]
 
@@ -3287,11 +3283,11 @@ libraries = {
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.291385, -0.229301)
-visible = false
 script = ExtResource("2_bfnip")
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7824, -1.14195, 1.07978)
+visible = false
 
 [node name="node" type="Node3D" parent="NECK/camera/WEAPONS/tazer/model"]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -1.81234, 0.112002, -0.93993)
@@ -3764,28 +3760,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_s1a5k")
 }
 
-[node name="slide direction" type="Node3D" parent="."]
-
-[node name="STATE MACHINE" type="Node" parent="."]
-
-[node name="idle" type="Node" parent="STATE MACHINE"]
-script = ExtResource("27_uylfy")
-
-[node name="walk" type="Node" parent="STATE MACHINE"]
-script = ExtResource("28_rnkb8")
-
-[node name="air strafe" type="Node" parent="STATE MACHINE"]
-script = ExtResource("19_bjt06")
-
-[node name="slide" type="Node" parent="STATE MACHINE"]
-script = ExtResource("20_mebfi")
-
-[node name="dash" type="Node" parent="STATE MACHINE"]
-script = ExtResource("21_4yn3y")
-
-[node name="thrust" type="Node" parent="STATE MACHINE"]
-script = ExtResource("22_cxwp2")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="health" type="Node2D" parent="UI"]
@@ -3947,6 +3921,22 @@ volume_db = -20.0
 [node name="buffer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="STATE MACHINE" type="Node" parent="."]
+
+[node name="idle" type="Node" parent="STATE MACHINE"]
+script = ExtResource("27_uylfy")
+
+[node name="walk" type="Node" parent="STATE MACHINE"]
+script = ExtResource("28_rnkb8")
+
+[node name="air strafe" type="Node" parent="STATE MACHINE"]
+
+[node name="slide" type="Node" parent="STATE MACHINE"]
+
+[node name="dash" type="Node" parent="STATE MACHINE"]
+
+[node name="thrust" type="Node" parent="STATE MACHINE"]
 
 [connection signal="change_to_amplifier" from="." to="NECK/camera/WEAPONS/amplifier" method="_on_player_change_to_amplifier"]
 [connection signal="change_to_amplifier" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_amplifier"]

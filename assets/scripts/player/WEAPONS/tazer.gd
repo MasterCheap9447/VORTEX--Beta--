@@ -13,7 +13,7 @@ var ammo: int
 @onready var animation: AnimationPlayer = $model/animation
 @onready var ray: RayCast3D = $ray
 @onready var zap_effect: AudioStreamPlayer3D = $model/tazer_zap_effect
-@onready var zap: Sprite3D = $"model/zap"
+#@onready var zap: Sprite3D = $"model/zap"
 @onready var zap_emission: OmniLight3D = $model/zap_emission
 @onready var model: Node3D = $model
 @onready var barrel_position_1: Node3D = $"barrel position 1"
@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	if ammo <= 0:
 		if !animation.is_playing():
 			animation.play("reload")
-			await get_tree().create_timer(1.0)
+			await get_tree().create_timer(1.0).timeout
 			ammo = 6
 		
 	

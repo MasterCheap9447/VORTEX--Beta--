@@ -11,7 +11,7 @@ var equipped: bool
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if !animation.is_playing():
 	## Alternate Fire

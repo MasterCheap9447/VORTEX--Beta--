@@ -1,4 +1,4 @@
-[gd_scene load_steps=220 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=218 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://1tybpec2s8w2" path="res://assets/scripts/player/MOVEMENT/player_movement_script.gd" id="1_uyujk"]
 [ext_resource type="Script" uid="uid://bvb8yresx8y88" path="res://assets/scripts/general/sub_viewport.gd" id="2_06cj7"]
@@ -28,8 +28,6 @@
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
 [ext_resource type="Script" uid="uid://d1s1dfu70flqw" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/air_strafe.gd" id="19_bjt06"]
 [ext_resource type="Script" uid="uid://cs04pfn5v5np1" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/slide.gd" id="20_mebfi"]
-[ext_resource type="Script" uid="uid://c7kscby5jxstf" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/dash.gd" id="21_4yn3y"]
-[ext_resource type="Script" uid="uid://bj0iunvfdx7dm" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/thrust.gd" id="22_cxwp2"]
 [ext_resource type="Script" uid="uid://co52y7yk6wb24" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/idle.gd" id="27_uylfy"]
 [ext_resource type="Script" uid="uid://bslgfn3s11phb" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/walk.gd" id="28_rnkb8"]
 
@@ -3764,8 +3762,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_s1a5k")
 }
 
-[node name="slide direction" type="Node3D" parent="."]
-
 [node name="STATE MACHINE" type="Node" parent="."]
 
 [node name="idle" type="Node" parent="STATE MACHINE"]
@@ -3781,10 +3777,8 @@ script = ExtResource("19_bjt06")
 script = ExtResource("20_mebfi")
 
 [node name="dash" type="Node" parent="STATE MACHINE"]
-script = ExtResource("21_4yn3y")
 
 [node name="thrust" type="Node" parent="STATE MACHINE"]
-script = ExtResource("22_cxwp2")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

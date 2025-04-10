@@ -17,7 +17,7 @@ var instance
 
 var pellet = load("res://assets/scenes/projectiles/quad_form_pellet.tscn")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if equiped:
 		if Input.is_action_just_pressed("shoot"):
 			if !animation_player.is_playing():
