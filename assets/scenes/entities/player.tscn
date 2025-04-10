@@ -1,6 +1,6 @@
-[gd_scene load_steps=220 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=214 format=4 uid="uid://ku6ibvl13qva"]
 
-[ext_resource type="Script" uid="uid://1tybpec2s8w2" path="res://assets/scripts/player/MOVEMENT/player_movement_script.gd" id="1_uyujk"]
+[ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://bvb8yresx8y88" path="res://assets/scripts/general/sub_viewport.gd" id="2_06cj7"]
 [ext_resource type="Texture2D" uid="uid://x012gq0fkelo" path="res://assets/textures/player/weapons/quad form/blast_texture.png" id="2_47qcb"]
 [ext_resource type="Script" uid="uid://bq8posj7myuxu" path="res://assets/scripts/player/WEAPONS/tazer.gd" id="2_bfnip"]
@@ -26,12 +26,6 @@
 [ext_resource type="AudioStream" uid="uid://b1budobp6456u" path="res://assets/sounds/player/movement/thrust_audio.mp3" id="16_bfnip"]
 [ext_resource type="AudioStream" uid="uid://c78in80nhh4tl" path="res://assets/sounds/player/movement/jump_audio.mp3" id="17_p1n6j"]
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
-[ext_resource type="Script" uid="uid://d1s1dfu70flqw" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/air_strafe.gd" id="19_bjt06"]
-[ext_resource type="Script" uid="uid://cs04pfn5v5np1" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/slide.gd" id="20_mebfi"]
-[ext_resource type="Script" uid="uid://c7kscby5jxstf" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/dash.gd" id="21_4yn3y"]
-[ext_resource type="Script" uid="uid://bj0iunvfdx7dm" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/thrust.gd" id="22_cxwp2"]
-[ext_resource type="Script" uid="uid://co52y7yk6wb24" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/idle.gd" id="27_uylfy"]
-[ext_resource type="Script" uid="uid://bslgfn3s11phb" path="res://assets/scripts/player/MOVEMENT/STATE_MACHINE/walk.gd" id="28_rnkb8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
 height = 2.5
@@ -3170,10 +3164,7 @@ light_mode = 1
 floor_stop_on_slope = false
 floor_block_on_wall = false
 floor_max_angle = 1.0472
-script = ExtResource("1_uyujk")
-FUEL = null
-HEALTH = null
-JUMP_FORCE = 14.0
+script = ExtResource("1_34owt")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
@@ -3767,28 +3758,10 @@ libraries = {
 }
 
 [node name="slide direction" type="Node3D" parent="."]
-
-[node name="STATE MACHINE" type="Node" parent="."]
-
-[node name="idle" type="Node" parent="STATE MACHINE"]
-script = ExtResource("27_uylfy")
-
-[node name="walk" type="Node" parent="STATE MACHINE"]
-script = ExtResource("28_rnkb8")
-
-[node name="air strafe" type="Node" parent="STATE MACHINE"]
-script = ExtResource("19_bjt06")
-
-[node name="slide" type="Node" parent="STATE MACHINE"]
-script = ExtResource("20_mebfi")
-
-[node name="dash" type="Node" parent="STATE MACHINE"]
-script = ExtResource("21_4yn3y")
-
-[node name="thrust" type="Node" parent="STATE MACHINE"]
-script = ExtResource("22_cxwp2")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="health" type="Node2D" parent="UI"]
 z_index = 2
@@ -3897,6 +3870,7 @@ grow_vertical = 2
 texture = ExtResource("3_iphvx")
 
 [node name="tri form crosshair" type="TextureRect" parent="UI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -3924,7 +3898,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1152, 648)
-render_target_update_mode = 4
+render_target_update_mode = 0
 script = ExtResource("2_06cj7")
 
 [node name="gun_camera" type="Camera3D" parent="UI/viewport/sub viewport"]
@@ -3950,13 +3924,4 @@ volume_db = -20.0
 wait_time = 0.2
 one_shot = true
 
-[connection signal="change_to_amplifier" from="." to="NECK/camera/WEAPONS/amplifier" method="_on_player_change_to_amplifier"]
-[connection signal="change_to_amplifier" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_amplifier"]
-[connection signal="change_to_amplifier" from="." to="NECK/camera/WEAPONS/tri_form" method="_on_player_change_to_amplifier"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/amplifier" method="_on_player_change_to_tazer"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_tazer"]
-[connection signal="change_to_tazer" from="." to="NECK/camera/WEAPONS/tri_form" method="_on_player_change_to_tazer"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/amplifier" method="_on_player_change_to_tri_form"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tazer" method="_on_player_change_to_tri_form"]
-[connection signal="change_to_tri_form" from="." to="NECK/camera/WEAPONS/tri_form" method="_on_player_change_to_tri_form"]
 [connection signal="timeout" from="buffer" to="." method="_on_buffer_timeout"]

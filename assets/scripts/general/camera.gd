@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if player.is_on_floor():
-		if global_variables.is_player_sliding == false:
+		if !global_variables.is_player_sliding:
 			_headbob_effect(delta)
 	_fov_alter(delta)
 	pass
