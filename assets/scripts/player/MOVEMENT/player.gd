@@ -22,6 +22,8 @@ extends CharacterBody3D
 @onready var NECK: Node3D = $NECK
 @onready var SLIDE_DIRECTION: Node3D = $"slide direction"
 @onready var BUFFER: Timer = $buffer
+@onready var GUN_CAMERA: Camera3D = $"UI/viewport/sub viewport/gun_camera"
+
 
 
 var air_jump_no : int = 0
@@ -42,6 +44,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	GUN_CAMERA.global_transform = CAMERA.global_transform
+	
 	global_variables.is_player_sliding = is_sliding
 	
 	
@@ -90,6 +94,7 @@ func _slide(delta) -> void:
 				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0,0,-SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
 	if Input.is_action_just_pressed("slide"):
 		if !is_on_floor():
+			velocity = Vector3.ZERO
 			velocity.y -= SLAM_FORCE
 	if !Input.is_action_pressed("slide"):
 		is_sliding = false
@@ -109,9 +114,9 @@ func _slide(delta) -> void:
 func _dash(dir) -> void:
 	
 	if is_on_floor():
-		DASH_FORCE = 48.0
+		DASH_FORCE = 30.0
 	else:
-		DASH_FORCE = 24.0
+		DASH_FORCE = 15.0
 	
 	if Input.is_action_just_pressed("dash"):
 		is_dashing = true
@@ -120,10 +125,10 @@ func _dash(dir) -> void:
 	if is_dashing:
 		velocity.y = 0
 		if dir:
-			velocity.x = dir.x * DASH_FORCE
-			velocity.z = dir.z * DASH_FORCE
+			velocity.x += dir.x * DASH_FORCE
+			velocity.z += dir.z * DASH_FORCE
 		else:
-			velocity = NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
+			velocity += NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
 	pass
 
 

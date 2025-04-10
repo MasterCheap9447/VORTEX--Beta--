@@ -42,4 +42,4 @@ material = SubResource("StandardMaterial3D_lf0gk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.92791, 64.1062, 0.392744)
 
 [node name="STAGE 1" parent="." instance=ExtResource("3_1lwx6")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 9.01714, 0.4375, 1.02116)
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 9.01714, 0.4375, 1.02116)

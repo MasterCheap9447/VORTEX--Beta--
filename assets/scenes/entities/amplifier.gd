@@ -13,6 +13,14 @@ var equipped: bool
 
 func _process(_delta: float) -> void:
 	
+	if Input.is_action_just_pressed("0"):
+		equipped = true
+	if Input.is_action_just_pressed("1"):
+		equipped = false
+	if Input.is_action_just_pressed("2"):
+		equipped = false
+	
+	
 	if !animation.is_playing():
 	## Alternate Fire
 		if Input.is_action_just_pressed("alt shoot"):
@@ -31,13 +39,3 @@ func alt_fire():
 	var player = get_parent().get_parent().get_parent().get_parent()
 	if ray.is_colliding():
 		player.velocity = -player.velocity
-
-
-func _on_player_change_to_amplifier() -> void:
-	equipped = true
-
-func _on_player_change_to_tazer() -> void:
-	equipped = false
-
-func _on_player_change_to_tri_form() -> void:
-	equipped = false

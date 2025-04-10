@@ -17,6 +17,7 @@ var ammo: int
 @onready var zap_emission: OmniLight3D = $model/zap_emission
 @onready var model: Node3D = $model
 @onready var barrel_position_1: Node3D = $"barrel position 1"
+@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_parent().get_child(4).get_child(2)
 
 
 
@@ -25,6 +26,20 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("0"):
+		equiped = false
+		model.visible = false
+		crosshair.visible = false
+	if Input.is_action_just_pressed("1"):
+		equiped = true
+		animation.play("equip")
+		model.visible = true
+		crosshair.visible = true
+	if Input.is_action_just_pressed("2"):
+		equiped = false
+		model.visible = false
+		crosshair.visible = false
+	
 	
 	if ammo <= 0:
 		if !animation.is_playing():
@@ -37,6 +52,8 @@ func _process(delta: float) -> void:
 	
 	time += delta
 	if equiped:
+		visible = true
+		crosshair.visible = true
 		if ammo >= 3:
 			if Input.is_action_pressed("alt shoot"):
 				if !animation.is_playing():
@@ -83,14 +100,3 @@ func alternate_frie() -> void:
 				if target.has_method("tazer_hit"):
 					target.tazer_hit(damage, voltage)
 	ammo -= 3
-
-
-func _on_player_change_to_amplifier() -> void:
-	equiped = false
-
-func _on_player_change_to_tazer() -> void:
-	animation.play("equip")
-	equiped = true
-	
-func _on_player_change_to_tri_form() -> void:
-	equiped = false

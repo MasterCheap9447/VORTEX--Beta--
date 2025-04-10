@@ -3280,7 +3280,6 @@ libraries = {
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.291385, -0.229301)
-visible = false
 script = ExtResource("2_bfnip")
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
