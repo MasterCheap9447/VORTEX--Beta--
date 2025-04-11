@@ -1,4 +1,4 @@
-[gd_scene load_steps=218 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=221 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Texture2D" uid="uid://x012gq0fkelo" path="res://assets/textures/player/weapons/quad form/blast_texture.png" id="2_47qcb"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://coev2bm4vl6lp" path="res://assets/models/player/weapons/tazer/source/tazer_2.png" id="12_rnkb8"]
 [ext_resource type="Texture2D" uid="uid://doky47wqn64l5" path="res://assets/textures/ui/fuel/fuel_bar_under.png" id="12_uyujk"]
 [ext_resource type="Texture2D" uid="uid://d0i0f77407ho2" path="res://assets/textures/ui/fuel/fuel_bar_over.png" id="13_bfnip"]
+[ext_resource type="Texture2D" uid="uid://dm3v72mgntfxu" path="res://assets/textures/player/weapons/tazer/zap_texture.png" id="14_34owt"]
 [ext_resource type="Texture2D" uid="uid://343b36dknkjk" path="res://assets/textures/ui/fuel/fuel_bar_fill.png" id="14_p1n6j"]
 [ext_resource type="AudioStream" uid="uid://b1budobp6456u" path="res://assets/sounds/player/movement/thrust_audio.mp3" id="16_bfnip"]
 [ext_resource type="AudioStream" uid="uid://c78in80nhh4tl" path="res://assets/sounds/player/movement/jump_audio.mp3" id="17_p1n6j"]
@@ -1748,6 +1749,15 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mxl50")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uylfy"]
+transparency = 1
+albedo_texture = ExtResource("14_34owt")
+emission_enabled = true
+emission = Color(0, 6.077, 14.364, 1)
+uv2_triplanar = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_rnkb8"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cqx5f"]
 _surfaces = [{
@@ -3583,6 +3593,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
 mesh = SubResource("ArrayMesh_bo24f")
 skeleton = NodePath("")
 
+[node name="zap" type="Node3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
+transform = Transform3D(19.9954, -0.424948, 0.0309206, -0.0250505, 0.276085, 19.9981, -0.425336, -19.9936, 0.275473, 26.3848, 35.0378, 17.7044)
+
+[node name="txt 1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer/zap"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -1.29362, 1.12656, -2.87712)
+material_override = SubResource("StandardMaterial3D_uylfy")
+mesh = SubResource("QuadMesh_rnkb8")
+skeleton = NodePath("../../../../../../../../..")
+
+[node name="txt 2" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer/zap"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -1.29362, 1.12656, -2.89561)
+material_override = SubResource("StandardMaterial3D_uylfy")
+mesh = SubResource("QuadMesh_rnkb8")
+skeleton = NodePath("../../../../../../../../..")
+
 [node name="knuckles" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("ArrayMesh_qx635")
@@ -3623,18 +3648,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_vcw0c")
 }
 
-[node name="zap_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/tazer/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0209, 1.12427, -3.14533)
-light_color = Color(0, 0.796078, 1, 1)
-omni_range = 1.25
-
 [node name="tazer_zap_effect" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tazer/model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0209, 1.12763, -3.14255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29917, 1.1256, -2.81547)
 stream = ExtResource("7_dpfgd")
 volume_db = 10.0
 
 [node name="barrel position 1" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.685468, -0.438219, -2.78807)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48621, -0.0209056, -1.7617)
+
+[node name="barrel position 2" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.685468, -3.14713e-05, -32.0102)
 
 [node name="ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
 target_position = Vector3(0, 0, -32)
@@ -3746,6 +3769,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249219, -2.26181, 0.761605
 [node name="Scrath VFX" type="GPUParticles3D" parent="slide direction/Scraps"]
 transform = Transform3D(1.19422e-07, 1, -4.37114e-08, 0.5, -2.18557e-08, 0.866025, 0.866025, -1.25278e-07, -0.5, 0.254133, 0.33231, -2.7238)
 layers = 1048575
+emitting = false
 amount = 16
 lifetime = 0.03
 fixed_fps = 120

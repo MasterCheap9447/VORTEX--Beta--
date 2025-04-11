@@ -1,9 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://dpby1tcpm657o"]
+[gd_scene load_steps=43 format=3 uid="uid://dpby1tcpm657o"]
 
 [ext_resource type="Texture2D" uid="uid://uk8ub7mtfx6g" path="res://assets/models/maps/Antarctica/level-1/stage_1/rocks.png" id="2_1lwx6"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="2_gy3sr"]
 [ext_resource type="PackedScene" uid="uid://x1afwgxe6jnf" path="res://assets/scenes/Maps/Antarctica/Level-1/stage_1.tscn" id="3_1lwx6"]
 [ext_resource type="Texture2D" uid="uid://dr35o04aijs26" path="res://assets/textures/effects/thruster/Fire_Textures/Flame02.png" id="3_dsnr4"]
+[ext_resource type="PackedScene" uid="uid://dr4rpyi1gnmq1" path="res://assets/scenes/Maps/Antarctica/Level-1/stage_2.tscn" id="4_lf0gk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gy3sr"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -20,7 +21,10 @@ glow_enabled = true
 glow_strength = 2.0
 glow_bloom = 0.15
 fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.670588, 0.941176, 1, 1)
 fog_light_energy = 0.5
+fog_density = 1.0
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.67, 0.9395, 1, 1)
 
@@ -37,6 +41,14 @@ albedo_texture = ExtResource("2_1lwx6")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt6p6"]
+albedo_texture = ExtResource("2_1lwx6")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu1iw"]
+albedo_texture = ExtResource("2_1lwx6")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tg7h"]
 albedo_texture = ExtResource("2_1lwx6")
 uv1_triplanar = true
 
@@ -278,8 +290,32 @@ spread = 12.0
 initial_velocity_max = 24.59
 scale_curve = SubResource("CurveTexture_lf0gk")
 color = Color(0.73, 0.9865, 1, 1)
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_kt6p6"]
+
+[sub_resource type="Curve" id="Curve_lf0gk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247573, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.865169), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cnaw2"]
+curve = SubResource("Curve_lf0gk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kt6p6"]
+emission_shape_scale = Vector3(15, 15, 15)
+emission_shape = 3
+emission_box_extents = Vector3(4, 4, 4)
+angle_min = -720.0
+angle_max = 720.0
+spread = 12.0
+initial_velocity_max = 24.59
+scale_curve = SubResource("CurveTexture_cnaw2")
+color = Color(0.73, 0.9865, 1, 1)
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
 
 [node name="TEST WORLD" type="Node3D"]
 
@@ -300,18 +336,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0878296, 1.04938, 5.08907)
 size = Vector3(2.0741, 1.53955, 1.50793)
 material = SubResource("StandardMaterial3D_dsnr4")
 
-[node name="cutout0-1" type="CSGBox3D" parent="connectors"]
+[node name="cutout0" type="CSGBox3D" parent="connectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863112, 5.04316)
 operation = 2
 size = Vector3(1, 1.07178, 1.33691)
 material = SubResource("StandardMaterial3D_lf0gk")
 
-[node name="gate1-1" type="CSGBox3D" parent="connectors"]
+[node name="gate1" type="CSGBox3D" parent="connectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0605469, 0.793518, 2.7797)
 size = Vector3(0.878906, 1.03235, 3.16992)
 material = SubResource("StandardMaterial3D_cnaw2")
 
-[node name="cutout1-1" type="CSGBox3D" parent="connectors"]
+[node name="cutout1" type="CSGBox3D" parent="connectors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00429535, 0.786545, 2.8076)
 operation = 2
 size = Vector3(0.635605, 0.915649, 3.23552)
@@ -322,6 +358,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0932312, 3.49316, -0.07717
 size = Vector3(4.43158, 1, 3.55402)
 material = SubResource("StandardMaterial3D_cnaw2")
 
+[node name="gate2" type="CSGBox3D" parent="connectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249756, 0.875427, -6.87005)
+size = Vector3(1.49951, 2.12585, 11.0272)
+material = SubResource("StandardMaterial3D_uu1iw")
+
+[node name="cutout2" type="CSGBox3D" parent="connectors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382529, 0.824791, -7.03624)
+operation = 2
+size = Vector3(0.7, 1.05, 11.6284)
+material = SubResource("StandardMaterial3D_4tg7h")
+
 [node name="particles" type="Node" parent="."]
 
 [node name="snow1" type="GPUParticles3D" parent="particles"]
@@ -331,8 +378,34 @@ amount = 256
 process_material = SubResource("ParticleProcessMaterial_cnaw2")
 draw_pass_1 = SubResource("QuadMesh_kt6p6")
 
+[node name="snow2" type="GPUParticles3D" parent="particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.9482, 22.0931, -171.832)
+material_override = SubResource("ShaderMaterial_lf0gk")
+amount = 4096
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_kt6p6")
+draw_pass_1 = SubResource("QuadMesh_kt6p6")
+
 [node name="STAGE 1" parent="." instance=ExtResource("3_1lwx6")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, -49.2329, 0.4375, -40.8392)
 
+[node name="STAGE 2" parent="." instance=ExtResource("4_lf0gk")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -52.1901, -29.0667, -184.955)
+
 [node name="player" parent="." instance=ExtResource("2_gy3sr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.8239, 5.45611, 0.268903)
+WALK_SPEED = 16.0
+GROUND_ACCELERATION = 4.0
+JUMP_FORCE = 12.0
+AIR_CAP = 0.85
+AIR_SPEED = 500.0
+AIR_ACCELERATION = 800.0
+SLAM_FORCE = 32.0
+SLIDE_MAX_SPEED = 24.0
+SLIDE_ACCELERATION = 0.5
+DASH_FORCE = 48.0
+THRUST = 5.0
+MAX_THRUST = 50.0
+SENSITIVITY = 0.5
+TILT_LOWER_LIMIT = -1.5708
+TILT_UPPER_LIMIT = 1.5708

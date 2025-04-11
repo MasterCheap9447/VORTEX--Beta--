@@ -57,6 +57,13 @@ func _ready():
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_input = event.relative
+	match global_variables.weapon:
+		1 : 
+			tazer_crosshair.visible = true 
+			tri_form_crosshair.visible = false
+		2 : 
+			tazer_crosshair.visible = false
+			tri_form_crosshair.visible = true
 
 
 
@@ -173,16 +180,13 @@ func _jump() -> void:
 			wall_jump_no = 0
 			velocity.y = JUMP_FORCE
 		if is_on_wall():
-			if wall_jump_no < 3:
-				var normal = get_wall_normal()
-				velocity.y = JUMP_FORCE
-				wall_jump_no += 1
+			var normal = get_wall_normal()
+			velocity.y = JUMP_FORCE
 		else:
 			wall_jump_no = 0
 			if air_jump_no < 1:
 				if Input.is_action_just_pressed("jump"):
-					velocity.y = JUMP_FORCE
-					air_jump_no += 1
+					pass
 			else:
 				BUFFER.start()
 	if !BUFFER.is_stopped():
