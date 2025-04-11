@@ -7,8 +7,8 @@ extends Camera3D
 const SENSITIVITY = 0.002
 
 @export_group("CAMERA VARIABLES")
-@export_range(90,140) var FOV: int = 100
-@export_range(90,140) var MAX_FOV: int = 140
+@export_range(90,140) var FOV: int = 90
+@export_range(90,140) var MAX_FOV: int = FOV + 10
 @export_range(0,50) var FOV_CHANGE: int = 7
 
 const HEADBOB_AMPLITUDE: float = 0.08

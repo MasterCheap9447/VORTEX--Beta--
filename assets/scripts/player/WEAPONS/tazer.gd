@@ -6,6 +6,7 @@ var start_time : float = 0.0
 var end_time : float = 0.0
 var equiped : bool
 var ammo: int
+var done : bool
 
 @export var damage: float = 3.0
 @export var voltage: float = 3.0
@@ -22,36 +23,30 @@ var ammo: int
 
 
 func _ready() -> void:
-	ammo = 6
+	ammo = 8
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("0"):
-		equiped = false
-		model.visible = false
-		crosshair.visible = false
-	if Input.is_action_just_pressed("1"):
+	if global_variables.weapon == 1:
 		equiped = true
-		animation.play("equip")
-		model.visible = true
-		crosshair.visible = true
-	if Input.is_action_just_pressed("2"):
+	else:
 		equiped = false
-		model.visible = false
-		crosshair.visible = false
 	
 	
 	if ammo <= 0:
 		if !animation.is_playing():
 			animation.play("reload")
 			await get_tree().create_timer(1.0).timeout
-			ammo = 6
+			ammo = 8
 		
 	
-	ammo = clamp(ammo,0,6)
+	ammo = clamp(ammo,0,8)
 	
 	time += delta
 	if equiped:
+		if done == false:
+			animation.play("equip")
+			done = true
 		visible = true
 		crosshair.visible = true
 		if ammo >= 3:
@@ -79,6 +74,10 @@ func _process(delta: float) -> void:
 				primary_fire()
 		else:
 			zap_emission.visible = false
+	else:
+		done = false
+		visible = false
+		crosshair.visible = false
 
 
 
