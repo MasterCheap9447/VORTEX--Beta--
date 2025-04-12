@@ -8,6 +8,7 @@ albedo_color = Color(0, 6.077, 14.364, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ddjsn"]
 
 [node name="bullet_trail" type="MeshInstance3D"]
+layers = 2
 material_override = SubResource("StandardMaterial3D_ddjsn")
 mesh = SubResource("BoxMesh_ddjsn")
 script = ExtResource("1_ddjsn")

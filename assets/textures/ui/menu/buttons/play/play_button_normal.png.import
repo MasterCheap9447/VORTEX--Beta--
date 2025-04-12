@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyrida1u6neio"
-path="res://.godot/imported/texture.png-6a7600ee19fe4c493d94fda068ad855f.ctex"
+uid="uid://demd73hraennn"
+path="res://.godot/imported/play_button_normal.png-b60714fb106b14c0ab94d718f4d63551.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/models/maps/Antarctica/level-1/stage_1/texture.png"
-dest_files=["res://.godot/imported/texture.png-6a7600ee19fe4c493d94fda068ad855f.ctex"]
+source_file="res://assets/textures/ui/menu/buttons/play/play_button_normal.png"
+dest_files=["res://.godot/imported/play_button_normal.png-b60714fb106b14c0ab94d718f4d63551.ctex"]
 
 [params]
 

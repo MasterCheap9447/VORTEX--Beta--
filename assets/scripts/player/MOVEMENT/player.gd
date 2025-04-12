@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var AIR_CAP : float = 0.85
 @export var AIR_SPEED : float = 500.0
 @export var AIR_ACCELERATION : float = 800.0
-@export var SLAM_FORCE : float = 32.0
+@export var SLAM_FORCE : float = 64.0
 @export var SLIDE_MAX_SPEED : float = 24.0
 @export var SLIDE_ACCELERATION : float = 0.5
 @export var DASH_FORCE : float = 48.0
@@ -65,6 +65,9 @@ func _input(event: InputEvent) -> void:
 			tazer_crosshair.visible = false
 			tri_form_crosshair.visible = true
 
+
+func _process(delta: float) -> void:
+	pass
 
 
 func _physics_process(delta):
@@ -123,10 +126,8 @@ func _slide(delta) -> void:
 				velocity.z = move_toward(velocity.z, slide_direction.z * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
 			else:
 				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0,0,-SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
-	if Input.is_action_just_pressed("slide"):
-		if !is_on_floor():
-			velocity = Vector3.ZERO
-			velocity.y -= SLAM_FORCE
+		else:
+			is_dashing = false
 	if !Input.is_action_pressed("slide"):
 		is_sliding = false
 		SLIDE_DIRECTION.rotation = NECK.rotation

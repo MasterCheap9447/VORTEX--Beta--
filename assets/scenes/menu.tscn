@@ -1,23 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://k8gi6k1ctg80"]
+[gd_scene load_steps=16 format=3 uid="uid://k8gi6k1ctg80"]
 
 [ext_resource type="Script" uid="uid://g01jn5sys6bu" path="res://assets/scripts/main_menu.gd" id="1_xuqax"]
-[ext_resource type="Texture2D" uid="uid://56ylunfjncji" path="res://assets/textures/ui/background.png" id="2_l0v2w"]
-[ext_resource type="Texture2D" uid="uid://bvbd08jrp5iwb" path="res://assets/textures/ui/main_menu/Title/play_button_normal.png" id="2_xuqax"]
-[ext_resource type="Texture2D" uid="uid://bq58a0rx73a2t" path="res://assets/textures/ui/main_menu/buttons/exit/exit_button_normal.png" id="5_0wlwb"]
+[ext_resource type="Texture2D" uid="uid://be21lctske620" path="res://assets/textures/ui/menu/background.png" id="2_c4qlh"]
+[ext_resource type="Texture2D" uid="uid://bvbd08jrp5iwb" path="res://assets/textures/ui/menu/Title/play_button_normal.png" id="2_xuqax"]
+[ext_resource type="Texture2D" uid="uid://b6rdpxbswm20w" path="res://assets/textures/ui/menu/diagram.png" id="3_ujvk5"]
+[ext_resource type="Texture2D" uid="uid://bq58a0rx73a2t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_normal.png" id="5_0wlwb"]
 [ext_resource type="Texture2D" uid="uid://cr2l7t61kkgni" path="res://assets/textures/ui/credits/credits.png" id="5_c4qlh"]
-[ext_resource type="Texture2D" uid="uid://c12usdeak6suw" path="res://assets/textures/ui/diagram.png" id="5_q8r6g"]
-[ext_resource type="Texture2D" uid="uid://dybiwfh74o05t" path="res://assets/textures/ui/main_menu/buttons/exit/exit_button_clicked.png" id="6_c4qlh"]
-[ext_resource type="Texture2D" uid="uid://ce7qjwwhbyoad" path="res://assets/textures/ui/main_menu/buttons/exit/exit_button_hover.png" id="7_ujvk5"]
+[ext_resource type="Texture2D" uid="uid://dybiwfh74o05t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_clicked.png" id="6_c4qlh"]
+[ext_resource type="Texture2D" uid="uid://demd73hraennn" path="res://assets/textures/ui/menu/buttons/play/play_button_normal.png" id="6_nf3ne"]
+[ext_resource type="Texture2D" uid="uid://ckkni6by5cmwr" path="res://assets/textures/ui/menu/buttons/play/play_button_clicked.png" id="7_pw4oi"]
+[ext_resource type="Texture2D" uid="uid://ce7qjwwhbyoad" path="res://assets/textures/ui/menu/buttons/exit/exit_button_hover.png" id="7_ujvk5"]
+[ext_resource type="Texture2D" uid="uid://brnnpegv3lmv" path="res://assets/textures/ui/menu/buttons/play/play_button_hover.png" id="8_u7y45"]
 [ext_resource type="AudioStream" uid="uid://ctm4pylvq8xho" path="res://assets/sounds/main_music.mp3" id="9_ujvk5"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0wlwb"]
-load_path = "res://.godot/imported/play_button_normal.png-7313fc9bb96d0ae5d1f72623cb40922a.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c4qlh"]
-load_path = "res://.godot/imported/play_button_clicked.png-8adc7be2e234e5ecfc24a0ca41d3c64e.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ujvk5"]
-load_path = "res://.godot/imported/play_button_hover.png-e2019eb4bff16387e690c8b2d14471b0.ctex"
+[ext_resource type="Texture2D" uid="uid://c28a5vf7v5xq8" path="res://assets/textures/ui/menu/buttons/settings/settings_button_normal.png" id="12_ji2u7"]
+[ext_resource type="Texture2D" uid="uid://by2et7in8ccxq" path="res://assets/textures/ui/menu/buttons/settings/settings_button_clicked.png" id="13_1jjir"]
+[ext_resource type="Texture2D" uid="uid://cov4eorhadnj1" path="res://assets/textures/ui/menu/buttons/settings/settings_button_hover.png" id="14_iegxf"]
 
 [node name="MENU" type="Control"]
 layout_mode = 3
@@ -29,14 +26,17 @@ grow_vertical = 2
 script = ExtResource("1_xuqax")
 
 [node name="background" type="Sprite2D" parent="."]
-position = Vector2(1105, 660)
-scale = Vector2(1.9184, 2.03704)
-texture = ExtResource("2_l0v2w")
+texture_filter = 1
+position = Vector2(961, 543)
+scale = Vector2(1.6684, 1.67593)
+texture = ExtResource("2_c4qlh")
 
 [node name="diagram" type="Sprite2D" parent="."]
-position = Vector2(1600, 540)
-scale = Vector2(3, 3)
-texture = ExtResource("5_q8r6g")
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(1600, 543)
+scale = Vector2(3, 2.95109)
+texture = ExtResource("3_ujvk5")
 
 [node name="title" type="Sprite2D" parent="."]
 position = Vector2(695, 109)
@@ -44,7 +44,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_xuqax")
 
 [node name="credits" type="Sprite2D" parent="."]
-position = Vector2(265, 1006)
+position = Vector2(293, 973)
 texture = ExtResource("5_c4qlh")
 
 [node name="play" type="TextureButton" parent="."]
@@ -55,20 +55,30 @@ offset_right = 550.0
 offset_bottom = 349.0
 size_flags_vertical = 0
 action_mode = 0
-texture_normal = SubResource("CompressedTexture2D_0wlwb")
-texture_pressed = SubResource("CompressedTexture2D_c4qlh")
-texture_hover = SubResource("CompressedTexture2D_ujvk5")
+texture_normal = ExtResource("6_nf3ne")
+texture_pressed = ExtResource("7_pw4oi")
+texture_hover = ExtResource("8_u7y45")
 stretch_mode = 0
 
 [node name="exit" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 38.0
-offset_top = 373.0
+offset_top = 475.0
 offset_right = 550.0
-offset_bottom = 453.0
+offset_bottom = 555.0
 texture_normal = ExtResource("5_0wlwb")
 texture_pressed = ExtResource("6_c4qlh")
 texture_hover = ExtResource("7_ujvk5")
+
+[node name="settings" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 373.0
+offset_right = 550.0
+offset_bottom = 453.0
+texture_normal = ExtResource("12_ji2u7")
+texture_pressed = ExtResource("13_1jjir")
+texture_hover = ExtResource("14_iegxf")
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(265, 1006)

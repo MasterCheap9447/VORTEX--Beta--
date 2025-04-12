@@ -1,11 +1,16 @@
-[gd_scene load_steps=17 format=4 uid="uid://dr4rpyi1gnmq1"]
+[gd_scene load_steps=15 format=4 uid="uid://dr4rpyi1gnmq1"]
 
 [ext_resource type="Texture2D" uid="uid://c7nv2ie7x2ydq" path="res://assets/models/maps/Antarctica/level-1/stage_2/low texture.png" id="1_g15rw"]
 [ext_resource type="Texture2D" uid="uid://3woks5ut2itf" path="res://assets/models/maps/Antarctica/level-1/stage_2/high texture.png" id="2_4p743"]
 [ext_resource type="Texture2D" uid="uid://uk8ub7mtfx6g" path="res://assets/models/maps/Antarctica/level-1/stage_1/rocks.png" id="3_4p743"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffhh6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1sbd"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
 albedo_texture = ExtResource("1_g15rw")
+texture_filter = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_se2hc"]
 resource_name = "low texture"
@@ -45,11 +50,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_als6d")
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_p5ck6"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u8427"]
 data = PackedVector3Array(2.9393, -1.6231, 1.2175, 0.905, -1.6231, 2.9393, 1.6569, -1.6236, 5.5, 1.6569, -1.6236, 5.5, 5.5, -1.6236, 2.2819, 2.9393, -1.6231, 1.2175, 2.9393, 5.6231, 1.2175, 5.5, 5.6236, 2.2819, 1.6569, 5.6236, 5.5, 1.6569, 5.6236, 5.5, 0.905, 5.6231, 2.9393, 2.9393, 5.6231, 1.2175, 2.9393, -1.6231, -1.2175, 2.9393, -1.6231, 1.2175, 5.5, -1.6236, 2.2819, 5.5, -1.6236, 2.2819, 5.5, -1.6236, -2.2819, 2.9393, -1.6231, -1.2175, 5.5, 5.6236, -2.2819, 5.5, 5.6236, 2.2819, 2.9393, 5.6231, 1.2175, 2.9393, 5.6231, 1.2175, 2.9393, 5.6231, -1.2175, 5.5, 5.6236, -2.2819, 1.2175, -1.6231, -2.9393, 2.9393, -1.6231, -1.2175, 5.5, -1.6236, -2.2819, 5.5, -1.6236, -2.2819, 2.2819, -1.6236, -5.5, 1.2175, -1.6231, -2.9393, 2.2819, 5.6236, -5.5, 5.5, 5.6236, -2.2819, 2.9393, 5.6231, -1.2175, 2.9393, 5.6231, -1.2175, 1.2175, 5.6231, -2.9393, 2.2819, 5.6236, -5.5, -2.9393, -1.6231, -1.2175, -1.2175, -1.6231, -2.9393, -2.2819, -1.6236, -5.5, -2.2819, -1.6236, -5.5, -5.5, -1.6236, -2.2819, -2.9393, -1.6231, -1.2175, -5.5, 5.6236, -2.2819, -2.2819, 5.6236, -5.5, -1.2175, 5.6231, -2.9393, -1.2175, 5.6231, -2.9393, -2.9393, 5.6231, -1.2175, -5.5, 5.6236, -2.2819, -2.9393, -1.6231, 1.2175, -2.9393, -1.6231, -1.2175, -5.5, -1.6236, -2.2819, -5.5, -1.6236, -2.2819, -5.5, -1.6236, 2.2819, -2.9393, -1.6231, 1.2175, -2.9393, 5.6231, 1.2175, -5.5, 5.6236, 2.2819, -5.5, 5.6236, -2.2819, -5.5, 5.6236, -2.2819, -2.9393, 5.6231, -1.2175, -2.9393, 5.6231, 1.2175, -1.6569, -1.6236, 5.5, -0.9175, -1.6231, 2.9393, -2.9393, -1.6231, 1.2175, -2.9393, -1.6231, 1.2175, -5.5, -1.6236, 2.2819, -1.6569, -1.6236, 5.5, -1.6569, 5.6236, 5.5, -5.5, 5.6236, 2.2819, -2.9393, 5.6231, 1.2175, -2.9393, 5.6231, 1.2175, -0.8925, 5.6231, 2.9393, -1.6569, 5.6236, 5.5, -1.2175, 5.6231, -2.9393, -1.2175, -1.6231, -2.9393, -2.9393, -1.6231, -1.2175, -2.9393, -1.6231, -1.2175, -2.9393, 5.6231, -1.2175, -1.2175, 5.6231, -2.9393, -2.9393, -1.6231, -1.2175, -2.9393, -1.6231, 1.2175, -2.9393, 5.6231, 1.2175, -2.9393, 5.6231, 1.2175, -2.9393, 5.6231, -1.2175, -2.9393, -1.6231, -1.2175, -2.9393, 5.6231, 1.2175, -2.9393, -1.6231, 1.2175, -0.9175, -1.6231, 2.9393, -0.9175, -1.6231, 2.9393, -0.8925, 5.6231, 2.9393, -2.9393, 5.6231, 1.2175, 0.905, -1.6231, 2.9393, 2.9393, -1.6231, 1.2175, 2.9393, 5.6231, 1.2175, 2.9393, 5.6231, 1.2175, 0.905, 5.6231, 2.9393, 0.905, -1.6231, 2.9393, 2.9393, -1.6231, -1.2175, 1.2175, -1.6231, -2.9393, 1.2175, 5.6231, -2.9393, 1.2175, 5.6231, -2.9393, 2.9393, 5.6231, -1.2175, 2.9393, -1.6231, -1.2175, 2.9393, -1.6231, 1.2175, 2.9393, -1.6231, -1.2175, 2.9393, 5.6231, -1.2175, 2.9393, 5.6231, -1.2175, 2.9393, 5.6231, 1.2175, 2.9393, -1.6231, 1.2175, 1.6569, 5.6236, 5.5, 5.5, 5.6236, 2.2819, 5.5, -1.6236, 2.2819, 5.5, -1.6236, 2.2819, 1.6569, -1.6236, 5.5, 1.6569, 5.6236, 5.5, 5.5, 5.6236, 2.2819, 5.5, 5.6236, -2.2819, 5.5, -1.6236, -2.2819, 5.5, -1.6236, -2.2819, 5.5, -1.6236, 2.2819, 5.5, 5.6236, 2.2819, 5.5, 5.6236, -2.2819, 2.2819, 5.6236, -5.5, 2.2819, -1.6236, -5.5, 2.2819, -1.6236, -5.5, 5.5, -1.6236, -2.2819, 5.5, 5.6236, -2.2819, -5.5, -1.6236, -2.2819, -2.2819, -1.6236, -5.5, -2.2819, 5.6236, -5.5, -2.2819, 5.6236, -5.5, -5.5, 5.6236, -2.2819, -5.5, -1.6236, -2.2819, -5.5, 5.6236, -2.2819, -5.5, 5.6236, 2.2819, -5.5, -1.6236, 2.2819, -5.5, -1.6236, 2.2819, -5.5, -1.6236, -2.2819, -5.5, 5.6236, -2.2819, -1.6569, -1.6236, 5.5, -5.5, -1.6236, 2.2819, -5.5, 5.6236, 2.2819, -5.5, 5.6236, 2.2819, -1.6569, 5.6236, 5.5, -1.6569, -1.6236, 5.5, 1.2175, -1.6231, -2.9393, -1.2175, -1.6231, -2.9393, -1.2175, 5.6231, -2.9393, -1.2175, 5.6231, -2.9393, 1.2175, 5.6231, -2.9393, 1.2175, -1.6231, -2.9393, -1.2175, -1.6231, -2.9393, 1.2175, -1.6231, -2.9393, 2.2819, -1.6236, -5.5, 2.2819, -1.6236, -5.5, -2.2819, -1.6236, -5.5, -1.2175, -1.6231, -2.9393, -2.2819, -1.6236, -5.5, 2.2819, -1.6236, -5.5, 2.2819, 5.6236, -5.5, 2.2819, 5.6236, -5.5, -2.2819, 5.6236, -5.5, -2.2819, -1.6236, -5.5, -1.2175, 5.6231, -2.9393, -2.2819, 5.6236, -5.5, 2.2819, 5.6236, -5.5, 2.2819, 5.6236, -5.5, 1.2175, 5.6231, -2.9393, -1.2175, 5.6231, -2.9393, 0.905, -1.6231, 2.9393, -0.9175, -1.6231, 2.9393, -1.6569, -1.6236, 5.5, -1.6569, -1.6236, 5.5, 1.6569, -1.6236, 5.5, 0.905, -1.6231, 2.9393, -0.8925, 5.6231, 2.9393, -0.9175, -1.6231, 2.9393, 0.905, -1.6231, 2.9393, 0.905, -1.6231, 2.9393, 0.905, 5.6231, 2.9393, -0.8925, 5.6231, 2.9393, -0.8925, 5.6231, 2.9393, 0.905, 5.6231, 2.9393, 1.6569, 5.6236, 5.5, 1.6569, 5.6236, 5.5, -1.6569, 5.6236, 5.5, -0.8925, 5.6231, 2.9393, -1.6569, -1.6236, 5.5, -1.6569, 5.6236, 5.5, 1.6569, 5.6236, 5.5, 1.6569, 5.6236, 5.5, 1.6569, -1.6236, 5.5, -1.6569, -1.6236, 5.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w3tl7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3nc2"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("2_4p743")
+texture_filter = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fmjvp"]
 resource_name = "high texture"
@@ -89,46 +101,41 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_dnaeh")
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eew3i"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_b1sbd"]
 data = PackedVector3Array(0, 0, 0, 0.6213, 0, 1.5, 1.5, 0, 0.6213, 0, 0, 0, -0.6213, 0, 1.5, 0.6213, 0, 1.5, 0, 0, 0, 1.5, 0, 0.6213, 1.5, 0, -0.6213, 0, 0, 0, -1.5, 0, 0.6213, -0.6213, 0, 1.5, 0, 0, 0, 1.5, 0, -0.6213, 0.6213, 0, -1.5, 0, 0, 0, -1.5, 0, -0.6213, -1.5, 0, 0.6213, 0, 0, 0, 0.6213, 0, -1.5, -0.6213, 0, -1.5, 0, 0, 0, -0.6213, 0, -1.5, -1.5, 0, -0.6213, 1.5, 9, 0.6213, 1.5, 0, 0.6213, 0.6213, 0, 1.5, 0.6213, 0, 1.5, 0.6213, 9, 1.5, 1.5, 9, 0.6213, 0, 9, 0, 1.5, 9, 0.6213, 0.6213, 9, 1.5, 0, 9, 0, 1.5, 9, -0.6213, 1.5, 9, 0.6213, 0, 9, 0, 0.6213, 9, 1.5, -0.6213, 9, 1.5, 0, 9, 0, 0.6213, 9, -1.5, 1.5, 9, -0.6213, 0, 9, 0, -0.6213, 9, 1.5, -1.5, 9, 0.6213, 0, 9, 0, -0.6213, 9, -1.5, 0.6213, 9, -1.5, 0, 9, 0, -1.5, 9, 0.6213, -1.5, 9, -0.6213, 0, 9, 0, -1.5, 9, -0.6213, -0.6213, 9, -1.5, 1.5, 9, -0.6213, 1.5, 0, -0.6213, 1.5, 0, 0.6213, 1.5, 0, 0.6213, 1.5, 9, 0.6213, 1.5, 9, -0.6213, 0.6213, 9, -1.5, 0.6213, 0, -1.5, 1.5, 0, -0.6213, 1.5, 0, -0.6213, 1.5, 9, -0.6213, 0.6213, 9, -1.5, -0.6213, 9, -1.5, -0.6213, 0, -1.5, 0.6213, 0, -1.5, 0.6213, 0, -1.5, 0.6213, 9, -1.5, -0.6213, 9, -1.5, -1.5, 9, -0.6213, -1.5, 0, -0.6213, -0.6213, 0, -1.5, -0.6213, 0, -1.5, -0.6213, 9, -1.5, -1.5, 9, -0.6213, -1.5, 9, 0.6213, -1.5, 0, 0.6213, -1.5, 0, -0.6213, -1.5, 0, -0.6213, -1.5, 9, -0.6213, -1.5, 9, 0.6213, -0.6213, 9, 1.5, -0.6213, 0, 1.5, -1.5, 0, 0.6213, -1.5, 0, 0.6213, -1.5, 9, 0.6213, -0.6213, 9, 1.5, 0.6213, 9, 1.5, 0.6213, 0, 1.5, -0.6213, 0, 1.5, -0.6213, 0, 1.5, -0.6213, 9, 1.5, 0.6213, 9, 1.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5ck6"]
-albedo_texture = ExtResource("3_4p743")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eew3i"]
-albedo_texture = ExtResource("3_4p743")
-uv1_triplanar = true
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8427"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
 albedo_texture = ExtResource("3_4p743")
 uv1_triplanar = true
+texture_filter = 2
 
 [node name="STAGE 2" type="Node3D"]
 
 [node name="model" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="low" type="MeshInstance3D" parent="model"]
-material_override = SubResource("StandardMaterial3D_ffhh6")
+material_override = SubResource("StandardMaterial3D_b1sbd")
 mesh = SubResource("ArrayMesh_87jnn")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="model/low"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="model/low/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_p5ck6")
+shape = SubResource("ConcavePolygonShape3D_u8427")
 
 [node name="high" type="MeshInstance3D" parent="model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6598, 0)
-material_override = SubResource("StandardMaterial3D_w3tl7")
+material_override = SubResource("StandardMaterial3D_q3nc2")
 mesh = SubResource("ArrayMesh_nd6ls")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="model/high"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="model/high/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eew3i")
+shape = SubResource("ConcavePolygonShape3D_b1sbd")
 
 [node name="combiner" type="CSGCombiner3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
@@ -140,7 +147,7 @@ use_collision = true
 radius = 6.51904
 height = 22.0
 smooth_faces = false
-material = SubResource("StandardMaterial3D_p5ck6")
+material = SubResource("StandardMaterial3D_u8427")
 
 [node name="cutout" type="CSGCylinder3D" parent="model/combiner"]
 transform = Transform3D(0.374607, 0, 0.927184, 0, 1, 0, -0.927184, 0, 0.374607, 0, 10.3586, 2)
@@ -148,7 +155,7 @@ operation = 2
 use_collision = true
 radius = 5.45
 height = 25.0
-material = SubResource("StandardMaterial3D_eew3i")
+material = SubResource("StandardMaterial3D_u8427")
 
 [node name="frame" type="CSGBox3D" parent="model/combiner"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0298462, 6.15106, 8.22518)

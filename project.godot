@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="VORTEX"
-run/main_scene="uid://dpby1tcpm657o"
+run/main_scene="uid://k8gi6k1ctg80"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/use_filter=false

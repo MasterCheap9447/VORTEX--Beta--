@@ -2,21 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj02ofqkodvp"
-path.s3tc="res://.godot/imported/model_1.png-104e5844de0adb2e3a501457bea0e258.s3tc.ctex"
-path.etc2="res://.godot/imported/model_1.png-104e5844de0adb2e3a501457bea0e258.etc2.ctex"
+uid="uid://dyrida1u6neio"
+path.s3tc="res://.godot/imported/pillares_texture.png-76b081f3c6ece7e6eb3f695e05d26743.s3tc.ctex"
+path.etc2="res://.godot/imported/pillares_texture.png-76b081f3c6ece7e6eb3f695e05d26743.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "7f87ee32b79a85a02b0ee03c9300e158"
-}
 
 [deps]
 
-source_file="res://assets/models/maps/Antarctica/level-1/stage_1/model_1.png"
-dest_files=["res://.godot/imported/model_1.png-104e5844de0adb2e3a501457bea0e258.s3tc.ctex", "res://.godot/imported/model_1.png-104e5844de0adb2e3a501457bea0e258.etc2.ctex"]
+source_file="res://assets/models/maps/Antarctica/level-1/stage_1/pillares_texture.png"
+dest_files=["res://.godot/imported/pillares_texture.png-76b081f3c6ece7e6eb3f695e05d26743.s3tc.ctex", "res://.godot/imported/pillares_texture.png-76b081f3c6ece7e6eb3f695e05d26743.etc2.ctex"]
 
 [params]
 
