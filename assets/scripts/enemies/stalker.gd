@@ -2,12 +2,11 @@ extends RigidBody3D
 
 
 @export var SPEED: float = 1.5 
-@export var HEALTH: float = 1
+@export var HEALTH: float = 5
 @export var DAMAGE: float = 10
 
 var player = null
 var blood_decal = preload("res://assets/scenes/environmental_objects/blood_splater.tscn")
-
 var status : String
 
 @export var player_path : NodePath
