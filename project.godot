@@ -28,7 +28,7 @@ window/size/viewport_width=2560
 window/size/viewport_height=1440
 window/size/mode=4
 window/size/borderless=true
-mouse_cursor/custom_image="uid://cwaey0xd1k7nf"
+mouse_cursor/custom_image="uid://cb3aqsuldll1f"
 
 [global_group]
 
@@ -138,5 +138,8 @@ exit={
 
 [rendering]
 
+occlusion_culling/jitter_projection=false
+textures/canvas_textures/default_texture_filter=3
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
+occlusion_culling/use_occlusion_culling=true

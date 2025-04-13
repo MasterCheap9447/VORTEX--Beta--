@@ -57,16 +57,15 @@ func _process(delta: float) -> void:
 				if !animation.is_playing():
 					animation.play("alt fire")
 				start_time = time
-				#zap.frame = 1
 				zap_effect.visible = true
 			if Input.is_action_just_released("alt shoot"):
+				print(voltage)
 				animation.play("primary fire")
 				end_time = time
-				voltage = start_time - end_time
+				voltage = abs(floor(start_time - end_time))
 				zap_effect.play()
 				alternate_frie()
 				zap_effect.visible = false
-				#zap.frame = 0
 	
 	# primary firing
 		if Input.is_action_pressed("shoot"):
@@ -86,18 +85,13 @@ func _process(delta: float) -> void:
 
 func primary_fire() -> void:
 	voltage = 3
-	instanc = trail.instantiate()
 	if ray.is_colliding():
-		instanc.init(barrel_position_1.global_position, ray.get_collision_point())
 		var target = ray.get_collider()
 		if target != null:
 			if target.is_in_group("Enemy"):
 				if target.has_method("tazer_hit"):
 					target.tazer_hit(damage, voltage)
 		ammo -= 1
-	else:
-		instanc.init(barrel_position_1.global_position, barrel_position_2.global_position)
-	get_parent().add_child(instanc)
 
 func alternate_frie() -> void:
 	if ray.is_colliding():
