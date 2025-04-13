@@ -15,7 +15,7 @@ run/main_scene="uid://k8gi6k1ctg80"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/use_filter=false
-boot_splash/image="uid://cier1k0oio3hd"
+boot_splash/image="uid://g6s2acspnls8"
 config/icon="uid://cier1k0oio3hd"
 
 [autoload]

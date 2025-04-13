@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6s2acspnls8"
-path="res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.ctex"
+uid="uid://bf2g12hagoq46"
+path="res://.godot/imported/background.png-cf3a5624197fa72e188cafa842111aa5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://LOGO.png"
-dest_files=["res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.ctex"]
+source_file="res://assets/textures/ui/level select/Antarctica/background.png"
+dest_files=["res://.godot/imported/background.png-cf3a5624197fa72e188cafa842111aa5.ctex"]
 
 [params]
 

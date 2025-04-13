@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://k8gi6k1ctg80"]
+[gd_scene load_steps=23 format=3 uid="uid://k8gi6k1ctg80"]
 
 [ext_resource type="Script" uid="uid://g01jn5sys6bu" path="res://assets/scripts/main_menu.gd" id="1_xuqax"]
 [ext_resource type="Texture2D" uid="uid://be21lctske620" path="res://assets/textures/ui/menu/background.png" id="2_c4qlh"]
@@ -14,6 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://c28a5vf7v5xq8" path="res://assets/textures/ui/menu/buttons/settings/settings_button_normal.png" id="12_ji2u7"]
 [ext_resource type="Texture2D" uid="uid://by2et7in8ccxq" path="res://assets/textures/ui/menu/buttons/settings/settings_button_clicked.png" id="13_1jjir"]
 [ext_resource type="Texture2D" uid="uid://cov4eorhadnj1" path="res://assets/textures/ui/menu/buttons/settings/settings_button_hover.png" id="14_iegxf"]
+[ext_resource type="Texture2D" uid="uid://4hkcq7qtqaoj" path="res://assets/textures/ui/level select/Antarctica/button_normal.png" id="15_iegxf"]
+[ext_resource type="Texture2D" uid="uid://df47bg4qptdte" path="res://assets/textures/ui/level select/Antarctica/button_hover.png" id="16_qmvdg"]
+[ext_resource type="Texture2D" uid="uid://bmop7hkb2gdob" path="res://assets/textures/ui/level select/Antarctica/button_pressed.png" id="17_o8rbj"]
+[ext_resource type="Texture2D" uid="uid://bf2g12hagoq46" path="res://assets/textures/ui/level select/Antarctica/background.png" id="18_qmvdg"]
+[ext_resource type="Texture2D" uid="uid://b4ud2k8x57hup" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_normal.png" id="19_ia1et"]
+[ext_resource type="Texture2D" uid="uid://b7axgpwpsn81y" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_clicked.png" id="20_iw1dx"]
+[ext_resource type="Texture2D" uid="uid://b8w11snnor46g" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_hover.png" id="21_doml5"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u7y45"]
 light_mode = 1
@@ -23,36 +30,40 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 3.0
+offset_right = -8.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xuqax")
 
 [node name="background" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 3
 position = Vector2(961, 543)
 texture = ExtResource("2_c4qlh")
 
-[node name="Node" type="Node" parent="."]
+[node name="start" type="Node2D" parent="."]
+visible = false
 
-[node name="diagram" type="Sprite2D" parent="Node"]
+[node name="diagram" type="Sprite2D" parent="start"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(1600, 543)
+position = Vector2(1592, 543)
 scale = Vector2(3, 2.95109)
 texture = ExtResource("3_ujvk5")
 
-[node name="title" type="Sprite2D" parent="Node"]
+[node name="title" type="Sprite2D" parent="start"]
 material = SubResource("CanvasItemMaterial_u7y45")
-position = Vector2(522, 154)
+position = Vector2(510, 154)
 texture = ExtResource("2_xuqax")
 
-[node name="credits" type="Sprite2D" parent="Node"]
+[node name="credits" type="Sprite2D" parent="start"]
 position = Vector2(303, 616)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_c4qlh")
 
-[node name="play" type="TextureButton" parent="Node"]
+[node name="play" type="TextureButton" parent="start"]
 texture_filter = 1
 offset_left = 121.0
 offset_top = 279.0
@@ -65,17 +76,7 @@ texture_pressed = ExtResource("7_pw4oi")
 texture_hover = ExtResource("8_u7y45")
 stretch_mode = 0
 
-[node name="exit" type="TextureButton" parent="Node"]
-texture_filter = 1
-offset_left = 121.0
-offset_top = 485.0
-offset_right = 633.0
-offset_bottom = 565.0
-texture_normal = ExtResource("5_0wlwb")
-texture_pressed = ExtResource("6_c4qlh")
-texture_hover = ExtResource("7_ujvk5")
-
-[node name="settings" type="TextureButton" parent="Node"]
+[node name="settings" type="TextureButton" parent="start"]
 texture_filter = 1
 offset_left = 121.0
 offset_top = 383.0
@@ -85,5 +86,70 @@ texture_normal = ExtResource("12_ji2u7")
 texture_pressed = ExtResource("13_1jjir")
 texture_hover = ExtResource("14_iegxf")
 
-[connection signal="pressed" from="Node/play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Node/exit" to="." method="_on_exit_pressed"]
+[node name="exit" type="TextureButton" parent="start"]
+texture_filter = 1
+offset_left = 121.0
+offset_top = 485.0
+offset_right = 633.0
+offset_bottom = 565.0
+texture_normal = ExtResource("5_0wlwb")
+texture_pressed = ExtResource("6_c4qlh")
+texture_hover = ExtResource("7_ujvk5")
+
+[node name="play" type="Node2D" parent="."]
+visible = false
+
+[node name="antarctica" type="TextureButton" parent="play"]
+offset_left = 121.0
+offset_top = 114.0
+offset_right = 249.0
+offset_bottom = 242.0
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("15_iegxf")
+texture_pressed = ExtResource("16_qmvdg")
+texture_hover = ExtResource("17_o8rbj")
+
+[node name="label" type="RichTextLabel" parent="play/antarctica"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 136.0
+offset_right = 372.0
+offset_bottom = 38.0
+theme_override_font_sizes/normal_font_size = 35
+text = "ANTARCTICA:
+"
+text_direction = 1
+
+[node name="description" type="RichTextLabel" parent="play/antarctica"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 38.0
+offset_right = 1393.0
+offset_bottom = 128.0
+theme_override_font_sizes/normal_font_size = 22
+text = "Antarctica is Earth's southernmost continent, located around the South Pole. It is the coldest, driest, and windiest continent, covered almost entirely by ice. Despite its harsh conditions, it is home to unique wildlife like stalkers, gommes, stays, etc."
+
+[node name="antarctic levels" type="Node2D" parent="."]
+
+[node name="background" type="Sprite2D" parent="antarctic levels"]
+texture_filter = 3
+position = Vector2(961, 543)
+texture = ExtResource("18_qmvdg")
+
+[node name="lvl1" type="Node2D" parent="antarctic levels"]
+
+[node name="enter lvl 1" type="TextureButton" parent="antarctic levels/lvl1"]
+offset_left = 113.0
+offset_top = 305.0
+offset_right = 625.0
+offset_bottom = 561.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("19_ia1et")
+texture_pressed = ExtResource("20_iw1dx")
+texture_hover = ExtResource("21_doml5")
+
+[connection signal="pressed" from="start/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="start/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="start/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="play/antarctica" to="." method="_on_antarctica_pressed"]
+[connection signal="pressed" from="antarctic levels/lvl1/enter lvl 1" to="." method="_on_enter_lvl_1_pressed"]

@@ -100,4 +100,7 @@ func alternate_frie() -> void:
 			if target.is_in_group("Enemy"):
 				if target.has_method("tazer_hit"):
 					target.tazer_hit(damage, voltage)
+					#get_tree().paused = true
+					#await get_tree().create_timer(8).timeout
+					#get_tree().paused = false
 	ammo -= 3
