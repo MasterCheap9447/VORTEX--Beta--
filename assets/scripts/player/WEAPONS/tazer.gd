@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 			done = true
 		visible = true
 		crosshair.visible = true
-		if ammo >= 3:
+		if ammo >= 3 && Input.get_mouse_mode()==Input.MOUSE_MODE_CAPTURED:
 			if Input.is_action_pressed("alt shoot"):
 				if !animation.is_playing():
 					animation.play("alt fire")
@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 				zap_effect.visible = false
 	
 	# primary firing
-		if Input.is_action_pressed("shoot"):
+		if Input.is_action_pressed("shoot") && Input.get_mouse_mode()==Input.MOUSE_MODE_CAPTURED:
 			if !animation.is_playing():
 				animation.play("primary fire")
 				zap.visible = true
@@ -100,7 +100,15 @@ func alternate_frie() -> void:
 			if target.is_in_group("Enemy"):
 				if target.has_method("tazer_hit"):
 					target.tazer_hit(damage, voltage)
+					hitstop(0.01,0.5)
 					#get_tree().paused = true
 					#await get_tree().create_timer(8).timeout
 					#get_tree().paused = false
 	ammo -= 3
+
+
+func hitstop(time_scale : float, duration : float):
+	Engine.time_scale = 0.0
+	#await get_tree().create_timer(duration).timeout
+	#Engine.time_scale = 1.0
+	pass

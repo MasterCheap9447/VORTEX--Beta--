@@ -31,11 +31,6 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	## Capturing the Mouse
-	if event is InputEventMouseButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif Input.is_action_pressed("exit"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	## Controling the Camera with the Mouse
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

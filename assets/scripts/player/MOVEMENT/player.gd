@@ -8,12 +8,13 @@ extends CharacterBody3D
 @export var AIR_CAP : float = 0.85
 @export var AIR_SPEED : float = 500.0
 @export var AIR_ACCELERATION : float = 800.0
-@export var SLAM_FORCE : float = 64.0
+@export var SLAM_FORCE : float = 100.0
 @export var SLIDE_MAX_SPEED : float = 24.0
 @export var SLIDE_ACCELERATION : float = 0.5
 @export var DASH_FORCE : float = 48.0
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
+@export var FUEL : float = 200.0
 
 
 @export var SENSITIVITY : float = 0.5
@@ -30,11 +31,14 @@ extends CharacterBody3D
 @onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
 @onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
 
+@onready var fuel: TextureProgressBar = $UI/container/Control/fuel
+@onready var percentage: RichTextLabel = $UI/container/Control/fuel/percentage
 
 
 var air_jump_no : int = 0
 var wall_jump_no : int = 0
 var is_dashing : bool = false
+var is_slamming : bool = false
 var is_sliding : bool = false
 var _mouse_input : bool = false
 var _rotation_input : float
@@ -50,7 +54,6 @@ var mouse_input : Vector2
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pass
 
 
@@ -58,6 +61,9 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_input = event.relative
 	match global_variables.weapon:
+		0:
+			tazer_crosshair.visible = false 
+			tri_form_crosshair.visible = false
 		1 : 
 			tazer_crosshair.visible = true 
 			tri_form_crosshair.visible = false
@@ -67,6 +73,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	fuel.value = floor(int((FUEL)))
+	percentage.text = str(floor(int(FUEL)),"%")
 	pass
 
 
@@ -87,9 +95,20 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	_dash(direction)
-	_slide(delta)
-	_thrust()
+	if FUEL >= 5:
+		_dash(direction)
+	if FUEL > 0:
+		_slide(delta)
+	if FUEL >= 15:
+		_slam(delta)
+	if FUEL >= 0.5:
+		_thrust()
+	if FUEL < 5:
+		is_dashing = false
+	if FUEL < 15:
+		is_slamming = false
+	if FUEL < 0:
+		is_sliding = false
 	_jump()
 	
 	if !is_sliding && !is_dashing:
@@ -119,7 +138,7 @@ func _slide(delta) -> void:
 	var slide_direction = (SLIDE_DIRECTION.transform.basis * Vector3(inp_dih.x, 0, inp_dih.y)).normalized()
 	
 	if Input.is_action_pressed("slide"):
-		if is_on_floor():
+		if is_on_floor() && !is_slamming:
 			is_sliding = true
 			if slide_direction:
 				velocity.x = move_toward(velocity.x, slide_direction.x * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
@@ -145,30 +164,59 @@ func _slide(delta) -> void:
 	pass
 
 
+func _slam(delta) -> void:
+	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
+	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
+	if !is_on_floor():
+		if Input.is_action_just_pressed("slide"):
+			FUEL -= 15
+			is_slamming = true
+	else:
+		if is_on_floor():
+			await  get_tree().create_timer(0.04).timeout
+			is_slamming = false
+		else:
+			is_slamming = false
+	if is_slamming:
+		velocity = Vector3.ZERO
+		sparks.emitting = true
+		air.emitting = true
+		velocity.y -= SLAM_FORCE
+	else:
+		sparks.emitting =  false
+		air.emitting = false
+	pass
+
+
 func _dash(dir) -> void:
-	
+	var dust: GPUParticles3D = $"NECK/VFX/Dash effect/dust"
 	if is_on_floor():
 		DASH_FORCE = 30.0
 	else:
 		DASH_FORCE = 15.0
 	
 	if Input.is_action_just_pressed("dash"):
+		FUEL -= 5
 		is_dashing = true
 		await get_tree().create_timer(0.05).timeout
 		is_dashing = false
 	if is_dashing:
+		dust.emitting = true
 		velocity.y = 0
 		if dir:
 			velocity.x += dir.x * DASH_FORCE
 			velocity.z += dir.z * DASH_FORCE
 		else:
 			velocity += NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
+	else:
+		dust.emitting = false
 	pass
 
 
 func _thrust() -> void:
 	if Input.is_action_pressed("thrust"):
 		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
+		FUEL -= 0.5
 	if Input.is_action_just_released("thrust"):
 		velocity.y = move_toward(velocity.y, 0.0, velocity.y/1.5) 
 	pass
@@ -180,15 +228,12 @@ func _jump() -> void:
 			air_jump_no = 0
 			wall_jump_no = 0
 			velocity.y = JUMP_FORCE
-		if is_on_wall():
+		if is_on_wall() && FUEL > 0:
 			var normal = get_wall_normal()
 			velocity.y = JUMP_FORCE
 		else:
 			wall_jump_no = 0
-			if air_jump_no < 1:
-				if Input.is_action_just_pressed("jump"):
-					pass
-			else:
+			if !Input.is_action_just_pressed("jump"):
 				BUFFER.start()
 	if !BUFFER.is_stopped():
 		if Input.is_action_pressed("jump"):
