@@ -4,20 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://be21lctske620" path="res://assets/textures/ui/menu/background.png" id="2_c4qlh"]
 [ext_resource type="Texture2D" uid="uid://bvbd08jrp5iwb" path="res://assets/textures/ui/menu/Title/play_button_normal.png" id="2_xuqax"]
 [ext_resource type="Texture2D" uid="uid://b6rdpxbswm20w" path="res://assets/textures/ui/menu/diagram.png" id="3_ujvk5"]
-[ext_resource type="Texture2D" uid="uid://dyhc5vii57kr3" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="5_0wlwb"]
 [ext_resource type="Texture2D" uid="uid://cr2l7t61kkgni" path="res://assets/textures/ui/credits/credits.png" id="5_c4qlh"]
-[ext_resource type="Texture2D" uid="uid://cne28psqkka8n" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="6_c4qlh"]
 [ext_resource type="Texture2D" uid="uid://demd73hraennn" path="res://assets/textures/ui/menu/buttons/play/play_button_normal.png" id="6_nf3ne"]
 [ext_resource type="Texture2D" uid="uid://ckkni6by5cmwr" path="res://assets/textures/ui/menu/buttons/play/play_button_clicked.png" id="7_pw4oi"]
-[ext_resource type="Texture2D" uid="uid://xpg2xagsyel3" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="7_ujvk5"]
 [ext_resource type="Texture2D" uid="uid://brnnpegv3lmv" path="res://assets/textures/ui/menu/buttons/play/play_button_hover.png" id="8_u7y45"]
-[ext_resource type="Texture2D" uid="uid://w7n4t7fh5220" path="res://assets/textures/ui/pause screen/buttons/settings/settings_button_normal.png" id="12_ji2u7"]
-[ext_resource type="Texture2D" uid="uid://cnnpc37gox61f" path="res://assets/textures/ui/pause screen/buttons/settings/settings_button_clicked.png" id="13_1jjir"]
-[ext_resource type="Texture2D" uid="uid://di704bglgxfsy" path="res://assets/textures/ui/pause screen/buttons/settings/settings_button_hover.png" id="14_iegxf"]
-[ext_resource type="Texture2D" uid="uid://4hkcq7qtqaoj" path="res://assets/textures/ui/level select/Antarctica/button_normal.png" id="15_iegxf"]
-[ext_resource type="Texture2D" uid="uid://df47bg4qptdte" path="res://assets/textures/ui/level select/Antarctica/button_hover.png" id="16_qmvdg"]
-[ext_resource type="Texture2D" uid="uid://bmop7hkb2gdob" path="res://assets/textures/ui/level select/Antarctica/button_pressed.png" id="17_o8rbj"]
-[ext_resource type="Texture2D" uid="uid://bf2g12hagoq46" path="res://assets/textures/ui/level select/Antarctica/background.png" id="18_qmvdg"]
+[ext_resource type="Texture2D" uid="uid://c28a5vf7v5xq8" path="res://assets/textures/ui/menu/buttons/settings/settings_button_normal.png" id="9_ia1et"]
+[ext_resource type="Texture2D" uid="uid://by2et7in8ccxq" path="res://assets/textures/ui/menu/buttons/settings/settings_button_clicked.png" id="10_iw1dx"]
+[ext_resource type="Texture2D" uid="uid://cov4eorhadnj1" path="res://assets/textures/ui/menu/buttons/settings/settings_button_hover.png" id="11_doml5"]
+[ext_resource type="Texture2D" uid="uid://bq58a0rx73a2t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_normal.png" id="12_ia1et"]
+[ext_resource type="Texture2D" uid="uid://dybiwfh74o05t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_clicked.png" id="13_iw1dx"]
+[ext_resource type="Texture2D" uid="uid://ce7qjwwhbyoad" path="res://assets/textures/ui/menu/buttons/exit/exit_button_hover.png" id="14_doml5"]
+[ext_resource type="Texture2D" uid="uid://b1asp2u027s8a" path="res://assets/textures/ui/level select/Antarctica/button_normal.png" id="15_iegxf"]
+[ext_resource type="Texture2D" uid="uid://bo6gtt8wxgagq" path="res://assets/textures/ui/level select/Antarctica/button_hover.png" id="16_qmvdg"]
+[ext_resource type="Texture2D" uid="uid://dqa8qoywuui2y" path="res://assets/textures/ui/level select/Antarctica/button_pressed.png" id="17_o8rbj"]
+[ext_resource type="Texture2D" uid="uid://1ee0s8gyiito" path="res://assets/textures/ui/level select/Antarctica/background.png" id="18_qmvdg"]
 [ext_resource type="Texture2D" uid="uid://b4ud2k8x57hup" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_normal.png" id="19_ia1et"]
 [ext_resource type="Texture2D" uid="uid://b7axgpwpsn81y" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_clicked.png" id="20_iw1dx"]
 [ext_resource type="Texture2D" uid="uid://b8w11snnor46g" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_hover.png" id="21_doml5"]
@@ -44,7 +44,6 @@ position = Vector2(961, 543)
 texture = ExtResource("2_c4qlh")
 
 [node name="start" type="Node2D" parent="."]
-visible = false
 
 [node name="diagram" type="Sprite2D" parent="start"]
 texture_filter = 1
@@ -81,9 +80,9 @@ offset_left = 121.0
 offset_top = 383.0
 offset_right = 633.0
 offset_bottom = 463.0
-texture_normal = ExtResource("12_ji2u7")
-texture_pressed = ExtResource("13_1jjir")
-texture_hover = ExtResource("14_iegxf")
+texture_normal = ExtResource("9_ia1et")
+texture_pressed = ExtResource("10_iw1dx")
+texture_hover = ExtResource("11_doml5")
 
 [node name="exit" type="TextureButton" parent="start"]
 texture_filter = 1
@@ -91,11 +90,12 @@ offset_left = 121.0
 offset_top = 485.0
 offset_right = 633.0
 offset_bottom = 565.0
-texture_normal = ExtResource("5_0wlwb")
-texture_pressed = ExtResource("6_c4qlh")
-texture_hover = ExtResource("7_ujvk5")
+texture_normal = ExtResource("12_ia1et")
+texture_pressed = ExtResource("13_iw1dx")
+texture_hover = ExtResource("14_doml5")
 
 [node name="play" type="Node2D" parent="."]
+visible = false
 
 [node name="antarctica" type="TextureButton" parent="play"]
 offset_left = 121.0
@@ -104,8 +104,8 @@ offset_right = 249.0
 offset_bottom = 242.0
 scale = Vector2(1.2, 1.2)
 texture_normal = ExtResource("15_iegxf")
-texture_pressed = ExtResource("16_qmvdg")
-texture_hover = ExtResource("17_o8rbj")
+texture_pressed = ExtResource("17_o8rbj")
+texture_hover = ExtResource("16_qmvdg")
 
 [node name="label" type="RichTextLabel" parent="play/antarctica"]
 texture_filter = 3

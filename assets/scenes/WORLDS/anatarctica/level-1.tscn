@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://dpby1tcpm657o"]
+[gd_scene load_steps=27 format=4 uid="uid://dpby1tcpm657o"]
 
 [ext_resource type="Texture2D" uid="uid://uk8ub7mtfx6g" path="res://assets/models/maps/Antarctica/level-1/stage_1/rocks.png" id="2_1lwx6"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="2_gy3sr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dr35o04aijs26" path="res://assets/textures/effects/thruster/Fire_Textures/Flame02.png" id="3_dsnr4"]
 [ext_resource type="PackedScene" uid="uid://dr4rpyi1gnmq1" path="res://assets/scenes/Maps/Antarctica/Level-1/stage_2.tscn" id="4_lf0gk"]
 [ext_resource type="Texture2D" uid="uid://djo4iy1gucj7s" path="res://assets/models/enemies/antarctica/kric/kric_texture.png" id="6_4r56g"]
+[ext_resource type="PackedScene" uid="uid://c5pedqei7ahf0" path="res://assets/scenes/environmental_objects/secret.tscn" id="7_c7gbt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gy3sr"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -277,3 +278,6 @@ transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 
 material_override = SubResource("StandardMaterial3D_c7gbt")
 mesh = SubResource("ArrayMesh_5yhsp")
 skeleton = NodePath("")
+
+[node name="Secret 1" parent="." instance=ExtResource("7_c7gbt")]
+transform = Transform3D(-0.895742, -0.169092, -0.411162, -0.0229871, 0.941223, -0.337003, 0.443979, -0.292416, -0.84698, -48.5262, 19.925, -134.006)

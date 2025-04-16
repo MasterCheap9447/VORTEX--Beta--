@@ -34,3 +34,8 @@ func unpause() -> void:
 func _on_resume_pressed() -> void:
 	unpause()
 	pass
+
+
+func _on_exit_pressed() -> void:
+	get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
+	pass

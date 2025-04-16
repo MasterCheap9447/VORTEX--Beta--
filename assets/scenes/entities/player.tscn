@@ -1,4 +1,4 @@
-[gd_scene load_steps=274 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=280 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Texture2D" uid="uid://x012gq0fkelo" path="res://assets/textures/player/weapons/quad form/blast_texture.png" id="2_47qcb"]
@@ -35,6 +35,12 @@
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
+[ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
+[ext_resource type="Texture2D" uid="uid://jw14dmiv5hxk" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_clicked.png" id="34_vavbu"]
+[ext_resource type="Texture2D" uid="uid://dbnphikjbt0l8" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_hover.png" id="35_x10jc"]
+[ext_resource type="Texture2D" uid="uid://cmou43j1ggcps" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="36_3a880"]
+[ext_resource type="Texture2D" uid="uid://cvujwhea234h0" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="37_3r6y4"]
+[ext_resource type="Texture2D" uid="uid://bu5okqb5e8ns5" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="38_jaq6q"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
 height = 2.5
@@ -4787,6 +4793,7 @@ texture = ExtResource("24_bm2n3")
 [node name="resume" type="TextureButton" parent="UI/pause menu"]
 z_index = 34
 z_as_relative = false
+layout_mode = 0
 offset_left = 829.0
 offset_top = 290.0
 offset_right = 1095.0
@@ -4794,6 +4801,30 @@ offset_bottom = 394.0
 texture_normal = ExtResource("25_5dk77")
 texture_pressed = ExtResource("26_vavbu")
 texture_hover = ExtResource("27_x10jc")
+
+[node name="settings" type="TextureButton" parent="UI/pause menu"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 829.0
+offset_top = 399.0
+offset_right = 1095.0
+offset_bottom = 503.0
+texture_normal = ExtResource("33_5dk77")
+texture_pressed = ExtResource("34_vavbu")
+texture_hover = ExtResource("35_x10jc")
+
+[node name="exit" type="TextureButton" parent="UI/pause menu"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 829.0
+offset_top = 508.0
+offset_right = 1095.0
+offset_bottom = 612.0
+texture_normal = ExtResource("36_3a880")
+texture_pressed = ExtResource("37_3r6y4")
+texture_hover = ExtResource("38_jaq6q")
 
 [node name="revv" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40524, 0.988875)
@@ -4816,4 +4847,5 @@ one_shot = true
 [node name="slam time" type="Timer" parent="."]
 
 [connection signal="pressed" from="UI/pause menu/resume" to="UI" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/pause menu/exit" to="UI" method="_on_exit_pressed"]
 [connection signal="timeout" from="buffer" to="." method="_on_buffer_timeout"]
