@@ -2,18 +2,24 @@
 
 [ext_resource type="Script" uid="uid://d88lgmb3ei5" path="res://assets/scripts/general/bullet_trail.gd" id="1_ddjsn"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddjsn"]
-albedo_color = Color(0, 6.077, 14.364, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mu20"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 5.524, 23.204, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ddjsn"]
+size = Vector3(0.1, 5, 0.1)
 
-[node name="bullet_trail" type="MeshInstance3D"]
-layers = 2
-material_override = SubResource("StandardMaterial3D_ddjsn")
-mesh = SubResource("BoxMesh_ddjsn")
+[node name="bullet_trail" type="Node3D"]
 script = ExtResource("1_ddjsn")
 
+[node name="model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, -0.00197124, -0.00149916, -2.49527)
+material_override = SubResource("StandardMaterial3D_7mu20")
+mesh = SubResource("BoxMesh_ddjsn")
+
 [node name="half life" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="half life" to="." method="_on_half_life_timeout"]

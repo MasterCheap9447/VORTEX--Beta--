@@ -8,7 +8,7 @@ var equiped : bool
 var ammo: int
 var done : bool
 
-var instanc
+var instance
 var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 
 @export var damage: float = 3.0
@@ -85,6 +85,10 @@ func _process(delta: float) -> void:
 
 func primary_fire() -> void:
 	voltage = 3
+	instance = trail.instantiate()
+	instance.position = barrel_position_1.global_position
+	instance.rotation = barrel_position_1.global_rotation
+	get_parent().add_child(instance)
 	if ray.is_colliding():
 		var target = ray.get_collider()
 		if target != null:

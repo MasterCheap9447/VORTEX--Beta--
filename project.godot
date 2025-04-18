@@ -150,4 +150,7 @@ occlusion_culling/jitter_projection=false
 textures/canvas_textures/default_texture_filter=3
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
+anti_aliasing/screen_space_roughness_limiter/amount=4.0
+anti_aliasing/screen_space_roughness_limiter/limit=0.01
+anti_aliasing/quality/use_debanding=true
 occlusion_culling/use_occlusion_culling=true
