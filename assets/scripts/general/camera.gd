@@ -15,6 +15,8 @@ const HEADBOB_AMPLITUDE: float = 0.08
 const HEADBOB_FREQUENCY: float = 1.5
 
 var headbob_time : float = 0.0
+var invertiony : int = -1
+var invertionx : int = -1
 
 
 func _ready() -> void:
@@ -31,12 +33,14 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	global_variables.invert_x = invertionx
+	global_variables.invert_y = invertiony
 	
 	## Controling the Camera with the Mouse
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			neck.rotate_y(-event.relative.x * SENSITIVITY)
-			self.rotate_x(-event.relative.y * SENSITIVITY)
+			neck.rotate_y(event.relative.x * SENSITIVITY * invertiony)
+			self.rotate_x(event.relative.y * SENSITIVITY * invertionx)
 			self.rotation.x = clamp(self.rotation.x, deg_to_rad(-80), deg_to_rad(90))
 	
 

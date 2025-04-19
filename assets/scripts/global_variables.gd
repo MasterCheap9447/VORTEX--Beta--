@@ -13,6 +13,10 @@ var is_player_sliding: bool
 
 var weapon : int
 
+### SETTINGS VARIABLES ###
+var invert_y : int = -1
+var invert_x : int = -1
+
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("0"):
 		weapon = 0

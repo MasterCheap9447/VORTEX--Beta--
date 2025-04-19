@@ -1,0 +1,22 @@
+extends Control
+
+
+@onready var invert_x: CheckButton = $"invert x"
+@onready var invert_y: CheckButton = $"invert y"
+
+
+func _ready() -> void:
+	pass
+
+
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_invert_x_toggled(toggled_on: bool) -> void:
+	-global_variables.invert_x
+	pass
+
+func _on_invert_y_toggled(toggled_on: bool) -> void:
+	-global_variables.invert_y
+	pass

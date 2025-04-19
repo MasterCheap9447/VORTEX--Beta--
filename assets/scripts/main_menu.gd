@@ -4,7 +4,7 @@ extends Control
 @onready var start: Node2D = $start
 @onready var play: Node2D = $play
 @onready var antarctic_levels: Node2D = $"antarctic levels"
-
+@onready var settings_tab: Control = $"settings tab"
 
 var cur_screen : String
 
@@ -23,10 +23,17 @@ func _process(delta: float) -> void:
 		start.visible = true
 		play.visible = false
 		antarctic_levels.visible = false
+		settings_tab.visible = false
 	if cur_screen == "continent select":
 		start.visible = false
 		play.visible = true
 		antarctic_levels.visible = false
+		settings_tab.visible = false
+	if cur_screen == "settings":
+		start.visible = false
+		play.visible = false
+		antarctic_levels.visible = false
+		settings_tab.visible = true
 	
 	
 	if cur_screen == "antarctic levels":

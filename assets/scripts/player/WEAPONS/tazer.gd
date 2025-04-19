@@ -21,7 +21,7 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @onready var model: Node3D = $model
 @onready var barrel_position_1: Node3D = $"barrel position 1"
 @onready var barrel_position_2: Node3D = $"barrel position 2"
-@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_parent().get_child(4).get_child(2)
+@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_child(4).get_child(2)
 
 
 

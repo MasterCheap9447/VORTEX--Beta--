@@ -40,12 +40,6 @@ var wall_jump_no : int = 0
 var is_dashing : bool = false
 var is_slamming : bool = false
 var is_sliding : bool = false
-var _mouse_input : bool = false
-var _rotation_input : float
-var _tilt_input : float
-var _mouse_rotation : Vector3
-var _player_rotation : Vector3
-var _camera_rotation : Vector3
 var weapon_sway : float = 5
 var weapon_rotate : float = 0.005
 var mouse_input : Vector2
@@ -72,6 +66,7 @@ func _input(event: InputEvent) -> void:
 			tri_form_crosshair.visible = true
 
 
+@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	fuel.value = floor(int((FUEL)))
 	percentage.text = str(floor(int(FUEL)),"%")
@@ -107,8 +102,9 @@ func _physics_process(delta):
 		is_dashing = false
 	if FUEL < 15:
 		is_slamming = false
-	if FUEL < 0:
+	if FUEL < 0 && !is_slamming:
 		is_sliding = false
+	
 	_jump()
 	
 	if !is_sliding && !is_dashing:
@@ -164,6 +160,7 @@ func _slide(delta) -> void:
 	pass
 
 
+@warning_ignore("unused_parameter")
 func _slam(delta) -> void:
 	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
 	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
@@ -173,7 +170,7 @@ func _slam(delta) -> void:
 			is_slamming = true
 	else:
 		if is_on_floor():
-			await  get_tree().create_timer(0.04).timeout
+			await  get_tree().create_timer(0.07).timeout
 			is_slamming = false
 		else:
 			is_slamming = false
@@ -228,7 +225,12 @@ func _jump() -> void:
 			air_jump_no = 0
 			wall_jump_no = 0
 			velocity.y = JUMP_FORCE
+			if is_slamming || is_dashing:
+				air_jump_no = 0
+				wall_jump_no = 0
+				velocity.y = JUMP_FORCE * 2
 		if is_on_wall() && FUEL > 0:
+			@warning_ignore("unused_variable")
 			var normal = get_wall_normal()
 			velocity.y = JUMP_FORCE
 		else:
@@ -239,6 +241,10 @@ func _jump() -> void:
 		if Input.is_action_pressed("jump"):
 			if is_on_floor():
 				velocity.y = JUMP_FORCE
+				if is_slamming || is_dashing:
+					air_jump_no = 0
+					wall_jump_no = 0
+					velocity.y = JUMP_FORCE * 2
 	pass
 
 
