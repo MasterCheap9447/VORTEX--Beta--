@@ -21,7 +21,7 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @onready var model: Node3D = $model
 @onready var barrel_position_1: Node3D = $"barrel position 1"
 @onready var barrel_position_2: Node3D = $"barrel position 2"
-@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_child(4).get_child(2)
+@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_parent().get_child(4).get_child(2)
 
 
 
@@ -85,10 +85,6 @@ func _process(delta: float) -> void:
 
 func primary_fire() -> void:
 	voltage = 3
-	instance = trail.instantiate()
-	instance.position = barrel_position_1.global_position
-	instance.rotation = barrel_position_1.global_rotation
-	get_parent().add_child(instance)
 	if ray.is_colliding():
 		var target = ray.get_collider()
 		if target != null:
@@ -111,6 +107,7 @@ func alternate_frie() -> void:
 	ammo -= 3
 
 
+@warning_ignore("unused_parameter")
 func hitstop(time_scale : float, duration : float):
 	Engine.time_scale = 0.0
 	#await get_tree().create_timer(duration).timeout

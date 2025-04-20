@@ -13,6 +13,7 @@ extends RigidBody3D
 func _ready() -> void:
 	half_life.start()
 
+@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if cast.is_colliding():
 		var target = cast.get_collider()

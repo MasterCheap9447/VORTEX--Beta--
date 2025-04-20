@@ -25,7 +25,7 @@ global_variables="*res://assets/scripts/global_variables.gd"
 [display]
 
 window/size/viewport_width=2560
-window/size/viewport_height=1080
+window/size/viewport_height=1440
 window/size/mode=4
 window/size/borderless=true
 mouse_cursor/custom_image="uid://cb3aqsuldll1f"

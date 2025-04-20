@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 
 
+
 @export var WALK_SPEED : float = 16.0
 @export var GROUND_ACCELERATION : float = 4.0
 @export var JUMP_FORCE : float = 12.0
@@ -15,6 +16,7 @@ extends CharacterBody3D
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
 @export var FUEL : float = 200.0
+@export var HEALTH : int = 12
 
 
 @export var SENSITIVITY : float = 0.5
@@ -28,13 +30,23 @@ extends CharacterBody3D
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
 
+@onready var head: AnimatedSprite2D = $UI/health/head
+@onready var torso: AnimatedSprite2D = $UI/health/torso
+@onready var left_leg: AnimatedSprite2D = $UI/health/left_leg
+@onready var right_leg: AnimatedSprite2D = $UI/health/right_leg
+@onready var right_arm: AnimatedSprite2D = $UI/health/right_arm
+@onready var left_arm: AnimatedSprite2D = $UI/health/left_arm
+
 @onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
 @onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
+@onready var amplifier_crosshair: TextureRect = $"UI/amplifier crosshair"
 
 @onready var fuel: TextureProgressBar = $UI/container/Control/fuel
 @onready var percentage: RichTextLabel = $UI/container/Control/fuel/percentage
 
 
+var touch_no : float = 0.0
+var nrg_conserved : float = 0.0
 var air_jump_no : int = 0
 var wall_jump_no : int = 0
 var is_dashing : bool = false
@@ -56,18 +68,28 @@ func _input(event: InputEvent) -> void:
 		mouse_input = event.relative
 	match global_variables.weapon:
 		0:
-			tazer_crosshair.visible = false 
+			amplifier_crosshair.visible = true
+			tazer_crosshair.visible = true
 			tri_form_crosshair.visible = false
 		1 : 
+			amplifier_crosshair.visible = false
 			tazer_crosshair.visible = true 
 			tri_form_crosshair.visible = false
 		2 : 
+			amplifier_crosshair.visible = false
 			tazer_crosshair.visible = false
 			tri_form_crosshair.visible = true
 
 
-@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
+	
+	CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
+	CAMERA.rotation.x = lerp(CAMERA.rotation.x, 0.0, delta)
+	CAMERA.rotation.y = lerp(CAMERA.rotation.y, 0.0, delta)
+	
+	if Input.is_action_just_pressed("respawn"):
+		damage(1, delta)
+		camera_shake(2, 1, delta)
 	fuel.value = floor(int((FUEL)))
 	percentage.text = str(floor(int(FUEL)),"%")
 	pass
@@ -79,13 +101,11 @@ func _physics_process(delta):
 	GUN_CAMERA.fov = 90
 	
 	global_variables.is_player_sliding = is_sliding
-	
-	
 	# Add the gravity.
 	if !is_on_floor():
 		velocity.y -= gravity * delta
-	if is_on_wall_only():
-		velocity.y -= delta
+	if is_on_wall():
+		velocity.y -= delta * gravity / 3
 	
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -116,6 +136,8 @@ func _physics_process(delta):
 				velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
 				velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
 		else:
+			nrg_conserved = 0.0
+			nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
 			var cur_speed = velocity.dot(direction)
 			var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
 			var add_speed = capped_speed - cur_speed
@@ -157,11 +179,12 @@ func _slide(delta) -> void:
 		scrath_vfx.emitting = false
 		scale = lerp(scale, Vector3(1,1,1), delta)
 		CAMERA.rotation.z = move_toward(CAMERA.rotation.z, 0.0, delta * 20)
+		
+	if !is_on_floor():
+		scrath_vfx.emitting = false
 	pass
 
-
-@warning_ignore("unused_parameter")
-func _slam(delta) -> void:
+func _slam(_delta) -> void:
 	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
 	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
 	if !is_on_floor():
@@ -170,20 +193,22 @@ func _slam(delta) -> void:
 			is_slamming = true
 	else:
 		if is_on_floor():
-			await  get_tree().create_timer(0.07).timeout
+			await  get_tree().create_timer(1).timeout
 			is_slamming = false
 		else:
 			is_slamming = false
 	if is_slamming:
-		velocity = Vector3.ZERO
-		sparks.emitting = true
-		air.emitting = true
-		velocity.y -= SLAM_FORCE
+		if !is_on_floor():
+			velocity = Vector3.ZERO
+			sparks.emitting = true
+			air.emitting = true
+			velocity.y -= SLAM_FORCE
+		else:
+			velocity.y = 15
 	else:
 		sparks.emitting =  false
 		air.emitting = false
 	pass
-
 
 func _dash(dir) -> void:
 	var dust: GPUParticles3D = $"NECK/VFX/Dash effect/dust"
@@ -209,7 +234,6 @@ func _dash(dir) -> void:
 		dust.emitting = false
 	pass
 
-
 func _thrust() -> void:
 	if Input.is_action_pressed("thrust"):
 		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
@@ -218,36 +242,102 @@ func _thrust() -> void:
 		velocity.y = move_toward(velocity.y, 0.0, velocity.y/1.5) 
 	pass
 
-
 func _jump() -> void:
+	var wall_jump_no : int
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
+			wall_jump_no = 0
 			air_jump_no = 0
 			wall_jump_no = 0
-			velocity.y = JUMP_FORCE
-			if is_slamming || is_dashing:
+			velocity.y = JUMP_FORCE + nrg_conserved
+			if is_slamming or is_dashing:
 				air_jump_no = 0
 				wall_jump_no = 0
-				velocity.y = JUMP_FORCE * 2
-		if is_on_wall() && FUEL > 0:
-			@warning_ignore("unused_variable")
+				velocity.y = JUMP_FORCE * 10 + nrg_conserved
+		if is_on_wall_only() && FUEL > 0 && wall_jump_no <= 3:
 			var normal = get_wall_normal()
-			velocity.y = JUMP_FORCE
-		else:
-			wall_jump_no = 0
+			velocity = Vector3.ZERO
+			velocity = normal * JUMP_FORCE / 1.5
+			velocity.y += JUMP_FORCE + nrg_conserved
+			wall_jump_no += 1
 			if !Input.is_action_just_pressed("jump"):
 				BUFFER.start()
 	if !BUFFER.is_stopped():
 		if Input.is_action_pressed("jump"):
 			if is_on_floor():
-				velocity.y = JUMP_FORCE
-				if is_slamming || is_dashing:
+				velocity.y = JUMP_FORCE + nrg_conserved
+				if is_slamming or is_dashing:
 					air_jump_no = 0
-					wall_jump_no = 0
-					velocity.y = JUMP_FORCE * 2
+					velocity.y = JUMP_FORCE * 10 + nrg_conserved
+	pass
+
+
+func damage(magnitude, delta) -> void:
+	var ran = RandomNumberGenerator.new()
+	if HEALTH >= 8:
+		ran = ran.randi_range(1,2)
+		HEALTH -= magnitude
+		if ran == 1:
+			if left_arm.frame < 2:
+				left_arm.frame += 1
+			else:
+				if right_arm.frame < 2:
+					right_arm.frame += 1
+		if ran == 2:
+			if right_arm.frame < 2:
+				right_arm.frame += 1
+			else:
+				if left_arm.frame < 2:
+					left_arm.frame += 1
+	ran = RandomNumberGenerator.new()
+	if HEALTH >= 4 && HEALTH < 8:
+		ran = ran.randi_range(1,2)
+		HEALTH -= magnitude
+		if ran == 1:
+			if left_leg.frame < 2:
+				left_leg.frame += 1
+			else:
+				if right_leg.frame < 2:
+					right_leg.frame += 1
+		if ran == 2:
+			if right_leg.frame < 2:
+				right_leg.frame += 1
+			else:
+				if left_leg.frame < 2:
+					left_leg.frame += 1
+	ran = RandomNumberGenerator.new()
+	if HEALTH >= 0 && HEALTH < 4:
+		ran = ran.randi_range(1,2)
+		HEALTH -= magnitude
+		if ran == 1:
+			if head.frame < 2:
+				head.frame += 1
+			else:
+				if torso.frame < 2:
+					torso.frame += 1
+		if ran == 2:
+			if torso.frame < 2:
+				torso.frame += 1
+			else:
+				if head.frame < 2:
+					head.frame += 1
 	pass
 
 
 func cam_tilt(input_x, delta) -> void:
 	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25,2*delta)
+	if is_on_wall():
+		var normla = get_wall_normal()
+		CAMERA.rotation.z = lerp(CAMERA.rotation.z, -normla.z, 5*delta)
+		CAMERA.rotation.z = lerp(CAMERA.rotation.z, normla.x, 5*delta)
+	pass
+
+
+func camera_shake(magnitude, amplitude, delta):
+	var rng
+	rng = RandomNumberGenerator.new()
+	rng = randf_range(-magnitude, magnitude)
+	CAMERA.rotation.z = lerp(CAMERA.rotation.z, rng, delta * amplitude)
+	CAMERA.rotation.x = lerp(CAMERA.rotation.x, rng, delta * amplitude)
+	CAMERA.rotation.y = lerp(CAMERA.rotation.y, rng, delta * amplitude)
 	pass
