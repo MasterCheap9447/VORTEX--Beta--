@@ -15,8 +15,10 @@ extends CharacterBody3D
 @export var DASH_FORCE : float = 48.0
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
+
 @export var FUEL : float = 200.0
 @export var HEALTH : int = 12
+@export var ARMOUR : int = 3
 
 
 @export var SENSITIVITY : float = 0.5
@@ -30,6 +32,10 @@ extends CharacterBody3D
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
 
+@onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
+@onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
+@onready var amplifier_crosshair: TextureRect = $"UI/amplifier crosshair"
+
 @onready var head: AnimatedSprite2D = $UI/health/head
 @onready var torso: AnimatedSprite2D = $UI/health/torso
 @onready var left_leg: AnimatedSprite2D = $UI/health/left_leg
@@ -37,13 +43,12 @@ extends CharacterBody3D
 @onready var right_arm: AnimatedSprite2D = $UI/health/right_arm
 @onready var left_arm: AnimatedSprite2D = $UI/health/left_arm
 
-@onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
-@onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
-@onready var amplifier_crosshair: TextureRect = $"UI/amplifier crosshair"
+@onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
+@onready var percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
 
-@onready var fuel: TextureProgressBar = $UI/container/Control/fuel
-@onready var percentage: RichTextLabel = $UI/container/Control/fuel/percentage
+@onready var armour: AnimatedSprite2D = $UI/Container/Control/armour
 
+@onready var pause_menu: Control = $"UI/pause menu"
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -55,6 +60,7 @@ var is_sliding : bool = false
 var weapon_sway : float = 5
 var weapon_rotate : float = 0.005
 var mouse_input : Vector2
+var is_paused : bool
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -64,90 +70,101 @@ func _ready():
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		mouse_input = event.relative
-	match global_variables.weapon:
-		0:
-			amplifier_crosshair.visible = true
-			tazer_crosshair.visible = true
-			tri_form_crosshair.visible = false
-		1 : 
-			amplifier_crosshair.visible = false
-			tazer_crosshair.visible = true 
-			tri_form_crosshair.visible = false
-		2 : 
-			amplifier_crosshair.visible = false
-			tazer_crosshair.visible = false
-			tri_form_crosshair.visible = true
+	if !is_paused:
+		if event is InputEventMouseMotion:
+			mouse_input = event.relative
+		match global_variables.weapon:
+			0:
+				amplifier_crosshair.visible = true
+				tazer_crosshair.visible = true
+				tri_form_crosshair.visible = false
+			1 : 
+				amplifier_crosshair.visible = false
+				tazer_crosshair.visible = true 
+				tri_form_crosshair.visible = false
+			2 : 
+				amplifier_crosshair.visible = false
+				tazer_crosshair.visible = false
+				tri_form_crosshair.visible = true
 
 
 func _process(delta: float) -> void:
+	if pause_menu.visible == true:
+		is_paused = true
+	else:
+		is_paused = false
 	
-	CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
-	CAMERA.rotation.x = lerp(CAMERA.rotation.x, 0.0, delta)
-	CAMERA.rotation.y = lerp(CAMERA.rotation.y, 0.0, delta)
-	
-	if Input.is_action_just_pressed("respawn"):
-		damage(1, delta)
-		camera_shake(2, 1, delta)
-	fuel.value = floor(int((FUEL)))
-	percentage.text = str(floor(int(FUEL)),"%")
+	if !is_paused:
+		armour.frame = ARMOUR
+		
+		CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
+		
+		if Input.is_action_just_pressed("respawn"):
+			damage(1, delta)
+			camera_shake(2, 1, delta)
+		fuel.value = floor(int(FUEL))
+		percentage.text = str(floor(int(FUEL)))
 	pass
 
 
 func _physics_process(delta):
 	
-	GUN_CAMERA.global_transform = CAMERA.global_transform
-	GUN_CAMERA.fov = 90
-	
-	global_variables.is_player_sliding = is_sliding
-	# Add the gravity.
-	if !is_on_floor():
-		velocity.y -= gravity * delta
-	if is_on_wall():
-		velocity.y -= delta * gravity / 3
-	
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	if FUEL >= 5:
-		_dash(direction)
-	if FUEL > 0:
-		_slide(delta)
-	if FUEL >= 15:
-		_slam(delta)
-	if FUEL >= 0.5:
-		_thrust()
-	if FUEL < 5:
-		is_dashing = false
-	if FUEL < 15:
-		is_slamming = false
-	if FUEL < 0 && !is_slamming:
-		is_sliding = false
-	
-	_jump()
-	
-	if !is_sliding && !is_dashing:
-		if is_on_floor():
-			if direction:
-				velocity.x = move_toward(velocity.x, direction.x * WALK_SPEED, GROUND_ACCELERATION)
-				velocity.z = move_toward(velocity.z, direction.z * WALK_SPEED, GROUND_ACCELERATION)
+	if !is_paused:
+		GUN_CAMERA.global_transform = CAMERA.global_transform
+		GUN_CAMERA.fov = 90
+		
+		global_variables.is_player_sliding = is_sliding
+		# Add the gravity.
+		if !is_on_floor():
+			velocity.y -= gravity * delta
+		if is_on_wall():
+			velocity.y -= delta * gravity / 3
+		
+		var input_dir = Input.get_vector("left", "right", "forward", "backward")
+		var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
+		if FUEL >= 5:
+			_dash(direction)
+		if FUEL > 0:
+			_slide(delta)
+		if FUEL >= 15:
+			_slam(delta)
+		if FUEL >= 0.5:
+			_thrust()
+		if FUEL < 5:
+			is_dashing = false
+		if FUEL < 15:
+			is_slamming = false
+		if FUEL < 0 && !is_slamming:
+			is_sliding = false
+		if FUEL == 0:
+			is_dashing = false
+			is_slamming = false
+			is_sliding = false
+		
+		_jump()
+		
+		if !is_sliding && !is_dashing:
+			if is_on_floor():
+				if direction:
+					velocity.x = move_toward(velocity.x, direction.x * WALK_SPEED, GROUND_ACCELERATION)
+					velocity.z = move_toward(velocity.z, direction.z * WALK_SPEED, GROUND_ACCELERATION)
+				else:
+					velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
+					velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
 			else:
-				velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
-				velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
-		else:
-			nrg_conserved = 0.0
-			nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
-			var cur_speed = velocity.dot(direction)
-			var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
-			var add_speed = capped_speed - cur_speed
-			if add_speed > 0:
-				var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
-				accelerate = min(accelerate, add_speed)
-				velocity += accelerate * direction
-	
-	move_and_slide()
-	cam_tilt(input_dir.x, delta)
+				nrg_conserved = nrg_conserved / 40
+				nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
+				var cur_speed = velocity.dot(direction)
+				var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
+				var add_speed = capped_speed - cur_speed
+				if add_speed > 0:
+					var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
+					accelerate = min(accelerate, add_speed)
+					velocity += accelerate * direction
+		
+		move_and_slide()
+		cam_tilt(input_dir.x, delta)
 	pass
 
 
@@ -274,62 +291,61 @@ func _jump() -> void:
 
 func damage(magnitude, delta) -> void:
 	var ran = RandomNumberGenerator.new()
-	if HEALTH >= 8:
-		ran = ran.randi_range(1,2)
-		HEALTH -= magnitude
-		if ran == 1:
-			if left_arm.frame < 2:
-				left_arm.frame += 1
-			else:
-				if right_arm.frame < 2:
-					right_arm.frame += 1
-		if ran == 2:
-			if right_arm.frame < 2:
-				right_arm.frame += 1
-			else:
+	if ARMOUR <= 0:
+		if HEALTH >= 8:
+			ran = ran.randi_range(1,2)
+			HEALTH -= magnitude
+			if ran == 1:
 				if left_arm.frame < 2:
 					left_arm.frame += 1
-	ran = RandomNumberGenerator.new()
-	if HEALTH >= 4 && HEALTH < 8:
-		ran = ran.randi_range(1,2)
-		HEALTH -= magnitude
-		if ran == 1:
-			if left_leg.frame < 2:
-				left_leg.frame += 1
-			else:
-				if right_leg.frame < 2:
-					right_leg.frame += 1
-		if ran == 2:
-			if right_leg.frame < 2:
-				right_leg.frame += 1
-			else:
+				else:
+					if right_arm.frame < 2:
+						right_arm.frame += 1
+			if ran == 2:
+				if right_arm.frame < 2:
+					right_arm.frame += 1
+				else:
+					if left_arm.frame < 2:
+						left_arm.frame += 1
+		ran = RandomNumberGenerator.new()
+		if HEALTH >= 4 && HEALTH < 8:
+			ran = ran.randi_range(1,2)
+			HEALTH -= magnitude
+			if ran == 1:
 				if left_leg.frame < 2:
 					left_leg.frame += 1
-	ran = RandomNumberGenerator.new()
-	if HEALTH >= 0 && HEALTH < 4:
-		ran = ran.randi_range(1,2)
-		HEALTH -= magnitude
-		if ran == 1:
-			if head.frame < 2:
-				head.frame += 1
-			else:
-				if torso.frame < 2:
-					torso.frame += 1
-		if ran == 2:
-			if torso.frame < 2:
-				torso.frame += 1
-			else:
+				else:
+					if right_leg.frame < 2:
+						right_leg.frame += 1
+			if ran == 2:
+				if right_leg.frame < 2:
+					right_leg.frame += 1
+				else:
+					if left_leg.frame < 2:
+						left_leg.frame += 1
+		ran = RandomNumberGenerator.new()
+		if HEALTH >= 0 && HEALTH < 4:
+			ran = ran.randi_range(1,2)
+			HEALTH -= magnitude
+			if ran == 1:
 				if head.frame < 2:
 					head.frame += 1
+				else:
+					if torso.frame < 2:
+						torso.frame += 1
+			if ran == 2:
+				if torso.frame < 2:
+					torso.frame += 1
+				else:
+					if head.frame < 2:
+						head.frame += 1
+	else:
+		ARMOUR -= 1
 	pass
 
 
 func cam_tilt(input_x, delta) -> void:
 	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25,2*delta)
-	if is_on_wall():
-		var normla = get_wall_normal()
-		CAMERA.rotation.z = lerp(CAMERA.rotation.z, -normla.z, 5*delta)
-		CAMERA.rotation.z = lerp(CAMERA.rotation.z, normla.x, 5*delta)
 	pass
 
 

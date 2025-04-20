@@ -1,4 +1,4 @@
-[gd_scene load_steps=302 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=306 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -60,6 +60,10 @@
 [ext_resource type="Texture2D" uid="uid://bwwpg40camilu" path="res://assets/textures/ui/health/left_arm/full.png" id="39_j0u1c"]
 [ext_resource type="Texture2D" uid="uid://rjgs25f3tji" path="res://assets/textures/ui/health/left_arm/half.png" id="40_7jh62"]
 [ext_resource type="Texture2D" uid="uid://w8hx1axdyajf" path="res://assets/textures/ui/health/left_arm/zero.png" id="41_45b22"]
+[ext_resource type="Texture2D" uid="uid://celj2g5c0l1h2" path="res://assets/textures/ui/armour/0.png" id="42_4rbgn"]
+[ext_resource type="Texture2D" uid="uid://cd30hpfhc1sdo" path="res://assets/textures/ui/armour/1.png" id="43_2wml6"]
+[ext_resource type="Texture2D" uid="uid://bgm5xr27gt58g" path="res://assets/textures/ui/armour/2.png" id="44_06gy3"]
+[ext_resource type="Texture2D" uid="uid://dm765tchkebev" path="res://assets/textures/ui/armour/3.png" id="45_b5j3v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
 height = 2.5
@@ -3984,9 +3988,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vy3dg"]
-blend_mode = 1
-light_mode = 1
+[sub_resource type="SpriteFrames" id="SpriteFrames_tio7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_4rbgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_2wml6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_06gy3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_b5j3v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="player" type="CharacterBody3D" groups=["Player"]]
 floor_stop_on_slope = false
@@ -4791,33 +4811,37 @@ position = Vector2(-285, -48.3333)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_73k3c")
 
-[node name="container" type="MarginContainer" parent="UI"]
+[node name="Container" type="MarginContainer" parent="UI"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -1.0
+offset_right = -4.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(2, 2)
 
-[node name="Control" type="Control" parent="UI/container"]
+[node name="Control" type="Control" parent="UI/Container"]
 layout_mode = 2
 
-[node name="fuel" type="TextureProgressBar" parent="UI/container/Control"]
+[node name="fuel" type="TextureProgressBar" parent="UI/Container/Control"]
 z_index = 1
 texture_filter = 1
 layout_mode = 0
-offset_left = 121.0
-offset_top = -57.0
-offset_right = 320.0
-offset_bottom = -17.0
+offset_left = 110.5
+offset_top = -53.0
+offset_right = 309.5
+offset_bottom = -13.0
 max_value = 200.0
 value = 69.0
 texture_over = ExtResource("12_uyujk")
 texture_progress = ExtResource("14_p1n6j")
 tint_over = Color(1, 1, 1, 0.784314)
 
-[node name="weapon inspector" type="TextureRect" parent="UI/container/Control/fuel"]
+[node name="weapon inspector" type="TextureRect" parent="UI/Container/Control/fuel"]
 visible = false
 texture_filter = 1
 layout_mode = 0
@@ -4828,25 +4852,30 @@ offset_bottom = -14.8571
 texture = ExtResource("8_0f4ib")
 expand_mode = 5
 
-[node name="percentage" type="RichTextLabel" parent="UI/container/Control/fuel"]
+[node name="percentage" type="RichTextLabel" parent="UI/Container/Control/fuel"]
 z_index = 1
 texture_filter = 1
-material = SubResource("CanvasItemMaterial_vy3dg")
 layout_mode = 0
-offset_left = 11.0
-offset_top = 17.0
-offset_right = 941.0
-offset_bottom = 602.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1905.0
+offset_bottom = 170.0
 scale = Vector2(0.1, 0.1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "69%"
 autowrap_mode = 1
 
-[node name="name" type="Sprite2D" parent="UI/container/Control/fuel"]
+[node name="name" type="Sprite2D" parent="UI/Container/Control/fuel"]
 texture_filter = 1
 position = Vector2(-31, 13)
 texture = ExtResource("13_bfnip")
+
+[node name="armour" type="AnimatedSprite2D" parent="UI/Container/Control"]
+position = Vector2(60.5, -74.5)
+sprite_frames = SubResource("SpriteFrames_tio7e")
+frame_progress = 0.902258
 
 [node name="amplifier crosshair" type="TextureRect" parent="UI"]
 anchors_preset = 8
@@ -4894,6 +4923,10 @@ texture = ExtResource("4_dpfgd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -8.0
+offset_right = -1.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
