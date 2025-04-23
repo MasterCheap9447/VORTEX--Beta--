@@ -45,7 +45,6 @@ position = Vector2(965, 543)
 texture = ExtResource("2_c4qlh")
 
 [node name="start" type="Node2D" parent="."]
-visible = false
 
 [node name="diagram" type="Sprite2D" parent="start"]
 texture_filter = 1
@@ -56,7 +55,8 @@ texture = ExtResource("3_ujvk5")
 
 [node name="title" type="Sprite2D" parent="start"]
 material = SubResource("CanvasItemMaterial_u7y45")
-position = Vector2(510, 154)
+position = Vector2(633, 164)
+scale = Vector2(0.666, 0.666)
 texture = ExtResource("2_xuqax")
 
 [node name="credits" type="Sprite2D" parent="start"]
@@ -152,6 +152,7 @@ texture_pressed = ExtResource("20_iw1dx")
 texture_hover = ExtResource("21_doml5")
 
 [node name="settings tab" parent="." instance=ExtResource("22_iw1dx")]
+visible = false
 layout_mode = 1
 offset_left = 319.0
 offset_right = -2241.0

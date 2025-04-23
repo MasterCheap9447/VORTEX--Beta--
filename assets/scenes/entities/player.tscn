@@ -1,4 +1,4 @@
-[gd_scene load_steps=306 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=308 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -33,7 +33,6 @@
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
 [ext_resource type="Texture2D" uid="uid://c5y4cu4anwwud" path="res://assets/textures/ui/health/head/full.png" id="24_58lx2"]
-[ext_resource type="Texture2D" uid="uid://cb5d8h22yl74y" path="res://assets/textures/ui/pause screen/background.png" id="24_bm2n3"]
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
 [ext_resource type="Texture2D" uid="uid://b32lq5spg34gx" path="res://assets/textures/ui/health/head/half.png" id="25_tjfuy"]
 [ext_resource type="Texture2D" uid="uid://bifahak14lo6i" path="res://assets/textures/ui/health/head/zero.png" id="26_7w2s0"]
@@ -64,6 +63,9 @@
 [ext_resource type="Texture2D" uid="uid://cd30hpfhc1sdo" path="res://assets/textures/ui/armour/1.png" id="43_2wml6"]
 [ext_resource type="Texture2D" uid="uid://bgm5xr27gt58g" path="res://assets/textures/ui/armour/2.png" id="44_06gy3"]
 [ext_resource type="Texture2D" uid="uid://dm765tchkebev" path="res://assets/textures/ui/armour/3.png" id="45_b5j3v"]
+[ext_resource type="Texture2D" uid="uid://bf4xy8r430iu2" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
+[ext_resource type="Texture2D" uid="uid://y1i6ssggojep" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
+[ext_resource type="Texture2D" uid="uid://dgeicqd0eqm5m" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
 height = 2.5
@@ -4958,7 +4960,7 @@ grow_vertical = 2
 z_index = 33
 z_as_relative = false
 position = Vector2(961, 543)
-texture = ExtResource("24_bm2n3")
+texture = ExtResource("52_2wml6")
 
 [node name="resume" type="TextureButton" parent="UI/pause menu"]
 z_index = 34
@@ -4995,6 +4997,25 @@ offset_bottom = 612.0
 texture_normal = ExtResource("36_3a880")
 texture_pressed = ExtResource("37_3r6y4")
 texture_hover = ExtResource("38_jaq6q")
+
+[node name="death screen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="black screen" type="Sprite2D" parent="UI/death screen"]
+z_index = 33
+z_as_relative = false
+position = Vector2(961, 543)
+texture = ExtResource("62_06gy3")
+
+[node name="blue screen" type="Sprite2D" parent="UI/death screen"]
+z_index = 33
+z_as_relative = false
+position = Vector2(961, 543)
+texture = ExtResource("63_b5j3v")
 
 [node name="revv" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40524, 0.988875)

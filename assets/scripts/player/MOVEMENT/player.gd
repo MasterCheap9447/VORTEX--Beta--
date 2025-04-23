@@ -49,6 +49,10 @@ extends CharacterBody3D
 @onready var armour: AnimatedSprite2D = $UI/Container/Control/armour
 
 @onready var pause_menu: Control = $"UI/pause menu"
+@onready var death_screen: Control = $"UI/death screen"
+@onready var blue_screen: Sprite2D = $"UI/death screen/blue screen"
+@onready var black_screen: Sprite2D = $"UI/death screen/black screen"
+
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -110,6 +114,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	
 	if !is_paused:
+		if HEALTH <= 0:
+			_death()
+		
 		GUN_CAMERA.global_transform = CAMERA.global_transform
 		GUN_CAMERA.fov = 90
 		
@@ -169,8 +176,10 @@ func _physics_process(delta):
 
 
 func _slide(delta) -> void:
-	var inp_dih = Input.get_vector("left", "right", "forward", "backward")
-	var slide_direction = (SLIDE_DIRECTION.transform.basis * Vector3(inp_dih.x, 0, inp_dih.y)).normalized()
+	var slide_direction
+	if !is_sliding:
+		var inp_dih = Input.get_vector("left", "right", "forward", "backward")
+		slide_direction = (SLIDE_DIRECTION.transform.basis * Vector3(inp_dih.x, 0, inp_dih.y)).normalized()
 	
 	if Input.is_action_pressed("slide"):
 		if is_on_floor() && !is_slamming:
@@ -260,6 +269,7 @@ func _thrust() -> void:
 	pass
 
 func _jump() -> void:
+	@warning_ignore("shadowed_variable")
 	var wall_jump_no : int
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
@@ -289,7 +299,8 @@ func _jump() -> void:
 	pass
 
 
-func damage(magnitude, delta) -> void:
+
+func damage(magnitude, _delta) -> void:
 	var ran = RandomNumberGenerator.new()
 	if ARMOUR <= 0:
 		if HEALTH >= 8:
@@ -356,4 +367,9 @@ func camera_shake(magnitude, amplitude, delta):
 	CAMERA.rotation.z = lerp(CAMERA.rotation.z, rng, delta * amplitude)
 	CAMERA.rotation.x = lerp(CAMERA.rotation.x, rng, delta * amplitude)
 	CAMERA.rotation.y = lerp(CAMERA.rotation.y, rng, delta * amplitude)
+	pass
+
+
+func _death() -> void:
+	death_screen.show()
 	pass

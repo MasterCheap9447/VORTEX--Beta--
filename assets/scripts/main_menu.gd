@@ -14,8 +14,8 @@ func _ready() -> void:
 	pass
 
 
-@warning_ignore("unused_parameter")
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("exit"):
 		cur_screen = "start"
 	
