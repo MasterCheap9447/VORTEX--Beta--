@@ -2,7 +2,6 @@ extends CharacterBody3D
 
 
 
-
 @export var WALK_SPEED : float = 16.0
 @export var GROUND_ACCELERATION : float = 4.0
 @export var JUMP_FORCE : float = 12.0
@@ -18,7 +17,7 @@ extends CharacterBody3D
 
 @export var FUEL : float = 200.0
 @export var HEALTH : int = 12
-@export var ARMOUR : int = 3
+@export var ARMOUR : int = 4.0
 
 
 @export var SENSITIVITY : float = 0.5
@@ -46,7 +45,7 @@ extends CharacterBody3D
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
 @onready var percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
 
-@onready var armour: AnimatedSprite2D = $UI/Container/Control/armour
+@onready var armour: TextureProgressBar = $UI/Container/Control/armour
 
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var death_screen: Control = $"UI/death screen"
@@ -65,6 +64,7 @@ var weapon_sway : float = 5
 var weapon_rotate : float = 0.005
 var mouse_input : Vector2
 var is_paused : bool
+var is_alive : bool = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -74,104 +74,133 @@ func _ready():
 
 
 func _input(event: InputEvent) -> void:
-	if !is_paused:
-		if event is InputEventMouseMotion:
-			mouse_input = event.relative
-		match global_variables.weapon:
-			0:
-				amplifier_crosshair.visible = true
-				tazer_crosshair.visible = true
-				tri_form_crosshair.visible = false
-			1 : 
-				amplifier_crosshair.visible = false
-				tazer_crosshair.visible = true 
-				tri_form_crosshair.visible = false
-			2 : 
-				amplifier_crosshair.visible = false
-				tazer_crosshair.visible = false
-				tri_form_crosshair.visible = true
+	if is_alive:
+		if !is_paused:
+			if event is InputEventMouseMotion:
+				mouse_input = event.relative
+			match global_variables.weapon:
+				0:
+					amplifier_crosshair.visible = true
+					tazer_crosshair.visible = true
+					tri_form_crosshair.visible = false
+				1 : 
+					amplifier_crosshair.visible = false
+					tazer_crosshair.visible = true 
+					tri_form_crosshair.visible = false
+				2 : 
+					amplifier_crosshair.visible = false
+					tazer_crosshair.visible = false
+					tri_form_crosshair.visible = true
+	pass
 
 
 func _process(delta: float) -> void:
-	if pause_menu.visible == true:
-		is_paused = true
-	else:
-		is_paused = false
+	global_variables.is_player_alive = is_alive
 	
-	if !is_paused:
-		armour.frame = ARMOUR
+	if is_alive:
+		if pause_menu.visible == true:
+			is_paused = true
+		else:
+			is_paused = false
 		
-		CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
-		
+		if !is_paused:
+			
+			armour.value = ARMOUR
+			
+			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
+			
+			if Input.is_action_just_pressed("jump"):
+				damage(1, delta)
+				camera_shake(2, 1, delta)
+			fuel.value = floor(int(FUEL))
+			percentage.text = str(floor(int(FUEL)))
+	else:
 		if Input.is_action_just_pressed("respawn"):
-			damage(1, delta)
-			camera_shake(2, 1, delta)
-		fuel.value = floor(int(FUEL))
-		percentage.text = str(floor(int(FUEL)))
+			position = global_variables.player_spawn_point
+			HEALTH = 12
+			ARMOUR = 4
+			FUEL = 200.0
+			is_alive = true
+			armour.value = 4
+			head.frame = 0
+			left_arm.frame = 0
+			right_leg.frame = 0
+			left_leg.frame = 0
+			right_arm.frame = 0
+			torso.frame = 0   
+		if Input.is_action_just_pressed("exit"):
+			get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
 	pass
 
 
 func _physics_process(delta):
+	if is_alive:
+		Engine.time_scale = 1
+		death_screen.visible = false
+	else:
+		Engine.time_scale = 0
+		death_screen.visible = true
 	
-	if !is_paused:
-		if HEALTH <= 0:
-			_death()
-		
-		GUN_CAMERA.global_transform = CAMERA.global_transform
-		GUN_CAMERA.fov = 90
-		
-		global_variables.is_player_sliding = is_sliding
-		# Add the gravity.
-		if !is_on_floor():
-			velocity.y -= gravity * delta
-		if is_on_wall():
-			velocity.y -= delta * gravity / 3
-		
-		var input_dir = Input.get_vector("left", "right", "forward", "backward")
-		var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		
-		if FUEL >= 5:
-			_dash(direction)
-		if FUEL > 0:
-			_slide(delta)
-		if FUEL >= 15:
-			_slam(delta)
-		if FUEL >= 0.5:
-			_thrust()
-		if FUEL < 5:
-			is_dashing = false
-		if FUEL < 15:
-			is_slamming = false
-		if FUEL < 0 && !is_slamming:
-			is_sliding = false
-		if FUEL == 0:
-			is_dashing = false
-			is_slamming = false
-			is_sliding = false
-		
-		_jump()
-		
-		if !is_sliding && !is_dashing:
-			if is_on_floor():
-				if direction:
-					velocity.x = move_toward(velocity.x, direction.x * WALK_SPEED, GROUND_ACCELERATION)
-					velocity.z = move_toward(velocity.z, direction.z * WALK_SPEED, GROUND_ACCELERATION)
+	if is_alive:
+		if !is_paused:
+			if HEALTH < 0:
+				_death()
+			
+			GUN_CAMERA.global_transform = CAMERA.global_transform
+			GUN_CAMERA.fov = 90
+			
+			global_variables.is_player_sliding = is_sliding
+			# Add the gravity.
+			if !is_on_floor():
+				velocity.y -= gravity * delta
+			if is_on_wall():
+				velocity.y -= delta * gravity / 3
+			
+			var input_dir = Input.get_vector("left", "right", "forward", "backward")
+			var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			
+			if FUEL >= 5:
+				_dash(direction)
+			if FUEL > 0:
+				_slide(delta)
+			if FUEL >= 15:
+				_slam(delta)
+			if FUEL >= 0.5:
+				_thrust(direction)
+			if FUEL < 5:
+				is_dashing = false
+			if FUEL < 15:
+				is_slamming = false
+			if FUEL < 0 && !is_slamming:
+				is_sliding = false
+			if FUEL == 0:
+				is_dashing = false
+				is_slamming = false
+				is_sliding = false
+			
+			_jump()
+			
+			if !is_sliding && !is_dashing:
+				if is_on_floor():
+					if direction:
+						velocity.x = move_toward(velocity.x, direction.x * WALK_SPEED, GROUND_ACCELERATION)
+						velocity.z = move_toward(velocity.z, direction.z * WALK_SPEED, GROUND_ACCELERATION)
+					else:
+						velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
+						velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
 				else:
-					velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
-					velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
-			else:
-				nrg_conserved = nrg_conserved / 40
-				nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
-				var cur_speed = velocity.dot(direction)
-				var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
-				var add_speed = capped_speed - cur_speed
-				if add_speed > 0:
-					var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
-					accelerate = min(accelerate, add_speed)
-					velocity += accelerate * direction
-		
-		move_and_slide()
-		cam_tilt(input_dir.x, delta)
+					nrg_conserved = nrg_conserved / 40
+					nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
+					var cur_speed = velocity.dot(direction)
+					var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
+					var add_speed = capped_speed - cur_speed
+					if add_speed > 0:
+						var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
+						accelerate = min(accelerate, add_speed)
+						velocity += accelerate * direction
+			
+			move_and_slide()
+			cam_tilt(input_dir.x, delta)
 	pass
 
 
@@ -260,16 +289,15 @@ func _dash(dir) -> void:
 		dust.emitting = false
 	pass
 
-func _thrust() -> void:
+func _thrust(dir : Vector3) -> void:
 	if Input.is_action_pressed("thrust"):
-		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
 		FUEL -= 0.5
+		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
 	if Input.is_action_just_released("thrust"):
 		velocity.y = move_toward(velocity.y, 0.0, velocity.y/1.5) 
 	pass
 
 func _jump() -> void:
-	@warning_ignore("shadowed_variable")
 	var wall_jump_no : int
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
@@ -351,7 +379,7 @@ func damage(magnitude, _delta) -> void:
 					if head.frame < 2:
 						head.frame += 1
 	else:
-		ARMOUR -= 1
+		ARMOUR -= 100
 	pass
 
 
@@ -372,4 +400,5 @@ func camera_shake(magnitude, amplitude, delta):
 
 func _death() -> void:
 	death_screen.show()
+	is_alive = false
 	pass

@@ -13,6 +13,9 @@ var is_player_sliding: bool
 
 var weapon : int
 
+var is_player_alive : bool = true
+var player_spawn_point : Vector3 = Vector3(0,0,0)
+
 ### SETTINGS VARIABLES ###
 var invert_y : int = -1
 var invert_x : int = -1

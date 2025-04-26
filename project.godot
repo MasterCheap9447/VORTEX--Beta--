@@ -30,6 +30,10 @@ window/size/mode=4
 window/size/borderless=true
 mouse_cursor/custom_image="uid://cb3aqsuldll1f"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/trail/plugin.cfg")
+
 [global_group]
 
 1arena1.1=""

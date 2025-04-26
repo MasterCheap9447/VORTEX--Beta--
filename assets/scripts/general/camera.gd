@@ -33,15 +33,16 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	global_variables.invert_x = invertionx
-	global_variables.invert_y = invertiony
-	
-	## Controling the Camera with the Mouse
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-			neck.rotate_y(event.relative.x * SENSITIVITY * invertiony)
-			self.rotate_x(event.relative.y * SENSITIVITY * invertionx)
-			self.rotation.x = clamp(self.rotation.x, deg_to_rad(-80), deg_to_rad(90))
+	if global_variables.is_player_alive:
+		global_variables.invert_x = invertionx
+		global_variables.invert_y = invertiony
+		
+		## Controling the Camera with the Mouse
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			if event is InputEventMouseMotion:
+				neck.rotate_y(event.relative.x * SENSITIVITY * invertiony)
+				self.rotate_x(event.relative.y * SENSITIVITY * invertionx)
+				self.rotation.x = clamp(self.rotation.x, deg_to_rad(-80), deg_to_rad(90))
 	
 
 

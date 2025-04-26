@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy1px2ifpg1da"]
-
-[ext_resource type="Texture2D" uid="uid://clx6hv53tbtap" path="res://assets/textures/blood/splatter/blood_splatter_texture.png" id="1_56l5c"]
-
-[node name="blood_splater" type="Decal"]
-size = Vector3(4, 1, 4)
-texture_albedo = ExtResource("1_56l5c")

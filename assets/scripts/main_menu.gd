@@ -16,6 +16,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	if Input.is_action_just_pressed("exit"):
 		cur_screen = "start"
 	

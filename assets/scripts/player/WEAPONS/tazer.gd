@@ -85,6 +85,7 @@ func _process(delta: float) -> void:
 
 func primary_fire() -> void:
 	voltage = 3
+	ammo -= 1
 	if ray.is_colliding():
 		var target = ray.get_collider()
 		if target != null:
