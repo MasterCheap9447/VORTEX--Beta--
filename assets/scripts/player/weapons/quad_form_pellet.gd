@@ -1,11 +1,12 @@
-extends RigidBody3D
+extends Node3D
 
 
-@export var VELOCITY = 15.0
+@export var VELOCITY = 5.0
+@export var DAMAGE = 2.0
 
 @onready var half_life: Timer = $"half life"
-@onready var cast: RayCast3D = $cast
-@onready var explosion: GPUParticles3D = $explosion
+@onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
+@onready var explosion_area: Area3D = $"explosion area"
 
 @export var damage: int = 3
 @export var burn: int = 5
@@ -13,19 +14,20 @@ extends RigidBody3D
 func _ready() -> void:
 	half_life.start()
 
-@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
-	if cast.is_colliding():
-		var target = cast.get_collider()
-		if target != null:
-			if target.is_in_group("Enemy"):
-				if target.has_method("quad_form_hit"):
-					target.quad_form_hit(damage, burn)
-		
+	if explosion_area.has_overlapping_bodies():
+		explosion_animation.play("boom")
+		await get_tree().create_timer(0.3).timeout
+		queue_free()
+	for body in explosion_area.get_overlapping_bodies():
+		if body.is_in_group("Explodable") && !body.is_in_group("Player"):
+			if body.has_method("exp_damage"):
+				body.exp_damage(DAMAGE)
 	
-	apply_impulse(self.transform.basis * Vector3(0, 0, -VELOCITY))
+	position += transform.basis * Vector3(0,0,-VELOCITY)
+	pass
 
 func _on_half_life_timeout() -> void:
-	explosion.emitting = true
+	explosion_animation.play("boom")
 	await get_tree().create_timer(0.3).timeout
 	queue_free()

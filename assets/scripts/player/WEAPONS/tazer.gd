@@ -11,7 +11,7 @@ var done : bool
 var instance
 var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 
-@export var damage: float = 3.0
+@export var damage: float = 1.0
 @export var voltage: float = 3.0
 
 @onready var animation: AnimationPlayer = $model/animation
@@ -69,6 +69,7 @@ func _process(delta: float) -> void:
 	
 	# primary firing
 		if Input.is_action_pressed("shoot") && Input.get_mouse_mode()==Input.MOUSE_MODE_CAPTURED:
+			voltage = 3
 			if !animation.is_playing():
 				animation.play("primary fire")
 				zap.visible = true
@@ -100,17 +101,6 @@ func alternate_frie() -> void:
 		if target != null:
 			if target.is_in_group("Enemy"):
 				if target.has_method("tazer_hit"):
-					target.tazer_hit(damage, voltage)
-					hitstop(0.01,0.5)
-					#get_tree().paused = true
-					#await get_tree().create_timer(8).timeout
-					#get_tree().paused = false
+					target.tazer_hit(damage * 2, voltage * 2)
 	ammo -= 3
-
-
-@warning_ignore("unused_parameter")
-func hitstop(time_scale : float, duration : float):
-	Engine.time_scale = 0.0
-	#await get_tree().create_timer(duration).timeout
-	#Engine.time_scale = 1.0
 	pass

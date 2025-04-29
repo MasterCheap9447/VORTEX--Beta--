@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 
+signal open_door
 
 @export var WALK_SPEED : float = 16.0
 @export var GROUND_ACCELERATION : float = 4.0
@@ -52,6 +53,7 @@ extends CharacterBody3D
 @onready var blue_screen: Sprite2D = $"UI/death screen/blue screen"
 @onready var black_screen: Sprite2D = $"UI/death screen/black screen"
 
+@onready var door_check: RayCast3D = $"NECK/RAYS/door check"
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -95,6 +97,17 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	var cheat_enabled : bool
+	if Input.is_action_just_pressed("cheat") and cheat_enabled:
+		!cheat_enabled
+	
+	if cheat_enabled:
+		if Input.is_action_just_pressed("fly"):
+			FUEL = 200
+		if Input.is_action_just_pressed("health"):
+			HEALTH = 12
+			ARMOUR = 4
+	
 	global_variables.is_player_alive = is_alive
 	
 	if is_alive:
@@ -109,9 +122,6 @@ func _process(delta: float) -> void:
 			
 			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
 			
-			if Input.is_action_just_pressed("jump"):
-				damage(1, delta)
-				camera_shake(2, 1, delta)
 			fuel.value = floor(int(FUEL))
 			percentage.text = str(floor(int(FUEL)))
 	else:
@@ -134,6 +144,11 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta):
+	if door_check.is_colliding():
+		var target = door_check.get_collider()
+		if target.is_in_group("door"):
+			open_door.emit
+	
 	if is_alive:
 		Engine.time_scale = 1
 		death_screen.visible = false
@@ -327,8 +342,11 @@ func _jump() -> void:
 	pass
 
 
+func exp_damage(magnitude) -> void:
+	ARMOUR -= magnitude
+	pass
 
-func damage(magnitude, _delta) -> void:
+func nrml_damage(magnitude) -> void:
 	var ran = RandomNumberGenerator.new()
 	if ARMOUR <= 0:
 		if HEALTH >= 8:

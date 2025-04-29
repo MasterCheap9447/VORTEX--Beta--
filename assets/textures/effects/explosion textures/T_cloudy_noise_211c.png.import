@@ -2,18 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djo4iy1gucj7s"
-path.s3tc="res://.godot/imported/kric_texture.png-ebde42eb6c0a93858f36de714f49a6c2.s3tc.ctex"
-path.etc2="res://.godot/imported/kric_texture.png-ebde42eb6c0a93858f36de714f49a6c2.etc2.ctex"
+uid="uid://dgnhq3ejb10sq"
+path.s3tc="res://.godot/imported/T_cloudy_noise_211c.png-d36c7f4c44d9049f5de8727304c33f8f.s3tc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/models/enemies/antarctica/kric/kric_texture.png"
-dest_files=["res://.godot/imported/kric_texture.png-ebde42eb6c0a93858f36de714f49a6c2.s3tc.ctex", "res://.godot/imported/kric_texture.png-ebde42eb6c0a93858f36de714f49a6c2.etc2.ctex"]
+source_file="res://assets/textures/effects/explosion textures/T_cloudy_noise_211c.png"
+dest_files=["res://.godot/imported/T_cloudy_noise_211c.png-d36c7f4c44d9049f5de8727304c33f8f.s3tc.ctex"]
 
 [params]
 

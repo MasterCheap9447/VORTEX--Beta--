@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccs3puecg3pii"]
+
+[ext_resource type="Script" uid="uid://c35o6stcehcpf" path="res://assets/scripts/general/simulation.gd" id="1_k8ot1"]
+[ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="1_os12c"]
+[ext_resource type="Texture2D" uid="uid://uk8ub7mtfx6g" path="res://assets/models/maps/Antarctica/level-1/stage_1/rocks.png" id="3_03ywe"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_os12c"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_k8ot1"]
+sky_material = SubResource("ProceduralSkyMaterial_os12c")
+
+[sub_resource type="Environment" id="Environment_03ywe"]
+background_mode = 2
+sky = SubResource("Sky_k8ot1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_t46py"]
+vertices = PackedVector3Array(-27, -13.2913, -71.3969, -27, -13.2913, -19.8969, 27, -13.2913, -19.8969, 27, -13.2913, -71.3969, -1.5, 5.45868, -18.3969, -1.5, 5.45868, -3.6469, 2, 5.45868, -3.6469, 2, 5.45868, -18.3969, -1, 0.708681, -4.6469, 1, 0.708681, -4.6469, 1, 0.708681, -18.3969, -1, 0.708681, -18.3969, 1, 0.708681, -2.6469, -1, 0.708681, -2.6469, -1.75, 0.708681, -2.3969, -1.75, 0.708681, 3.1031, 2, 0.708681, 3.1031, 2, 0.708681, -2.3969, -4.25, 8.20868, -2.6469, -4.25, 8.20868, 3.8531, 5.25, 8.20868, 3.8531, 5.25, 8.20868, -2.6469)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(13, 8, 12), PackedInt32Array(12, 8, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 17), PackedInt32Array(14, 17, 16), PackedInt32Array(14, 16, 15), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t46py"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("3_03ywe")
+metallic_specular = 1.0
+roughness = 0.0
+uv1_triplanar = true
+texture_filter = 2
+
+[node name="Endless Mode" type="Node3D"]
+script = ExtResource("1_k8ot1")
+world_size = Vector3(64, 64, 64)
+cut_off = 0.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_03ywe")
+
+[node name="player" parent="." instance=ExtResource("1_os12c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147e-06, -7.23546, -39.7775)
+
+[node name="door check" type="RayCast3D" parent="player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0230591, 2.26208, 0)
+target_position = Vector3(0, 0, -2.5)
+
+[node name="navigation mesh" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_t46py")
+
+[node name="start" type="CSGCombiner3D" parent="navigation mesh"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -1.34824, -4.78105)
+use_collision = true
+
+[node name="base" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0878296, 1.04938, 1.08907)
+size = Vector3(2.0741, 1.53955, 1.50793)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="cutout0" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863112, 1.04316)
+operation = 2
+size = Vector3(1, 1.07178, 1.33691)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="gate1" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0605469, 0.793518, -1.2203)
+size = Vector3(0.878906, 1.03235, 3.16992)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="cutout1" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00429535, 0.786545, -1.1924)
+operation = 2
+size = Vector3(0.635605, 0.915649, 3.23552)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="floor" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.70302, -8.18612)
+size = Vector3(11, 0.471191, 10.4741)
+
+[node name="enemy spawn points" type="Node3D" parent="navigation mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.7, -46)
+
+[node name="1" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+
+[node name="2" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+
+[node name="3" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
+
+[node name="4" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+
+[node name="5" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 19)
+
+[node name="6" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 19)
+
+[node name="7" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -18)
+
+[node name="8" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -15)
+
+[node name="9" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+
+[node name="10" type="Node3D" parent="navigation mesh/enemy spawn points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -8)
+
+[node name="enemy spawn time" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="enemy spawn time" to="." method="_on_enemy_spawn_time_timeout"]
