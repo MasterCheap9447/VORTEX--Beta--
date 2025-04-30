@@ -1,18 +1,17 @@
-[gd_scene load_steps=144 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=143 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://cr0nykn6bm4ta" path="res://assets/scripts/enemies/kric.gd" id="1_pmvch"]
-[ext_resource type="Texture2D" uid="uid://c1trfge53cw3n" path="res://assets/models/enemies/antarctica/kric/kric_0.png" id="3_kf2ur"]
-[ext_resource type="Texture2D" uid="uid://dmnhksi7vo8ra" path="res://assets/models/enemies/antarctica/kric/kric_body_texture.png" id="4_7r2yl"]
-[ext_resource type="Texture2D" uid="uid://dsx406vgjoovm" path="res://assets/models/enemies/antarctica/kric/kric_head_texture.png" id="5_w4sus"]
+[ext_resource type="Texture2D" uid="uid://vwh67lfp8y6x" path="res://assets/models/enemies/antarctica/kric/kric_body_texture.png" id="4_7r2yl"]
+[ext_resource type="Texture2D" uid="uid://cuwt3p2d846hb" path="res://assets/models/enemies/antarctica/kric/kric_spike_texture.png" id="5_w4sus"]
 [ext_resource type="Shader" uid="uid://bonwm4fs2wol7" path="res://assets/scripts/shaders/explosion.tres" id="6_kf2ur"]
-[ext_resource type="Texture2D" uid="uid://3el1fodc2e1s" path="res://assets/models/enemies/antarctica/kric/kric_limbs_texture.png" id="6_v45wn"]
+[ext_resource type="Texture2D" uid="uid://c846sp08n732v" path="res://assets/models/enemies/antarctica/kric/kric_limbs_texture.png" id="6_v45wn"]
 [ext_resource type="Shader" uid="uid://do2g6xewxiv7v" path="res://assets/scripts/shaders/sparks.tres" id="7_hla24"]
-[ext_resource type="Texture2D" uid="uid://cvfbjihgkoc2a" path="res://assets/textures/effects/explosion textures/T_vfx_hit122.jpg" id="8_nxglh"]
+[ext_resource type="Texture2D" uid="uid://04fw5ymgnicf" path="res://assets/textures/effects/explosion/T_Streaks.png" id="8_nxglh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qoxfe"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("3_kf2ur")
+albedo_texture = ExtResource("5_w4sus")
 metallic_specular = 1.0
 roughness = 0.0
 texture_filter = 2
@@ -23,7 +22,7 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_kf2ur")
+albedo_texture = ExtResource("5_w4sus")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_34116"]
@@ -1906,7 +1905,7 @@ noise_type = 0
 frequency = 0.0092
 fractal_type = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eqlcc"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7r2yl"]
 width = 256
 height = 256
 invert = true
@@ -1918,13 +1917,13 @@ noise = SubResource("FastNoiseLite_d2lyk")
 shading_mode = 0
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("NoiseTexture2D_eqlcc")
+albedo_texture = SubResource("NoiseTexture2D_7r2yl")
 
 [sub_resource type="Curve" id="Curve_pl5hp"]
 _data = [Vector2(0, 0.182119), 0.0, 0.0, 0, 0, Vector2(0.243137, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.472682), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_nsu3c"]
+[sub_resource type="CurveTexture" id="CurveTexture_v45wn"]
 curve = SubResource("Curve_pl5hp")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a4tmc"]
@@ -1939,7 +1938,7 @@ initial_velocity_min = 2.0
 initial_velocity_max = 5.0
 scale_min = 0.5
 scale_max = 2.0
-scale_curve = SubResource("CurveTexture_nsu3c")
+scale_curve = SubResource("CurveTexture_v45wn")
 
 [sub_resource type="SphereMesh" id="SphereMesh_fglbs"]
 radial_segments = 5
@@ -1956,20 +1955,20 @@ frequency = 0.0031
 fractal_type = 0
 metadata/_preview_in_3d_space_ = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_04pdn"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qoxfe"]
 color_ramp = SubResource("Gradient_q4olf")
 noise = SubResource("FastNoiseLite_6ycid")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1blwv"]
 transparency = 1
 shading_mode = 0
-albedo_texture = SubResource("NoiseTexture2D_04pdn")
+albedo_texture = SubResource("NoiseTexture2D_qoxfe")
 
 [sub_resource type="Curve" id="Curve_jpenk"]
 _data = [Vector2(0, 0), 0.0, -7.87074, 0, 0, Vector2(0.262745, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.11901, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_eceur"]
+[sub_resource type="CurveTexture" id="CurveTexture_y8235"]
 curve = SubResource("Curve_jpenk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_algiu"]
@@ -1983,7 +1982,7 @@ direction = Vector3(0, 1, 0)
 spread = 180.0
 initial_velocity_max = 12.0
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_eceur")
+scale_curve = SubResource("CurveTexture_y8235")
 scale_over_velocity_max = 34.13
 collision_mode = 2
 
@@ -2429,7 +2428,7 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_algiu")
 draw_pass_1 = SubResource("RibbonTrailMesh_fi4k5")
 
-[node name="explosion area" type="Area3D" parent="." groups=["Xplodable"]]
+[node name="explosion area" type="Area3D" parent="." groups=["Enemy", "Xplodable"]]
 
 [node name="explosion collision" type="CollisionShape3D" parent="explosion area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30139, 0)

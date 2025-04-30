@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccs3puecg3pii"]
+[gd_scene load_steps=9 format=3 uid="uid://bub2mo0ytmhub"]
 
-[ext_resource type="Script" uid="uid://c35o6stcehcpf" path="res://assets/scripts/general/simulation.gd" id="1_k8ot1"]
+[ext_resource type="Script" uid="uid://n3m3preo0lkd" path="res://assets/scripts/general/simulation.gd" id="1_k8ot1"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="1_os12c"]
 [ext_resource type="Texture2D" uid="uid://uk8ub7mtfx6g" path="res://assets/models/maps/Antarctica/level-1/stage_1/rocks.png" id="3_03ywe"]
 
@@ -47,10 +47,6 @@ environment = SubResource("Environment_03ywe")
 
 [node name="player" parent="." instance=ExtResource("1_os12c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147e-06, -7.23546, -39.7775)
-
-[node name="door check" type="RayCast3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0230591, 2.26208, 0)
-target_position = Vector3(0, 0, -2.5)
 
 [node name="navigation mesh" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_t46py")

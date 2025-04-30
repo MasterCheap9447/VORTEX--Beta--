@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://y1e2lnmyrrsr"]
+[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://y1e2lnmyrrsr"]
 
 [sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_1roi8"]
 parameter_name = "Speed"
@@ -6,15 +6,24 @@ parameter_name = "Speed"
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ft3i4"]
 parameter_name = "Fire_Colour"
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fe545"]
+frequency = 0.0053
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pgk6n"]
+seamless = true
+noise = SubResource("FastNoiseLite_fe545")
+
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_or22r"]
 expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_pgk6n")
 
 [sub_resource type="Gradient" id="Gradient_em2fi"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i4bvy"]
 gradient = SubResource("Gradient_em2fi")
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+fill_from = Vector2(1, 0.6)
+fill_to = Vector2(1, 1)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3j4uw"]
 expanded_output_ports = [0]
@@ -96,19 +105,20 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-557.886, 128.951)
 modes/cull = 2
 flags/unshaded = true
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
 nodes/fragment/0/position = Vector2(480, 100)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_ft3i4")
-nodes/fragment/2/position = Vector2(-220, -20)
+nodes/fragment/2/position = Vector2(-100, 0)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_or22r")
 nodes/fragment/3/position = Vector2(-340, 200)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_3j4uw")
 nodes/fragment/4/position = Vector2(-340, 620)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_s6ss6")
-nodes/fragment/5/position = Vector2(-20, 420)
+nodes/fragment/5/position = Vector2(-40, 420)
 nodes/fragment/6/node = SubResource("VisualShaderNodeClamp_nexd7")
 nodes/fragment/6/position = Vector2(200, 360)
 nodes/fragment/7/node = SubResource("VisualShaderNodeUVFunc_jdcdp")

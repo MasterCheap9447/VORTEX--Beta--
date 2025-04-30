@@ -1,9 +1,17 @@
-[gd_scene load_steps=36 format=3 uid="uid://c5q55xvidimv4"]
+[gd_scene load_steps=34 format=3 uid="uid://c5q55xvidimv4"]
 
 [ext_resource type="Script" uid="uid://bf0t1aasju1fr" path="res://assets/scripts/player/WEAPONS/quad_form_pellet.gd" id="1_7wsju"]
 [ext_resource type="Shader" uid="uid://bonwm4fs2wol7" path="res://assets/scripts/shaders/explosion.tres" id="2_412nl"]
-[ext_resource type="Shader" uid="uid://do2g6xewxiv7v" path="res://assets/scripts/shaders/sparks.tres" id="3_jcx6d"]
+[ext_resource type="Shader" uid="uid://y1e2lnmyrrsr" path="res://assets/scripts/shaders/tri_form_missile.tres" id="2_jcx6d"]
+[ext_resource type="ArrayMesh" uid="uid://c73drc0lbqbbi" path="res://assets/models/player/weapons/quad_form/missile.obj" id="3_25deu"]
 [ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/shaders/tri_form_explosive.tres" id="4_f1p67"]
+[ext_resource type="Shader" uid="uid://crg7x23tadv7x" path="res://assets/scripts/shaders/tri_form_fire_trail.tres" id="5_jcx6d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1p67"]
+render_priority = 0
+shader = ExtResource("2_jcx6d")
+shader_parameter/Fire_Colour = Color(2, 1.3, 0.6, 1)
+shader_parameter/Speed = Vector2(1.5, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b5hx7"]
 render_priority = 0
@@ -15,47 +23,17 @@ shader_parameter/Fresnel_Power = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cdvic"]
 render_priority = 0
-shader = ExtResource("3_jcx6d")
+shader = ExtResource("5_jcx6d")
 shader_parameter/Spark_Colour = Color(4, 0.8, 0.2, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_6wqei"]
-size = Vector2(7, 2)
-
-[sub_resource type="Curve" id="Curve_eorwn"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.639706, 0.775281), -1.4227, -1.4227, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_5skqy"]
-curve = SubResource("Curve_eorwn")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aoull"]
-angle_min = -0.499989
-angle_max = 0.500011
-velocity_pivot = Vector3(0, 0, 1)
-direction = Vector3(0, 0, 0)
-spread = 6.0
-initial_velocity_min = 4.0
-initial_velocity_max = 12.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.5
-scale_curve = SubResource("CurveTexture_5skqy")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eorwn"]
-albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
-emission_enabled = true
-emission = Color(1, 0.804626, 0.219968, 1)
-emission_energy_multiplier = 6.63
-
-[sub_resource type="SphereMesh" id="SphereMesh_hswgs"]
-material = SubResource("StandardMaterial3D_eorwn")
-radius = 0.25
-height = 0.5
+size = Vector2(0.75, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mur1r"]
 render_priority = 0
 shader = ExtResource("2_412nl")
-shader_parameter/Cloud_Velocity = Vector2(0.2, 0.5)
-shader_parameter/Cloud_Intensity = 0.28
+shader_parameter/Cloud_Velocity = Vector2(68, 68)
+shader_parameter/Cloud_Intensity = 1.715
 shader_parameter/Explosion_Colour = Color(1, 0.152941, 0, 1)
 
 [sub_resource type="Curve" id="Curve_5lceq"]
@@ -260,25 +238,25 @@ radius = 8.33892
 script = ExtResource("1_7wsju")
 VELOCITY = 7.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Missile" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_f1p67")
+mesh = ExtResource("3_25deu")
+
+[node name="fire ball" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_b5hx7")
 mesh = SubResource("SphereMesh_jcx6d")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 3)
-material_override = SubResource("ShaderMaterial_cdvic")
-mesh = SubResource("QuadMesh_6wqei")
-
-[node name="trail_partciles" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2314e-09, 0, 3.72529e-09)
-visible = false
-lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_aoull")
-draw_pass_1 = SubResource("SphereMesh_hswgs")
-
 [node name="explosion" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.2314e-09, 0, 3.72529e-09)
+visible = false
+
+[node name="fire trail" type="MeshInstance3D" parent="explosion"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -1.12938e-22, 4.37114e-08, 1, -4.37114e-08, -7.438e-10, 0.00598133, 1.05657)
+material_override = SubResource("ShaderMaterial_cdvic")
+mesh = SubResource("QuadMesh_6wqei")
+skeleton = NodePath("../..")
 
 [node name="smoke" type="GPUParticles3D" parent="explosion"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)

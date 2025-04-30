@@ -18,7 +18,7 @@ signal open_door
 
 @export var FUEL : float = 200.0
 @export var HEALTH : int = 12
-@export var ARMOUR : int = 4.0
+@export var ARMOUR : int = 4
 
 
 @export var SENSITIVITY : float = 0.5
@@ -72,6 +72,7 @@ var is_alive : bool = true
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	
 func _ready():
+	HEALTH = 0
 	pass
 
 
@@ -313,7 +314,6 @@ func _thrust(dir : Vector3) -> void:
 	pass
 
 func _jump() -> void:
-	var wall_jump_no : int
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			wall_jump_no = 0
@@ -381,7 +381,7 @@ func nrml_damage(magnitude) -> void:
 					if left_leg.frame < 2:
 						left_leg.frame += 1
 		ran = RandomNumberGenerator.new()
-		if HEALTH >= 0 && HEALTH < 4:
+		if HEALTH > 0 && HEALTH < 4:
 			ran = ran.randi_range(1,2)
 			HEALTH -= magnitude
 			if ran == 1:

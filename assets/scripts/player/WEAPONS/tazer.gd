@@ -15,12 +15,15 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @export var voltage: float = 3.0
 
 @onready var animation: AnimationPlayer = $model/animation
-@onready var ray: RayCast3D = $ray
 @onready var zap_effect: AudioStreamPlayer3D = $model/tazer_zap_effect
 @onready var zap: Node3D = $model/node/arm/shoulder/bicep/forearm/hand/tazer/zap
 @onready var model: Node3D = $model
+
+@onready var ray: RayCast3D = $ray
+@onready var pierce_area: Area3D = $"pierce area"
 @onready var barrel_position_1: Node3D = $"barrel position 1"
 @onready var barrel_position_2: Node3D = $"barrel position 2"
+
 @onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_parent().get_child(4).get_child(2)
 
 
@@ -96,11 +99,9 @@ func primary_fire() -> void:
 		ammo -= 1
 
 func alternate_frie() -> void:
-	if ray.is_colliding():
-		var target = ray.get_collider()
-		if target != null:
-			if target.is_in_group("Enemy"):
-				if target.has_method("tazer_hit"):
-					target.tazer_hit(damage * 2, voltage * 2)
+	for target in pierce_area.get_overlapping_bodies():
+		if target.is_in_group("Enemy"):
+			if target.has_method("tazer_hit"):
+				target.tazer_hit(damage, voltage * 2)
 	ammo -= 3
 	pass

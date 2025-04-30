@@ -18,7 +18,6 @@ var player = null
 
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
 @onready var blood: GPUParticles3D = $"Blood Splatter/blood"
-@onready var blood_trail: GPUTrail3D = $"Blood Splatter/blood trail"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
 
 @onready var explosion_area: Area3D = $"explosion area"
@@ -31,8 +30,6 @@ var instance
 var rng : float
 
 var status : String = "Normal"
-
-var ammo_drop = load("res://assets/scenes/environmental_objects/ammo_drop.tscn")
 
 
 func _ready() -> void:
@@ -60,21 +57,21 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	death()
 	print(global_variables.enemy_alive)
 	
-	instance = ammo_drop.instantiate()
-	instance.position = global_position * Vector3(rng, rng, rng)
+	#instance = ammo_drop.instantiate()
+	#instance.position = global_position * Vector3(rng, rng, rng)
 	
 	if HEALTH <= 0:
 		dead = true
 	
 	if !model.visible:
 		for body in explosion_area.get_overlapping_bodies():
-			if body.is_in_group("Explodable"):
+			if body.is_in_group("Xplodable"):
 				if body.has_method("exp_damage"):
 					body.exp_damage(DAMAGE)
-	
-	death()
+					await get_tree().create_timer(0.5).timeout
 	
 	if !dead && status != "Shocked":
 		
@@ -86,10 +83,7 @@ func _physics_process(delta: float) -> void:
 		
 		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 		
-		velocity = Vector3.ZERO
-		path_finder.set_target_position(player.global_position)
-		var next_target = path_finder.get_next_path_position()
-		velocity = (next_target - global_position).normalized() * SPEED
+		velocity = transform.basis * Vector3(0, 0, -SPEED)
 		move_and_slide()
 	pass
 
@@ -122,7 +116,9 @@ func tazer_hit(damage,volts):
 	status = "Normal"
 	pass
 
-func quad_form_hit(damage, burns):
+func tri_form_hit(damage, burns):
+	blood_splash()
+	HEALTH -= damage
 	pass
 
 

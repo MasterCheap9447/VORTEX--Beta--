@@ -38,6 +38,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-464.786, 87.1457)
 flags/unshaded = true
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
@@ -45,7 +46,7 @@ flags/fog_disabled = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_onr1i")
 nodes/fragment/2/position = Vector2(-114.484, 177.098)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFresnel_8xes3")
-nodes/fragment/3/position = Vector2(-60, 420)
+nodes/fragment/3/position = Vector2(-80, 400)
 nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_po2ax")
 nodes/fragment/4/position = Vector2(-440, 440)
 nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 4, 0, 3, 3, 3, 0, 0, 1)
