@@ -1,8 +1,4 @@
-[gd_resource type="VisualShader" load_steps=31 format=3 uid="uid://bonwm4fs2wol7"]
-
-[ext_resource type="Texture2D" uid="uid://3y51a2k237hy" path="res://assets/textures/effects/explosion textures/T_VFX_Noise_44xainv.png" id="1_grtqp"]
-[ext_resource type="Texture2D" uid="uid://dgnhq3ejb10sq" path="res://assets/textures/effects/explosion textures/T_cloudy_noise_211c.png" id="2_muans"]
-[ext_resource type="Texture2D" uid="uid://cjvfsi86hi3g2" path="res://assets/textures/effects/explosion textures/T_PerlinNoise_46_inv.png" id="3_gxhcy"]
+[gd_resource type="VisualShader" load_steps=28 format=3 uid="uid://bonwm4fs2wol7"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_0txeo"]
 parameter_name = "Explosion_Colour"
@@ -10,7 +6,6 @@ default_value_enabled = true
 default_value = Color(1, 0.152941, 0, 1)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1evgv"]
-texture = ExtResource("1_grtqp")
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_kb2ve"]
 
@@ -23,7 +18,6 @@ expanded_output_ports = [0]
 input_name = "color"
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1w3ow"]
-texture = ExtResource("2_muans")
 
 [sub_resource type="Gradient" id="Gradient_8kitx"]
 offsets = PackedFloat32Array(0.272374, 1)
@@ -80,7 +74,6 @@ input_name = "normal"
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3ja6l"]
 expanded_output_ports = [0]
-texture = ExtResource("3_gxhcy")
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_osmo8"]
 operator = 2

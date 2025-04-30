@@ -3581,7 +3581,6 @@ roughness = 0.0
 texture_filter = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_06gy3"]
-load_path = "res://.godot/imported/tri_form_with_arms_1.png-03c0ce18a1a77155e501d8585e40c495.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5tta"]
 resource_name = "left_arm_texture1.png"
@@ -4146,7 +4145,6 @@ roughness = 0.0
 texture_filter = 2
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tio7e"]
-load_path = "res://.godot/imported/tri_form_with_arms_0.png-977f266accf79bad03f3ef4cccebb51b.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bkpi"]
 resource_name = "right_arm_texture1.png"
@@ -4478,7 +4476,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1fr1r")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_anq1u"]
-load_path = "res://.godot/imported/tri_form_with_arms_2.png-c6f2c3233c4808369ea8b100f7cebb8e.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4p4sq"]
 resource_name = "tri_texture.png"
@@ -5151,66 +5148,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_k67hc")
 
-[sub_resource type="Animation" id="Animation_81a6s"]
-resource_name = "shoot"
-length = 0.5
-tracks/0/type = "rotation_3d"
-tracks/0/imported = true
-tracks/0/enabled = true
-tracks/0/path = NodePath("model")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1, 1, 0.422606, 0, 0, 0.906313, 0.133333, 1, 0.216444, 0, 0, 0.976295, 0.16667, 1, 0, 0, 0, 1, 0.20833, 1, 0, 0, 0, 1, 0.29167, 1, -0.108867, 0, 0, 0.994056, 0.41667, 1, -0.0218149, 0, 0, 0.999762)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = true
-tracks/1/enabled = true
-tracks/1/path = NodePath("model/arm 1/shoulder2/bicep2")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.322408, 0.178221, -0.0264312, 0.929296, 0.0333333, 1, 0.270093, 0.22065, -0.0126237, 0.937125, 0.08333, 1, 0.188556, 0.281262, 0.0150223, 0.940804, 0.166667, 1, 0.278946, 0.213672, -0.015191, 0.93611, 0.20833, 1, 0.322408, 0.178221, -0.0264312, 0.929296)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = true
-tracks/2/enabled = true
-tracks/2/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, -0.238417, -0.0891346, -0.0638422, 0.964954, 0.08333, 1, -0.421495, -0.105049, -0.0749074, 0.897605, 0.20833, 1, -0.238417, -0.0891346, -0.0638422, 0.964954)
-tracks/3/type = "rotation_3d"
-tracks/3/imported = true
-tracks/3/enabled = true
-tracks/3/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/index")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, -0.0110453, -0.0115004, -0.109854, 0.99382, 0.04167, 1, -0.0113161, -0.00442939, -0.363285, 0.931599, 0.08333, 1, -0.0110972, -0.0109347, -0.131504, 0.991193, 0.20833, 1, -0.0110453, -0.0115004, -0.109854, 0.99382, 0.25, 1, -0.0113161, -0.00442939, -0.363285, 0.931599)
-tracks/4/type = "position_3d"
-tracks/4/imported = true
-tracks/4/enabled = true
-tracks/4/path = NodePath("model/arm 1")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, -2.75, -3.25, -1.5)
-tracks/5/type = "position_3d"
-tracks/5/imported = true
-tracks/5/enabled = true
-tracks/5/path = NodePath("model/arm 1/shoulder2/bicep2/forearm2")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0, -2.5, 0)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = true
-tracks/6/enabled = true
-tracks/6/path = NodePath("model/arm 1/shoulder2/bicep2/forearm2")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, -0.249471, 0.9556, -0.0589175, 0.145333)
-tracks/7/type = "position_3d"
-tracks/7/imported = true
-tracks/7/enabled = true
-tracks/7/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/tri form/pump")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 0, -2.375, -1.25)
-
 [sub_resource type="Animation" id="Animation_r85by"]
 resource_name = "reload"
 length = 0.5
@@ -5270,6 +5207,66 @@ tracks/7/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/index")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = PackedFloat32Array(0, 1, -0.0110453, -0.0115004, -0.109854, 0.99382)
+
+[sub_resource type="Animation" id="Animation_81a6s"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1, 1, 0.422606, 0, 0, 0.906313, 0.133333, 1, 0.216444, 0, 0, 0.976295, 0.16667, 1, 0, 0, 0, 1, 0.20833, 1, 0, 0, 0, 1, 0.29167, 1, -0.108867, 0, 0, 0.994056, 0.41667, 1, -0.0218149, 0, 0, 0.999762)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/arm 1/shoulder2/bicep2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.322408, 0.178221, -0.0264312, 0.929296, 0.0333333, 1, 0.270093, 0.22065, -0.0126237, 0.937125, 0.08333, 1, 0.188556, 0.281262, 0.0150223, 0.940804, 0.166667, 1, 0.278946, 0.213672, -0.015191, 0.93611, 0.20833, 1, 0.322408, 0.178221, -0.0264312, 0.929296)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.238417, -0.0891346, -0.0638422, 0.964954, 0.08333, 1, -0.421495, -0.105049, -0.0749074, 0.897605, 0.20833, 1, -0.238417, -0.0891346, -0.0638422, 0.964954)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.0110453, -0.0115004, -0.109854, 0.99382, 0.04167, 1, -0.0113161, -0.00442939, -0.363285, 0.931599, 0.08333, 1, -0.0110972, -0.0109347, -0.131504, 0.991193, 0.20833, 1, -0.0110453, -0.0115004, -0.109854, 0.99382, 0.25, 1, -0.0113161, -0.00442939, -0.363285, 0.931599)
+tracks/4/type = "position_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/arm 1")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -2.75, -3.25, -1.5)
+tracks/5/type = "position_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/arm 1/shoulder2/bicep2/forearm2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, -2.5, 0)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/arm 1/shoulder2/bicep2/forearm2")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.249471, 0.9556, -0.0589175, 0.145333)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/tri form/pump")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, -2.375, -1.25)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_417a6"]
 _data = {

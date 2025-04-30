@@ -41,7 +41,7 @@ func _get_random_child(parent_node):
 func _on_enemy_spawn_time_timeout() -> void:
 	if global_variables.enemy_alive < 5:
 		var spawn_point = _get_random_child(enemy_spawn_points).global_position
-		instance = kric.instantiate()
-		instance.position = spawn_point
-		navigation_mesh.add_child(instance)
+		#instance = kric.instantiate()
+		#instance.position = spawn_point
+		#navigation_mesh.add_child(instance)
 	pass

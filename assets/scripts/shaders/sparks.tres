@@ -1,7 +1,4 @@
-[gd_resource type="VisualShader" load_steps=15 format=3 uid="uid://do2g6xewxiv7v"]
-
-[ext_resource type="Texture2D" uid="uid://bhj784i57nbgk" path="res://assets/textures/effects/explosion textures/T_4_streaks.png" id="1_45cno"]
-[ext_resource type="Texture2D" uid="uid://2tfld6dyqiq3" path="res://assets/textures/effects/explosion textures/T_PerlinNoise_Tiled11_inv.png" id="2_83ky5"]
+[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://do2g6xewxiv7v"]
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_rkdgf"]
 
@@ -9,7 +6,6 @@
 operator = 2
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0kymp"]
-texture = ExtResource("1_45cno")
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_m6ave"]
 input_name = "uv"
@@ -40,7 +36,6 @@ parameter_name = "Spark_Colour"
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ac22w"]
 expanded_output_ports = [0]
-texture = ExtResource("2_83ky5")
 texture_type = 1
 
 [resource]
