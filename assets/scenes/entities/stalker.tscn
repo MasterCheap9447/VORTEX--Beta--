@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b0l08evmlxfa5" path="res://assets/textures/player/weapons/tazer/zap_status_texture.png" id="3_xg36g"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6ntl0"]
+rough = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ntl0"]
 radius = 1.00174
@@ -155,9 +156,9 @@ size = Vector2(3, 3)
 
 [node name="stalker" type="RigidBody3D" groups=["Enemy", "Xplodable"]]
 axis_lock_angular_z = true
-mass = 30.0
 physics_material_override = SubResource("PhysicsMaterial_6ntl0")
 script = ExtResource("1_6ntl0")
+SPEED = 3.0
 
 [node name="model" parent="." instance=ExtResource("2_060bn")]
 transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)

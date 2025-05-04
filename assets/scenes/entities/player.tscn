@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://dfsimn80b1i6a" path="res://assets/scripts/player/WEAPONS/kicks.gd" id="8_mebfi"]
 [ext_resource type="Texture2D" uid="uid://b2w01vrdf523g" path="res://assets/models/player/parts/legs/model_2.png" id="9_mebfi"]
 [ext_resource type="Texture2D" uid="uid://b558ex3cxtu7k" path="res://assets/models/player/parts/legs/model_0.png" id="10_4yn3y"]
-[ext_resource type="Texture2D" uid="uid://doky47wqn64l5" path="res://assets/textures/ui/fuel/fuel_bar_under.png" id="12_uyujk"]
 [ext_resource type="Texture2D" uid="uid://d0i0f77407ho2" path="res://assets/textures/ui/fuel/fuel_bar_over.png" id="13_bfnip"]
 [ext_resource type="Texture2D" uid="uid://dm3v72mgntfxu" path="res://assets/textures/player/weapons/tazer/zap_texture.png" id="14_34owt"]
 [ext_resource type="Texture2D" uid="uid://343b36dknkjk" path="res://assets/textures/ui/fuel/fuel_bar_fill.png" id="14_p1n6j"]
@@ -59,6 +58,7 @@
 [ext_resource type="Texture2D" uid="uid://bwwpg40camilu" path="res://assets/textures/ui/health/left_arm/full.png" id="39_j0u1c"]
 [ext_resource type="Texture2D" uid="uid://rjgs25f3tji" path="res://assets/textures/ui/health/left_arm/half.png" id="40_7jh62"]
 [ext_resource type="Texture2D" uid="uid://w8hx1axdyajf" path="res://assets/textures/ui/health/left_arm/zero.png" id="41_45b22"]
+[ext_resource type="Texture2D" uid="uid://462t0s8f4d5n" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
 [ext_resource type="Texture2D" uid="uid://hg8a38ib2ows" path="res://assets/textures/ui/armour/under.png" id="46_06gy3"]
 [ext_resource type="Texture2D" uid="uid://cfi5pohns8xpc" path="res://assets/textures/ui/armour/over.png" id="47_b5j3v"]
 [ext_resource type="Texture2D" uid="uid://c1o2f3lvrmfbk" path="res://assets/textures/ui/armour/progress.png" id="48_tio7e"]
@@ -6615,15 +6615,14 @@ z_index = 23
 z_as_relative = false
 texture_filter = 1
 layout_mode = 0
-offset_left = 110.5
-offset_top = -53.0
-offset_right = 309.5
-offset_bottom = -13.0
+offset_left = 129.0
+offset_top = -61.5
+offset_right = 328.0
+offset_bottom = -21.5
 max_value = 200.0
 value = 69.0
-texture_over = ExtResource("12_uyujk")
+texture_over = ExtResource("13_bfnip")
 texture_progress = ExtResource("14_p1n6j")
-tint_over = Color(1, 1, 1, 0.784314)
 
 [node name="weapon inspector" type="TextureRect" parent="UI/Container/Control/fuel"]
 visible = false
@@ -6640,12 +6639,12 @@ expand_mode = 5
 z_index = 1
 texture_filter = 1
 layout_mode = 0
-offset_left = 5.0
+offset_left = 12.0
 offset_top = 5.0
-offset_right = 1905.0
-offset_bottom = 170.0
+offset_right = 1912.0
+offset_bottom = 475.0
 scale = Vector2(0.1, 0.1)
-theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "69%"
@@ -6653,8 +6652,8 @@ autowrap_mode = 1
 
 [node name="name" type="Sprite2D" parent="UI/Container/Control/fuel"]
 texture_filter = 1
-position = Vector2(-31, 13)
-texture = ExtResource("13_bfnip")
+position = Vector2(-16, 13)
+texture = ExtResource("45_2wml6")
 
 [node name="armour" type="TextureProgressBar" parent="UI/Container/Control"]
 z_index = 12
@@ -6717,10 +6716,10 @@ texture = ExtResource("4_dpfgd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -8.0
-offset_right = -1.0
-offset_bottom = -8.0
+offset_left = 24.0
+offset_top = -9.0
+offset_right = 24.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

@@ -342,8 +342,10 @@ func _jump() -> void:
 	pass
 
 
-func exp_damage(magnitude) -> void:
+func exp_damage(magnitude, pos) -> void:
 	ARMOUR -= magnitude
+	var dir = pos - global_position
+	velocity += dir * magnitude
 	pass
 
 func nrml_damage(magnitude) -> void:

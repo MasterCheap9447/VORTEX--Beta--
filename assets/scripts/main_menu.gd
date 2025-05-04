@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
-	cur_screen = "continent select"
+	get_tree().change_scene_to_file("res://assets/scenes/WORLDS/endless_mode.tscn")
 	pass
 
 

@@ -48,7 +48,7 @@ func _on_enemy_spawn_time_timeout() -> void:
 		instance = kric.instantiate()
 		instance.position = spawn_point
 		navigation_mesh.add_child(instance)
-	if rng <= 4 && rng > 8:
+	if rng <= 4 && rng >= 8:
 		var spawn_point = _get_random_child(enemy_spawn_points).global_position
 		instance = stalker.instantiate()
 		instance.position = spawn_point

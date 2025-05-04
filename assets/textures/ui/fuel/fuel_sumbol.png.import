@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgk5h7houw77h"
-path="res://.godot/imported/kric_spike_texture.png-4ff17d94b2ff87505c5d2c82248cb5b4.ctex"
+uid="uid://462t0s8f4d5n"
+path="res://.godot/imported/fuel_sumbol.png-843cb3598f1426da164020f4a72db008.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kric_spike_texture.png"
-dest_files=["res://.godot/imported/kric_spike_texture.png-4ff17d94b2ff87505c5d2c82248cb5b4.ctex"]
+source_file="res://assets/textures/ui/fuel/fuel_sumbol.png"
+dest_files=["res://.godot/imported/fuel_sumbol.png-843cb3598f1426da164020f4a72db008.ctex"]
 
 [params]
 

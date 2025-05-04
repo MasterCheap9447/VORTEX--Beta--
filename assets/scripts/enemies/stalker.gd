@@ -2,7 +2,7 @@ extends RigidBody3D
 
 
 @export var SPEED: float = 1.0
-@export var HEALTH: float = 5
+@export var HEALTH: float = 2
 @export var DAMAGE: float = 1
 
 var player = null
@@ -36,6 +36,7 @@ func _physics_process(_delta: float) -> void:
 				attack()
 
 func _process(_delta: float) -> void:
+	death()
 	if status != "shocked":
 		shocked_status_model.visible = false
 		if HEALTH > 0:
@@ -43,11 +44,6 @@ func _process(_delta: float) -> void:
 			apply_impulse(transform.basis * Vector3(0, 0, -SPEED))
 	else:
 		shocked_status_model.visible = true
-	
-	if HEALTH <= 0:
-		global_variables.kills += 1
-		global_variables.enemy_alive -= 1
-		queue_free()
 
 
 func blood_splash():
@@ -80,10 +76,16 @@ func attack() -> void:
 				await get_tree().create_timer(0.2).timeout
 	pass
 
-func exp_damage(damage):
+func exp_damage(damage, pos):
 	HEALTH -= damage * 1.5
 	pass
 
 func _on_stun_timeout() -> void:
 	status = "normal"
+	pass
+
+
+func death():
+	if HEALTH <= 0:
+		queue_free()
 	pass

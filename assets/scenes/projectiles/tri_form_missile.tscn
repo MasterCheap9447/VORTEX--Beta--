@@ -301,4 +301,7 @@ shape = SubResource("SphereShape3D_cm0vx")
 wait_time = 2.0
 one_shot = true
 
+[node name="checker" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+
 [connection signal="timeout" from="half life" to="." method="_on_half_life_timeout"]

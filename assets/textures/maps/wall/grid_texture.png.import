@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baf28d8673gis"
-path="res://.godot/imported/T_4_streaks (2).png-cf52e6e3990bf4c21913e5b847e12431.ctex"
+uid="uid://cwo03741xsgwf"
+path.s3tc="res://.godot/imported/grid_texture.png-271a8a9d100a6e4fac00b311bdb4cbfa.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/textures/T_4_streaks (2).png"
-dest_files=["res://.godot/imported/T_4_streaks (2).png-cf52e6e3990bf4c21913e5b847e12431.ctex"]
+source_file="res://assets/textures/maps/wall/grid_texture.png"
+dest_files=["res://.godot/imported/grid_texture.png-271a8a9d100a6e4fac00b311bdb4cbfa.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

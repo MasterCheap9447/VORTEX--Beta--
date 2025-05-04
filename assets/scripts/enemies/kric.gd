@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		for body in explosion_area.get_overlapping_bodies():
 			if body.is_in_group("Xplodable"):
 				if body.has_method("exp_damage"):
-					body.exp_damage(DAMAGE)
+					body.exp_damage(DAMAGE, explosion_area)
 					await get_tree().create_timer(0.5).timeout
 	
 	if !dead && status != "Shocked":
@@ -94,6 +94,8 @@ func explode():
 	model.visible = false
 	await get_tree().create_timer(0.9).timeout
 	global_variables.enemy_alive -= 1
+	global_position = Vector3(69420, 69420, 69420)
+	await get_tree().create_timer(0.5).timeout
 	queue_free()
 	pass
 
@@ -122,6 +124,6 @@ func tri_form_hit(damage, burns):
 	pass
 
 
-func exp_damage(dmg):
+func exp_damage(dmg, pos):
 	HEALTH -= dmg
 	pass

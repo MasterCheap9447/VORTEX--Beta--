@@ -3,7 +3,8 @@ extends StaticBody3D
 
 var player = null
 
-@export var HEALTH: int = 12
+@export var HEALTH: int = 3
+
 @export var DAMAGE : int = 4
 @export var COOLDOWN : float = 0.5
 
@@ -24,6 +25,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	death()
 	var rng
 	rng = randf_range(-3,3)
 	if HEALTH > 0 && status != "shocked":
@@ -53,6 +55,10 @@ func tri_form_hit(damage, burns):
 	HEALTH -= damage
 	pass
 
+
+func death():
+	if HEALTH >= 0:
+		queue_free()
 
 
 func attack():
