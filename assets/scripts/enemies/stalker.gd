@@ -1,91 +1,90 @@
-extends RigidBody3D
+extends CharacterBody3D
 
 
-@export var SPEED: float = 1.0
-@export var HEALTH: float = 2
-@export var DAMAGE: float = 1
+@export var MAX_SPEED : float = 10
+@export var ACCELERATION: float = 3
+@export var HEALTH: float = 3
+@export var DAMAGE: float = 2
 
 var player = null
-var status : String
 
 @export var player_path := "/root/Endless Mode/player"
 
+@onready var model: Node3D = $model
+@onready var check: RayCast3D = $check
+@onready var checker: RayCast3D = $checker
+
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
 @onready var blood: GPUParticles3D = $"Blood Splatter/blood"
-@onready var locater: NavigationAgent3D = $locater
-@onready var checker: RayCast3D = $checker
-@onready var detect: RayCast3D = $detect
-@onready var stun: Timer = $stun
-@onready var caste: RayCast3D = $caste
-@onready var crunch: AudioStreamPlayer3D = $crunch
-@onready var shocked_status_model: MeshInstance3D = $shocked_status
 
 var ran := RandomNumberGenerator.new()
+var dead : bool
+var instance
+
+var status : String = "Normal"
 
 
 func _ready() -> void:
-	global_variables.enemy_alive += 1
-	shocked_status_model.visible = false
+	global_variables.enemies_alive += 1
 	player = get_node(player_path)
+	pass
 
-func _physics_process(_delta: float) -> void:
-	
-	if HEALTH > 0:
-		if detect.is_colliding():
-			if !crunch.playing:
-				attack()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	death()
-	if status != "shocked":
-		shocked_status_model.visible = false
-		if HEALTH > 0:
-			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-			apply_impulse(transform.basis * Vector3(0, 0, -SPEED))
-	else:
-		shocked_status_model.visible = true
+	pass
 
+
+func _physics_process(delta: float) -> void:
+	if !is_on_floor():
+		velocity.y -= 12
+	var speed
+	
+	speed = move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta)
+	
+	if !dead && status != "Shocked":
+		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+		velocity = transform.basis * Vector3(0, 0, -speed)
+		if checker.is_colliding():
+			var target = checker.get_collider()
+			if target != null:
+				if target.is_in_group("Player"):
+					attack(target)
+	
+	move_and_slide()
+	pass
 
 func blood_splash():
-	blood.emitting = true
 	gibbies.emitting = true
+	blood.emitting = true
 	pass
-
-## DAMAGE
-func tazer_hit(damage,volts):
-	blood_splash()
-	HEALTH -= damage
-	status = "Shocked"
-	await get_tree().create_timer(volts / 2).timeout
-	status = "Normal"
-	pass
-
-func tri_form_hit(damage, burns):
-	blood_splash()
-	HEALTH -= damage
-	pass
-
-func attack() -> void:
-	var target = detect.get_collider()
-	if target != null:
-		if target.is_in_group("Player"):
-			if target.has_method("nrml_damage"):
-				crunch.play()
-				target.nrml_damage(DAMAGE)
-				apply_impulse(transform.basis * Vector3(0, 0, SPEED))
-				await get_tree().create_timer(0.2).timeout
-	pass
-
-func exp_damage(damage, pos):
-	HEALTH -= damage * 1.5
-	pass
-
-func _on_stun_timeout() -> void:
-	status = "normal"
-	pass
-
 
 func death():
 	if HEALTH <= 0:
+		model.visible = false
+		dead = true
+		await get_tree().create_timer(0.2).timeout
 		queue_free()
+	pass
+
+func attack(trg):
+	trg.nrml_damage(DAMAGE)
+	velocity += transform.basis * Vector3(0, 0, MAX_SPEED / 2)
+	pass
+
+func tazer_hit(damage,volts) -> void:
+	blood_splash()
+	HEALTH -= damage
+	status = "Shocked"
+	await get_tree().create_timer(volts / 4).timeout
+	status = "Normal"
+	pass
+
+func tri_form_hit(damage, burn) -> void:
+	blood_splash()
+	HEALTH -= damage
+	pass
+
+func exp_damage(dmg, pos)  -> void:
+	HEALTH -= dmg
 	pass

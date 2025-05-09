@@ -1,10 +1,9 @@
 extends Node
 
 
-var room_num: int = 0
-
 var kills: int
-var enemy_alive : int = 0
+var enemies_alive : int = 0
+var diff : int = 1
 
 var secrets : int = 0
 
@@ -22,8 +21,6 @@ var invert_y : int = -1
 var invert_x : int = -1
 
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("0"):
-		weapon = 0
 	if Input.is_action_just_pressed("1"):
 		weapon = 1
 	if Input.is_action_just_pressed("2"):

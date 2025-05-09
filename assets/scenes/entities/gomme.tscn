@@ -1,8 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://bmerraoq64qq3"]
+[gd_scene load_steps=22 format=3 uid="uid://bmerraoq64qq3"]
 
 [ext_resource type="Script" uid="uid://b55t6isw84k7" path="res://assets/scripts/enemies/gomme.gd" id="1_4saki"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s3ja0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_s3ja0"]
 height = 3.5
@@ -108,8 +106,7 @@ collision_mode = 2
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_3cvcp"]
 
-[node name="gomme" type="StaticBody3D" groups=["Enemy"]]
-physics_material_override = SubResource("PhysicsMaterial_s3ja0")
+[node name="gomme" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_4saki")
 
 [node name="model" type="MeshInstance3D" parent="."]
@@ -126,7 +123,7 @@ mesh = SubResource("BoxMesh_s3ja0")
 
 [node name="check" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -1)
-target_position = Vector3(0, 0, -14)
+target_position = Vector3(0, 0, -32)
 
 [node name="Blood Splatter" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 1.34384, 0.363672)
@@ -154,3 +151,8 @@ seed = 3178481100
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_pu22x")
 draw_pass_1 = SubResource("RibbonTrailMesh_3cvcp")
+
+[node name="cooldown" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]

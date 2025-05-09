@@ -53,7 +53,7 @@ signal open_door
 @onready var blue_screen: Sprite2D = $"UI/death screen/blue screen"
 @onready var black_screen: Sprite2D = $"UI/death screen/black screen"
 
-@onready var door_check: RayCast3D = $"NECK/RAYS/door check"
+@onready var slam_area: Area3D = $"NECK/SLAM/slam area"
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -145,10 +145,6 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta):
-	if door_check.is_colliding():
-		var target = door_check.get_collider()
-		if target.is_in_group("door"):
-			open_door.emit
 	
 	if is_alive:
 		Engine.time_scale = 1
@@ -166,7 +162,6 @@ func _physics_process(delta):
 			GUN_CAMERA.fov = 90
 			
 			global_variables.is_player_sliding = is_sliding
-			# Add the gravity.
 			if !is_on_floor():
 				velocity.y -= gravity * delta
 			if is_on_wall():
@@ -174,6 +169,11 @@ func _physics_process(delta):
 			
 			var input_dir = Input.get_vector("left", "right", "forward", "backward")
 			var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			
+			if is_slamming:
+				for body in slam_area.get_overlapping_bodies():
+					if body.is_in_group("Enemy"):
+						body.HEALTH -= floor(abs(velocity.length() / 20))
 			
 			if FUEL >= 5:
 				_dash(direction)
@@ -342,10 +342,11 @@ func _jump() -> void:
 	pass
 
 
-func exp_damage(magnitude, pos) -> void:
+func exp_damage(magnitude, pos : Vector3) -> void:
 	ARMOUR -= magnitude
-	var dir = pos - global_position
-	velocity += dir * magnitude
+	var dir : Vector3
+	dir = (pos - global_position).normalized()
+	velocity += dir * magnitude / 2
 	pass
 
 func nrml_damage(magnitude) -> void:

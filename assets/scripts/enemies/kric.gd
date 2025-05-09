@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 @export var SPEED: float = 5
 @export var HEALTH: float = 1
-@export var DAMAGE: float = 2
+@export var DAMAGE: float = 1
 
 var player = null
 
@@ -27,18 +27,16 @@ var player = null
 var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
-var rng : float
 
 var status : String = "Normal"
 
 
 func _ready() -> void:
-	global_variables.enemy_alive += 1
+	global_variables.enemies_alive += 1
 	player = get_node(player_path)
 	pass
 
 func _process(delta: float) -> void:
-	rng = ran.randf_range(1, 5)
 	
 	if status != "Normal":
 		animation.play("idle")
@@ -57,8 +55,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if !is_on_floor():
+		velocity.y -= 12
 	death()
-	print(global_variables.enemy_alive)
 	
 	#instance = ammo_drop.instantiate()
 	#instance.position = global_position * Vector3(rng, rng, rng)
@@ -66,12 +65,16 @@ func _physics_process(delta: float) -> void:
 	if HEALTH <= 0:
 		dead = true
 	
-	if !model.visible:
-		for body in explosion_area.get_overlapping_bodies():
-			if body.is_in_group("Xplodable"):
-				if body.has_method("exp_damage"):
-					body.exp_damage(DAMAGE, explosion_area)
-					await get_tree().create_timer(0.5).timeout
+	#if !model.visible:
+		#for body in explosion_area.get_overlapping_bodies():
+			#body.cancel_free()
+			#if body.is_in_group("Xplodable"):
+				#if body.has_method("exp_damage"):
+					#body.exp_damage(DAMAGE, explosion_area.global_position)
+					#await get_tree().create_timer(0.5).timeout
+	
+	if status == "Shocked":
+		animation.play("idle")
 	
 	if !dead && status != "Shocked":
 		
@@ -88,14 +91,15 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func explode():
+	global_variables.kills += 1
+	global_variables.enemies_alive -= 1
 	velocity = Vector3.ZERO
 	dead = true
 	explosion_animation.play("boom")
 	model.visible = false
 	await get_tree().create_timer(0.9).timeout
-	global_variables.enemy_alive -= 1
 	global_position = Vector3(69420, 69420, 69420)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.1).timeout
 	queue_free()
 	pass
 
@@ -109,7 +113,6 @@ func blood_splash():
 	blood.emitting = true
 	pass
 
-## DAMAGE
 func tazer_hit(damage,volts):
 	blood_splash()
 	HEALTH -= damage
@@ -118,12 +121,11 @@ func tazer_hit(damage,volts):
 	status = "Normal"
 	pass
 
-func tri_form_hit(damage, burns):
+func tri_form_hit(damage, burns) -> void:
 	blood_splash()
 	HEALTH -= damage
 	pass
 
-
-func exp_damage(dmg, pos):
+func exp_damage(dmg, pos)  -> void:
 	HEALTH -= dmg
 	pass

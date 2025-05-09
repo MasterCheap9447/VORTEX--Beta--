@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://n3m3preo0lkd" path="res://assets/scripts/general/simulation.gd" id="1_k8ot1"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="1_os12c"]
 [ext_resource type="Texture2D" uid="uid://8t6lo6yewmff" path="res://assets/textures/maps/floor/space_nebula_6k.jpg" id="2_t46py"]
-[ext_resource type="PackedScene" uid="uid://euqsrn247k3j" path="res://assets/scenes/entities/stalker.tscn" id="3_03ywe"]
 [ext_resource type="Texture2D" uid="uid://cwo03741xsgwf" path="res://assets/textures/maps/wall/grid_texture.png" id="4_tewiu"]
+[ext_resource type="PackedScene" uid="uid://bmerraoq64qq3" path="res://assets/scenes/entities/gomme.tscn" id="5_tewiu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tewiu"]
 panorama = ExtResource("2_t46py")
@@ -95,10 +95,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
 [node name="10" type="Node3D" parent="navigation mesh/enemy spawn points"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -8)
 
-[node name="enemy spawn time" type="Timer" parent="."]
+[node name="enemy spawn time 1" type="Timer" parent="."]
 autostart = true
 
-[node name="stalker" parent="." instance=ExtResource("3_03ywe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.002, -12.4678, -47.9703)
+[node name="enemy spawn time 2" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
 
-[connection signal="timeout" from="enemy spawn time" to="." method="_on_enemy_spawn_time_timeout"]
+[node name="enemy spawn time 3" type="Timer" parent="."]
+wait_time = 16.0
+autostart = true
+
+[node name="gomme" parent="." instance=ExtResource("5_tewiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3478, -13.6854, -47.6523)
+
+[connection signal="timeout" from="enemy spawn time 1" to="." method="_on_enemy_spawn_time_timeout"]
+[connection signal="timeout" from="enemy spawn time 2" to="." method="_on_enemy_spawn_time_2_timeout"]
+[connection signal="timeout" from="enemy spawn time 3" to="." method="_on_enemy_spawn_time_3_timeout"]

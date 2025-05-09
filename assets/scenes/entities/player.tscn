@@ -1,4 +1,4 @@
-[gd_scene load_steps=388 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=389 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -71,6 +71,10 @@ height = 2.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_quxwc"]
 height = 2.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2wml6"]
+height = 1.0
+radius = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5qhp"]
 render_priority = 0
@@ -5424,6 +5428,14 @@ mesh = SubResource("CapsuleMesh_quxwc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
 script = ExtResource("2_3r6y4")
 
+[node name="SLAM" type="Node" parent="NECK"]
+
+[node name="slam area" type="Area3D" parent="NECK/SLAM"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="slam collision" type="CollisionShape3D" parent="NECK/SLAM/slam area"]
+shape = SubResource("CylinderShape3D_2wml6")
+
 [node name="VFX" type="Node3D" parent="NECK"]
 
 [node name="Flame" type="Node3D" parent="NECK/VFX"]
@@ -5509,14 +5521,6 @@ draw_pass_1 = SubResource("BoxMesh_rnkb8")
 [node name="RAYS" type="Node3D" parent="NECK"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.154252)
 
-[node name="floor checker" type="RayCast3D" parent="NECK/RAYS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0.154252)
-target_position = Vector3(0, -0.25, 0)
-
-[node name="air checker" type="RayCast3D" parent="NECK/RAYS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, -0.845748)
-target_position = Vector3(0, -0.25, 0)
-
 [node name="checker" type="RayCast3D" parent="NECK/RAYS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.99599, 0.154252)
 collision_mask = 64
@@ -5529,10 +5533,6 @@ target_position = Vector3(-0.7, 0, 0)
 [node name="right checker" type="RayCast3D" parent="NECK/RAYS"]
 transform = Transform3D(1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 0, 1, 0, 0, 0.153759)
 target_position = Vector3(0.7, 0, 0)
-
-[node name="door check" type="RayCast3D" parent="NECK/RAYS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105411, 1.97302, 0)
-target_position = Vector3(0, 0, -2.5)
 
 [node name="camera" type="Camera3D" parent="NECK"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.154252)
@@ -5668,6 +5668,7 @@ libraries = {
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151847, 0.56166)
+visible = false
 script = ExtResource("2_bfnip")
 
 [node name="barrel position 2" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
@@ -6059,8 +6060,7 @@ stream = ExtResource("7_dpfgd")
 volume_db = 10.0
 
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.591, -1, -1.244)
-visible = false
+transform = Transform3D(0.3, 0, 0, 0, 0.299433, -0.01844, 0, 0.01844, 0.299433, 0.591, -0.664141, -1.244)
 script = ExtResource("6_p1n6j")
 
 [node name="export" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
@@ -6477,55 +6477,55 @@ panning_strength = 0.0
 transform = Transform3D(1, 0, 4.54747e-13, 0, 1, 0, -4.54747e-13, 0, 1, 0.725321, 2.22275, 0)
 
 [node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0225186, 0.0882816, -4.54954)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0565529, 0.0138564, -3.81108)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0638318, -0.0428634, -3.84606)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0615518, 0.0298076, -4.54177)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 5" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0225186, 0.0882816, -4.54954)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 6" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0565529, 0.0138564, -3.81108)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 7" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0638318, -0.0428634, -3.84606)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 8" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0615518, 0.0298076, -4.54177)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 9" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0225186, 0.0882816, -4.54954)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 10" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0565529, 0.0138564, -3.81108)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 11" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -8.13152e-20, 0, 0.999999, 0, 5.42101e-20, 0, 1, -0.0638318, -0.0428634, -3.84606)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
 target_position = Vector3(0, 0, -16)
 
 [node name="barrel 12" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 0, -5.42101e-20, 0, 0.999999, 0, 5.42101e-20, 0, 0.999999, 0.0615518, 0.0298076, -4.54177)
+transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
 target_position = Vector3(0, 0, -16)
 
 [node name="missile ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, -1.97, 3.83949, 6.01887)
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 0.71435, 2.71558, 3.79196)
 
 [node name="slide direction" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)
@@ -6716,10 +6716,10 @@ texture = ExtResource("4_dpfgd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = -9.0
-offset_right = 24.0
-offset_bottom = -9.0
+offset_left = -1.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

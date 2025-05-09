@@ -7,10 +7,10 @@ extends Node3D
 @onready var enemy_spawn_points: Node3D = $"navigation mesh/enemy spawn points"
 @onready var navigation_mesh: NavigationRegion3D = $"navigation mesh"
 
+var wave_no : int
+var difficulty : int = global_variables.diff
 
 var data : Array[Vector3] = []
-var wave : int
-var enemies_alive : int
 var ran = RandomNumberGenerator.new()
 var instance
 
@@ -21,11 +21,13 @@ var gomme = load("res://assets/scenes/entities/gomme.tscn")
 func _ready() -> void:
 	randomize()
 	ran.randomize()
-	wave = 0
+	wave_no = 1
 	pass
 
 
 func _process(delta: float) -> void:
+	if global_variables.enemies_alive == 0:
+		wave_no += 1
 	pass
 
 
@@ -41,22 +43,33 @@ func _get_random_child(parent_node):
 
 
 func _on_enemy_spawn_time_timeout() -> void:
-	var rng
-	rng = ran.randi_range(0, 8)
-	if rng > 0 && rng < 4:
-		var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	var opp_count
+	var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	opp_count = (difficulty * wave_no) + 2
+	if global_variables.enemies_alive <= opp_count:
 		instance = kric.instantiate()
-		instance.position = spawn_point
+		instance.global_position = spawn_point
 		navigation_mesh.add_child(instance)
-	if rng <= 4 && rng >= 8:
-		var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	pass
+
+
+func _on_enemy_spawn_time_2_timeout() -> void:
+	var opp_count
+	var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	opp_count = (difficulty * wave_no) + 2
+	if global_variables.enemies_alive <= opp_count:
 		instance = stalker.instantiate()
-		instance.position = spawn_point
+		instance.global_position = spawn_point
 		navigation_mesh.add_child(instance)
-	if rng == 8:
-		var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	pass
+
+
+func _on_enemy_spawn_time_3_timeout() -> void:
+	var opp_count
+	var spawn_point = _get_random_child(enemy_spawn_points).global_position
+	opp_count = (difficulty * wave_no) + 2
+	if global_variables.enemies_alive <= opp_count:
 		instance = gomme.instantiate()
-		instance.position = spawn_point
+		instance.global_position = spawn_point
 		navigation_mesh.add_child(instance)
-	await get_tree().create_timer(1).timeout
 	pass

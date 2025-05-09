@@ -1,7 +1,8 @@
-[gd_scene load_steps=143 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=144 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://cr0nykn6bm4ta" path="res://assets/scripts/enemies/kric.gd" id="1_pmvch"]
 [ext_resource type="Texture2D" uid="uid://vwh67lfp8y6x" path="res://assets/models/enemies/antarctica/kric/kric_body_texture.png" id="4_7r2yl"]
+[ext_resource type="Texture2D" uid="uid://duwilkkf5fesq" path="res://assets/models/enemies/antarctica/kric/kric_head_texture.png" id="4_w4sus"]
 [ext_resource type="Texture2D" uid="uid://cuwt3p2d846hb" path="res://assets/models/enemies/antarctica/kric/kric_spike_texture.png" id="5_w4sus"]
 [ext_resource type="Shader" uid="uid://bonwm4fs2wol7" path="res://assets/scripts/shaders/explosion.tres" id="6_kf2ur"]
 [ext_resource type="Texture2D" uid="uid://c846sp08n732v" path="res://assets/models/enemies/antarctica/kric/kric_limbs_texture.png" id="6_v45wn"]
@@ -403,7 +404,7 @@ shadow_mesh = SubResource("ArrayMesh_0eyju")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_evi0q"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = ExtResource("5_w4sus")
+albedo_texture = ExtResource("4_w4sus")
 metallic_specular = 1.0
 roughness = 0.0
 texture_filter = 2

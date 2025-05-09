@@ -1,7 +1,7 @@
-extends Node3D
+extends RigidBody3D
 
 
-@export var VELOCITY = 5.0
+@export var VELOCITY = 12.0
 
 @onready var half_life: Timer = $"half life"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
@@ -16,21 +16,19 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	position.y -= 12 * delta
 	
 	if checker.is_colliding():
 		var target = checker.get_collider()
-		if target.is_in_group("Xplodable"):
-			explosion_animation.play("boom")
-			await get_tree().create_timer(0.3).timeout
-			queue_free()
+		explosion_animation.play("boom")
+		await get_tree().create_timer(0.3).timeout
+		queue_free()
 	
 	for body in explosion_area.get_overlapping_bodies():
 		if body.is_in_group("Xplodable") && !body.is_in_group("Player"):
 			if body.has_method("exp_damage"):
 				body.exp_damage(damage, explosion_area.global_position)
 	
-	position += transform.basis * Vector3(0,0,-VELOCITY)
+	apply_force(transform.basis * Vector3(0,0,-VELOCITY))
 	pass
 
 func _on_half_life_timeout() -> void:
