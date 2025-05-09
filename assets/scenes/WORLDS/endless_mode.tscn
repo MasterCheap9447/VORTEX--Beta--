@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bub2mo0ytmhub"]
+[gd_scene load_steps=10 format=3 uid="uid://bub2mo0ytmhub"]
 
 [ext_resource type="Script" uid="uid://n3m3preo0lkd" path="res://assets/scripts/general/simulation.gd" id="1_k8ot1"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="1_os12c"]
 [ext_resource type="Texture2D" uid="uid://8t6lo6yewmff" path="res://assets/textures/maps/floor/space_nebula_6k.jpg" id="2_t46py"]
 [ext_resource type="Texture2D" uid="uid://cwo03741xsgwf" path="res://assets/textures/maps/wall/grid_texture.png" id="4_tewiu"]
-[ext_resource type="PackedScene" uid="uid://bmerraoq64qq3" path="res://assets/scenes/entities/gomme.tscn" id="5_tewiu"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tewiu"]
 panorama = ExtResource("2_t46py")
@@ -31,6 +30,10 @@ specular_mode = 1
 albedo_texture = ExtResource("4_tewiu")
 metallic_specular = 1.0
 roughness = 0.0
+emission = Color(1.20327e-08, 0.042609, 0.0622157, 1)
+emission_energy_multiplier = 16.0
+clearcoat = 0.0
+clearcoat_roughness = 0.0
 uv1_triplanar = true
 texture_filter = 2
 
@@ -65,35 +68,38 @@ material = SubResource("StandardMaterial3D_t46py")
 [node name="enemy spawn points" type="Node3D" parent="navigation mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13.7, -46)
 
-[node name="1" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, 0)
+[node name="kric point" type="Node3D" parent="navigation mesh/enemy spawn points"]
 
-[node name="2" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+[node name="1" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1186, 0, -3.87863)
 
-[node name="3" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23)
+[node name="2" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48544, 0, -3.6745)
 
-[node name="4" type="Node3D" parent="navigation mesh/enemy spawn points"]
+[node name="3" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.5822)
+
+[node name="stalker point" type="Node3D" parent="navigation mesh/enemy spawn points"]
+
+[node name="4" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
 
-[node name="5" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, 19)
+[node name="5" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7545, 0, 1.03579)
 
-[node name="6" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 19)
+[node name="6" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5296, 0, -14.6829)
 
-[node name="7" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -18)
+[node name="gomme point" type="Node3D" parent="navigation mesh/enemy spawn points"]
 
-[node name="8" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -15)
+[node name="7" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1449, 0, -23.1035)
 
-[node name="9" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+[node name="8" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8194, 0, 0.922829)
 
-[node name="10" type="Node3D" parent="navigation mesh/enemy spawn points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -8)
+[node name="9" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1091, 0, 22.3725)
 
 [node name="enemy spawn time 1" type="Timer" parent="."]
 autostart = true
@@ -105,9 +111,6 @@ autostart = true
 [node name="enemy spawn time 3" type="Timer" parent="."]
 wait_time = 16.0
 autostart = true
-
-[node name="gomme" parent="." instance=ExtResource("5_tewiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3478, -13.6854, -47.6523)
 
 [connection signal="timeout" from="enemy spawn time 1" to="." method="_on_enemy_spawn_time_timeout"]
 [connection signal="timeout" from="enemy spawn time 2" to="." method="_on_enemy_spawn_time_2_timeout"]

@@ -3,9 +3,10 @@ extends Node3D
 
 var equiped : bool
 var instance
+var done
 
 @onready var blast_emission: OmniLight3D = $"blast_emission"
-@onready var blast: Sprite3D = $"blast"
+@onready var blast: Sprite3D = $"export/model/arm 2/shoulder/bicep/forearm/hand/tri form/blast"
 @onready var model: Node3D = $export/model
 @onready var animation: AnimationPlayer = $export/animation
 @onready var rays: Node3D = $rays
@@ -38,15 +39,16 @@ func _process(_delta: float) -> void:
 			animation.play("reload")
 			ammo = 3
 	
-	if Input.is_action_just_pressed("0"):
-		equiped = false
-	if Input.is_action_just_pressed("1"):
-		equiped = false
-	if Input.is_action_just_pressed("2"):
+	if global_variables.weapon == 2:
 		equiped = true
+	else:
+		equiped = false
 	
 	if equiped:
 		visible = true
+		if !done:
+			animation.play("equip")
+			done = true
 		if Input.is_action_just_pressed("shoot") && ammo > 0:
 			if !animation.is_playing():
 				animation.play("shoot")

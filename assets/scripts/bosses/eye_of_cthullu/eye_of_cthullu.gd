@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var eye_holder: Node3D = $eye_holder
 @onready var eye: MeshInstance3D = $eye_holder/eye
 
-var eyes = load("res://assets/scenes/projectiles/eyes.tscn")
+var eyes = load("res://assets/scenes/projectiles/eye.tscn")
 
 var instance
 var ran = RandomNumberGenerator.new()

@@ -1,7 +1,7 @@
 extends Node3D
 
 
-@export var VELOCITY : float = 1
+@export var VELOCITY : float = 0.2
 @export var DAMAGE : float = 1
 
 @onready var damage_area: Area3D = $"damage area"
@@ -24,6 +24,6 @@ func attack() -> void:
 	for body in damage_area.get_overlapping_bodies():
 		if body.is_in_group("Player"):
 			if body.has_method("nrml_damage"):
-				body.nrml_damage(damage_area)
+				body.nrml_damage(DAMAGE)
 				queue_free()
 	pass

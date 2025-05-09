@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 @onready var pause_menu: Control = $"pause menu"
+@onready var text_edit: TextEdit = $Container/Control/fuel/TextEdit
 
 func _ready() -> void:
 	unpause()
@@ -9,6 +10,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	text_edit.text = str(global_variables.kills)
+	
 	if global_variables.is_player_alive:
 		if Input.is_action_just_pressed("exit"):
 			pause()

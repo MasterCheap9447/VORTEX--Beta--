@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-@export var MAX_SPEED : float = 10
+@export var MAX_SPEED : float = 5
 @export var ACCELERATION: float = 3
 @export var HEALTH: float = 3
 @export var DAMAGE: float = 2
@@ -36,20 +36,28 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
 	if !is_on_floor():
 		velocity.y -= 12
+		
 	var speed
-	
-	speed = move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta)
+	var dir
 	
 	if !dead && status != "Shocked":
+		speed = 0
+		
 		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-		velocity = transform.basis * Vector3(0, 0, -speed)
+		if is_on_floor():
+			velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
+		
 		if checker.is_colliding():
 			var target = checker.get_collider()
 			if target != null:
 				if target.is_in_group("Player"):
 					attack(target)
+	if status == "Shocked":
+		velocity = Vector3.ZERO
+	
 	
 	move_and_slide()
 	pass

@@ -91,8 +91,6 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func explode():
-	global_variables.kills += 1
-	global_variables.enemies_alive -= 1
 	velocity = Vector3.ZERO
 	dead = true
 	explosion_animation.play("boom")
@@ -100,6 +98,8 @@ func explode():
 	await get_tree().create_timer(0.9).timeout
 	global_position = Vector3(69420, 69420, 69420)
 	await get_tree().create_timer(0.1).timeout
+	global_variables.kills = global_variables.kills + 1
+	global_variables.enemies_alive = global_variables.enemies_alive - 1
 	queue_free()
 	pass
 
