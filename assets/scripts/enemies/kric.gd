@@ -65,28 +65,26 @@ func _physics_process(delta: float) -> void:
 	if HEALTH <= 0:
 		dead = true
 	
-	#if !model.visible:
-		#for body in explosion_area.get_overlapping_bodies():
-			#body.cancel_free()
-			#if body.is_in_group("Xplodable"):
-				#if body.has_method("exp_damage"):
-					#body.exp_damage(DAMAGE, explosion_area.global_position)
-					#await get_tree().create_timer(0.5).timeout
+	if !model.visible:
+		for body in explosion_area.get_overlapping_bodies():
+			if body.is_in_group("Xplodable"):
+				body.exp_damage(DAMAGE, explosion_area.global_position)
 	
 	if status == "Shocked":
 		animation.play("idle")
 	
-	if !dead && status != "Shocked":
-		
-		if check.is_colliding():
-			var target = check.get_collider()
-			if target != null:
-				if target.is_in_group("Player"):
-					explode()
-		
-		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-		
-		velocity = transform.basis * Vector3(0, 0, -SPEED)
+	if !global_variables.is_paused:
+		if !is_on_floor():
+			velocity.y -= 12
+		if !dead && status != "Shocked":
+			velocity = transform.basis * Vector3(0, 0, -SPEED)
+			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			if check.is_colliding():
+				var target = check.get_collider()
+				if target != null:
+					if target.is_in_group("Player"):
+						explode()
+	
 		move_and_slide()
 	pass
 
@@ -123,9 +121,10 @@ func tazer_hit(damage,volts):
 
 func tri_form_hit(damage, burns) -> void:
 	blood_splash()
-	HEALTH -= damage
+	HEALTH -= damage * 2
 	pass
 
 func exp_damage(dmg, pos)  -> void:
-	HEALTH -= dmg
+	blood_splash()
+	HEALTH -= dmg * 2
 	pass

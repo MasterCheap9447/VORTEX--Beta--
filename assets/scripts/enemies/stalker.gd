@@ -43,21 +43,26 @@ func _physics_process(delta: float) -> void:
 	var speed
 	var dir
 	
-	if !dead && status != "Shocked":
-		speed = 0
-		
-		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-		if is_on_floor():
-			velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
-		
-		if checker.is_colliding():
-			var target = checker.get_collider()
-			if target != null:
-				if target.is_in_group("Player"):
-					attack(target)
+	if !global_variables.is_paused:
+	
+		if !is_on_floor():
+			velocity.y -= 12
+	
+		if !dead && status != "Shocked":
+			speed = 0
+			
+			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			if is_on_floor():
+				velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
+			
+			if checker.is_colliding():
+				var target = checker.get_collider()
+				if target != null:
+					if target.is_in_group("Player"):
+						attack(target)
+	
 	if status == "Shocked":
 		velocity = Vector3.ZERO
-	
 	
 	move_and_slide()
 	pass
@@ -91,8 +96,13 @@ func tazer_hit(damage,volts) -> void:
 func tri_form_hit(damage, burn) -> void:
 	blood_splash()
 	HEALTH -= damage
+	status = "Burned"
+	status = "Shocked"
+	await get_tree().create_timer(3).timeout
+	status = "Normal"
 	pass
 
 func exp_damage(dmg, pos)  -> void:
+	blood_splash()
 	HEALTH -= dmg
 	pass

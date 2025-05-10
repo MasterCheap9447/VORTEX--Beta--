@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=138 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://cr0nykn6bm4ta" path="res://assets/scripts/enemies/kric.gd" id="1_pmvch"]
 [ext_resource type="Texture2D" uid="uid://vwh67lfp8y6x" path="res://assets/models/enemies/antarctica/kric/kric_body_texture.png" id="4_7r2yl"]
@@ -7,7 +7,6 @@
 [ext_resource type="Shader" uid="uid://bonwm4fs2wol7" path="res://assets/scripts/shaders/explosion.tres" id="6_kf2ur"]
 [ext_resource type="Texture2D" uid="uid://c846sp08n732v" path="res://assets/models/enemies/antarctica/kric/kric_limbs_texture.png" id="6_v45wn"]
 [ext_resource type="Shader" uid="uid://do2g6xewxiv7v" path="res://assets/scripts/shaders/sparks.tres" id="7_hla24"]
-[ext_resource type="Texture2D" uid="uid://04fw5ymgnicf" path="res://assets/textures/effects/explosion/T_Streaks.png" id="8_nxglh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qoxfe"]
 diffuse_mode = 3
@@ -1738,33 +1737,6 @@ hue_variation_max = 1.0
 size = Vector2(0.25, 1)
 center_offset = Vector3(0, 0.4, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fp3oy"]
-blend_mode = 1
-shading_mode = 0
-albedo_color = Color(2, 0.6, 0.3, 1)
-albedo_texture = ExtResource("8_nxglh")
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-proximity_fade_enabled = true
-
-[sub_resource type="Curve" id="Curve_8mqr0"]
-_data = [Vector2(0.00913242, 1), 0.0, -3.16372, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_rag33"]
-curve = SubResource("Curve_8mqr0")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6yuey"]
-gravity = Vector3(0, 0, 0)
-scale_min = 12.0
-scale_max = 12.0
-scale_curve = SubResource("CurveTexture_rag33")
-
-[sub_resource type="QuadMesh" id="QuadMesh_7vmso"]
-
 [sub_resource type="Animation" id="Animation_2qu4x"]
 length = 0.001
 tracks/0/type = "value"
@@ -1814,18 +1786,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("flare:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_rujbu"]
@@ -1878,18 +1838,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("flare:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uqj4g"]
@@ -2380,17 +2328,6 @@ randomness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_oeig1")
 draw_pass_1 = SubResource("QuadMesh_ef40f")
-
-[node name="flare" type="GPUParticles3D" parent="explosion"]
-material_override = SubResource("StandardMaterial3D_fp3oy")
-emitting = false
-amount = 1
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_6yuey")
-draw_pass_1 = SubResource("QuadMesh_7vmso")
 
 [node name="explosion animation" type="AnimationPlayer" parent="explosion"]
 libraries = {

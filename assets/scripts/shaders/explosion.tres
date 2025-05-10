@@ -1,19 +1,15 @@
-[gd_resource type="VisualShader" load_steps=34 format=3 uid="uid://bonwm4fs2wol7"]
+[gd_resource type="VisualShader" load_steps=28 format=3 uid="uid://bonwm4fs2wol7"]
+
+[ext_resource type="Texture2D" uid="uid://b86grt4hucfjc" path="res://assets/textures/effects/explosion/T_MarbleNoise_tiled.png" id="1_7tmvv"]
+[ext_resource type="Texture2D" uid="uid://b4d4wdrna682d" path="res://assets/textures/effects/explosion/T_cloudy_noise_211c.png" id="2_grtqp"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_0txeo"]
 parameter_name = "Explosion_Colour"
 default_value_enabled = true
 default_value = Color(1, 0.152941, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5hpjh"]
-noise_type = 3
-frequency = 0.0142
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7tmvv"]
-noise = SubResource("FastNoiseLite_5hpjh")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1evgv"]
-texture = SubResource("NoiseTexture2D_7tmvv")
+texture = ExtResource("1_7tmvv")
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_kb2ve"]
 
@@ -25,18 +21,8 @@ input_name = "color"
 expanded_output_ports = [0]
 input_name = "color"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_dhnwf"]
-noise_type = 2
-frequency = 0.0138
-fractal_type = 2
-cellular_distance_function = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5hpjh"]
-seamless = true
-noise = SubResource("FastNoiseLite_dhnwf")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1w3ow"]
-texture = SubResource("NoiseTexture2D_5hpjh")
+texture = ExtResource("1_7tmvv")
 
 [sub_resource type="Gradient" id="Gradient_8kitx"]
 offsets = PackedFloat32Array(0.607004, 1)
@@ -58,20 +44,9 @@ constant = 20.0
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_gfmkc"]
 operator = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_n6ea2"]
-noise_type = 2
-fractal_type = 3
-cellular_distance_function = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s4jns"]
-generate_mipmaps = false
-seamless = true
-normalize = false
-noise = SubResource("FastNoiseLite_n6ea2")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_thexe"]
 expanded_output_ports = [0]
-texture = SubResource("NoiseTexture2D_s4jns")
+texture = ExtResource("2_grtqp")
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_228wt"]
 
@@ -94,18 +69,9 @@ input_name = "vertex"
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_8p2iy"]
 input_name = "normal"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_grtqp"]
-noise_type = 4
-frequency = 0.0506
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_muans"]
-seamless = true
-noise = SubResource("FastNoiseLite_grtqp")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3ja6l"]
 expanded_output_ports = [0]
-texture = SubResource("NoiseTexture2D_muans")
+texture = ExtResource("2_grtqp")
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_osmo8"]
 operator = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=394 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=373 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -16,14 +16,13 @@
 [ext_resource type="AudioStream" uid="uid://b1023pfuesk68" path="res://assets/sounds/player/weapons/tazer/tazer_zap.wav" id="7_dpfgd"]
 [ext_resource type="Script" uid="uid://d2wx2bhsuo0kt" path="res://assets/scenes/entities/amplifier.gd" id="7_ejv5b"]
 [ext_resource type="Script" uid="uid://cc325v20x7o1e" path="res://assets/scripts/general/camera.gd" id="7_oa2pr"]
-[ext_resource type="Texture2D" uid="uid://duuekcneblhrs" path="res://assets/textures/ui/gun_inspector/tazer_inspection_texture.png" id="8_0f4ib"]
 [ext_resource type="Texture2D" uid="uid://bs000o8ueghq3" path="res://assets/models/player/parts/legs/model_1.png" id="8_bjt06"]
 [ext_resource type="Script" uid="uid://dfsimn80b1i6a" path="res://assets/scripts/player/WEAPONS/kicks.gd" id="8_mebfi"]
 [ext_resource type="Texture2D" uid="uid://b2w01vrdf523g" path="res://assets/models/player/parts/legs/model_2.png" id="9_mebfi"]
 [ext_resource type="Texture2D" uid="uid://b558ex3cxtu7k" path="res://assets/models/player/parts/legs/model_0.png" id="10_4yn3y"]
-[ext_resource type="Texture2D" uid="uid://d0i0f77407ho2" path="res://assets/textures/ui/fuel/fuel_bar_over.png" id="13_bfnip"]
+[ext_resource type="Texture2D" uid="uid://idgx73lp3b0f" path="res://assets/textures/ui/fuel/fuel_bar_over.png" id="13_bfnip"]
 [ext_resource type="Texture2D" uid="uid://dm3v72mgntfxu" path="res://assets/textures/player/weapons/tazer/zap_texture.png" id="14_34owt"]
-[ext_resource type="Texture2D" uid="uid://343b36dknkjk" path="res://assets/textures/ui/fuel/fuel_bar_fill.png" id="14_p1n6j"]
+[ext_resource type="Texture2D" uid="uid://knnjlggqil88" path="res://assets/textures/ui/fuel/fuel_bar_fill.png" id="14_p1n6j"]
 [ext_resource type="Texture2D" uid="uid://cvjjh6523rrgc" path="res://assets/models/player/weapons/tazer/texture/left_arm_texture.png" id="15_06gy3"]
 [ext_resource type="Texture2D" uid="uid://dc054h78j6hm" path="res://assets/models/player/weapons/tazer/texture/right_arm_texture.png" id="16_b5j3v"]
 [ext_resource type="AudioStream" uid="uid://b1budobp6456u" path="res://assets/sounds/player/movement/thrust_audio.mp3" id="16_bfnip"]
@@ -32,42 +31,25 @@
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
 [ext_resource type="Texture2D" uid="uid://ctjh6e1omnthj" path="res://assets/models/player/weapons/quad_form/texture/left_arm_texture.png" id="21_dbq3r"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
-[ext_resource type="Texture2D" uid="uid://cu4pt53jv5y6k" path="res://assets/models/player/weapons/quad_form/source/tri_form_1.png" id="22_ri0je"]
+[ext_resource type="Texture2D" uid="uid://b8sikkk0jxhij" path="res://assets/models/player/weapons/quad_form/source/tri_form_1.png" id="22_ri0je"]
 [ext_resource type="Texture2D" uid="uid://m1n8avqkf86e" path="res://assets/models/player/weapons/quad_form/texture/right_arm_texture.png" id="23_jcu2l"]
-[ext_resource type="Texture2D" uid="uid://djso3uyl6ci65" path="res://assets/models/player/weapons/quad_form/source/tri_form_0.png" id="24_45m0a"]
-[ext_resource type="Texture2D" uid="uid://c5y4cu4anwwud" path="res://assets/textures/ui/health/head/full.png" id="24_58lx2"]
+[ext_resource type="Texture2D" uid="uid://52veihnm4o4f" path="res://assets/models/player/weapons/quad_form/source/tri_form_0.png" id="24_45m0a"]
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
 [ext_resource type="Texture2D" uid="uid://cnje32plystvs" path="res://assets/models/player/weapons/quad_form/texture/tri_texture.png" id="25_j0u1c"]
-[ext_resource type="Texture2D" uid="uid://b32lq5spg34gx" path="res://assets/textures/ui/health/head/half.png" id="25_tjfuy"]
-[ext_resource type="Texture2D" uid="uid://c12hfrobjmcbw" path="res://assets/models/player/weapons/quad_form/source/tri_form_2.png" id="26_7jh62"]
-[ext_resource type="Texture2D" uid="uid://bifahak14lo6i" path="res://assets/textures/ui/health/head/zero.png" id="26_7w2s0"]
+[ext_resource type="Texture2D" uid="uid://bl1gux6ssm5an" path="res://assets/models/player/weapons/quad_form/source/tri_form_2.png" id="26_7jh62"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
-[ext_resource type="Texture2D" uid="uid://bbjifvh7a16mm" path="res://assets/textures/ui/health/torso/full.png" id="27_8shos"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
-[ext_resource type="Texture2D" uid="uid://cowsu8d4r55hh" path="res://assets/textures/ui/health/torso/half.png" id="28_4rbgn"]
-[ext_resource type="Texture2D" uid="uid://c1hv8r0gtujli" path="res://assets/textures/ui/health/torso/zero.png" id="29_2wml6"]
-[ext_resource type="Texture2D" uid="uid://im64m7od4ajr" path="res://assets/textures/ui/health/left_leg/full.png" id="30_06gy3"]
-[ext_resource type="Texture2D" uid="uid://blxa7hu8vlom5" path="res://assets/textures/ui/health/left_leg/half.png" id="31_b5j3v"]
-[ext_resource type="Texture2D" uid="uid://dg05mjnvdhiw5" path="res://assets/textures/ui/health/left_leg/zero.png" id="32_tio7e"]
 [ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
-[ext_resource type="Texture2D" uid="uid://h67qg7hpdb4u" path="res://assets/textures/ui/health/right_leg/full.png" id="33_anq1u"]
-[ext_resource type="Texture2D" uid="uid://d0r7ke5h25fja" path="res://assets/textures/ui/health/right_leg/half.png" id="34_7di7x"]
+[ext_resource type="Texture2D" uid="uid://cb1i88hcnj480" path="res://assets/textures/ui/health/health_bar_over.png" id="33_qgm2p"]
+[ext_resource type="Texture2D" uid="uid://de7uspvtlv28v" path="res://assets/textures/ui/health/health_bar_fill.png" id="34_31l51"]
 [ext_resource type="Texture2D" uid="uid://jw14dmiv5hxk" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_clicked.png" id="34_vavbu"]
-[ext_resource type="Texture2D" uid="uid://b381l111aw514" path="res://assets/textures/ui/health/right_leg/zero.png" id="35_dbq3r"]
 [ext_resource type="Texture2D" uid="uid://dbnphikjbt0l8" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_hover.png" id="35_x10jc"]
+[ext_resource type="Texture2D" uid="uid://du38t2ybxbado" path="res://assets/textures/ui/health/health_symbol.png" id="35_yj401"]
 [ext_resource type="Texture2D" uid="uid://cmou43j1ggcps" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="36_3a880"]
-[ext_resource type="Texture2D" uid="uid://btsv0snf01qxp" path="res://assets/textures/ui/health/right_arm/full.png" id="36_ri0je"]
 [ext_resource type="Texture2D" uid="uid://cvujwhea234h0" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="37_3r6y4"]
-[ext_resource type="Texture2D" uid="uid://bg67c1b2bivd1" path="res://assets/textures/ui/health/right_arm/half.png" id="37_jcu2l"]
-[ext_resource type="Texture2D" uid="uid://dluersmyfehus" path="res://assets/textures/ui/health/right_arm/zero.png" id="38_45m0a"]
 [ext_resource type="Texture2D" uid="uid://bu5okqb5e8ns5" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="38_jaq6q"]
-[ext_resource type="Texture2D" uid="uid://bwwpg40camilu" path="res://assets/textures/ui/health/left_arm/full.png" id="39_j0u1c"]
-[ext_resource type="Texture2D" uid="uid://rjgs25f3tji" path="res://assets/textures/ui/health/left_arm/half.png" id="40_7jh62"]
-[ext_resource type="Texture2D" uid="uid://w8hx1axdyajf" path="res://assets/textures/ui/health/left_arm/zero.png" id="41_45b22"]
-[ext_resource type="Texture2D" uid="uid://462t0s8f4d5n" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
-[ext_resource type="Texture2D" uid="uid://hg8a38ib2ows" path="res://assets/textures/ui/armour/under.png" id="46_06gy3"]
-[ext_resource type="Texture2D" uid="uid://cfi5pohns8xpc" path="res://assets/textures/ui/armour/over.png" id="47_b5j3v"]
-[ext_resource type="Texture2D" uid="uid://c1o2f3lvrmfbk" path="res://assets/textures/ui/armour/progress.png" id="48_tio7e"]
+[ext_resource type="Texture2D" uid="uid://c6yx0o8apj7yg" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
+[ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://bf4xy8r430iu2" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
 [ext_resource type="Texture2D" uid="uid://y1i6ssggojep" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
 [ext_resource type="Texture2D" uid="uid://dgeicqd0eqm5m" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
@@ -4573,6 +4555,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jxfw8")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qgm2p"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("25_j0u1c")
+metallic = 0.7
+metallic_specular = 1.0
+roughness = 0.0
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
+texture_filter = 2
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_n6l18"]
 _surfaces = [{
 "aabb": AABB(-1, -1.25, -1, 2, 4.75, 2),
@@ -4904,6 +4897,18 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xnbdw")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_31l51"]
+load_path = "res://.godot/imported/tri_texture.png-81d3dc3043c1697b910aa9409741f8ad.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj401"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("CompressedTexture2D_31l51")
+metallic_specular = 1.0
+roughness = 0.0
+texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_w5k2x"]
 _surfaces = [{
@@ -5467,108 +5472,6 @@ albedo_color = Color(6.077, 0.537, 0, 0.392)
 [sub_resource type="BoxMesh" id="BoxMesh_uylfy"]
 material = SubResource("StandardMaterial3D_34owt")
 size = Vector3(0.05, 3, 0.05)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ammn8"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("24_58lx2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_tjfuy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_7w2s0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vpdob"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("27_8shos")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_4rbgn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_2wml6")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dubb1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("30_06gy3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_b5j3v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_tio7e")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_si7vx"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("33_anq1u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_7di7x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("35_dbq3r")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_l3vvm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("36_ri0je")
-}, {
-"duration": 1.0,
-"texture": ExtResource("37_jcu2l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_45m0a")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_73k3c"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("39_j0u1c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_7jh62")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_45b22")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [node name="player" type="CharacterBody3D" groups=["Player", "Xplodable"]]
 floor_stop_on_slope = false
@@ -6238,10 +6141,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, -3.25, -1.5)
 transform = Transform3D(0.679458, -0.483032, -0.552284, -0.0209911, 0.739618, -0.6727, 0.733414, 0.468664, 0.4924, 1, 2, 1)
 
 [node name="bicep2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2"]
-transform = Transform3D(0.935078, 0.164044, 0.314196, 0.0657947, 0.790709, -0.608646, -0.348283, 0.589804, 0.728581, -1, 0, 0)
+transform = Transform3D(0.935078, 0.164045, 0.314197, 0.0657949, 0.790709, -0.608646, -0.348284, 0.589804, 0.72858, -1, 0, 0)
 
 [node name="forearm2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2"]
-transform = Transform3D(-0.833285, -0.459664, 0.307157, -0.493915, 0.868585, -0.0400903, -0.248364, -0.185116, -0.950814, 0, -2.5, 0)
+transform = Transform3D(-0.833285, -0.459664, 0.307157, -0.493915, 0.868585, -0.0400898, -0.248364, -0.185115, -0.950814, 0, -2.5, 0)
 
 [node name="hand2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2/forearm2"]
 transform = Transform3D(0.881019, -0.460498, 0.108385, 0.425895, 0.87179, 0.242067, -0.205961, -0.167105, 0.964187, 0, -2.5, -0.0625)
@@ -6394,7 +6297,7 @@ transform = Transform3D(0.98516, -0.058695, -0.161294, -0.167269, -0.539066, -0.
 transform = Transform3D(0.975958, 0.165712, -0.14158, -0.0807072, 0.878164, 0.471503, 0.202464, -0.448741, 0.870425, -0.25, -3, -0.0625)
 
 [node name="index" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
-transform = Transform3D(0.736009, 0.676972, -3.09171e-05, -0.676771, 0.735792, 0.0243024, 0.0164748, -0.0178659, 0.999705, 0.375, -1.625, -0.4375)
+transform = Transform3D(0.736009, 0.676971, -3.08827e-05, -0.676771, 0.735792, 0.0243025, 0.0164748, -0.0178659, 0.999705, 0.375, -1.625, -0.4375)
 
 [node name="joint 1" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/index"]
 transform = Transform3D(0.00660968, 0.994402, -0.105456, -0.998377, 0.000597715, -0.0569397, -0.0565579, 0.105661, 0.992792, 0, -1, 0)
@@ -6503,7 +6406,7 @@ skeleton = NodePath("")
 
 [node name="holder" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, -1.75, 1)
-material_override = SubResource("StandardMaterial3D_vpdob")
+material_override = SubResource("StandardMaterial3D_qgm2p")
 mesh = SubResource("ArrayMesh_t0c3n")
 skeleton = NodePath("")
 
@@ -6521,19 +6424,19 @@ skeleton = NodePath("")
 
 [node name="torus" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -1.75, -4.5)
-material_override = SubResource("StandardMaterial3D_vpdob")
+material_override = SubResource("StandardMaterial3D_qgm2p")
 mesh = SubResource("ArrayMesh_qwvcw")
 skeleton = NodePath("")
 
 [node name="torus_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -1.75, -3.5)
-material_override = SubResource("StandardMaterial3D_vpdob")
+material_override = SubResource("StandardMaterial3D_qgm2p")
 mesh = SubResource("ArrayMesh_8tv2x")
 skeleton = NodePath("")
 
 [node name="torus_2" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, -1.75, -2.5)
-material_override = SubResource("StandardMaterial3D_vpdob")
+material_override = SubResource("StandardMaterial3D_qgm2p")
 mesh = SubResource("ArrayMesh_7iclw")
 skeleton = NodePath("")
 
@@ -6563,7 +6466,7 @@ skeleton = NodePath("")
 
 [node name="plane" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -0.25, 0)
-material_override = SubResource("StandardMaterial3D_vpdob")
+material_override = SubResource("StandardMaterial3D_yj401")
 mesh = SubResource("ArrayMesh_aqve1")
 skeleton = NodePath("")
 
@@ -6623,8 +6526,7 @@ libraries = {
 }
 
 [node name="blast_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(14.2857, 0, 4.67739e-11, 0, 14.2857, 0, -4.67739e-11, 0, 14.2857, 10.9367, 8.90321, -48.7836)
-visible = false
+transform = Transform3D(1, 0, 3.27418e-12, 0, 1, 0, -3.27418e-12, 0, 1, 10.9367, 8.90321, -48.7836)
 light_color = Color(1, 0.738287, 0.322382, 1)
 light_energy = 3.0
 omni_range = 6.0
@@ -6690,6 +6592,10 @@ target_position = Vector3(0, 0, -16)
 [node name="missile ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 10.7272, 9.00274, 3.79196)
 
+[node name="ideal ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67033, 20.3338, 0)
+target_position = Vector3(0, 0, -1000)
+
 [node name="slide direction" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)
 
@@ -6708,54 +6614,6 @@ draw_pass_1 = SubResource("BoxMesh_uylfy")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("22_4yn3y")
-
-[node name="health" type="Node2D" parent="UI"]
-z_index = 2
-position = Vector2(1743, 779)
-scale = Vector2(0.2, 0.2)
-
-[node name="head" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(1.66675, -595)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_ammn8")
-
-[node name="torso" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(1.6665, -61.6666)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_vpdob")
-frame_progress = 0.0367247
-
-[node name="left_leg" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(-121.667, 795)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_dubb1")
-
-[node name="right_leg" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(125, 795)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_si7vx")
-
-[node name="right_arm" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(288.333, -48.3333)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_l3vvm")
-
-[node name="left_arm" type="AnimatedSprite2D" parent="UI/health"]
-z_index = 2
-z_as_relative = false
-position = Vector2(-285, -48.3333)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_73k3c")
 
 [node name="Container" type="MarginContainer" parent="UI"]
 anchors_preset = 12
@@ -6778,25 +6636,14 @@ z_index = 23
 z_as_relative = false
 texture_filter = 1
 layout_mode = 0
-offset_left = 129.0
+offset_left = 36.0
 offset_top = -61.5
-offset_right = 328.0
+offset_right = 235.0
 offset_bottom = -21.5
 max_value = 200.0
 value = 69.0
 texture_over = ExtResource("13_bfnip")
 texture_progress = ExtResource("14_p1n6j")
-
-[node name="weapon inspector" type="TextureRect" parent="UI/Container/Control/fuel"]
-visible = false
-texture_filter = 1
-layout_mode = 0
-offset_left = 1.0
-offset_top = -248.0
-offset_right = 481.0
-offset_bottom = -14.8571
-texture = ExtResource("8_0f4ib")
-expand_mode = 5
 
 [node name="percentage" type="RichTextLabel" parent="UI/Container/Control/fuel"]
 z_index = 1
@@ -6818,28 +6665,39 @@ texture_filter = 1
 position = Vector2(-16, 13)
 texture = ExtResource("45_2wml6")
 
-[node name="TextEdit" type="TextEdit" parent="UI/Container/Control/fuel"]
-layout_mode = 0
-offset_left = 5.5
-offset_top = -82.0
-offset_right = 220.5
-offset_bottom = -33.0
-text = "BOMBOCLAT"
-
-[node name="armour" type="TextureProgressBar" parent="UI/Container/Control"]
-z_index = 12
+[node name="health" type="TextureProgressBar" parent="UI/Container/Control"]
+z_index = 23
 z_as_relative = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 16.5
-offset_top = -114.0
-offset_right = 97.5
-offset_bottom = -35.0
-max_value = 400.0
-value = 400.0
-fill_mode = 5
-texture_under = ExtResource("46_06gy3")
-texture_over = ExtResource("47_b5j3v")
-texture_progress = ExtResource("48_tio7e")
+offset_left = 36.0
+offset_top = -30.5
+offset_right = 235.0
+offset_bottom = 9.5
+max_value = 200.0
+value = 69.0
+texture_over = ExtResource("33_qgm2p")
+texture_progress = ExtResource("34_31l51")
+
+[node name="percentage" type="RichTextLabel" parent="UI/Container/Control/health"]
+z_index = 1
+texture_filter = 1
+layout_mode = 0
+offset_left = 12.0
+offset_top = 5.0
+offset_right = 1912.0
+offset_bottom = 475.0
+scale = Vector2(0.1, 0.1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "69%"
+autowrap_mode = 1
+
+[node name="name" type="Sprite2D" parent="UI/Container/Control/health"]
+texture_filter = 1
+position = Vector2(-16, 13)
+texture = ExtResource("35_yj401")
 
 [node name="amplifier crosshair" type="TextureRect" parent="UI"]
 anchors_preset = 8
@@ -6979,6 +6837,11 @@ z_as_relative = false
 position = Vector2(961, 543)
 texture = ExtResource("63_b5j3v")
 
+[node name="settings tab" parent="UI" instance=ExtResource("50_31l51")]
+visible = false
+offset_left = -4.0
+offset_right = -4.0
+
 [node name="revv" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40524, 0.988875)
 stream = ExtResource("16_bfnip")
@@ -7000,4 +6863,5 @@ one_shot = true
 [node name="slam time" type="Timer" parent="."]
 
 [connection signal="pressed" from="UI/pause menu/resume" to="UI" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/pause menu/settings" to="UI" method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/pause menu/exit" to="UI" method="_on_exit_pressed"]

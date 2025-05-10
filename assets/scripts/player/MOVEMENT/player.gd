@@ -98,6 +98,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	global_variables.is_paused = is_paused
+	
 	var cheat_enabled : bool
 	if Input.is_action_just_pressed("cheat") and cheat_enabled:
 		!cheat_enabled
@@ -119,8 +121,6 @@ func _process(delta: float) -> void:
 		
 		if !is_paused:
 			
-			armour.value = ARMOUR
-			
 			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
 			
 			fuel.value = floor(int(FUEL))
@@ -128,11 +128,9 @@ func _process(delta: float) -> void:
 	else:
 		if Input.is_action_just_pressed("respawn"):
 			position = global_variables.player_spawn_point
-			HEALTH = 12
-			ARMOUR = 4
+			HEALTH = 200
 			FUEL = 200.0
 			is_alive = true
-			armour.value = 4
 			head.frame = 0
 			left_arm.frame = 0
 			right_leg.frame = 0

@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://do2g6xewxiv7v"]
 
-[ext_resource type="Texture2D" uid="uid://04fw5ymgnicf" path="res://assets/textures/effects/explosion/T_Streaks.png" id="1_jaet1"]
+[ext_resource type="Texture2D" uid="uid://dxg7q8er75t0s" path="res://assets/textures/effects/explosion/T_4_streaks.png" id="1_jaet1"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0kymp"]
 texture = ExtResource("1_jaet1")
@@ -82,7 +82,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1079.46, 57.4063)
+graph_offset = Vector2(-720.196, -300)
 modes/cull = 2
 flags/unshaded = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_0kymp")

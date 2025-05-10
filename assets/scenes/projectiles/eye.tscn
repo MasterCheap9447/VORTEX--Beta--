@@ -85,3 +85,7 @@ metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 
 [node name="damage collsion" type="CollisionShape3D" parent="damage area"]
 shape = SubResource("SphereShape3D_g3axv")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

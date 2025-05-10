@@ -5,6 +5,8 @@ var kills: int
 var enemies_alive : int = 0
 var diff : int = 1
 
+var is_paused : bool
+
 var secrets : int = 0
 
 var PLAYER = preload("res://assets/scenes/entities/player.tscn")
@@ -18,8 +20,8 @@ var is_player_alive : bool = true
 var player_spawn_point : Vector3 = Vector3(0,0,0)
 
 ### SETTINGS VARIABLES ###
-var invert_y : int = -1
-var invert_x : int = -1
+var invert_y : bool = false
+var invert_x : bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("1"):

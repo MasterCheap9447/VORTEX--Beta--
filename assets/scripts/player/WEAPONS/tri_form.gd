@@ -13,11 +13,12 @@ var done
 @onready var blast_effect: AudioStreamPlayer3D = $tri_form_blast_effect
 @onready var player: CharacterBody3D = $"../../../.."
 @onready var missile_ray: RayCast3D = $"missile ray"
+@onready var ideal_ray: RayCast3D = $"ideal ray"
 
 @export var RECOIL : float = 5.0
 @export var SPREAD : float = 10
 
-var damage : float = 1
+var damage : float = 3
 var temperature : float = 3
 
 var ammo : int = 3
@@ -34,6 +35,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	
+	if ideal_ray.is_colliding():
+		var point = ideal_ray.get_collision_point()
+		missile_ray.target_position = point
+	else:
+		missile_ray.target_position = ideal_ray.target_position
+	
 	if ammo <= 0:
 		if !animation.is_playing():
 			animation.play("reload")
@@ -70,6 +78,9 @@ func tazer_on() -> void:
 
 func primary_fire() -> void:
 	for r in rays.get_children():
+		if ideal_ray.is_colliding():
+			var point = ideal_ray.get_collision_point()
+			r.target_position = point
 		r.target_position.y = randf_range(SPREAD, -SPREAD)
 		r.target_position.x = randf_range(SPREAD, -SPREAD)
 		if r.is_colliding():

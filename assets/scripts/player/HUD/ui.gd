@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var pause_menu: Control = $"pause menu"
 @onready var text_edit: TextEdit = $Container/Control/fuel/TextEdit
+@onready var settings_tab: Control = $"settings tab"
 
 func _ready() -> void:
 	unpause()
@@ -10,11 +11,15 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	text_edit.text = str(global_variables.kills)
 	
 	if global_variables.is_player_alive:
 		if Input.is_action_just_pressed("exit"):
 			pause()
+	
+	if settings_tab.visible == true && Input.is_action_pressed("exit"):
+		settings_tab.visible = false
+		pause_menu.position = Vector2(0, 0)
+	
 	pass
 
 func pause() -> void:
@@ -37,4 +42,10 @@ func _on_resume_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
+	pass
+
+
+func _on_settings_pressed() -> void:
+	settings_tab.visible = true
+	pause_menu.position = Vector2(42069, 42069)
 	pass

@@ -15,8 +15,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	position += transform.basis * Vector3(0, 0, -VELOCITY)
-	attack()
+	if !global_variables.is_paused:
+		position += transform.basis * Vector3(0, 0, -VELOCITY)
+		attack()
 	pass
 
 
@@ -26,4 +27,9 @@ func attack() -> void:
 			if body.has_method("nrml_damage"):
 				body.nrml_damage(DAMAGE)
 				queue_free()
+	pass
+
+
+func _on_timer_timeout() -> void:
+	queue_free()
 	pass

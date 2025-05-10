@@ -1,7 +1,7 @@
-extends RigidBody3D
+extends Node3D
 
 
-@export var VELOCITY = 12.0
+@export var SPEED = 2.0
 
 @onready var half_life: Timer = $"half life"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
@@ -28,7 +28,8 @@ func _physics_process(delta: float) -> void:
 			if body.has_method("exp_damage"):
 				body.exp_damage(damage, explosion_area.global_position)
 	
-	apply_force(transform.basis * Vector3(0,0,-VELOCITY))
+	if !global_variables.is_paused:
+		position += transform.basis * Vector3(0, 0, -SPEED)
 	pass
 
 func _on_half_life_timeout() -> void:

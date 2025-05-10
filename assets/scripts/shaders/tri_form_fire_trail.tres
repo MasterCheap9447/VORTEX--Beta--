@@ -1,21 +1,14 @@
-[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://crg7x23tadv7x"]
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://crg7x23tadv7x"]
+
+[ext_resource type="Texture2D" uid="uid://dxg7q8er75t0s" path="res://assets/textures/effects/explosion/T_4_streaks.png" id="1_ci7g8"]
+[ext_resource type="Texture2D" uid="uid://b86grt4hucfjc" path="res://assets/textures/effects/explosion/T_MarbleNoise_tiled.png" id="1_rfep5"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_ci7g8"]
 operator = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_u8rj8"]
-noise_type = 0
-frequency = 0.0071
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rfep5"]
-width = 64
-height = 64
-seamless = true
-noise = SubResource("FastNoiseLite_u8rj8")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2uhhq"]
 expanded_output_ports = [0]
-texture = SubResource("NoiseTexture2D_rfep5")
+texture = ExtResource("1_ci7g8")
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_jfcm8"]
 expanded_output_ports = [0]
@@ -24,19 +17,9 @@ input_name = "color"
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_m8fcf"]
 parameter_name = "Spark_Colour"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rfep5"]
-noise_type = 2
-frequency = 0.0157
-fractal_type = 3
-cellular_distance_function = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ci7g8"]
-seamless = true
-noise = SubResource("FastNoiseLite_rfep5")
-
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ruj3i"]
 expanded_output_ports = [0]
-texture = SubResource("NoiseTexture2D_ci7g8")
+texture = ExtResource("1_rfep5")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_pydkc"]

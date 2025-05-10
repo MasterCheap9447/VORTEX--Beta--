@@ -36,17 +36,18 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !is_on_floor():
-		velocity.y -= 12
 	death()
 	
 	if HEALTH <= 0:
 		dead = true
-		
-	if !dead && status != "Shocked":
-		check.look_at(Vector3(player.global_position.x, player.global_position.y + 1, player.global_position.z), Vector3.UP)
-		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-		
+	
+	if !global_variables.is_paused:
+		if !is_on_floor():
+			velocity.y -= 12
+		if !dead && status != "Shocked":
+			check.look_at(Vector3(player.global_position.x, player.global_position.y + 1, player.global_position.z), Vector3.UP)
+			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+	
 	move_and_slide()
 	pass
 
@@ -82,11 +83,16 @@ func tazer_hit(damage,volts):
 
 func tri_form_hit(damage, burns) -> void:
 	blood_splash()
-	HEALTH -= damage
+	HEALTH -= damage * 2
+	status = "Burned"
+	status = "Shocked"
+	await get_tree().create_timer(3).timeout
+	status = "Normal"
 	pass
 
 func exp_damage(dmg, pos)  -> void:
-	HEALTH -= dmg
+	blood_splash()
+	HEALTH -= dmg * 2
 	pass
 
 

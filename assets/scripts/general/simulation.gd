@@ -30,10 +30,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if global_variables.enemies_alive <= 0:
-		wave_no += 1
-		count = 0
-		max = max + 5
+	if !global_variables.is_paused:
+		if global_variables.enemies_alive <= 0:
+			wave_no += 1
+			count = 0
+			max = max + 5
 	pass
 
 
@@ -49,30 +50,33 @@ func _get_random_child(parent_node):
 
 
 func _on_enemy_spawn_time_timeout() -> void:
-	var spawn_point = _get_random_child(kric_point).global_position
-	if count < max:
-		instance = kric.instantiate()
-		instance.global_position = spawn_point
-		navigation_mesh.add_child(instance)
-		count += 1
+	if !global_variables.is_paused:
+		var spawn_point = _get_random_child(kric_point).global_position
+		if count < max:
+			instance = kric.instantiate()
+			instance.global_position = spawn_point
+			navigation_mesh.add_child(instance)
+			count += 1
 	pass
 
 
 func _on_enemy_spawn_time_2_timeout() -> void:
-	var spawn_point = _get_random_child(stalker_point).global_position
-	if count < max:
-		instance = stalker.instantiate()
-		instance.global_position = spawn_point
-		navigation_mesh.add_child(instance)
-		count += 1
+	if !global_variables.is_paused:
+		var spawn_point = _get_random_child(stalker_point).global_position
+		if count < max:
+			instance = stalker.instantiate()
+			instance.global_position = spawn_point
+			navigation_mesh.add_child(instance)
+			count += 1
 	pass
 
 
 func _on_enemy_spawn_time_3_timeout() -> void:
-	var spawn_point = _get_random_child(gomme_point).global_position
-	if count < max:
-		instance = gomme.instantiate()
-		instance.global_position = spawn_point
-		navigation_mesh.add_child(instance)
-		count += 1
+	if !global_variables.is_paused:
+		var spawn_point = _get_random_child(gomme_point).global_position
+		if count < max:
+			instance = gomme.instantiate()
+			instance.global_position = spawn_point
+			navigation_mesh.add_child(instance)
+			count += 1
 	pass
