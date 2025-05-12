@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://7fjex8wuiejk"
+path="res://.godot/imported/mcguire_blur.glsl-3791c8834a0105386c593a8908d1fda1.res"
+
+[deps]
+
+source_file="res://addons/motion_blur/addons/SphynxMotionBlurToolkit/McGuire/ShaderFiles/mcguire_blur.glsl"
+dest_files=["res://.godot/imported/mcguire_blur.glsl-3791c8834a0105386c593a8908d1fda1.res"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://by6mslkv0palh"
+path="res://.godot/imported/guertin_tile_variance.glsl-2f01fcd379d95284f0060687d8114294.res"
+
+[deps]
+
+source_file="res://addons/motion_blur/addons/SphynxMotionBlurToolkit/Guertin/ShaderFiles/guertin_tile_variance.glsl"
+dest_files=["res://.godot/imported/guertin_tile_variance.glsl-2f01fcd379d95284f0060687d8114294.res"]
+
+[params]
+

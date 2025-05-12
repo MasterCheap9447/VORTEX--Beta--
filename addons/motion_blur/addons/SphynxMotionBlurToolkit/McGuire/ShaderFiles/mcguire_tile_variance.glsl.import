@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://ddo60n85uqwbk"
+path="res://.godot/imported/mcguire_tile_variance.glsl-86b0aefb0478eb06a6e98e63a7afba14.res"
+
+[deps]
+
+source_file="res://addons/motion_blur/addons/SphynxMotionBlurToolkit/McGuire/ShaderFiles/mcguire_tile_variance.glsl"
+dest_files=["res://.godot/imported/mcguire_tile_variance.glsl-86b0aefb0478eb06a6e98e63a7afba14.res"]
+
+[params]
+

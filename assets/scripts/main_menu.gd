@@ -8,11 +8,9 @@ extends Control
 
 var cur_screen : String
 
-
 func _ready() -> void:
 	cur_screen = "start"
 	pass
-
 
 
 func _process(_delta: float) -> void:
@@ -20,7 +18,6 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("exit"):
 		cur_screen = "start"
-	
 	
 	if cur_screen == "start":
 		start.visible = true

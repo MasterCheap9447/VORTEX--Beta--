@@ -5,7 +5,6 @@ var equiped : bool
 var instance
 var done
 
-@onready var blast_emission: OmniLight3D = $"blast_emission"
 @onready var blast: Sprite3D = $"export/model/arm 2/shoulder/bicep/forearm/hand/tri form/blast"
 @onready var model: Node3D = $export/model
 @onready var animation: AnimationPlayer = $export/animation

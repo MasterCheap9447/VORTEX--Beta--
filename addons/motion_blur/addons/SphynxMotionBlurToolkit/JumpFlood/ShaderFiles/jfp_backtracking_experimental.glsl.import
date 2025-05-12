@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://rkkajixdjosk"
+path="res://.godot/imported/jfp_backtracking_experimental.glsl-8c5886773e1d21a902c30071b8a65914.res"
+
+[deps]
+
+source_file="res://addons/motion_blur/addons/SphynxMotionBlurToolkit/JumpFlood/ShaderFiles/jfp_backtracking_experimental.glsl"
+dest_files=["res://.godot/imported/jfp_backtracking_experimental.glsl-8c5886773e1d21a902c30071b8a65914.res"]
+
+[params]
+

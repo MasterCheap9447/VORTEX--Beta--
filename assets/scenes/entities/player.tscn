@@ -1,4 +1,4 @@
-[gd_scene load_steps=373 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=367 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://cb8o60va6qath" path="res://assets/textures/effects/thruster/Fire_Textures/Flare00.PNG" id="6_oa2pr"]
 [ext_resource type="Script" uid="uid://b7tsxvdbeilb7" path="res://assets/scripts/player/WEAPONS/tri_form.gd" id="6_p1n6j"]
 [ext_resource type="AudioStream" uid="uid://b1023pfuesk68" path="res://assets/sounds/player/weapons/tazer/tazer_zap.wav" id="7_dpfgd"]
-[ext_resource type="Script" uid="uid://d2wx2bhsuo0kt" path="res://assets/scenes/entities/amplifier.gd" id="7_ejv5b"]
 [ext_resource type="Script" uid="uid://cc325v20x7o1e" path="res://assets/scripts/general/camera.gd" id="7_oa2pr"]
 [ext_resource type="Texture2D" uid="uid://bs000o8ueghq3" path="res://assets/models/player/parts/legs/model_1.png" id="8_bjt06"]
 [ext_resource type="Script" uid="uid://dfsimn80b1i6a" path="res://assets/scripts/player/WEAPONS/kicks.gd" id="8_mebfi"]
@@ -31,17 +30,15 @@
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
 [ext_resource type="Texture2D" uid="uid://ctjh6e1omnthj" path="res://assets/models/player/weapons/quad_form/texture/left_arm_texture.png" id="21_dbq3r"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
-[ext_resource type="Texture2D" uid="uid://b8sikkk0jxhij" path="res://assets/models/player/weapons/quad_form/source/tri_form_1.png" id="22_ri0je"]
 [ext_resource type="Texture2D" uid="uid://m1n8avqkf86e" path="res://assets/models/player/weapons/quad_form/texture/right_arm_texture.png" id="23_jcu2l"]
-[ext_resource type="Texture2D" uid="uid://52veihnm4o4f" path="res://assets/models/player/weapons/quad_form/source/tri_form_0.png" id="24_45m0a"]
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
 [ext_resource type="Texture2D" uid="uid://cnje32plystvs" path="res://assets/models/player/weapons/quad_form/texture/tri_texture.png" id="25_j0u1c"]
-[ext_resource type="Texture2D" uid="uid://bl1gux6ssm5an" path="res://assets/models/player/weapons/quad_form/source/tri_form_2.png" id="26_7jh62"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
 [ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
 [ext_resource type="Texture2D" uid="uid://cb1i88hcnj480" path="res://assets/textures/ui/health/health_bar_over.png" id="33_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://de7uspvtlv28v" path="res://assets/textures/ui/health/health_bar_fill.png" id="34_31l51"]
+[ext_resource type="Texture2D" uid="uid://cjbuxkvdrhyor" path="res://assets/textures/ui/death screen/hurt_flash.png" id="34_iwly2"]
 [ext_resource type="Texture2D" uid="uid://jw14dmiv5hxk" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_clicked.png" id="34_vavbu"]
 [ext_resource type="Texture2D" uid="uid://dbnphikjbt0l8" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_hover.png" id="35_x10jc"]
 [ext_resource type="Texture2D" uid="uid://du38t2ybxbado" path="res://assets/textures/ui/health/health_symbol.png" id="35_yj401"]
@@ -51,8 +48,8 @@
 [ext_resource type="Texture2D" uid="uid://c6yx0o8apj7yg" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://bf4xy8r430iu2" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
-[ext_resource type="Texture2D" uid="uid://y1i6ssggojep" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
-[ext_resource type="Texture2D" uid="uid://dgeicqd0eqm5m" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
+[ext_resource type="Texture2D" uid="uid://bpltgu55rju1m" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
+[ext_resource type="Texture2D" uid="uid://ccak52jiwycqu" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
 height = 2.5
@@ -1247,44 +1244,8 @@ _data = {
 &"normal kick": SubResource("Animation_pqtoy")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3r6y4"]
-radius = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3r6y4"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(0.188235, 1, 1, 1)
-metallic = 1.0
-metallic_specular = 1.0
-roughness = 0.0
-
-[sub_resource type="PrismMesh" id="PrismMesh_34owt"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="Animation" id="Animation_ejv5b"]
-resource_name = "shoot"
-length = 0.5
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("model:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -2.25, 0.154252), Vector3(0, -2.25, 0.5), Vector3(0, -2.25, 0.154252)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_uylfy"]
-_data = {
-&"shoot": SubResource("Animation_ejv5b")
-}
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wml6"]
-size = Vector3(1, 1, 48)
+size = Vector3(1, 1, 69.9673)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjt06"]
 transparency = 2
@@ -3566,6 +3527,21 @@ _data = {
 &"reload": SubResource("Animation_s8woc")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwly2"]
+shading_mode = 0
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kv1c2"]
+direction = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qgm2p"]
+radius = 0.1
+height = 0.2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45b22"]
 transparency = 2
 alpha_scissor_threshold = 0.5
@@ -3583,7 +3559,6 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("22_ri0je")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_e1wl2"]
@@ -4147,7 +4122,6 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("24_45m0a")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_6l7fs"]
@@ -4484,7 +4458,6 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("26_7jh62")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wfx53"]
@@ -4898,14 +4871,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xnbdw")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_31l51"]
-load_path = "res://.godot/imported/tri_texture.png-81d3dc3043c1697b910aa9409741f8ad.s3tc.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj401"]
-transparency = 4
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6t3o6"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("CompressedTexture2D_31l51")
+albedo_texture = ExtResource("25_j0u1c")
 metallic_specular = 1.0
 roughness = 0.0
 texture_filter = 2
@@ -5478,7 +5450,6 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 floor_max_angle = 1.0472
 script = ExtResource("1_34owt")
-ARMOUR = 400
 
 [node name="collision" type="CollisionShape3D" parent="." groups=["Player", "Xplodable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
@@ -5707,50 +5678,25 @@ libraries = {
 &"": SubResource("AnimationLibrary_of8n1")
 }
 
-[node name="amplifier" type="Node3D" parent="NECK/camera/WEAPONS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216549, 0.610606, 1.10404)
-visible = false
-script = ExtResource("7_ejv5b")
-
-[node name="hitbox" type="ShapeCast3D" parent="NECK/camera/WEAPONS/amplifier"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.217603, -0.136463, 0)
-shape = SubResource("SphereShape3D_3r6y4")
-exclude_parent = false
-target_position = Vector3(0, 0, -2)
-
-[node name="model" type="Node3D" parent="NECK/camera/WEAPONS/amplifier"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.25, 0.154252)
-
-[node name="cube" type="MeshInstance3D" parent="NECK/camera/WEAPONS/amplifier/model"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.526066, 1.43624, -1.85376)
-material_override = SubResource("StandardMaterial3D_3r6y4")
-mesh = SubResource("PrismMesh_34owt")
-
-[node name="animation" type="AnimationPlayer" parent="NECK/camera/WEAPONS/amplifier"]
-libraries = {
-&"": SubResource("AnimationLibrary_uylfy")
-}
-
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151847, 0.56166)
-visible = false
 script = ExtResource("2_bfnip")
 
 [node name="barrel position 2" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.685468, -3.14713e-05, -32.0102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315875, 0.0315332, -49.7653)
 
 [node name="barrel position 1" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48621, -0.0209056, -1.7617)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.612924, 0.220545, -1.65822)
 
 [node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311254, 0)
 
 [node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25.8566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36.8402)
 shape = SubResource("BoxShape3D_2wml6")
 
 [node name="ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
-target_position = Vector3(0, 0, -48)
+target_position = Vector3(0, 0, -64)
 collision_mask = 15
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
@@ -6124,8 +6070,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29917, 1.1256, -2.81547)
 stream = ExtResource("7_dpfgd")
 volume_db = 10.0
 
+[node name="tazer collision effect" type="GPUParticles3D" parent="NECK/camera/WEAPONS/tazer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92509, 0.190072)
+visible = false
+material_override = SubResource("StandardMaterial3D_iwly2")
+lifetime = 0.3
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ParticleProcessMaterial_kv1c2")
+draw_pass_1 = SubResource("SphereMesh_qgm2p")
+
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0.119874, -0.952573, 0.650743)
+visible = false
 script = ExtResource("6_p1n6j")
 
 [node name="export" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
@@ -6144,7 +6101,7 @@ transform = Transform3D(0.679458, -0.483032, -0.552284, -0.0209911, 0.739618, -0
 transform = Transform3D(0.935078, 0.164045, 0.314197, 0.0657949, 0.790709, -0.608646, -0.348284, 0.589804, 0.72858, -1, 0, 0)
 
 [node name="forearm2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2"]
-transform = Transform3D(-0.833285, -0.459664, 0.307157, -0.493915, 0.868585, -0.0400898, -0.248364, -0.185115, -0.950814, 0, -2.5, 0)
+transform = Transform3D(-0.833285, -0.459664, 0.307156, -0.493915, 0.868585, -0.0400896, -0.248364, -0.185115, -0.950814, 0, -2.5, 0)
 
 [node name="hand2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2/forearm2"]
 transform = Transform3D(0.881019, -0.460498, 0.108385, 0.425895, 0.87179, 0.242067, -0.205961, -0.167105, 0.964187, 0, -2.5, -0.0625)
@@ -6297,7 +6254,7 @@ transform = Transform3D(0.98516, -0.058695, -0.161294, -0.167269, -0.539066, -0.
 transform = Transform3D(0.975958, 0.165712, -0.14158, -0.0807072, 0.878164, 0.471503, 0.202464, -0.448741, 0.870425, -0.25, -3, -0.0625)
 
 [node name="index" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
-transform = Transform3D(0.736009, 0.676971, -3.08827e-05, -0.676771, 0.735792, 0.0243025, 0.0164748, -0.0178659, 0.999705, 0.375, -1.625, -0.4375)
+transform = Transform3D(0.736009, 0.676971, -3.08994e-05, -0.676771, 0.735792, 0.0243025, 0.0164748, -0.0178659, 0.999705, 0.375, -1.625, -0.4375)
 
 [node name="joint 1" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/index"]
 transform = Transform3D(0.00660968, 0.994402, -0.105456, -0.998377, 0.000597715, -0.0569397, -0.0565579, 0.105661, 0.992792, 0, -1, 0)
@@ -6466,7 +6423,7 @@ skeleton = NodePath("")
 
 [node name="plane" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -0.25, 0)
-material_override = SubResource("StandardMaterial3D_yj401")
+material_override = SubResource("StandardMaterial3D_6t3o6")
 mesh = SubResource("ArrayMesh_aqve1")
 skeleton = NodePath("")
 
@@ -6524,12 +6481,6 @@ skeleton = NodePath("")
 libraries = {
 &"": SubResource("AnimationLibrary_qqrsm")
 }
-
-[node name="blast_emission" type="OmniLight3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 3.27418e-12, 0, 1, 0, -3.27418e-12, 0, 1, 10.9367, 8.90321, -48.7836)
-light_color = Color(1, 0.738287, 0.322382, 1)
-light_energy = 3.0
-omni_range = 6.0
 
 [node name="tri_form_blast_effect" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(-5.17141e-05, 0, 14.2857, 0, 14.2857, 0, -14.2857, 0, -5.17141e-05, 11.0158, 8.4911, -48.7923)
@@ -6674,7 +6625,7 @@ offset_left = 36.0
 offset_top = -30.5
 offset_right = 235.0
 offset_bottom = 9.5
-max_value = 200.0
+max_value = 400.0
 value = 69.0
 texture_over = ExtResource("33_qgm2p")
 texture_progress = ExtResource("34_31l51")
@@ -6766,6 +6717,12 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
 cull_mask = 2
 current = true
+
+[node name="hurt flash" type="TextureRect" parent="UI"]
+visible = false
+offset_right = 1930.0
+offset_bottom = 1086.0
+texture = ExtResource("34_iwly2")
 
 [node name="pause menu" type="Control" parent="UI"]
 visible = false
@@ -6862,6 +6819,11 @@ one_shot = true
 
 [node name="slam time" type="Timer" parent="."]
 
+[node name="hurt stop" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="pressed" from="UI/pause menu/resume" to="UI" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/pause menu/settings" to="UI" method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/pause menu/exit" to="UI" method="_on_exit_pressed"]
+[connection signal="timeout" from="hurt stop" to="." method="_on_hurt_stop_timeout"]

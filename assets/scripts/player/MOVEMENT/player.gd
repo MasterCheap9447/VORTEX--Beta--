@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
 
-signal open_door
 
 @export var WALK_SPEED : float = 16.0
 @export var GROUND_ACCELERATION : float = 4.0
@@ -12,18 +11,17 @@ signal open_door
 @export var SLAM_FORCE : float = 100.0
 @export var SLIDE_MAX_SPEED : float = 24.0
 @export var SLIDE_ACCELERATION : float = 0.5
-@export var DASH_FORCE : float = 48.0
+@export var DASH_FORCE : float = 24.0
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
 
 @export var FUEL : float = 200.0
-@export var HEALTH : int = 12
-@export var ARMOUR : int = 4
-
+@export var HEALTH : float = 400.0
 
 @export var SENSITIVITY : float = 0.5
-@export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
-@export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
+@export var WEAPON_SWAY_AMMOUNT : float = 0.01
+@export var WEAPON_ROTATION_AMMOUNT : float = 0.05
+
 @onready var CAMERA: Camera3D = $NECK/camera
 @onready var NECK: Node3D = $NECK
 @onready var SLIDE_DIRECTION: Node3D = $"slide direction"
@@ -36,17 +34,11 @@ signal open_door
 @onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
 @onready var amplifier_crosshair: TextureRect = $"UI/amplifier crosshair"
 
-@onready var head: AnimatedSprite2D = $UI/health/head
-@onready var torso: AnimatedSprite2D = $UI/health/torso
-@onready var left_leg: AnimatedSprite2D = $UI/health/left_leg
-@onready var right_leg: AnimatedSprite2D = $UI/health/right_leg
-@onready var right_arm: AnimatedSprite2D = $UI/health/right_arm
-@onready var left_arm: AnimatedSprite2D = $UI/health/left_arm
-
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
-@onready var percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
+@onready var f_percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
 
-@onready var armour: TextureProgressBar = $UI/Container/Control/armour
+@onready var health: TextureProgressBar = $UI/Container/Control/health
+@onready var h_percentage: RichTextLabel = $UI/Container/Control/health/percentage
 
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var death_screen: Control = $"UI/death screen"
@@ -72,7 +64,6 @@ var is_alive : bool = true
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	
 func _ready():
-	HEALTH = 0
 	pass
 
 
@@ -82,10 +73,6 @@ func _input(event: InputEvent) -> void:
 			if event is InputEventMouseMotion:
 				mouse_input = event.relative
 			match global_variables.weapon:
-				0:
-					amplifier_crosshair.visible = true
-					tazer_crosshair.visible = true
-					tri_form_crosshair.visible = false
 				1 : 
 					amplifier_crosshair.visible = false
 					tazer_crosshair.visible = true 
@@ -98,19 +85,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	
+	
 	global_variables.is_paused = is_paused
-	
-	var cheat_enabled : bool
-	if Input.is_action_just_pressed("cheat") and cheat_enabled:
-		!cheat_enabled
-	
-	if cheat_enabled:
-		if Input.is_action_just_pressed("fly"):
-			FUEL = 200
-		if Input.is_action_just_pressed("health"):
-			HEALTH = 12
-			ARMOUR = 4
-	
 	global_variables.is_player_alive = is_alive
 	
 	if is_alive:
@@ -118,43 +95,32 @@ func _process(delta: float) -> void:
 			is_paused = true
 		else:
 			is_paused = false
-		
+	
 		if !is_paused:
-			
 			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
 			
+			FUEL = clamp(HEALTH, 0.0, 200.0)
+			HEALTH = clamp(HEALTH, 0.0, 400.0)
 			fuel.value = floor(int(FUEL))
-			percentage.text = str(floor(int(FUEL)))
+			f_percentage.text = str(floor(int(FUEL)))
+			health.value = floor(int(HEALTH))
+			h_percentage.text = str(floor(int(HEALTH)))
 	else:
-		if Input.is_action_just_pressed("respawn"):
-			position = global_variables.player_spawn_point
-			HEALTH = 200
-			FUEL = 200.0
-			is_alive = true
-			head.frame = 0
-			left_arm.frame = 0
-			right_leg.frame = 0
-			left_leg.frame = 0
-			right_arm.frame = 0
-			torso.frame = 0   
 		if Input.is_action_just_pressed("exit"):
 			get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
 	pass
 
 
 func _physics_process(delta):
-	
-	if is_alive:
-		Engine.time_scale = 1
-		death_screen.visible = false
-	else:
+	if is_paused:
 		Engine.time_scale = 0
-		death_screen.visible = true
+	else:
+		Engine.time_scale = 1
 	
 	if is_alive:
 		if !is_paused:
-			if HEALTH < 0:
-				_death()
+			
+			death()
 			
 			GUN_CAMERA.global_transform = CAMERA.global_transform
 			GUN_CAMERA.fov = 90
@@ -212,9 +178,8 @@ func _physics_process(delta):
 						var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
 						accelerate = min(accelerate, add_speed)
 						velocity += accelerate * direction
-			
-			move_and_slide()
-			cam_tilt(input_dir.x, delta)
+			JUICE(input_dir.x, delta)
+	move_and_slide()
 	pass
 
 
@@ -303,7 +268,7 @@ func _dash(dir) -> void:
 		dust.emitting = false
 	pass
 
-func _thrust(dir : Vector3) -> void:
+func _thrust(_dir : Vector3) -> void:
 	if Input.is_action_pressed("thrust"):
 		FUEL -= 0.5
 		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
@@ -341,69 +306,37 @@ func _jump() -> void:
 
 
 func exp_damage(magnitude, pos : Vector3) -> void:
-	ARMOUR -= magnitude
-	var dir : Vector3
-	dir = (pos - global_position).normalized()
-	velocity += dir * magnitude / 2
+	HEALTH -= magnitude
+	var dir = (pos - global_position).normalized()
+	velocity += dir * magnitude
+	#Engine.time_scale = 0
+	#$"UI/hurt flash".show()
+	$"hurt stop".start()
 	pass
 
 func nrml_damage(magnitude) -> void:
-	var ran = RandomNumberGenerator.new()
-	if ARMOUR <= 0:
-		if HEALTH >= 8:
-			ran = ran.randi_range(1,2)
-			HEALTH -= magnitude
-			if ran == 1:
-				if left_arm.frame < 2:
-					left_arm.frame += 1
-				else:
-					if right_arm.frame < 2:
-						right_arm.frame += 1
-			if ran == 2:
-				if right_arm.frame < 2:
-					right_arm.frame += 1
-				else:
-					if left_arm.frame < 2:
-						left_arm.frame += 1
-		ran = RandomNumberGenerator.new()
-		if HEALTH >= 4 && HEALTH < 8:
-			ran = ran.randi_range(1,2)
-			HEALTH -= magnitude
-			if ran == 1:
-				if left_leg.frame < 2:
-					left_leg.frame += 1
-				else:
-					if right_leg.frame < 2:
-						right_leg.frame += 1
-			if ran == 2:
-				if right_leg.frame < 2:
-					right_leg.frame += 1
-				else:
-					if left_leg.frame < 2:
-						left_leg.frame += 1
-		ran = RandomNumberGenerator.new()
-		if HEALTH > 0 && HEALTH < 4:
-			ran = ran.randi_range(1,2)
-			HEALTH -= magnitude
-			if ran == 1:
-				if head.frame < 2:
-					head.frame += 1
-				else:
-					if torso.frame < 2:
-						torso.frame += 1
-			if ran == 2:
-				if torso.frame < 2:
-					torso.frame += 1
-				else:
-					if head.frame < 2:
-						head.frame += 1
-	else:
-		ARMOUR -= 100
+	HEALTH -= magnitude
+	#Engine.time_scale = 0
+	#$"UI/hurt flash".show()
+	$"hurt stop".start()
 	pass
 
 
-func cam_tilt(input_x, delta) -> void:
-	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25,2*delta)
+func JUICE(input_x, delta) -> void:
+	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25, 2 * delta)
+	
+	WEAPONS.rotation.z = lerp(WEAPONS.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, delta)
+	WEAPONS.rotation.x = lerp(WEAPONS.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, delta * 0.5)
+	WEAPONS.rotation.y = lerp(WEAPONS.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, delta * 0.5)
+	
+	if velocity.length() > 0:
+		var bob_ammount : float = 0.01
+		var bob_frequency : float = 0.01
+		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
+		WEAPONS.position.x = lerp(WEAPONS.position.x, 0 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
+	else:
+		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47, 10 * delta)
+		WEAPONS.position.x = lerp(WEAPONS.position.x, 0.0, 10 * delta)
 	pass
 
 
@@ -417,7 +350,17 @@ func camera_shake(magnitude, amplitude, delta):
 	pass
 
 
-func _death() -> void:
-	death_screen.show()
-	is_alive = false
+func death() -> void:
+	if HEALTH <= 0:
+		death_screen.show()
+		is_alive = false
+	else:
+		death_screen.hide()
+		is_alive = true
+	pass
+
+
+func _on_hurt_stop_timeout() -> void:
+	$"UI/hurt flash".hide()
+	Engine.time_scale = 1
 	pass

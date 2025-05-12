@@ -13,7 +13,7 @@ func _ready() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("kick"):
 		if player.is_on_floor():
 			is_used = true

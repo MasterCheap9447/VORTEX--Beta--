@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 
-@export var MAX_SPEED : float = 5
-@export var ACCELERATION: float = 3
+@export var MAX_SPEED : float = 20
+@export var ACCELERATION: float = 5
 @export var HEALTH: float = 3
 @export var DAMAGE: float = 2
 
@@ -25,42 +25,35 @@ var status : String = "Normal"
 
 
 func _ready() -> void:
-	global_variables.enemies_alive += 1
 	player = get_node(player_path)
+	look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+	global_variables.enemies_alive += 1
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	death()
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	
 	if !is_on_floor():
 		velocity.y -= 12
-		
-	var speed
-	var dir
-	
 	if !global_variables.is_paused:
-	
 		if !is_on_floor():
 			velocity.y -= 12
-	
 		if !dead && status != "Shocked":
-			speed = 0
-			
-			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			var plr_x = lerp(position.x, player.global_position.x, 0.5)
+			var plr_y = global_position.y
+			var plr_z = lerp(position.z, player.global_position.z, 0.5) 
+			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
 			if is_on_floor():
 				velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
-			
 			if checker.is_colliding():
 				var target = checker.get_collider()
 				if target != null:
 					if target.is_in_group("Player"):
 						attack(target)
-	
 	if status == "Shocked":
 		velocity = Vector3.ZERO
 	

@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 
+
 @onready var pause_menu: Control = $"pause menu"
-@onready var text_edit: TextEdit = $Container/Control/fuel/TextEdit
 @onready var settings_tab: Control = $"settings tab"
 
 func _ready() -> void:
@@ -19,7 +19,6 @@ func _process(_delta: float) -> void:
 	if settings_tab.visible == true && Input.is_action_pressed("exit"):
 		settings_tab.visible = false
 		pause_menu.position = Vector2(0, 0)
-	
 	pass
 
 func pause() -> void:
