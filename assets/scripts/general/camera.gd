@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					rotate_x(-event.relative.y * SENSITIVITY)
 				if !global_variables.invert_x:
 					rotate_x(event.relative.y * SENSITIVITY)
-				self.rotation.x = clamp(self.rotation.x, deg_to_rad(-80), deg_to_rad(90))
+				rotation.x = clamp(rotation.x, deg_to_rad(-88), deg_to_rad(88))
 	
 
 

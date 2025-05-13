@@ -17,7 +17,7 @@ expanded_output_ports = [0]
 input_name = "color"
 
 [sub_resource type="Curve" id="Curve_km476"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247174, 0.00511217), 0.0, 0.0, 0, 0, Vector2(0.247901, 0.251766), 0.0, 0.0, 0, 0, Vector2(0.498521, 0.272629), 0.0, 0.0, 0, 0, Vector2(0.502318, 0.496905), 0.0, 0.0, 0, 0, Vector2(0.754836, 0.502121), 0.0, 0.0, 0, 0, Vector2(0.754846, 0.747259), 0.0, 0.0, 0, 0, Vector2(0.99976, 0.731612), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247174, 0.00511217), 0.0, 0.0, 0, 0, Vector2(0.247901, 0.251766), 0.0, 0.0, 0, 0, Vector2(0.495671, 0.250922), 0.0, 0.0, 0, 0, Vector2(0.501367, 0.485629), 0.0, 0.0, 0, 0, Vector2(0.754836, 0.502121), 0.0, 0.0, 0, 0, Vector2(0.754846, 0.747259), 0.0, 0.0, 0, 0, Vector2(0.99976, 0.731612), 0.0, 0.0, 0, 0]
 point_count = 8
 
 [sub_resource type="CurveTexture" id="CurveTexture_ssgo6"]
@@ -82,6 +82,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-1645.87, -103.692)
 modes/cull = 2
 flags/unshaded = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_0kymp")

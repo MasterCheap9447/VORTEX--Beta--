@@ -1,4 +1,4 @@
-[gd_scene load_steps=367 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=369 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -28,13 +28,15 @@
 [ext_resource type="AudioStream" uid="uid://c78in80nhh4tl" path="res://assets/sounds/player/movement/jump_audio.mp3" id="17_p1n6j"]
 [ext_resource type="Texture2D" uid="uid://bsdhu3s4ynjk5" path="res://assets/models/player/weapons/tazer/texture/tazer_texture.png" id="17_tio7e"]
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
-[ext_resource type="Texture2D" uid="uid://ctjh6e1omnthj" path="res://assets/models/player/weapons/quad_form/texture/left_arm_texture.png" id="21_dbq3r"]
+[ext_resource type="Texture2D" uid="uid://ctjh6e1omnthj" path="res://assets/models/player/weapons/tri_form/texture/left_arm_texture.png" id="21_dbq3r"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
-[ext_resource type="Texture2D" uid="uid://m1n8avqkf86e" path="res://assets/models/player/weapons/quad_form/texture/right_arm_texture.png" id="23_jcu2l"]
+[ext_resource type="Texture2D" uid="uid://m1n8avqkf86e" path="res://assets/models/player/weapons/tri_form/texture/right_arm_texture.png" id="23_jcu2l"]
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
-[ext_resource type="Texture2D" uid="uid://cnje32plystvs" path="res://assets/models/player/weapons/quad_form/texture/tri_texture.png" id="25_j0u1c"]
+[ext_resource type="Texture2D" uid="uid://cnje32plystvs" path="res://assets/models/player/weapons/tri_form/texture/tri_texture.png" id="25_j0u1c"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
+[ext_resource type="Texture2D" uid="uid://bvvjt4dyk5wbp" path="res://assets/textures/ui/crosshairs/hti_effect.png" id="32_kv1c2"]
+[ext_resource type="Texture2D" uid="uid://b0fmwcyr61yu6" path="res://assets/textures/ui/speedometer/symbol.png" id="32_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
 [ext_resource type="Texture2D" uid="uid://cb1i88hcnj480" path="res://assets/textures/ui/health/health_bar_over.png" id="33_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://de7uspvtlv28v" path="res://assets/textures/ui/health/health_bar_fill.png" id="34_31l51"]
@@ -45,7 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://cmou43j1ggcps" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="36_3a880"]
 [ext_resource type="Texture2D" uid="uid://cvujwhea234h0" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="37_3r6y4"]
 [ext_resource type="Texture2D" uid="uid://bu5okqb5e8ns5" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="38_jaq6q"]
-[ext_resource type="Texture2D" uid="uid://c6yx0o8apj7yg" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
+[ext_resource type="Texture2D" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://bf4xy8r430iu2" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
 [ext_resource type="Texture2D" uid="uid://bpltgu55rju1m" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
@@ -5680,6 +5682,7 @@ libraries = {
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151847, 0.56166)
+visible = false
 script = ExtResource("2_bfnip")
 
 [node name="barrel position 2" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
@@ -6606,7 +6609,7 @@ offset_right = 1912.0
 offset_bottom = 475.0
 scale = Vector2(0.1, 0.1)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/normal_font_size = 103
 bbcode_enabled = true
 text = "69%"
 autowrap_mode = 1
@@ -6640,7 +6643,7 @@ offset_right = 1912.0
 offset_bottom = 475.0
 scale = Vector2(0.1, 0.1)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/normal_font_size = 103
 bbcode_enabled = true
 text = "69%"
 autowrap_mode = 1
@@ -6650,7 +6653,26 @@ texture_filter = 1
 position = Vector2(-16, 13)
 texture = ExtResource("35_yj401")
 
-[node name="amplifier crosshair" type="TextureRect" parent="UI"]
+[node name="speedometer" type="TextureRect" parent="UI/Container/Control"]
+layout_mode = 0
+offset_left = 385.0
+offset_top = -38.5
+offset_right = 532.0
+offset_bottom = 1.5
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("32_qgm2p")
+
+[node name="speed" type="RichTextLabel" parent="UI/Container/Control/speedometer"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = -2.0
+offset_right = 1282.0
+offset_bottom = 71.0
+theme_override_font_sizes/normal_font_size = 28
+text = "420 m/s"
+
+[node name="hit crosshair" type="TextureRect" parent="UI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -6662,9 +6684,10 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_iphvx")
+texture = ExtResource("32_kv1c2")
 
 [node name="tazer crosshair" type="TextureRect" parent="UI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -6679,6 +6702,7 @@ grow_vertical = 2
 texture = ExtResource("3_iphvx")
 
 [node name="tri form crosshair" type="TextureRect" parent="UI"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -6696,10 +6720,10 @@ texture = ExtResource("4_dpfgd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = 4.0
-offset_right = -1.0
-offset_bottom = 4.0
+offset_left = 1.0
+offset_top = -14.0
+offset_right = 1.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

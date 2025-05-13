@@ -32,13 +32,14 @@ extends CharacterBody3D
 
 @onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
 @onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
-@onready var amplifier_crosshair: TextureRect = $"UI/amplifier crosshair"
 
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
 @onready var f_percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
 
 @onready var health: TextureProgressBar = $UI/Container/Control/health
 @onready var h_percentage: RichTextLabel = $UI/Container/Control/health/percentage
+
+@onready var speed: RichTextLabel = $UI/Container/Control/speedometer/speed
 
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var death_screen: Control = $"UI/death screen"
@@ -74,11 +75,9 @@ func _input(event: InputEvent) -> void:
 				mouse_input = event.relative
 			match global_variables.weapon:
 				1 : 
-					amplifier_crosshair.visible = false
 					tazer_crosshair.visible = true 
 					tri_form_crosshair.visible = false
 				2 : 
-					amplifier_crosshair.visible = false
 					tazer_crosshair.visible = false
 					tri_form_crosshair.visible = true
 	pass
@@ -99,12 +98,13 @@ func _process(delta: float) -> void:
 		if !is_paused:
 			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
 			
-			FUEL = clamp(HEALTH, 0.0, 200.0)
+			speed.text = (str(int(velocity.length())) + " m/s" )
+			FUEL = clamp(FUEL, 0.0, 200.0)
 			HEALTH = clamp(HEALTH, 0.0, 400.0)
 			fuel.value = floor(int(FUEL))
-			f_percentage.text = str(floor(int(FUEL)))
+			f_percentage.text = (str(floor(int(FUEL))) + " %")
 			health.value = floor(int(HEALTH))
-			h_percentage.text = str(floor(int(HEALTH)))
+			h_percentage.text = (str(floor(int(HEALTH))) + " %")
 	else:
 		if Input.is_action_just_pressed("exit"):
 			get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")

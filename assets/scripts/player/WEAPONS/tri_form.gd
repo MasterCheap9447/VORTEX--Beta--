@@ -21,6 +21,7 @@ var damage : float = 3
 var temperature : float = 3
 
 var ammo : int = 3
+var time : float = 0.0
 
 var missile = load("res://assets/scenes/projectiles/tri_form_missile.tscn")
 
@@ -33,7 +34,8 @@ func _ready() -> void:
 	pass
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	time += delta
 	
 	if ideal_ray.is_colliding():
 		var point = ideal_ray.get_collision_point()
@@ -51,6 +53,9 @@ func _process(_delta: float) -> void:
 	else:
 		equiped = false
 	
+	var start_time : float
+	var end_time : float
+	
 	if equiped:
 		visible = true
 		if !done:
@@ -62,10 +67,16 @@ func _process(_delta: float) -> void:
 				blast_effect.play()
 				primary_fire()
 		if Input.is_action_just_pressed("alt shoot") && ammo >= 3:
-			if !animation.is_playing():
-				animation.play("shoot")
-				blast_effect.play()
-				alternate_fire()
+			start_time = time
+			position = lerp(position, Vector3(0.12, -0.953, 0.7), delta * 2)
+		if Input.is_action_just_released("alt shoot"):
+			end_time = time
+			var time_elapsed : float = end_time - start_time
+			if time_elapsed > 2:
+				if !animation.is_playing():
+					animation.play("shoot")
+					blast_effect.play()
+					alternate_fire()
 	else:
 		visible = false
 

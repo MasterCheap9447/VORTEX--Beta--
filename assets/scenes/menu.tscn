@@ -49,8 +49,8 @@ texture = ExtResource("2_c4qlh")
 [node name="diagram" type="Sprite2D" parent="start"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(1592, 543)
-scale = Vector2(3, 2.95109)
+position = Vector2(1488, 540)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_ujvk5")
 
 [node name="title" type="Sprite2D" parent="start"]

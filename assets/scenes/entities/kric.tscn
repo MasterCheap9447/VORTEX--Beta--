@@ -1657,7 +1657,8 @@ texture_mode = 1
 curve = SubResource("Curve_kf2ur")
 
 [sub_resource type="Gradient" id="Gradient_w4sus"]
-offsets = PackedFloat32Array(0.336788, 1)
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_v45wn"]
 gradient = SubResource("Gradient_w4sus")

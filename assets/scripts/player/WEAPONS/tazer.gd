@@ -26,8 +26,9 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @onready var barrel_position_1: Node3D = $"barrel position 1"
 @onready var barrel_position_2: Node3D = $"barrel position 2"
 
-@onready var crosshair: TextureRect = get_parent().get_parent().get_parent().get_parent().get_child(4).get_child(2)
+@onready var crosshair: TextureRect = $"../../../../UI/tazer crosshair"
 @onready var collision_effect: GPUParticles3D = $"tazer collision effect"
+@onready var hit_crosshair: TextureRect = $"../../../../UI/hit crosshair"
 
 
 func _ready() -> void:
@@ -35,7 +36,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	
 	if global_variables.weapon == 1:
 		equiped = true
 	else:
