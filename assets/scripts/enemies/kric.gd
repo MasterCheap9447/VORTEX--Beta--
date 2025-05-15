@@ -27,6 +27,7 @@ var player = null
 var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
+var player_position : Vector3
 
 var status : String = "Normal"
 
@@ -38,7 +39,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	
-	if status != "Normal":
+	if status == "":
 		animation.play("idle")
 	else:
 		if velocity.length() > 0:

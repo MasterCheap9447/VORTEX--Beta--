@@ -29,16 +29,15 @@ extends CharacterBody3D
 @onready var GUN_CAMERA: Camera3D = $"UI/viewport/sub viewport/gun_camera"
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
+@onready var slam_area: Area3D = $"NECK/SLAM/slam area"
 
 @onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
 @onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
 
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
 @onready var f_percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
-
 @onready var health: TextureProgressBar = $UI/Container/Control/health
 @onready var h_percentage: RichTextLabel = $UI/Container/Control/health/percentage
-
 @onready var speed: RichTextLabel = $UI/Container/Control/speedometer/speed
 
 @onready var pause_menu: Control = $"UI/pause menu"
@@ -46,7 +45,10 @@ extends CharacterBody3D
 @onready var blue_screen: Sprite2D = $"UI/death screen/blue screen"
 @onready var black_screen: Sprite2D = $"UI/death screen/black screen"
 
-@onready var slam_area: Area3D = $"NECK/SLAM/slam area"
+@onready var jump_sfx: AudioStreamPlayer3D = $"jump SFX"
+@onready var walk_sfx: AudioStreamPlayer3D = $"walk SFX"
+@onready var thrust_sfx: AudioStreamPlayer3D = $"thrust SFX"
+@onready var dash_sfx: AudioStreamPlayer3D = $"dash SFX"
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -61,11 +63,7 @@ var mouse_input : Vector2
 var is_paused : bool
 var is_alive : bool = true
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-	
-func _ready():
-	pass
 
 
 func _input(event: InputEvent) -> void:
@@ -84,7 +82,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	
+	audio()
 	
 	global_variables.is_paused = is_paused
 	global_variables.is_player_alive = is_alive
@@ -357,6 +355,15 @@ func death() -> void:
 	else:
 		death_screen.hide()
 		is_alive = true
+	pass
+
+
+func audio() -> void:
+	if FUEL > 1:
+		if Input.is_action_pressed("thrust"):
+			thrust_sfx.play()
+		else:
+			thrust_sfx.stop()
 	pass
 
 

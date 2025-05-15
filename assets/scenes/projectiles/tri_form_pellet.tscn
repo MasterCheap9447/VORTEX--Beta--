@@ -1,0 +1,142 @@
+[gd_scene load_steps=25 format=3 uid="uid://dsqb0olqwf1se"]
+
+[ext_resource type="Script" uid="uid://ccfdihm6ljbxw" path="res://assets/scripts/player/WEAPONS/tri_form_pellet.gd" id="1_sficd"]
+[ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_cm0vx"]
+[ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_uqvsj"]
+[ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_4ws1r"]
+[ext_resource type="Texture2D" uid="uid://bdok2lvbc721a" path="res://assets/textures/effects/thruster/Fire_Textures/Flame01.png" id="4_uqvsj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm0vx"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 1, 0, 1)
+metallic_specular = 1.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 0.666667, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_oxdja"]
+radius = 2.0
+height = 4.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sficd"]
+radius = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mur1r"]
+shader = ExtResource("2_cm0vx")
+
+[sub_resource type="Gradient" id="Gradient_5lceq"]
+colors = PackedColorArray(4.972, 3.314, 0, 1, 4.972, 3.314, 0, 0.455)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_chhnl"]
+gradient = SubResource("Gradient_5lceq")
+
+[sub_resource type="Curve" id="Curve_8swgc"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ckspk"]
+curve = SubResource("Curve_8swgc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ercg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_uqvsj")
+shader_parameter/tex = ExtResource("4_uqvsj")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_chhnl")
+shader_parameter/curve = SubResource("CurveTexture_ckspk")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_yuosa"]
+material = SubResource("ShaderMaterial_4ercg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqvsj"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Gradient" id="Gradient_4ws1r"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mur1r"]
+gradient = SubResource("Gradient_4ws1r")
+
+[sub_resource type="Curve" id="Curve_5lceq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.105023, 1), 0.0, 0.0, 0, 0, Vector2(0.497717, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_chhnl"]
+curve = SubResource("Curve_5lceq")
+
+[sub_resource type="Curve" id="Curve_ckspk"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.255708, 1), 0.0, 0.0, 0, 0, Vector2(0.287671, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4ercg"]
+curve = SubResource("Curve_ckspk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yuosa"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_4ercg")
+color_ramp = SubResource("GradientTexture1D_mur1r")
+emission_curve = SubResource("CurveTexture_chhnl")
+
+[sub_resource type="BoxMesh" id="BoxMesh_cdvic"]
+size = Vector3(0.125, 0.125, 0.125)
+
+[node name="Tri Form Pellet" type="Node3D"]
+script = ExtResource("1_sficd")
+
+[node name="model" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_cm0vx")
+mesh = SubResource("SphereMesh_oxdja")
+
+[node name="enemy area" type="Area3D" parent="."]
+
+[node name="enemy collsion" type="CollisionShape3D" parent="enemy area"]
+shape = SubResource("SphereShape3D_sficd")
+
+[node name="trail" type="GPUParticles3D" parent="."]
+amount = 28
+lifetime = 28.0
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ShaderMaterial_mur1r")
+draw_pass_1 = SubResource("QuadMesh_yuosa")
+script = ExtResource("4_4ws1r")
+length = 28
+length_seconds = 0.194444
+texture = ExtResource("4_uqvsj")
+color_ramp = SubResource("GradientTexture1D_chhnl")
+curve = SubResource("CurveTexture_ckspk")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
+
+[node name="end VFX" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_uqvsj")
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ParticleProcessMaterial_yuosa")
+draw_pass_1 = SubResource("BoxMesh_cdvic")
+
+[node name="half life" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="half life" to="." method="_on_half_life_timeout"]

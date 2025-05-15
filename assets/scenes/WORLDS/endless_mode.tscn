@@ -109,15 +109,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8194, 0, 0.922829)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1091, 0, 22.3725)
 
 [node name="enemy spawn time 1" type="Timer" parent="."]
-autostart = true
 
 [node name="enemy spawn time 2" type="Timer" parent="."]
 wait_time = 4.0
-autostart = true
 
 [node name="enemy spawn time 3" type="Timer" parent="."]
 wait_time = 4.0
-autostart = true
 
 [connection signal="timeout" from="enemy spawn time 1" to="." method="_on_enemy_spawn_time_timeout"]
 [connection signal="timeout" from="enemy spawn time 2" to="." method="_on_enemy_spawn_time_2_timeout"]

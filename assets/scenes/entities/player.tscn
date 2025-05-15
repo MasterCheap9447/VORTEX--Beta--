@@ -1,4 +1,4 @@
-[gd_scene load_steps=369 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=370 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://ctuw8qjulcqri" path="res://assets/textures/effects/thruster/Fire_Textures/Voronoi01.png" id="3_oa2pr"]
 [ext_resource type="Texture2D" uid="uid://c0e4at5k2ftq2" path="res://assets/textures/ui/crosshairs/quad_form_crosshair.png" id="4_dpfgd"]
 [ext_resource type="Texture2D" uid="uid://bdok2lvbc721a" path="res://assets/textures/effects/thruster/Fire_Textures/Flame01.png" id="4_ejv5b"]
-[ext_resource type="AudioStream" uid="uid://hsxf2n0b366u" path="res://assets/sounds/player/weapons/quad_form/quad_form_blast.wav" id="4_s1a5k"]
 [ext_resource type="Texture2D" uid="uid://dr35o04aijs26" path="res://assets/textures/effects/thruster/Fire_Textures/Flame02.png" id="5_34owt"]
 [ext_resource type="Texture2D" uid="uid://cb8o60va6qath" path="res://assets/textures/effects/thruster/Fire_Textures/Flare00.PNG" id="6_oa2pr"]
 [ext_resource type="Script" uid="uid://b7tsxvdbeilb7" path="res://assets/scripts/player/WEAPONS/tri_form.gd" id="6_p1n6j"]
@@ -28,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://c78in80nhh4tl" path="res://assets/sounds/player/movement/jump_audio.mp3" id="17_p1n6j"]
 [ext_resource type="Texture2D" uid="uid://bsdhu3s4ynjk5" path="res://assets/models/player/weapons/tazer/texture/tazer_texture.png" id="17_tio7e"]
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
+[ext_resource type="AudioStream" uid="uid://i8o10h2dwdwx" path="res://assets/sounds/player/weapons/tri_form/bi_form_shot_audio.mp3" id="20_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://ctjh6e1omnthj" path="res://assets/models/player/weapons/tri_form/texture/left_arm_texture.png" id="21_dbq3r"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
 [ext_resource type="Texture2D" uid="uid://m1n8avqkf86e" path="res://assets/models/player/weapons/tri_form/texture/right_arm_texture.png" id="23_jcu2l"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://cnje32plystvs" path="res://assets/models/player/weapons/tri_form/texture/tri_texture.png" id="25_j0u1c"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
+[ext_resource type="Texture2D" uid="uid://yaaq610esyu5" path="res://assets/textures/ui/fuel/fuel_symbol.png" id="28_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://bvvjt4dyk5wbp" path="res://assets/textures/ui/crosshairs/hti_effect.png" id="32_kv1c2"]
 [ext_resource type="Texture2D" uid="uid://b0fmwcyr61yu6" path="res://assets/textures/ui/speedometer/symbol.png" id="32_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
@@ -47,9 +48,9 @@
 [ext_resource type="Texture2D" uid="uid://cmou43j1ggcps" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="36_3a880"]
 [ext_resource type="Texture2D" uid="uid://cvujwhea234h0" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="37_3r6y4"]
 [ext_resource type="Texture2D" uid="uid://bu5okqb5e8ns5" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="38_jaq6q"]
-[ext_resource type="Texture2D" path="res://assets/textures/ui/fuel/fuel_sumbol.png" id="45_2wml6"]
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://bf4xy8r430iu2" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
+[ext_resource type="AudioStream" uid="uid://dr2qrjgn6s6vw" path="res://assets/sounds/player/movement/dash_audio.mp3" id="53_31l51"]
 [ext_resource type="Texture2D" uid="uid://bpltgu55rju1m" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
 [ext_resource type="Texture2D" uid="uid://ccak52jiwycqu" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
 
@@ -5140,33 +5141,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_wom5i")
 
-[sub_resource type="Animation" id="Animation_dbq3r"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/tri form/blast:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("model/arm 2/shoulder/bicep/forearm/hand/tri form/blast:frame_coords")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_ukntq"]
 resource_name = "equip"
 length = 0.25
@@ -5412,10 +5386,37 @@ tracks/11/keys = {
 "update": 1,
 "values": [Vector2i(1, 2), Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(0, 2), Vector2i(1, 2)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("bi form SFX:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_31l51"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bi form SFX:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qqrsm"]
 _data = {
-&"RESET": SubResource("Animation_dbq3r"),
+&"RESET": SubResource("Animation_31l51"),
 &"equip": SubResource("Animation_ukntq"),
 &"reload": SubResource("Animation_bvrvg"),
 &"shoot": SubResource("Animation_px7fd")
@@ -6091,6 +6092,12 @@ script = ExtResource("6_p1n6j")
 [node name="export" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(3.33333, 0, 0, 0, 3.32703, 0.204889, 0, -0.204889, 3.32703, -9.76686, -3.64202, 0.146721)
 
+[node name="bi form SFX" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form/export"]
+transform = Transform3D(-1.55143e-05, 0, 4.28572, 0.263429, 4.27761, 9.5361e-07, -4.27761, 0.263429, -1.54849e-05, 6.23481, 4.53549, -14.4302)
+stream = ExtResource("20_qgm2p")
+volume_db = 30.0
+panning_strength = 0.0
+
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 3.25, 0)
 
@@ -6101,10 +6108,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.75, -3.25, -1.5)
 transform = Transform3D(0.679458, -0.483032, -0.552284, -0.0209911, 0.739618, -0.6727, 0.733414, 0.468664, 0.4924, 1, 2, 1)
 
 [node name="bicep2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2"]
-transform = Transform3D(0.935078, 0.164045, 0.314197, 0.0657949, 0.790709, -0.608646, -0.348284, 0.589804, 0.72858, -1, 0, 0)
+transform = Transform3D(0.935078, 0.164045, 0.314197, 0.065795, 0.790709, -0.608646, -0.348284, 0.589804, 0.72858, -1, 0, 0)
 
 [node name="forearm2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2"]
-transform = Transform3D(-0.833285, -0.459664, 0.307156, -0.493915, 0.868585, -0.0400896, -0.248364, -0.185115, -0.950814, 0, -2.5, 0)
+transform = Transform3D(-0.833285, -0.459663, 0.307157, -0.493914, 0.868585, -0.0400904, -0.248364, -0.185116, -0.950814, 0, -2.5, 0)
 
 [node name="hand2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2/forearm2"]
 transform = Transform3D(0.881019, -0.460498, 0.108385, 0.425895, 0.87179, 0.242067, -0.205961, -0.167105, 0.964187, 0, -2.5, -0.0625)
@@ -6254,10 +6261,10 @@ transform = Transform3D(0.999741, -0.000981182, -0.0227295, -0.00295845, 0.98498
 transform = Transform3D(0.98516, -0.058695, -0.161294, -0.167269, -0.539066, -0.825487, -0.0384959, 0.840216, -0.540884, 0, -2.5, 0)
 
 [node name="hand" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm"]
-transform = Transform3D(0.975958, 0.165712, -0.14158, -0.0807072, 0.878164, 0.471503, 0.202464, -0.448741, 0.870425, -0.25, -3, -0.0625)
+transform = Transform3D(0.975958, 0.165712, -0.141579, -0.0807071, 0.878163, 0.471504, 0.202464, -0.448742, 0.870425, -0.25, -3, -0.0625)
 
 [node name="index" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
-transform = Transform3D(0.736009, 0.676971, -3.08994e-05, -0.676771, 0.735792, 0.0243025, 0.0164748, -0.0178659, 0.999705, 0.375, -1.625, -0.4375)
+transform = Transform3D(0.9756, 0.218604, -0.0204319, -0.218096, 0.97562, 0.0244808, 0.0252854, -0.0194273, 0.999492, 0.375, -1.625, -0.4375)
 
 [node name="joint 1" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/index"]
 transform = Transform3D(0.00660968, 0.994402, -0.105456, -0.998377, 0.000597715, -0.0569397, -0.0565579, 0.105661, 0.992792, 0, -1, 0)
@@ -6347,7 +6354,7 @@ mesh = SubResource("ArrayMesh_hwhoc")
 skeleton = NodePath("")
 
 [node name="tri form" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
-transform = Transform3D(0.951056, 1.9643e-08, -0.309017, 0.309017, -1.24021e-07, 0.951056, -1.96429e-08, -1, -1.24021e-07, 0.388943, -4.37701, -4.18997)
+transform = Transform3D(0.951056, 1.9643e-08, -0.309017, 0.309017, -1.24021e-07, 0.951056, -1.9643e-08, -1, -1.24021e-07, 0.388943, -4.37701, -4.18997)
 
 [node name="pump" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.375, -1.25)
@@ -6485,63 +6492,24 @@ libraries = {
 &"": SubResource("AnimationLibrary_qqrsm")
 }
 
-[node name="tri_form_blast_effect" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(-5.17141e-05, 0, 14.2857, 0, 14.2857, 0, -14.2857, 0, -5.17141e-05, 11.0158, 8.4911, -48.7923)
-stream = ExtResource("4_s1a5k")
-attenuation_model = 2
-volume_db = 15.0
-panning_strength = 0.0
-
-[node name="rays" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
+[node name="rays" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 4.54747e-13, 0, 1, 0, -4.54747e-13, 0, 1, 10.7382, 9.3249, -49.2494)
 
 [node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
-target_position = Vector3(0, 0, -16)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -0.0128088, -0.514446, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
-target_position = Vector3(0, 0, -16)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
-target_position = Vector3(0, 0, -16)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 5" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 6" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 7" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 8" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 9" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0225186, 0.0969214, -4.16031)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 10" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0565529, 0.0539899, -3.41936)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 11" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999094, -0.0638318, -0.00416756, -3.45189)
-target_position = Vector3(0, 0, -16)
-
-[node name="barrel 12" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(0.999999, 1.93521e-14, 4.11916e-16, -1.93521e-14, 0.999093, 0.0425557, 4.12024e-16, -0.0425557, 0.999093, 0.0615518, 0.0388317, -4.15006)
-target_position = Vector3(0, 0, -16)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="missile ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 10.7272, 9.00274, 3.79196)
@@ -6617,7 +6585,7 @@ autowrap_mode = 1
 [node name="name" type="Sprite2D" parent="UI/Container/Control/fuel"]
 texture_filter = 1
 position = Vector2(-16, 13)
-texture = ExtResource("45_2wml6")
+texture = ExtResource("28_qgm2p")
 
 [node name="health" type="TextureProgressBar" parent="UI/Container/Control"]
 z_index = 23
@@ -6823,19 +6791,21 @@ visible = false
 offset_left = -4.0
 offset_right = -4.0
 
-[node name="revv" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40524, 0.988875)
-stream = ExtResource("16_bfnip")
-volume_db = -30.0
-parameters/looping = true
-
-[node name="pump" type="AudioStreamPlayer3D" parent="."]
+[node name="jump SFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("17_p1n6j")
-volume_db = -20.0
+volume_db = 80.0
 
-[node name="clank" type="AudioStreamPlayer3D" parent="."]
+[node name="walk SFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("18_502cd")
-volume_db = -20.0
+volume_db = 30.0
+
+[node name="thrust SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("16_bfnip")
+volume_db = 30.0
+
+[node name="dash SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("53_31l51")
+volume_db = 20.0
 
 [node name="buffer" type="Timer" parent="."]
 wait_time = 0.2
