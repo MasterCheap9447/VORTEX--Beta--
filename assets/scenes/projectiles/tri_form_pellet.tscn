@@ -111,15 +111,15 @@ mesh = SubResource("SphereMesh_oxdja")
 shape = SubResource("SphereShape3D_sficd")
 
 [node name="trail" type="GPUParticles3D" parent="."]
-amount = 28
-lifetime = 28.0
+amount = 27
+lifetime = 27.0
 explosiveness = 1.0
 fixed_fps = 144
 process_material = SubResource("ShaderMaterial_mur1r")
 draw_pass_1 = SubResource("QuadMesh_yuosa")
 script = ExtResource("4_4ws1r")
-length = 28
-length_seconds = 0.194444
+length = 27
+length_seconds = 0.1875
 texture = ExtResource("4_uqvsj")
 color_ramp = SubResource("GradientTexture1D_chhnl")
 curve = SubResource("CurveTexture_ckspk")

@@ -23,6 +23,7 @@ var time : float = 0.0
 
 var missile = load("res://assets/scenes/projectiles/tri_form_missile.tscn")
 var pellet  = load("res://assets/scenes/projectiles/tri_form_pellet.tscn")
+var sawblade = load("res://assets/scenes/projectiles/saw_blade.tscn")
 
 
 func _ready() -> void:
@@ -100,7 +101,7 @@ func primary_fire() -> void:
 	pass
 
 func alternate_fire() -> void:
-	instance = missile.instantiate()
+	instance = sawblade.instantiate()
 	instance.position = missile_ray.global_position
 	instance.transform.basis = missile_ray.global_transform.basis
 	player.get_parent().add_child(instance)

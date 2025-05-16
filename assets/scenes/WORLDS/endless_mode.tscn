@@ -72,8 +72,15 @@ material_override = SubResource("StandardMaterial3D_t46py")
 size = Vector3(12, 12, 12)
 material = SubResource("StandardMaterial3D_t46py")
 
+[node name="cutout" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 1)
+material_override = SubResource("StandardMaterial3D_t46py")
+operation = 2
+size = Vector3(10, 12, 10)
+material = SubResource("StandardMaterial3D_t46py")
+
 [node name="enemy spawn points" type="Node3D" parent="navigation mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -13, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -68.1, 0)
 
 [node name="kric point" type="Node3D" parent="navigation mesh/enemy spawn points"]
 

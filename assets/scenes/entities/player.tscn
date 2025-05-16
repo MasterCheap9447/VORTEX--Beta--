@@ -5141,6 +5141,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_wom5i")
 
+[sub_resource type="Animation" id="Animation_31l51"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bi form SFX:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_ukntq"]
 resource_name = "equip"
 length = 0.25
@@ -5393,21 +5408,6 @@ tracks/12/path = NodePath("bi form SFX:playing")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_31l51"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("bi form SFX:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -6086,7 +6086,6 @@ draw_pass_1 = SubResource("SphereMesh_qgm2p")
 
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0.119874, -0.952573, 0.650743)
-visible = false
 script = ExtResource("6_p1n6j")
 
 [node name="export" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
@@ -6111,7 +6110,7 @@ transform = Transform3D(0.679458, -0.483032, -0.552284, -0.0209911, 0.739618, -0
 transform = Transform3D(0.935078, 0.164045, 0.314197, 0.065795, 0.790709, -0.608646, -0.348284, 0.589804, 0.72858, -1, 0, 0)
 
 [node name="forearm2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2"]
-transform = Transform3D(-0.833285, -0.459663, 0.307157, -0.493914, 0.868585, -0.0400904, -0.248364, -0.185116, -0.950814, 0, -2.5, 0)
+transform = Transform3D(-0.833285, -0.459663, 0.307157, -0.493914, 0.868585, -0.0400906, -0.248364, -0.185116, -0.950814, 0, -2.5, 0)
 
 [node name="hand2" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 1/shoulder2/bicep2/forearm2"]
 transform = Transform3D(0.881019, -0.460498, 0.108385, 0.425895, 0.87179, 0.242067, -0.205961, -0.167105, 0.964187, 0, -2.5, -0.0625)
@@ -6261,7 +6260,7 @@ transform = Transform3D(0.999741, -0.000981182, -0.0227295, -0.00295845, 0.98498
 transform = Transform3D(0.98516, -0.058695, -0.161294, -0.167269, -0.539066, -0.825487, -0.0384959, 0.840216, -0.540884, 0, -2.5, 0)
 
 [node name="hand" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm"]
-transform = Transform3D(0.975958, 0.165712, -0.141579, -0.0807071, 0.878163, 0.471504, 0.202464, -0.448742, 0.870425, -0.25, -3, -0.0625)
+transform = Transform3D(0.975958, 0.165712, -0.14158, -0.080707, 0.878163, 0.471505, 0.202464, -0.448742, 0.870425, -0.25, -3, -0.0625)
 
 [node name="index" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
 transform = Transform3D(0.9756, 0.218604, -0.0204319, -0.218096, 0.97562, 0.0244808, 0.0252854, -0.0194273, 0.999492, 0.375, -1.625, -0.4375)
@@ -6354,7 +6353,7 @@ mesh = SubResource("ArrayMesh_hwhoc")
 skeleton = NodePath("")
 
 [node name="tri form" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand"]
-transform = Transform3D(0.951056, 1.9643e-08, -0.309017, 0.309017, -1.24021e-07, 0.951056, -1.9643e-08, -1, -1.24021e-07, 0.388943, -4.37701, -4.18997)
+transform = Transform3D(0.951056, 1.9643e-08, -0.309017, 0.309017, -1.24021e-07, 0.951056, -1.96429e-08, -1, -1.24021e-07, 0.388943, -4.37701, -4.18997)
 
 [node name="pump" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/export/model/arm 2/shoulder/bicep/forearm/hand/tri form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.375, -1.25)
@@ -6512,7 +6511,8 @@ transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.008866
 target_position = Vector3(0, 0, -1)
 
 [node name="missile ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 10.7272, 9.00274, 3.79196)
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 8.82486, 8.61462, -53.8837)
+target_position = Vector3(0, 0, -1)
 
 [node name="ideal ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67033, 20.3338, 0)
