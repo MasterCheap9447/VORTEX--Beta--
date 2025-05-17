@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 @export var MAX_SPEED : float = 20
 @export var ACCELERATION: float = 5
-@export var HEALTH: float = 9999
+@export var HEALTH: float = 9
 @export var DAMAGE: float = 2
 
 var player = null
@@ -20,6 +20,7 @@ var player = null
 var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
+var delt
 
 var status : String = "Normal"
 
@@ -37,6 +38,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	delt = delta
 	if !is_on_floor():
 		velocity.y -= 12
 	if !global_variables.is_paused:
@@ -90,15 +92,13 @@ func di_form_hit(damage, burn) -> void:
 	blood_splash()
 	HEALTH -= damage
 	status = "Burned"
-	status = "Shocked"
 	await get_tree().create_timer(3).timeout
 	status = "Normal"
 	pass
 
 func saw_blade_hit(damage) -> void:
-	HEALTH -= damage
-	velocity /= 2
 	blood_splash()
+	HEALTH -= damage
 	pass
 
 func exp_damage(dmg, pos)  -> void:

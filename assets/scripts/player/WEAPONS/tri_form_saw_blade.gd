@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var model: MeshInstance3D = $model
 @onready var hit_area: Area3D = $"hit area"
 
+var cant : bool = true
 
 func _ready() -> void:
 	pass
@@ -17,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	model.rotation.x += rad_to_deg(2.5)
 	if !is_on_floor():
 		velocity.y -= 0.12
-	velocity = transform.basis * Vector3(0, 0, -SPEED)
+	velocity = transform.basis * Vector3(0, 0, -SPEED) * int(cant)
 	move_and_slide()
 	
 	if $"hit area".has_overlapping_areas():
@@ -31,7 +32,7 @@ func _physics_process(delta: float) -> void:
 			if target.has_method("saw_blade_hit"):
 				target.saw_blade_hit(DAMAGE)
 				velocity = Vector3.ZERO
-				position = target.position
+				cant = false
 				air_res_timer.start()
 	pass
 

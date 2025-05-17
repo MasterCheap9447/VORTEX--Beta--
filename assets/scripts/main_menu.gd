@@ -5,6 +5,7 @@ extends Control
 @onready var play: Node2D = $play
 @onready var antarctic_levels: Node2D = $"antarctic levels"
 @onready var settings_tab: Control = $"settings tab"
+@onready var button_press_sfx: AudioStreamPlayer = $"button press SFX"
 
 var cur_screen : String
 
@@ -44,25 +45,30 @@ func _process(_delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
+	button_press_sfx.play()
 	get_tree().change_scene_to_file("res://assets/scenes/WORLDS/endless_mode.tscn")
 	pass
 
 
 func _on_exit_pressed() -> void:
+	button_press_sfx.play()
 	get_tree().quit()
 	pass
 
 
 func _on_settings_pressed() -> void:
+	button_press_sfx.play()
 	cur_screen = "settings"
 	pass
 
 
 func _on_antarctica_pressed() -> void:
+	button_press_sfx.play()
 	cur_screen = "antarctic levels"
 	pass
 
 
 func _on_enter_lvl_1_pressed() -> void:
+	button_press_sfx.play()
 	get_tree().change_scene_to_file("res://assets/scenes/WORLDS/anatarctica/level-1.tscn")
 	pass

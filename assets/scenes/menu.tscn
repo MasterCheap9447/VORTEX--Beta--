@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://k8gi6k1ctg80"]
+[gd_scene load_steps=25 format=3 uid="uid://k8gi6k1ctg80"]
 
 [ext_resource type="Script" uid="uid://g01jn5sys6bu" path="res://assets/scripts/main_menu.gd" id="1_xuqax"]
 [ext_resource type="Texture2D" uid="uid://be21lctske620" path="res://assets/textures/ui/menu/background.png" id="2_c4qlh"]
@@ -22,11 +22,12 @@
 [ext_resource type="Texture2D" uid="uid://b7axgpwpsn81y" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_clicked.png" id="20_iw1dx"]
 [ext_resource type="Texture2D" uid="uid://b8w11snnor46g" path="res://assets/textures/ui/level select/Antarctica/level-1/play_button_hover.png" id="21_doml5"]
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/settings_tab.tscn" id="22_iw1dx"]
+[ext_resource type="AudioStream" uid="uid://bkcejufox2th8" path="res://assets/sounds/general/menu/button_click_audio.mp3" id="23_doml5"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u7y45"]
 light_mode = 1
 
-[node name="MENU" type="Control"]
+[node name="auid" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,6 +157,9 @@ visible = false
 layout_mode = 1
 offset_left = 319.0
 offset_right = -2241.0
+
+[node name="button press SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_doml5")
 
 [connection signal="pressed" from="start/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="start/settings" to="." method="_on_settings_pressed"]

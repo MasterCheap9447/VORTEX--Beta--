@@ -1245,9 +1245,6 @@ _data = {
 &"normal kick": SubResource("Animation_pqtoy")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2wml6"]
-size = Vector3(1, 1, 69.9673)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bjt06"]
 transparency = 2
 alpha_scissor_threshold = 0.5
@@ -3528,6 +3525,9 @@ _data = {
 &"reload": SubResource("Animation_s8woc")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2wml6"]
+size = Vector3(1, 1, 69.9673)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwly2"]
 shading_mode = 0
 albedo_color = Color(0, 1, 1, 1)
@@ -4410,17 +4410,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315875, 0.0315332, -49.76
 [node name="barrel position 1" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.612924, 0.220545, -1.65822)
 
-[node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311254, 0)
-
-[node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36.8402)
-shape = SubResource("BoxShape3D_2wml6")
-
-[node name="ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
-target_position = Vector3(0, 0, -64)
-collision_mask = 15
-
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7824, -1.14195, 1.07978)
 
@@ -4792,11 +4781,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29917, 1.1256, -2.81547)
 stream = ExtResource("7_dpfgd")
 volume_db = 10.0
 
+[node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311254, 0)
+
+[node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36.8402)
+shape = SubResource("BoxShape3D_2wml6")
+
+[node name="ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
+target_position = Vector3(0, 0, -64)
+collision_mask = 15
+
 [node name="tazer collision effect" type="GPUParticles3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.92509, 0.190072)
-visible = false
 material_override = SubResource("StandardMaterial3D_iwly2")
+emitting = false
 lifetime = 0.3
+one_shot = true
 explosiveness = 1.0
 fixed_fps = 144
 process_material = SubResource("ParticleProcessMaterial_kv1c2")
@@ -4949,7 +4950,7 @@ offset_right = -4.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="Control" type="Control" parent="UI/Container"]
 layout_mode = 2
@@ -5024,10 +5025,10 @@ texture = ExtResource("35_yj401")
 
 [node name="speedometer" type="TextureRect" parent="UI/Container/Control"]
 layout_mode = 0
-offset_left = 385.0
-offset_top = -38.5
-offset_right = 532.0
-offset_bottom = 1.5
+offset_left = 558.667
+offset_top = -38.6667
+offset_right = 705.667
+offset_bottom = 1.33333
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("32_qgm2p")
 

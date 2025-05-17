@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1ysgvjsmrc42"]
+[gd_scene load_steps=23 format=3 uid="uid://c1ysgvjsmrc42"]
 
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="1_6fp56"]
 [ext_resource type="Script" uid="uid://eueaprarvy4w" path="res://assets/scripts/player/WEAPONS/tri_form_saw_blade.gd" id="1_8g1ti"]
@@ -6,6 +6,32 @@
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="3_5uhih"]
 [ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/shaders/tri_form_explosive.tres" id="5_5uhih"]
 [ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/player/weapons/di_form/source/Projectiles/saw_blade.obj" id="6_flp2q"]
+
+[sub_resource type="Gradient" id="Gradient_flp2q"]
+offsets = PackedFloat32Array(0.00487805, 0.44878, 1)
+colors = PackedColorArray(0.238, 0.2422, 0.28, 1, 0.482195, 0.479596, 0.566176, 1, 0.50445, 0.5015, 0.59, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8vocw"]
+noise_type = 2
+fractal_type = 2
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_87kv5"]
+color_ramp = SubResource("Gradient_flp2q")
+noise = SubResource("FastNoiseLite_8vocw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxsul"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("NoiseTexture2D_87kv5")
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_peij7"]
 height = 0.5
@@ -78,6 +104,7 @@ SPEED = 150.0
 
 [node name="model" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.18557e-07, -5, 0, 5, -2.18557e-07, 0, 0, 0, 5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_dxsul")
 mesh = ExtResource("6_flp2q")
 
 [node name="collsion" type="CollisionShape3D" parent="."]
@@ -118,7 +145,6 @@ draw_pass_1 = SubResource("BoxMesh_5uhih")
 
 [node name="destruction" type="Timer" parent="."]
 wait_time = 15.0
-one_shot = true
 autostart = true
 
 [connection signal="timeout" from="air resistence timer" to="." method="_on_air_resistence_timer_timeout"]

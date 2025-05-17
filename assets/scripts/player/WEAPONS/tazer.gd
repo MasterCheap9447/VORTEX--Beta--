@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 func primary_fire() -> void:
 	voltage = 3
 	if ray.is_colliding():
-		collision_effect.position = ray.get_collision_point()
+		collision_effect.global_position = ray.get_collision_point()
 		collision_effect.emitting = true
 		instance.init(barrel_position_1.global_position, ray.get_collision_point())
 		var target = ray.get_collider()
@@ -102,6 +102,8 @@ func primary_fire() -> void:
 					target.tazer_hit(damage, voltage)
 	else:
 		instance.init(barrel_position_1.global_position, barrel_position_2.global_position)
+		collision_effect.global_position = barrel_position_2.global_position
+		collision_effect.emitting = true
 	player.get_parent().add_child(instance)
 	ammo -= 1
 
