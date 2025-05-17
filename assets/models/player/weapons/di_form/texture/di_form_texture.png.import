@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctjh6e1omnthj"
-path.s3tc="res://.godot/imported/left_arm_texture.png-958783178f92d5644f6d02a1536ea415.s3tc.ctex"
+uid="uid://6k7kj5jwwuby"
+path.s3tc="res://.godot/imported/di_form_texture.png-d95a4087e2c5ee94b1f94e2d315c1d92.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/models/player/weapons/tri_form/texture/left_arm_texture.png"
-dest_files=["res://.godot/imported/left_arm_texture.png-958783178f92d5644f6d02a1536ea415.s3tc.ctex"]
+source_file="res://assets/models/player/weapons/di_form/texture/di_form_texture.png"
+dest_files=["res://.godot/imported/di_form_texture.png-d95a4087e2c5ee94b1f94e2d315c1d92.s3tc.ctex"]
 
 [params]
 

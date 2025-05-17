@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="2_8g1ti"]
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="3_5uhih"]
 [ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/shaders/tri_form_explosive.tres" id="5_5uhih"]
+[ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/player/weapons/di_form/source/Projectiles/saw_blade.obj" id="6_flp2q"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_peij7"]
 height = 0.5
@@ -40,11 +41,6 @@ shader_parameter/flags = 40
 [sub_resource type="QuadMesh" id="QuadMesh_phv4s"]
 material = SubResource("ShaderMaterial_a48td")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_epp63"]
-top_radius = 2.0
-bottom_radius = 2.0
-height = 0.5
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7vbpc"]
 height = 1.0
 radius = 3.0
@@ -77,9 +73,12 @@ size = Vector3(0.2, 1, 0.2)
 
 [node name="Saw Blade" type="CharacterBody3D"]
 axis_lock_angular_z = true
-motion_mode = 1
 script = ExtResource("1_8g1ti")
-SPEED = 100.0
+SPEED = 150.0
+
+[node name="model" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.18557e-07, -5, 0, 5, -2.18557e-07, 0, 0, 0, 5, 0, 0, 0)
+mesh = ExtResource("6_flp2q")
 
 [node name="collsion" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.004388, 0.00146267, 0)
@@ -101,10 +100,6 @@ curve = SubResource("CurveTexture_t17r8")
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 
-[node name="model" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.00146267, 0.00146267, 0)
-mesh = SubResource("CylinderMesh_epp63")
-
 [node name="hit area" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.00146267, 0.00146267, 0)
 
@@ -121,4 +116,10 @@ draw_pass_1 = SubResource("BoxMesh_5uhih")
 
 [node name="air resistence timer" type="Timer" parent="."]
 
+[node name="destruction" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="air resistence timer" to="." method="_on_air_resistence_timer_timeout"]
+[connection signal="timeout" from="destruction" to="." method="_on_destruction_timeout"]

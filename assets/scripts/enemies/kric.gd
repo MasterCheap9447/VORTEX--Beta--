@@ -39,7 +39,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	
-	if status == "":
+	if status == "shocked":
 		animation.play("idle")
 	else:
 		if velocity.length() > 0:
@@ -78,7 +78,7 @@ func _physics_process(_delta: float) -> void:
 		if !is_on_floor():
 			velocity.y -= 12
 		if !dead && status != "Shocked":
-			velocity = transform.basis * Vector3(0, 0, -SPEED)
+			velocity = transform.basis * Vector3(0, 12 * int(is_on_floor()), -SPEED)
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 			if check.is_colliding():
 				var target = check.get_collider()
@@ -120,9 +120,15 @@ func tazer_hit(damage,volts):
 	status = "Normal"
 	pass
 
-func tri_form_hit(damage, burns) -> void:
+func di_form_hit(damage, burns) -> void:
 	blood_splash()
 	HEALTH -= damage * 2
+	pass
+
+func saw_blade_hit(damage) -> void:
+	HEALTH -= damage
+	velocity /= 2
+	blood_splash()
 	pass
 
 func exp_damage(dmg, pos)  -> void:

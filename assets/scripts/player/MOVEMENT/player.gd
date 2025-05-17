@@ -327,8 +327,8 @@ func JUICE(input_x, delta) -> void:
 	WEAPONS.rotation.x = lerp(WEAPONS.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, delta * 0.5)
 	WEAPONS.rotation.y = lerp(WEAPONS.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, delta * 0.5)
 	
-	if velocity.length() > 0:
-		var bob_ammount : float = 0.01
+	if velocity.length() > 0 && is_on_floor():
+		var bob_ammount : float = 0.5
 		var bob_frequency : float = 0.01
 		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
 		WEAPONS.position.x = lerp(WEAPONS.position.x, 0 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)

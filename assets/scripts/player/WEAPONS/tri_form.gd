@@ -6,10 +6,10 @@ var instance
 var done
 
 @onready var model: Node3D = $export/model
-@onready var animation: AnimationPlayer = $export/animation
+@onready var animation: AnimationPlayer = $model/animation
 @onready var rays: RayCast3D = $rays
 @onready var player: CharacterBody3D = $"../../../.."
-@onready var missile_ray: RayCast3D = $"missile ray"
+@onready var saw_ray: RayCast3D = $"saw ray"
 @onready var ideal_ray: RayCast3D = $"ideal ray"
 
 @export var RECOIL : float = 5.0
@@ -21,10 +21,8 @@ var temperature : float = 3
 var ammo : int = 3
 var time : float = 0.0
 
-var missile = load("res://assets/scenes/projectiles/tri_form_missile.tscn")
 var pellet  = load("res://assets/scenes/projectiles/tri_form_pellet.tscn")
 var sawblade = load("res://assets/scenes/projectiles/saw_blade.tscn")
-
 
 func _ready() -> void:
 	randomize()
@@ -42,9 +40,9 @@ func _process(delta: float) -> void:
 		r.rotation.z = randf_range(-SPREAD, SPREAD)
 	time += delta
 	if ideal_ray.is_colliding():
-		missile_ray.target_position = ideal_ray.get_collision_point()
+		saw_ray.target_position = ideal_ray.get_collision_point()
 	else:
-		missile_ray.target_position = ideal_ray.target_position
+		saw_ray.target_position = ideal_ray.target_position
 	
 	if ammo <= 0:
 		if !animation.is_playing():
@@ -64,22 +62,25 @@ func _process(delta: float) -> void:
 		if !done:
 			animation.play("equip")
 			done = true
-		if Input.is_action_just_pressed("shoot") && ammo > 0:
+		if Input.is_action_pressed("shoot") && ammo > 0:
 			if !animation.is_playing():
-				animation.play("shoot")
+				animation.play("primary fire")
 				primary_fire()
 		if Input.is_action_just_pressed("alt shoot") && ammo >= 3:
-			start_time = time
-			position = lerp(position, Vector3(0.12, -0.953, 0.7), delta * 2)
-		if Input.is_action_just_released("alt shoot"):
-			end_time = time
-			var time_elapsed : float = end_time - start_time
-			if time_elapsed > 2:
-				if !animation.is_playing():
-					animation.play("shoot")
-					alternate_fire()
+			if !animation.is_playing():
+				start_time = time
+				animation.play("alt fire charge up")
+		if Input.is_action_just_released("alt shoot") && ammo >= 3:
+			if !animation.is_playing():
+				end_time = time
+				var time_elapsed : float = end_time - start_time
+				if time_elapsed > 1:
+					if !animation.is_playing():
+						animation.play("alt fire release")
+						alternate_fire()
 	else:
 		visible = false
+		done = false
 
 func tri_form_change() -> void:
 	equiped = true
@@ -102,8 +103,8 @@ func primary_fire() -> void:
 
 func alternate_fire() -> void:
 	instance = sawblade.instantiate()
-	instance.position = missile_ray.global_position
-	instance.transform.basis = missile_ray.global_transform.basis
+	instance.position = saw_ray.global_position
+	instance.transform.basis = saw_ray.global_transform.basis
 	player.get_parent().add_child(instance)
 	ammo = 0
 	pass

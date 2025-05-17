@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dlmpet3w274k"
-path="res://.godot/imported/tri_form.fbx-85f6c666c7863891e548897be5abf01c.scn"
+uid="uid://cln5dcb5b38ek"
+path="res://.godot/imported/di_form.fbx-f67ef7d0b9239f87bda7b22198d9017e.scn"
 
 [deps]
 
-source_file="res://assets/models/player/weapons/tri_form/source/tri_form.fbx"
-dest_files=["res://.godot/imported/tri_form.fbx-85f6c666c7863891e548897be5abf01c.scn"]
+source_file="res://assets/models/player/weapons/di_form/source/di_form.fbx"
+dest_files=["res://.godot/imported/di_form.fbx-f67ef7d0b9239f87bda7b22198d9017e.scn"]
 
 [params]
 

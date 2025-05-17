@@ -81,13 +81,19 @@ func tazer_hit(damage,volts):
 	status = "Normal"
 	pass
 
-func tri_form_hit(damage, burns) -> void:
+func di_form_hit(damage, burns) -> void:
 	blood_splash()
 	HEALTH -= damage * 2
 	status = "Burned"
 	status = "Shocked"
 	await get_tree().create_timer(3).timeout
 	status = "Normal"
+	pass
+
+func saw_blade_hit(damage) -> void:
+	HEALTH -= damage
+	velocity /= 2
+	blood_splash()
 	pass
 
 func exp_damage(dmg, pos)  -> void:
