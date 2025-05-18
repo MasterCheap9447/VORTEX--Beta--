@@ -11,9 +11,10 @@ var done
 @onready var player: CharacterBody3D = $"../../../.."
 @onready var saw_ray: RayCast3D = $"saw ray"
 @onready var ideal_ray: RayCast3D = $"ideal ray"
+@onready var barrel_position: Node3D = $"barrel position"
 
 @export var RECOIL : float = 5.0
-@export var SPREAD : float = 0.1
+@export var SPREAD : float = 0.01
 
 var damage : float = 3
 var temperature : float = 3
@@ -34,6 +35,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	$"model/bucky/barrels/saw blade".rotation.x += rad_to_deg(2.5)
+	
 	for r in rays.get_children():
 		r.rotation.x = randf_range(-SPREAD, SPREAD)
 		r.rotation.y = randf_range(-SPREAD, SPREAD)
@@ -41,8 +44,10 @@ func _process(delta: float) -> void:
 	time += delta
 	if ideal_ray.is_colliding():
 		saw_ray.target_position = ideal_ray.get_collision_point()
+		rays.target_position = ideal_ray.get_collision_point()
 	else:
-		saw_ray.target_position = ideal_ray.target_position
+		saw_ray.target_position = barrel_position.global_position
+		rays.target_position = barrel_position.global_position
 	
 	if ammo <= 0:
 		if !animation.is_playing():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=288 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=293 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/player/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/player/HUD/neck.gd" id="2_3r6y4"]
@@ -27,9 +27,11 @@
 [ext_resource type="Texture2D" uid="uid://bsdhu3s4ynjk5" path="res://assets/models/player/weapons/tazer/texture/tazer_texture.png" id="17_tio7e"]
 [ext_resource type="AudioStream" uid="uid://dlfci3dt8ub0f" path="res://assets/sounds/player/movement/walking_audio.mp3" id="18_502cd"]
 [ext_resource type="Texture2D" uid="uid://6k7kj5jwwuby" path="res://assets/models/player/weapons/di_form/texture/di_form_texture.png" id="20_iwly2"]
+[ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/player/weapons/di_form/source/Projectiles/saw_blade.obj" id="20_qgm2p"]
 [ext_resource type="AudioStream" uid="uid://dnbva18swgski" path="res://assets/sounds/player/weapons/di_form/primary_shot_audio.mp3" id="21_iwly2"]
 [ext_resource type="Script" uid="uid://djybuw8jamqim" path="res://assets/scripts/player/HUD/ui.gd" id="22_4yn3y"]
 [ext_resource type="AudioStream" uid="uid://cc30ox6k7546u" path="res://assets/sounds/player/weapons/di_form/reload_audio.mp3" id="22_kv1c2"]
+[ext_resource type="AudioStream" uid="uid://cukr5m1mkvhhe" path="res://assets/sounds/player/weapons/di_form/saw_blade_launch_audio.mp3" id="24_31l51"]
 [ext_resource type="Texture2D" uid="uid://bibbf2ifbydtm" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_normal.png" id="25_5dk77"]
 [ext_resource type="Texture2D" uid="uid://meihluojplhq" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_clicked.png" id="26_vavbu"]
 [ext_resource type="Texture2D" uid="uid://kaq7ef42s20r" path="res://assets/textures/ui/pause screen/buttons/resume/resume_button_hover.png" id="27_x10jc"]
@@ -3661,6 +3663,32 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5piai")
 
+[sub_resource type="Gradient" id="Gradient_31l51"]
+offsets = PackedFloat32Array(0.00487805, 0.44878, 1)
+colors = PackedColorArray(0.238, 0.2422, 0.28, 1, 0.482195, 0.479596, 0.566176, 1, 0.50445, 0.5015, 0.59, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yj401"]
+noise_type = 2
+fractal_type = 2
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_87kv5"]
+color_ramp = SubResource("Gradient_31l51")
+noise = SubResource("FastNoiseLite_yj401")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lcrc"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("NoiseTexture2D_87kv5")
+metallic = 0.5
+metallic_specular = 1.0
+roughness = 0.0
+clearcoat_enabled = true
+clearcoat_roughness = 0.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_ob1ef"]
 _surfaces = [{
 "aabb": AABB(-0.25, 0, -0.25, 0.5, 1, 0.5),
@@ -3861,21 +3889,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ejwud")
 
-[sub_resource type="Animation" id="Animation_kv1c2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("di form reload SFX:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_ph3g6"]
 resource_name = "alt fire charge up"
 length = 0.125
@@ -3967,6 +3980,18 @@ tracks/5/path = NodePath("bucky/cocks")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("di form saw blade launch SFX:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.06),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_oca4q"]
 resource_name = "equip"
@@ -4132,7 +4157,6 @@ tracks/6/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s824j"]
 _data = {
-&"RESET": SubResource("Animation_kv1c2"),
 &"alt fire charge up": SubResource("Animation_ph3g6"),
 &"alt fire release": SubResource("Animation_nxewj"),
 &"equip": SubResource("Animation_oca4q"),
@@ -4302,7 +4326,6 @@ script = ExtResource("7_oa2pr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470498, -0.601621)
 
 [node name="grippers" type="Node3D" parent="NECK/camera/WEAPONS"]
-visible = false
 script = ExtResource("8_mebfi")
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/grippers"]
@@ -4322,31 +4345,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.75, 0)
 
 [node name="heel motor" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg/bone/bone2"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_xw8fo")
 skeleton = NodePath("")
 
 [node name="cuboid" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg/bone/bone2"]
 transform = Transform3D(-1, 0, -1.22461e-16, 0, 1, 0, 1.22461e-16, 0, -1, 0, -2.25, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_4p5wx")
 skeleton = NodePath("")
 
 [node name="knee motor" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg/bone"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_6by35")
 skeleton = NodePath("")
 
 [node name="shin piston" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg/bone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_oji4d")
 skeleton = NodePath("")
 
 [node name="thigh piston" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.75, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_pn5io")
 skeleton = NodePath("")
 
 [node name="thigh plate" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/right leg"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.25, -4.5, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_qt8ip")
 skeleton = NodePath("")
 
@@ -4361,36 +4390,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.75, 0)
 
 [node name="heel motor_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg/bone3/bone4"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_3ps8m")
 skeleton = NodePath("")
 
 [node name="cuboid_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg/bone3/bone4"]
 transform = Transform3D(-1, 0, -1.22461e-16, 0, 1, 0, 1.22461e-16, 0, -1, 0, -2.25, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_7i4fj")
 skeleton = NodePath("")
 
 [node name="knee motor_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg/bone3"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_7cgch")
 skeleton = NodePath("")
 
 [node name="shin piston_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg/bone3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_hqaoj")
 skeleton = NodePath("")
 
 [node name="thigh piston_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.75, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_nr15q")
 skeleton = NodePath("")
 
 [node name="thigh plate_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model/left_leg"]
 transform = Transform3D(0, 1, 0, 1, 0, -1.22461e-16, -1.22461e-16, 0, -1, 0, -4.5, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_eoevb")
 skeleton = NodePath("")
 
 [node name="waist motor" type="MeshInstance3D" parent="NECK/camera/WEAPONS/grippers/model/model"]
 transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.25, 0, 0)
+layers = 2
 mesh = SubResource("ArrayMesh_8nilu")
 skeleton = NodePath("")
 
@@ -4439,12 +4475,14 @@ transform = Transform3D(0.00661002, 0.994402, -0.105456, -0.998377, 0.000598011,
 
 [node name="finger25_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/index2/joint_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.5, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_cpaf3")
 skeleton = NodePath("")
 
 [node name="finger23_002" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/index2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.5, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_u6ftv")
 skeleton = NodePath("")
@@ -4457,12 +4495,14 @@ transform = Transform3D(0.131362, 0.941584, -0.310103, -0.990725, 0.113722, -0.0
 
 [node name="finger24_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/middle2/joint_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 11.5, 0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_duydv")
 skeleton = NodePath("")
 
 [node name="finger22_002" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/middle2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.5, 0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_vmuyg")
 skeleton = NodePath("")
@@ -4475,12 +4515,14 @@ transform = Transform3D(0.145738, 0.958827, -0.243746, -0.985567, 0.16216, 0.048
 
 [node name="finger23_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/ring2/joint_4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.25, -1.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_6s2jc")
 skeleton = NodePath("")
 
 [node name="finger22_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/ring2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.25, -1.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_8yy6f")
 skeleton = NodePath("")
@@ -4493,12 +4535,14 @@ transform = Transform3D(0.132848, 0.98406, -0.118224, -0.93465, 0.0846895, -0.34
 
 [node name="finger13" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/pinky2/joint_5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.25, -2.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_kravf")
 skeleton = NodePath("")
 
 [node name="finger12_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/pinky2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 7.25, -2.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_e14fy")
 skeleton = NodePath("")
@@ -4511,54 +4555,63 @@ transform = Transform3D(0.00955543, -0.978408, -0.206461, 0.499457, 0.183541, -0
 
 [node name="finger27" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/thumb2/joint_6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 6.5, 5.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_70wvc")
 skeleton = NodePath("")
 
 [node name="finger26_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2/thumb2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4.75, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_5gln2")
 skeleton = NodePath("")
 
 [node name="knuckles_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2/hand2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_4wdpq")
 skeleton = NodePath("")
 
 [node name="foreaerm_plater_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2"]
 transform = Transform3D(-0.984808, -0.0226657, -0.172163, -7.45058e-08, 0.991445, -0.130526, 0.173648, -0.128543, -0.976383, 7, -8.75, -0.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_ohp24")
 skeleton = NodePath("")
 
 [node name="foreaerm_piston_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2/forearm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_nvt8u")
 skeleton = NodePath("")
 
 [node name="forearm_motor_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_n80f2")
 skeleton = NodePath("")
 
 [node name="bicep_piston_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2/bicep2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_16g4e")
 skeleton = NodePath("")
 
 [node name="shoulder_motor_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_6b442")
 skeleton = NodePath("")
 
 [node name="should_plate_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm2/shoulder2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_bjt06")
 mesh = SubResource("ArrayMesh_51mrs")
 skeleton = NodePath("")
@@ -4586,12 +4639,14 @@ transform = Transform3D(0.00661002, 0.994402, -0.105456, -0.998377, 0.000598011,
 
 [node name="finger24" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/index/joint 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.5, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_nmni1")
 skeleton = NodePath("")
 
 [node name="finger23_001" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/index"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.5, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_2qyi8")
 skeleton = NodePath("")
@@ -4604,12 +4659,14 @@ transform = Transform3D(0.131362, 0.941584, -0.310103, -0.990725, 0.113722, -0.0
 
 [node name="finger23" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/middle/joint 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 11.5, 0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_bkogl")
 skeleton = NodePath("")
 
 [node name="finger22_001" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/middle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.5, 0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_1mtvp")
 skeleton = NodePath("")
@@ -4622,12 +4679,14 @@ transform = Transform3D(0.145738, 0.958827, -0.243746, -0.985567, 0.16216, 0.048
 
 [node name="finger22" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/ring/joint 3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.25, -1.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_d2uef")
 skeleton = NodePath("")
 
 [node name="finger21" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/ring"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 7.25, -1.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_n6ao7")
 skeleton = NodePath("")
@@ -4640,12 +4699,14 @@ transform = Transform3D(0.132848, 0.98406, -0.118224, -0.93465, 0.0846895, -0.34
 
 [node name="finger12" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/pinky/joint 4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 11.25, -2.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_a3l0j")
 skeleton = NodePath("")
 
 [node name="finger11" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/pinky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 7.25, -2.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_iftba")
 skeleton = NodePath("")
@@ -4658,12 +4719,14 @@ transform = Transform3D(0.824239, 0.377725, 0.421846, -0.336256, 0.925918, -0.17
 
 [node name="finger26" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/thumb/joint 5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 6.5, 5.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_6cu0n")
 skeleton = NodePath("")
 
 [node name="finger25" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/thumb"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4.75, 1.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_vrrvo")
 skeleton = NodePath("")
@@ -4673,48 +4736,56 @@ transform = Transform3D(0.948182, -0.303969, -0.0924879, 0.304337, 0.952507, -0.
 
 [node name="gaurd" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_nmv0k")
 skeleton = NodePath("")
 
 [node name="handle" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_rnr14")
 skeleton = NodePath("")
 
 [node name="mass" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_wxyx4")
 skeleton = NodePath("")
 
 [node name="grip" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_uvcd7")
 skeleton = NodePath("")
 
 [node name="trigger" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_rqspm")
 skeleton = NodePath("")
 
 [node name="aim" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_8dyvg")
 skeleton = NodePath("")
 
 [node name="muzzle" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_g3cew")
 skeleton = NodePath("")
 
 [node name="chamber" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 22)
+layers = 2
 material_override = SubResource("StandardMaterial3D_rnkb8")
 mesh = SubResource("ArrayMesh_bo24f")
 skeleton = NodePath("")
@@ -4731,42 +4802,49 @@ frame = 1
 
 [node name="knuckles" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm/hand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_qx635")
 skeleton = NodePath("")
 
 [node name="foreaerm_plater" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_0ievn")
 skeleton = NodePath("")
 
 [node name="foreaerm_piston" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep/forearm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_jxy0b")
 skeleton = NodePath("")
 
 [node name="forearm_motor" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_mkaul")
 skeleton = NodePath("")
 
 [node name="bicep_piston" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder/bicep"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_wsg48")
 skeleton = NodePath("")
 
 [node name="shoulder_motor" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_uhasm")
 skeleton = NodePath("")
 
 [node name="should_plate" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tazer/model/node/arm/shoulder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -19, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_4yn3y")
 mesh = SubResource("ArrayMesh_u86pb")
 skeleton = NodePath("")
@@ -4805,14 +4883,13 @@ draw_pass_1 = SubResource("SphereMesh_qgm2p")
 
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0.119874, -0.952573, 0.650743)
-visible = false
 script = ExtResource("6_p1n6j")
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 8.5, 8.5, -25)
 
 [node name="bucky" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/model"]
-transform = Transform3D(0.608761, 0.793353, 0, -0.793353, 0.608761, 0, 0, 0, 1, -4.825, -2.75, 2.25625)
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, -4.825, -2.75, 2.25625)
 
 [node name="barrels" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 2.75, -1)
@@ -4822,57 +4899,73 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.75, 0)
 
 [node name="cuboid_6" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/barrels/pump"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.25, 1, 0.75)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_1od3a")
 skeleton = NodePath("")
 
 [node name="cylinder" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/barrels"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.5, 0, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_sqmbh")
 skeleton = NodePath("")
 
 [node name="cylinder_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/barrels"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.5, 0, 1.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_hw1pa")
 skeleton = NodePath("")
+
+[node name="saw blade" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/barrels"]
+transform = Transform3D(5.73206e-15, 1.31134e-07, -3, 3, -1.31134e-07, -2.32962e-23, -1.31134e-07, -3, -1.31134e-07, 2.82759, 0.1613, 0.743193)
+layers = 2
+material_override = SubResource("StandardMaterial3D_8lcrc")
+mesh = ExtResource("20_qgm2p")
+skeleton = NodePath("../../../../../../../..")
 
 [node name="cocks" type="Node3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 3.5, 0.5)
 
 [node name="cuboid_1" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/cocks"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0, 0, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_5k4bo")
 skeleton = NodePath("")
 
 [node name="cuboid_2" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky/cocks"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0, 0, -1.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_1iufj")
 skeleton = NodePath("")
 
 [node name="cuboid" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.75, -0.35)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_kph28")
 skeleton = NodePath("")
 
 [node name="cuboid_3" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25, 0, 0.5)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_sqhfs")
 skeleton = NodePath("")
 
 [node name="cuboid_4" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 1.25, 0.25, -0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_x1b6v")
 skeleton = NodePath("")
 
 [node name="cuboid_5" type="MeshInstance3D" parent="NECK/camera/WEAPONS/tri_form/model/bucky"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3125, -1.625, -0.25)
+layers = 2
 material_override = SubResource("StandardMaterial3D_kv1c2")
 mesh = SubResource("ArrayMesh_7rtfd")
 skeleton = NodePath("")
@@ -4888,37 +4981,53 @@ transform = Transform3D(4.7619, 0, 1.42109e-14, 0, 4.7619, 0, -1.42109e-14, 0, 4
 stream = ExtResource("22_kv1c2")
 volume_db = 60.0
 
+[node name="di form saw blade launch SFX" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form/model"]
+transform = Transform3D(4.7619, 0, 2.84217e-14, 0, 4.7619, 0, -2.84217e-14, 0, 4.7619, -4.825, -2.75, 2.25625)
+stream = ExtResource("24_31l51")
+
 [node name="animation" type="AnimationPlayer" parent="NECK/camera/WEAPONS/tri_form/model"]
 libraries = {
 &"": SubResource("AnimationLibrary_s824j")
 }
 
 [node name="rays" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 4.54747e-13, 0, 1, 0, -4.54747e-13, 0, 1, 10.7382, 9.3249, -49.2494)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5204, 8.43387, -48.0515)
+target_position = Vector3(0, 0, -5)
 
 [node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -0.0128088, -0.514446, 0)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.25841, 0.0798531, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
-transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 0.00886631, -0.532679, 0)
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="barrel 5" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="barrel 6" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
+transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="saw ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 14.4226, 9.96022, -41.2889)
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 14.4226, 8.56132, -41.2889)
 target_position = Vector3(0, 0, -1)
 
 [node name="ideal ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67033, 20.3338, 0)
 target_position = Vector3(0, 0, -1000)
+
+[node name="barrel position" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.665, 20.253, -1000)
 
 [node name="slide direction" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)
@@ -5078,39 +5187,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -24.0
-offset_right = 32.0
-offset_bottom = 24.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_dpfgd")
 
-[node name="viewport" type="SubViewportContainer" parent="UI"]
+[node name="view container" type="SubViewportContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -14.0
-offset_right = 1.0
-offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 stretch = true
 
-[node name="sub viewport" type="SubViewport" parent="UI/viewport"]
+[node name="SubViewport" type="SubViewport" parent="UI/view container"]
 transparent_bg = true
 handle_input_locally = false
-anisotropic_filtering_level = 2
 size = Vector2i(2560, 1440)
 render_target_update_mode = 4
 
-[node name="gun_camera" type="Camera3D" parent="UI/viewport/sub viewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+[node name="gun camera" type="Camera3D" parent="UI/view container/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24302, 0)
 cull_mask = 2
-current = true
+fov = 90.0
 
 [node name="hurt flash" type="TextureRect" parent="UI"]
 visible = false

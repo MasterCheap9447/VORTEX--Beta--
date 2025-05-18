@@ -161,29 +161,28 @@ target_position = Vector3(0, 0, -3)
 collide_with_areas = true
 
 [node name="Blood Splatter" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 1.34384, 0.363672)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 2.14123, 0.363672)
 
 [node name="gibbies" type="GPUParticles3D" parent="Blood Splatter"]
 material_override = SubResource("StandardMaterial3D_1bstw")
 emitting = false
 amount = 32
-lifetime = 0.2
 one_shot = true
 use_fixed_seed = true
-seed = 35783509
-fixed_fps = 60
+seed = 2123515522
+fixed_fps = 144
 process_material = SubResource("ParticleProcessMaterial_ipmbi")
 draw_pass_1 = SubResource("SphereMesh_hhdbc")
 
 [node name="blood" type="GPUParticles3D" parent="Blood Splatter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16983, 0)
 material_override = SubResource("StandardMaterial3D_2eddl")
 emitting = false
 amount = 64
-lifetime = 0.2
 one_shot = true
 use_fixed_seed = true
-seed = 3178481100
-fixed_fps = 60
+seed = 3900368479
+fixed_fps = 144
 process_material = SubResource("ParticleProcessMaterial_rhx5f")
 draw_pass_1 = SubResource("RibbonTrailMesh_8atxo")
 

@@ -26,7 +26,7 @@ extends CharacterBody3D
 @onready var NECK: Node3D = $NECK
 @onready var SLIDE_DIRECTION: Node3D = $"slide direction"
 @onready var BUFFER: Timer = $buffer
-@onready var GUN_CAMERA: Camera3D = $"UI/viewport/sub viewport/gun_camera"
+@onready var GUN_CAMERA: Camera3D = $"UI/view container/SubViewport/gun camera"
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
 @onready var slam_area: Area3D = $"NECK/SLAM/slam area"
@@ -83,7 +83,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	audio()
-	
+	GUN_CAMERA.global_transform = CAMERA.global_transform
 	global_variables.is_paused = is_paused
 	global_variables.is_player_alive = is_alive
 	
@@ -94,8 +94,7 @@ func _process(delta: float) -> void:
 			is_paused = false
 	
 		if !is_paused:
-			CAMERA.rotation.z = lerp(CAMERA.rotation.z, 0.0, delta)
-			
+			audio()
 			speed.text = (str(int(velocity.length())) + " m/s" )
 			FUEL = clamp(FUEL, 0.0, 200.0)
 			HEALTH = clamp(HEALTH, 0.0, 400.0)
