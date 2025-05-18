@@ -23,6 +23,8 @@ var stalker = load("res://assets/scenes/entities/stalker.tscn")
 var gomme = load("res://assets/scenes/entities/gomme.tscn")
 
 func _ready() -> void:
+	global_variables.weapon_type = true
+	global_variables.weapon = 1
 	randomize()
 	ran.randomize()
 	wave_no = 1

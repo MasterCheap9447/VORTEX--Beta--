@@ -3,8 +3,8 @@ extends CharacterBody3D
 
 @export var MAX_SPEED : float = 20
 @export var ACCELERATION: float = 5
-@export var HEALTH: float = 9
-@export var DAMAGE: float = 2
+@export var HEALTH: float = 99
+@export var DAMAGE: float = 5
 
 var player = null
 
@@ -23,6 +23,7 @@ var instance
 var delt
 
 var status : String = "Normal"
+var can_atk : bool = true
 
 
 func _ready() -> void:
@@ -51,11 +52,12 @@ func _physics_process(delta: float) -> void:
 			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
 			if is_on_floor():
 				velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
-			if checker.is_colliding():
-				var target = checker.get_collider()
-				if target != null:
-					if target.is_in_group("Player"):
-						attack(target)
+			if can_atk:
+				if checker.is_colliding():
+					var target = checker.get_collider()
+					if target != null:
+						if target.is_in_group("Player"):
+							attack(target)
 	if status == "Shocked":
 		velocity = Vector3.ZERO
 	
@@ -99,6 +101,17 @@ func di_form_hit(damage, burn) -> void:
 func saw_blade_hit(damage) -> void:
 	blood_splash()
 	HEALTH -= damage
+	can_atk = false
+	await get_tree().create_timer(0.5).timeout
+	can_atk = true
+	pass
+
+func chainsaw_hit(damage) -> void:
+	blood_splash()
+	HEALTH -= damage
+	can_atk = false
+	await get_tree().create_timer(0.5).timeout
+	can_atk = true
 	pass
 
 func exp_damage(dmg, pos)  -> void:

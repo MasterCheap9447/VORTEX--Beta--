@@ -28,11 +28,9 @@ extends CharacterBody3D
 @onready var BUFFER: Timer = $buffer
 @onready var GUN_CAMERA: Camera3D = $"UI/view container/SubViewport/gun camera"
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
+@onready var FORCE: Node3D = $NECK/camera/FORCE
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
 @onready var slam_area: Area3D = $"NECK/SLAM/slam area"
-
-@onready var tazer_crosshair: TextureRect = $"UI/tazer crosshair"
-@onready var tri_form_crosshair: TextureRect = $"UI/tri form crosshair"
 
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
 @onready var f_percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
@@ -69,15 +67,19 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _input(event: InputEvent) -> void:
 	if is_alive:
 		if !is_paused:
+			if Input.is_action_just_pressed("weapon type switch"):
+				if global_variables.weapon_type:
+					global_variables.weapon_type = false
+				if !global_variables.weapon_type:
+					global_variables.weapon_type = true
+			if global_variables.weapon_type == false:
+				WEAPONS.visible = false
+				FORCE.visible = true
+			if global_variables.weapon_type == true:
+				WEAPONS.visible = true
+				FORCE.visible = false
 			if event is InputEventMouseMotion:
 				mouse_input = event.relative
-			match global_variables.weapon:
-				1 : 
-					tazer_crosshair.visible = true 
-					tri_form_crosshair.visible = false
-				2 : 
-					tazer_crosshair.visible = false
-					tri_form_crosshair.visible = true
 	pass
 
 
@@ -103,6 +105,7 @@ func _process(delta: float) -> void:
 			health.value = floor(int(HEALTH))
 			h_percentage.text = (str(floor(int(HEALTH))) + " %")
 	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if Input.is_action_just_pressed("exit"):
 			get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
 	pass
@@ -175,7 +178,7 @@ func _physics_process(delta):
 						var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
 						accelerate = min(accelerate, add_speed)
 						velocity += accelerate * direction
-			JUICE(input_dir.x, delta)
+			#JUICE(input_dir.x, delta)
 	move_and_slide()
 	pass
 
@@ -334,6 +337,19 @@ func JUICE(input_x, delta) -> void:
 	else:
 		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47, 10 * delta)
 		WEAPONS.position.x = lerp(WEAPONS.position.x, 0.0, 10 * delta)
+	
+	FORCE.rotation.z = lerp(FORCE.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, delta)
+	FORCE.rotation.x = lerp(FORCE.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, delta * 0.5)
+	FORCE.rotation.y = lerp(FORCE.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, delta * 0.5)
+	
+	if velocity.length() > 0 && is_on_floor():
+		var bob_ammount : float = 0.5
+		var bob_frequency : float = 0.01
+		FORCE.position.y = lerp(FORCE.position.y, -0.47 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
+		FORCE.position.x = lerp(FORCE.position.x, 0 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
+	else:
+		FORCE.position.y = lerp(FORCE.position.y, -0.47, 10 * delta)
+		FORCE.position.x = lerp(WEAPONS.position.x, 0.0, 10 * delta)
 	pass
 
 

@@ -36,8 +36,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if global_variables.weapon == 1:
-		equiped = true
+	if global_variables.weapon_type == true:
+		if global_variables.weapon == 1:
+			equiped = true
+		else:
+			equiped = false
 	else:
 		equiped = false
 	
@@ -50,7 +53,7 @@ func _process(delta: float) -> void:
 	ammo = clamp(ammo,0,8)
 	
 	time += delta
-	if equiped:
+	if equiped && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if done == false:
 			animation.play("equip")
 			done = true
@@ -61,15 +64,12 @@ func _process(delta: float) -> void:
 				if !animation.is_playing():
 					animation.play("alt fire")
 				start_time = time
-				zap_effect.visible = true
 			if Input.is_action_just_released("alt shoot"):
 				animation.play("primary fire")
 				instance = trail.instantiate()
 				end_time = time
 				voltage = abs(floor(start_time - end_time))
-				zap_effect.play()
 				alternate_frie()
-				zap_effect.visible = false
 	
 	# primary firing
 		if Input.is_action_pressed("shoot") && Input.get_mouse_mode()==Input.MOUSE_MODE_CAPTURED:
@@ -78,7 +78,6 @@ func _process(delta: float) -> void:
 				animation.play("primary fire")
 				instance = trail.instantiate()
 				zap.visible = true
-				zap_effect.play()
 				primary_fire()
 		else:
 			zap.visible = false

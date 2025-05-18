@@ -12,6 +12,7 @@ var done
 @onready var saw_ray: RayCast3D = $"saw ray"
 @onready var ideal_ray: RayCast3D = $"ideal ray"
 @onready var barrel_position: Node3D = $"barrel position"
+@onready var crosshair: TextureRect = $"../../../../UI/tri form crosshair"
 
 @export var RECOIL : float = 5.0
 @export var SPREAD : float = 0.01
@@ -44,26 +45,32 @@ func _process(delta: float) -> void:
 	time += delta
 	if ideal_ray.is_colliding():
 		saw_ray.target_position = ideal_ray.get_collision_point()
-		rays.target_position = ideal_ray.get_collision_point()
+		for r in rays.get_children():
+			r.target_position = ideal_ray.get_collision_point()
 	else:
 		saw_ray.target_position = barrel_position.global_position
-		rays.target_position = barrel_position.global_position
+		for r in rays.get_children():
+			r.target_position = barrel_position.global_position
 	
 	if ammo <= 0:
 		if !animation.is_playing():
 			animation.play("reload")
 			ammo = 3
 	
-	if global_variables.weapon == 2:
-		equiped = true
+	if global_variables.weapon_type == true:
+		if global_variables.weapon == 2: 
+			equiped = true
+		else:
+			equiped = false
 	else:
 		equiped = false
 	
 	var start_time : float
 	var end_time : float
 	
-	if equiped:
+	if equiped && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		visible = true
+		crosshair.visible = true
 		if !done:
 			animation.play("equip")
 			done = true
@@ -84,8 +91,9 @@ func _process(delta: float) -> void:
 						animation.play("alt fire release")
 						alternate_fire()
 	else:
-		visible = false
 		done = false
+		visible = false
+		crosshair.visible = false
 
 func tri_form_change() -> void:
 	equiped = true

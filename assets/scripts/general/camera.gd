@@ -1,7 +1,7 @@
 extends Camera3D
 
 
-@onready var neck: Node3D = get_parent()
+@onready var neck: Node3D = $".."
 @onready var player: CharacterBody3D = $"../.."
 
 const SENSITIVITY = 0.002

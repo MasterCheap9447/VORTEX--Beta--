@@ -2,8 +2,8 @@ extends Node3D
 
 
 @onready var animation: AnimationPlayer = $model/AnimationPlayer
-@onready var player: CharacterBody3D = $"../../../.."
-@onready var direction: Node3D = get_parent().get_parent().get_parent()
+@onready var player: CharacterBody3D = $"../../.."
+@onready var direction: Node3D = $"../.."
 
 const PUSH = 18
 
