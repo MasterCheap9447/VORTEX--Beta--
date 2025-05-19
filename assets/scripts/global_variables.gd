@@ -24,29 +24,6 @@ var player_spawn_point : Vector3 = Vector3(0,0,0)
 var invert_y : bool = false
 var invert_x : bool = false
 
-func _unhandled_input(_event: InputEvent) -> void:
-	if weapon_type:
-		if Input.is_action_just_pressed("1"):
-			weapon = 1
-		if Input.is_action_just_pressed("2"):
-			weapon = 2
-		if Input.is_action_pressed("scroll up"):
-			weapon += 1
-		if Input.is_action_pressed("scroll down"):
-			weapon -= 1
-		
-	if weapon_type:
-		weapon_count = 2
-		if weapon > weapon_count:
-			weapon = 1
-		if weapon < 1:
-			weapon = weapon_count
-	pass
-
-func _ready() -> void:
-	weapon_type = false
-	weapon = 1
-	pass
 
 
 func hit_stop(duration):

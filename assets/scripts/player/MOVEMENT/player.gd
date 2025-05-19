@@ -67,17 +67,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _input(event: InputEvent) -> void:
 	if is_alive:
 		if !is_paused:
-			if Input.is_action_just_pressed("weapon type switch"):
-				if global_variables.weapon_type:
-					global_variables.weapon_type = false
-				if !global_variables.weapon_type:
-					global_variables.weapon_type = true
-			if global_variables.weapon_type == false:
-				WEAPONS.visible = false
-				FORCE.visible = true
-			if global_variables.weapon_type == true:
-				WEAPONS.visible = true
-				FORCE.visible = false
 			if event is InputEventMouseMotion:
 				mouse_input = event.relative
 	pass

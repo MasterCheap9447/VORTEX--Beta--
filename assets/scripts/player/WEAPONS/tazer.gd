@@ -36,14 +36,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if global_variables.weapon_type == true:
-		if global_variables.weapon == 1:
-			equiped = true
-		else:
-			equiped = false
-	else:
-		equiped = false
-	
 	if ammo <= 0:
 		if !animation.is_playing():
 			animation.play("reload")
@@ -59,7 +51,7 @@ func _process(delta: float) -> void:
 			done = true
 		visible = true
 		crosshair.visible = true
-		if ammo >= 3 && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if ammo >= 3:
 			if Input.is_action_pressed("alt shoot"):
 				if !animation.is_playing():
 					animation.play("alt fire")
@@ -70,17 +62,14 @@ func _process(delta: float) -> void:
 				end_time = time
 				voltage = abs(floor(start_time - end_time))
 				alternate_frie()
-	
+		
 	# primary firing
-		if Input.is_action_pressed("shoot") && Input.get_mouse_mode()==Input.MOUSE_MODE_CAPTURED:
+		if Input.is_action_pressed("shoot"):
 			voltage = 3
 			if !animation.is_playing():
 				animation.play("primary fire")
 				instance = trail.instantiate()
-				zap.visible = true
 				primary_fire()
-		else:
-			zap.visible = false
 	else:
 		done = false
 		visible = false
@@ -122,4 +111,9 @@ func alternate_frie() -> void:
 	ammo -= 3
 	pass
 
+func equip():
+	equiped = true
+	pass
+func unequip():
+	equiped = false
 	pass

@@ -2,7 +2,6 @@ extends Node3D
 
 
 
-
 var equiped : bool
 var done : bool
 var rng : int
@@ -23,24 +22,16 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if global_variables.weapon_type == false:
-		if global_variables.weapon == 1:
-			equiped = true
-		else:
-			equiped = false
-	else:
-		equiped = false
-	
-	if equiped && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if equiped:
+		visible = true
 		$idle.play()
 		if done == false:
 			animation.play("equip")
 			done = true
-		visible = true
 	# primary firing
-		if Input.is_action_just_pressed("shoot") && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED && can_atk:
+		if Input.is_action_just_pressed("shoot") && can_atk:
 			can_atk = false
-			$rev.pitch_scale = randf_range(1, 2)
+			$rev.pitch_scale = randf_range(1, 1.2)
 			if !animation.is_playing():
 				rng = randi_range(1, 3)
 				match rng:
@@ -50,9 +41,9 @@ func _physics_process(delta: float) -> void:
 				punch()
 				$cooldown.start()
 	else:
-		$idle.stop()
 		done = false
 		visible = false
+		$idle.stop()
 	pass
 
 
@@ -67,4 +58,12 @@ func punch() -> void:
 
 func _on_cooldown_timeout() -> void:
 	can_atk = true
+	pass
+
+
+func equip():
+	equiped = true
+	pass
+func unequip():
+	equiped = false
 	pass

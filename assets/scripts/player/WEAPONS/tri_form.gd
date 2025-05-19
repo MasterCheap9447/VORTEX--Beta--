@@ -52,19 +52,6 @@ func _process(delta: float) -> void:
 		for r in rays.get_children():
 			r.target_position = barrel_position.global_position
 	
-	if ammo <= 0:
-		if !animation.is_playing():
-			animation.play("reload")
-			ammo = 3
-	
-	if global_variables.weapon_type == true:
-		if global_variables.weapon == 2: 
-			equiped = true
-		else:
-			equiped = false
-	else:
-		equiped = false
-	
 	var start_time : float
 	var end_time : float
 	
@@ -74,6 +61,11 @@ func _process(delta: float) -> void:
 		if !done:
 			animation.play("equip")
 			done = true
+		
+		if ammo <= 0:
+			if !animation.is_playing():
+				animation.play("reload")
+				ammo = 3
 		if Input.is_action_pressed("shoot") && ammo > 0:
 			if !animation.is_playing():
 				animation.play("primary fire")
@@ -122,11 +114,10 @@ func alternate_fire() -> void:
 	ammo = 0
 	pass
 
-func _on_player_change_to_amplifier() -> void:
-	equiped = false
 
-func _on_player_change_to_tazer() -> void:
-	equiped = false
-
-func _on_player_change_to_tri_form() -> void:
+func equip():
 	equiped = true
+	pass
+func unequip():
+	equiped = false
+	pass
