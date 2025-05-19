@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=3 uid="uid://bub2mo0ytmhub"]
+
+[ext_resource type="Script" uid="uid://t67j7d062qvi" path="res://assets/scripts/WORLDS/simulation.gd" id="1_k8ot1"]
+[ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/entities/player.tscn" id="1_os12c"]
+[ext_resource type="Texture2D" uid="uid://cw014iga5punt" path="res://assets/textures/skyboxes/murder_playground_skybox.jpg" id="2_t46py"]
+[ext_resource type="Texture2D" uid="uid://cwo03741xsgwf" path="res://assets/textures/maps/grid/grid_texture.png" id="4_tewiu"]
+[ext_resource type="Texture2D" uid="uid://d06brifjdukxf" path="res://assets/textures/maps/grid/grid_emission.png" id="5_tewiu"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tewiu"]
+panorama = ExtResource("2_t46py")
+
+[sub_resource type="Sky" id="Sky_o5sff"]
+sky_material = SubResource("PanoramaSkyMaterial_tewiu")
+
+[sub_resource type="Environment" id="Environment_03ywe"]
+background_mode = 2
+sky = SubResource("Sky_o5sff")
+tonemap_mode = 2
+glow_intensity = 8.0
+glow_strength = 2.0
+glow_bloom = 0.72
+
+[sub_resource type="Compositor" id="Compositor_t46py"]
+compositor_effects = Array[CompositorEffect]([null])
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_t46py"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t46py"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("4_tewiu")
+metallic_specular = 1.0
+roughness = 0.0
+emission = Color(0, 0.0858009, 0.114084, 1)
+emission_energy_multiplier = 0.2
+emission_texture = ExtResource("5_tewiu")
+clearcoat = 0.0
+clearcoat_roughness = 0.0
+uv1_triplanar = true
+texture_filter = 2
+
+[node name="Endless Mode" type="Node3D"]
+script = ExtResource("1_k8ot1")
+world_size = Vector3(64, 64, 64)
+cut_off = 0.0
+
+[node name="THE SUN" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+layers = 3
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="sky" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_03ywe")
+compositor = SubResource("Compositor_t46py")
+
+[node name="player" parent="." instance=ExtResource("1_os12c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147e-06, -7.23546, 0.2225)
+
+[node name="navigation mesh" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_t46py")
+
+[node name="start" type="CSGCombiner3D" parent="navigation mesh"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -1.34824, -4.78105)
+use_collision = true
+
+[node name="floor" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00219727, -8.50302, 1.00251)
+material_override = SubResource("StandardMaterial3D_t46py")
+size = Vector3(12, 12, 12)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="cutout" type="CSGBox3D" parent="navigation mesh/start"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.34662, -8, -1.76123)
+material_override = SubResource("StandardMaterial3D_t46py")
+operation = 2
+size = Vector3(16.6932, 12, 15.5225)
+material = SubResource("StandardMaterial3D_t46py")
+
+[node name="enemy spawn points" type="Node3D" parent="navigation mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -68.1, 0)
+
+[node name="kric point" type="Node3D" parent="navigation mesh/enemy spawn points"]
+
+[node name="1" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1186, 0, -3.87863)
+
+[node name="2" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48544, 0, -3.6745)
+
+[node name="3" type="Node3D" parent="navigation mesh/enemy spawn points/kric point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.5822)
+
+[node name="stalker point" type="Node3D" parent="navigation mesh/enemy spawn points"]
+
+[node name="4" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+
+[node name="5" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.7545, 0, 1.03579)
+
+[node name="6" type="Node3D" parent="navigation mesh/enemy spawn points/stalker point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5296, 0, -14.6829)
+
+[node name="gomme point" type="Node3D" parent="navigation mesh/enemy spawn points"]
+
+[node name="7" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1449, 0, -23.1035)
+
+[node name="8" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8194, 0, 0.922829)
+
+[node name="9" type="Node3D" parent="navigation mesh/enemy spawn points/gomme point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.1091, 0, 22.3725)
+
+[node name="enemy spawn time 1" type="Timer" parent="."]
+autostart = true
+
+[node name="enemy spawn time 2" type="Timer" parent="."]
+autostart = true
+
+[node name="enemy spawn time 3" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="enemy spawn time 1" to="." method="_on_enemy_spawn_time_timeout"]
+[connection signal="timeout" from="enemy spawn time 2" to="." method="_on_enemy_spawn_time_2_timeout"]
+[connection signal="timeout" from="enemy spawn time 3" to="." method="_on_enemy_spawn_time_3_timeout"]

@@ -96,7 +96,7 @@ func _process(delta: float) -> void:
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if Input.is_action_just_pressed("exit"):
-			get_tree().change_scene_to_file("res://assets/scenes/menu.tscn")
+			get_tree().change_scene_to_file("res://assets/scenes/GENERAL/menu.tscn")
 	pass
 
 

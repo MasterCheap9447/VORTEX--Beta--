@@ -1,0 +1,192 @@
+[gd_scene load_steps=25 format=3 uid="uid://euqsrn247k3j"]
+
+[ext_resource type="Script" uid="uid://cnylyde53kdv0" path="res://assets/scripts/enemies/ORGANIC/Lower Organic/stalker.gd" id="1_6ntl0"]
+[ext_resource type="PackedScene" uid="uid://cvuf6a7m623ve" path="res://stalker test model/source/scene.gltf" id="2_060bn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ntl0"]
+radius = 1.00174
+height = 3.48597
+
+[sub_resource type="Curve" id="Curve_6ntl0"]
+_data = [Vector2(0, 0), 0.0, 2.96825, 0, 0, Vector2(0.829493, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.12022, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6ntl0"]
+curve = SubResource("Curve_6ntl0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tj8v2"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 7.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_6ntl0")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_060bn"]
+albedo_color = Color(0.69246, 1.841e-06, 7.70092e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tj8v2"]
+material = SubResource("StandardMaterial3D_060bn")
+radius = 0.25
+height = 0.5
+rings = 16
+
+[sub_resource type="Gradient" id="Gradient_xg36g"]
+colors = PackedColorArray(0.20868, 1.51913e-07, 2.40654e-08, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_27qyi"]
+noise_type = 0
+frequency = 0.0092
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eqlcc"]
+width = 256
+height = 256
+invert = true
+seamless_blend_skirt = 0.072
+color_ramp = SubResource("Gradient_xg36g")
+noise = SubResource("FastNoiseLite_27qyi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bstw"]
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("NoiseTexture2D_eqlcc")
+
+[sub_resource type="Curve" id="Curve_hb04y"]
+_data = [Vector2(0, 0.182119), 0.0, 0.0, 0, 0, Vector2(0.243137, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.472682), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nsu3c"]
+curve = SubResource("Curve_hb04y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipmbi"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.25
+angle_min = -30.0
+angle_max = 45.0
+direction = Vector3(0, 1, 0)
+spread = 159.63
+initial_velocity_min = 2.0
+initial_velocity_max = 5.0
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_nsu3c")
+
+[sub_resource type="SphereMesh" id="SphereMesh_hhdbc"]
+radial_segments = 5
+rings = 4
+
+[sub_resource type="Gradient" id="Gradient_2kw7t"]
+offsets = PackedFloat32Array(0, 0.659751)
+colors = PackedColorArray(0.16, 0, 0, 0, 0.57, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a2gin"]
+noise_type = 2
+seed = 1
+frequency = 0.0031
+fractal_type = 0
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_04pdn"]
+color_ramp = SubResource("Gradient_2kw7t")
+noise = SubResource("FastNoiseLite_a2gin")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eddl"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_04pdn")
+
+[sub_resource type="Curve" id="Curve_77trn"]
+_data = [Vector2(0, 0), 0.0, -7.87074, 0, 0, Vector2(0.262745, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.11901, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eceur"]
+curve = SubResource("Curve_77trn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rhx5f"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 0.5
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 12.0
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_eceur")
+scale_over_velocity_max = 34.13
+collision_mode = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_8atxo"]
+
+[node name="stalker" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
+axis_lock_angular_z = true
+script = ExtResource("1_6ntl0")
+
+[node name="model" parent="." instance=ExtResource("2_060bn")]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="collision" type="CollisionShape3D" parent="." groups=["Enemy", "Xplodable"]]
+transform = Transform3D(4.57522e-15, -4.37114e-08, 1, -1, -4.37114e-08, 2.66454e-15, 4.37114e-08, -1, -4.37114e-08, 0, 1.01861, -0.437688)
+shape = SubResource("CapsuleShape3D_6ntl0")
+
+[node name="blood particles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35159, 0)
+emitting = false
+amount = 128
+lifetime = 0.4
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_tj8v2")
+draw_pass_1 = SubResource("SphereMesh_tj8v2")
+
+[node name="checker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+
+[node name="Blood Splatter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 2.14123, 0.363672)
+
+[node name="gibbies" type="GPUParticles3D" parent="Blood Splatter"]
+material_override = SubResource("StandardMaterial3D_1bstw")
+emitting = false
+amount = 32
+one_shot = true
+use_fixed_seed = true
+seed = 2123515522
+fixed_fps = 144
+process_material = SubResource("ParticleProcessMaterial_ipmbi")
+draw_pass_1 = SubResource("SphereMesh_hhdbc")
+
+[node name="blood" type="GPUParticles3D" parent="Blood Splatter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16983, 0)
+material_override = SubResource("StandardMaterial3D_2eddl")
+emitting = false
+amount = 64
+one_shot = true
+use_fixed_seed = true
+seed = 3900368479
+fixed_fps = 144
+process_material = SubResource("ParticleProcessMaterial_rhx5f")
+draw_pass_1 = SubResource("RibbonTrailMesh_8atxo")
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]
