@@ -14,7 +14,9 @@ const DAMAGE : float = 40
 
 @onready var animation: AnimationPlayer = $model/animation
 @onready var attack_area: Area3D = $"chainsaw attack area"
-
+@onready var rev: AudioStreamPlayer3D = $rev
+@onready var idle: AudioStreamPlayer3D = $idle
+@onready var cooldown: Timer = $cooldown
 
 func _ready() -> void:
 	randomize()
@@ -24,26 +26,31 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if equiped:
 		visible = true
-		$idle.play()
+		idle.play()
 		if done == false:
 			animation.play("equip")
 			done = true
 	# primary firing
 		if Input.is_action_just_pressed("shoot") && can_atk:
-			can_atk = false
-			$rev.pitch_scale = randf_range(1, 1.2)
+			rev.pitch_scale = randf_range(1, 1.2)
 			if !animation.is_playing():
 				rng = randi_range(1, 3)
 				match rng:
 					1: animation.play("finisher 1")
 					2: animation.play("finisher 2")
 					3: animation.play("finisher 3")
+				can_atk = false
 				punch()
-				$cooldown.start()
+				cooldown.start()
+		
+		if !cooldown.is_stopped():
+			idle.stop()
+		else:
+			idle.play()
 	else:
 		done = false
 		visible = false
-		$idle.stop()
+		idle.stop()
 	pass
 
 

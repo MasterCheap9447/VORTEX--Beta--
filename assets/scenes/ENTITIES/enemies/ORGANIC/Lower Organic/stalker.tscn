@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://euqsrn247k3j"]
 
-[ext_resource type="Script" uid="uid://cnylyde53kdv0" path="res://assets/scripts/enemies/ORGANIC/Lower Organic/stalker.gd" id="1_6ntl0"]
+[ext_resource type="Script" uid="uid://cnylyde53kdv0" path="res://assets/scripts/ENEMIES/ORGANIC/Lower Organic/stalker.gd" id="1_6ntl0"]
 [ext_resource type="PackedScene" uid="uid://cvuf6a7m623ve" path="res://stalker test model/source/scene.gltf" id="2_060bn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ntl0"]
@@ -11,7 +11,7 @@ height = 3.48597
 _data = [Vector2(0, 0), 0.0, 2.96825, 0, 0, Vector2(0.829493, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.12022, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_6ntl0"]
+[sub_resource type="CurveTexture" id="CurveTexture_nkhws"]
 curve = SubResource("Curve_6ntl0")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tj8v2"]
@@ -26,18 +26,18 @@ initial_velocity_min = 3.0
 initial_velocity_max = 7.0
 scale_min = 0.5
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_6ntl0")
+scale_curve = SubResource("CurveTexture_nkhws")
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
 sub_emitter_mode = 3
 sub_emitter_amount_at_collision = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_060bn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1eaed"]
 albedo_color = Color(0.69246, 1.841e-06, 7.70092e-07, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_tj8v2"]
-material = SubResource("StandardMaterial3D_060bn")
+material = SubResource("StandardMaterial3D_1eaed")
 radius = 0.25
 height = 0.5
 rings = 16
@@ -50,7 +50,7 @@ noise_type = 0
 frequency = 0.0092
 fractal_type = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eqlcc"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_81sid"]
 width = 256
 height = 256
 invert = true
@@ -62,13 +62,13 @@ noise = SubResource("FastNoiseLite_27qyi")
 shading_mode = 0
 diffuse_mode = 3
 specular_mode = 1
-albedo_texture = SubResource("NoiseTexture2D_eqlcc")
+albedo_texture = SubResource("NoiseTexture2D_81sid")
 
 [sub_resource type="Curve" id="Curve_hb04y"]
 _data = [Vector2(0, 0.182119), 0.0, 0.0, 0, 0, Vector2(0.243137, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.472682), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_nsu3c"]
+[sub_resource type="CurveTexture" id="CurveTexture_3fvie"]
 curve = SubResource("Curve_hb04y")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipmbi"]
@@ -83,7 +83,7 @@ initial_velocity_min = 2.0
 initial_velocity_max = 5.0
 scale_min = 0.5
 scale_max = 2.0
-scale_curve = SubResource("CurveTexture_nsu3c")
+scale_curve = SubResource("CurveTexture_3fvie")
 
 [sub_resource type="SphereMesh" id="SphereMesh_hhdbc"]
 radial_segments = 5
@@ -100,20 +100,20 @@ frequency = 0.0031
 fractal_type = 0
 metadata/_preview_in_3d_space_ = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_04pdn"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wunt7"]
 color_ramp = SubResource("Gradient_2kw7t")
 noise = SubResource("FastNoiseLite_a2gin")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2eddl"]
 transparency = 1
 shading_mode = 0
-albedo_texture = SubResource("NoiseTexture2D_04pdn")
+albedo_texture = SubResource("NoiseTexture2D_wunt7")
 
 [sub_resource type="Curve" id="Curve_77trn"]
 _data = [Vector2(0, 0), 0.0, -7.87074, 0, 0, Vector2(0.262745, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.11901, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_eceur"]
+[sub_resource type="CurveTexture" id="CurveTexture_0qluo"]
 curve = SubResource("Curve_77trn")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rhx5f"]
@@ -127,7 +127,7 @@ direction = Vector3(0, 1, 0)
 spread = 180.0
 initial_velocity_max = 12.0
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_eceur")
+scale_curve = SubResource("CurveTexture_0qluo")
 scale_over_velocity_max = 34.13
 collision_mode = 2
 

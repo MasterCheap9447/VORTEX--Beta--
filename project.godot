@@ -32,7 +32,7 @@ mouse_cursor/custom_image="uid://cb3aqsuldll1f"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/motion_blur/addons/SphynxMotionBlurToolkit/plugin.cfg", "res://addons/trail/plugin.cfg")
+enabled=PackedStringArray("res://addons/trail/plugin.cfg")
 
 [global_group]
 
@@ -44,7 +44,8 @@ Xplodable=""
 
 [gui]
 
-theme/custom_font="uid://dmnjntefsoxs0"
+fonts/dynamic_fonts/use_oversampling=false
+theme/custom_font="uid://cmbw8tjh5eq1v"
 theme/default_font_antialiasing=0
 theme/default_font_subpixel_positioning=3
 theme/default_font_generate_mipmaps=true

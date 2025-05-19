@@ -10,7 +10,7 @@ extends CharacterBody3D
 @export var AIR_ACCELERATION : float = 800.0
 @export var SLAM_FORCE : float = 100.0
 @export var SLIDE_MAX_SPEED : float = 24.0
-@export var SLIDE_ACCELERATION : float = 0.5
+@export var SLIDE_ACCELERATION : float = 0.125
 @export var DASH_FORCE : float = 24.0
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
@@ -72,7 +72,7 @@ func _input(event: InputEvent) -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	audio()
 	GUN_CAMERA.global_transform = CAMERA.global_transform
 	global_variables.is_paused = is_paused
@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 	
 		if !is_paused:
 			audio()
-			speed.text = (str(int(velocity.length())) + " m/s" )
+			speed.text = (str(snapped(global_variables.enemies_alive, 0.1)) + " m/s" )
 			FUEL = clamp(FUEL, 0.0, 200.0)
 			HEALTH = clamp(HEALTH, 0.0, 400.0)
 			fuel.value = floor(int(FUEL))
@@ -158,8 +158,8 @@ func _physics_process(delta):
 						velocity.x = move_toward(velocity.x, 0, GROUND_ACCELERATION/2)
 						velocity.z = move_toward(velocity.z, 0, GROUND_ACCELERATION/2)
 				else:
-					nrg_conserved = nrg_conserved / 40
-					nrg_conserved += abs(velocity.y / 10) + velocity.length() / 100
+					nrg_conserved = nrg_conserved / 20
+					nrg_conserved += abs(velocity.y / 10) + velocity.length() / 50
 					var cur_speed = velocity.dot(direction)
 					var capped_speed = min((AIR_SPEED * direction).length(), AIR_CAP)
 					var add_speed = capped_speed - cur_speed
@@ -181,9 +181,12 @@ func _slide(delta) -> void:
 	if Input.is_action_pressed("slide"):
 		if is_on_floor() && !is_slamming:
 			is_sliding = true
+			var slide_speed : float = 0.0
 			if slide_direction:
-				velocity.x = move_toward(velocity.x, slide_direction.x * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
-				velocity.z = move_toward(velocity.z, slide_direction.z * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
+				if slide_speed < SLIDE_MAX_SPEED:
+					slide_speed += SLIDE_ACCELERATION
+				velocity.x = slide_direction.x * slide_speed
+				velocity.z =slide_direction.z * slide_speed
 			else:
 				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0,0,-SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
 		else:
@@ -213,10 +216,11 @@ func _slam(_delta) -> void:
 	if !is_on_floor():
 		if Input.is_action_just_pressed("slide"):
 			FUEL -= 15
+			velocity.y = 0
 			is_slamming = true
 	else:
 		if is_on_floor():
-			await  get_tree().create_timer(1).timeout
+			await  get_tree().create_timer(0.3).timeout
 			is_slamming = false
 		else:
 			is_slamming = false
@@ -226,8 +230,6 @@ func _slam(_delta) -> void:
 			sparks.emitting = true
 			air.emitting = true
 			velocity.y -= SLAM_FORCE
-		else:
-			velocity.y = 15
 	else:
 		sparks.emitting =  false
 		air.emitting = false
@@ -298,15 +300,11 @@ func exp_damage(magnitude, pos : Vector3) -> void:
 	HEALTH -= magnitude
 	var dir = (pos - global_position).normalized()
 	velocity += dir * magnitude
-	#Engine.time_scale = 0
-	#$"UI/hurt flash".show()
 	$"hurt stop".start()
 	pass
 
 func nrml_damage(magnitude) -> void:
 	HEALTH -= magnitude
-	#Engine.time_scale = 0
-	#$"UI/hurt flash".show()
 	$"hurt stop".start()
 	pass
 

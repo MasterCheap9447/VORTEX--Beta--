@@ -35,7 +35,8 @@ script = ExtResource("1_xuqax")
 
 [node name="background" type="Sprite2D" parent="."]
 texture_filter = 3
-position = Vector2(965, 543)
+position = Vector2(969, 541.5)
+scale = Vector2(0.995855, 1.00276)
 texture = ExtResource("2_c4qlh")
 
 [node name="start" type="Node2D" parent="."]

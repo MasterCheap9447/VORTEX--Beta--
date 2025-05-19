@@ -4,6 +4,7 @@ extends CanvasLayer
 
 @onready var pause_menu: Control = $"pause menu"
 @onready var settings_tab: Control = $"settings tab"
+@onready var kill_count: RichTextLabel = $"death screen/kill count"
 
 func _ready() -> void:
 	unpause()
@@ -11,6 +12,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	kill_count.text = str(global_variables.kills)
 	
 	if global_variables.is_player_alive:
 		if Input.is_action_just_pressed("exit"):

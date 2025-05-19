@@ -1,91 +1,80 @@
 extends CharacterBody3D
 
 
-@export var SPEED: float = 5
+@export var SPEED : float = 10
 @export var HEALTH: float = 1
-@export var DAMAGE: float = 1
+@export var DAMAGE: float = 5
 
 var player = null
 
 @export var player_path := "/root/Endless Mode/player"
 
-@onready var path_finder: NavigationAgent3D = $"path finder"
-@onready var animation: AnimationPlayer = $export/animation
-@onready var model: Node3D = $export
+@onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
-
-@onready var smoke: GPUParticles3D = $explosion/smoke
+@onready var checker: RayCast3D = $checker
 
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
 @onready var blood: GPUParticles3D = $"Blood Splatter/blood"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
-
 @onready var explosion_area: Area3D = $"explosion area"
-@onready var explosion_collision: CollisionShape3D = $"explosion area/explosion collision"
-
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
-var player_position : Vector3
+var delt
 
 var status : String = "Normal"
 var can_atk : bool = true
 
 
 func _ready() -> void:
-	global_variables.enemies_alive += 1
 	player = get_node(player_path)
+	look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z), Vector3.UP)
+	global_variables.enemies_alive += 1
 	pass
+
 
 func _process(_delta: float) -> void:
-	
-	if status == "shocked":
-		animation.play("idle")
-	else:
-		if velocity.length() > 0:
-			animation.play("walk")
-	
-	if position.x == player.global_position.x:
-		if position.z == player.global_position.z:
-			animation.play("idle")
-	if velocity.length() != 0:
-		animation.play("walk")
-	else:
-		animation.play("idle")
+	death()
 	pass
 
 
-func _physics_process(_delta: float) -> void:
-	if !is_on_floor():
-		velocity.y -= 12
-	death()
-	
-	if HEALTH <= 0:
-		dead = true
+func _physics_process(delta: float) -> void:
+	delt = delta
 	
 	if !model.visible:
 		for body in explosion_area.get_overlapping_bodies():
 			if body.is_in_group("Xplodable"):
 				body.exp_damage(DAMAGE, explosion_area.global_position)
 	
-	if status == "Shocked":
-		animation.play("idle")
-	
 	if !global_variables.is_paused:
-		if !is_on_floor():
-			velocity.y -= 12
 		if !dead && status != "Shocked":
-			velocity = transform.basis * Vector3(0, 12 * int(is_on_floor()), -SPEED)
-			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			var plr_x = lerp(position.x, player.global_position.x, 0.5)
+			var plr_y = lerp(position.y, player.global_position.y, 0.5)
+			var plr_z = lerp(position.z, player.global_position.z, 0.5)
+			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
+			checker.look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
+			velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), SPEED, delta))
 			if can_atk:
-				if check.is_colliding():
-					var target = check.get_collider()
+				if checker.is_colliding():
+					var target = checker.get_collider()
 					if target != null:
 						if target.is_in_group("Player"):
 							explode()
+	if status == "Shocked":
+		velocity = Vector3.ZERO
 	
-		move_and_slide()
+	move_and_slide()
+	pass
+
+func blood_splash():
+	gibbies.emitting = true
+	blood.emitting = true
+	pass
+
+func death():
+	if HEALTH <= 0:
+		explode()
 	pass
 
 func explode():
@@ -101,18 +90,7 @@ func explode():
 	queue_free()
 	pass
 
-func death():
-	if HEALTH <= 0:
-		if can_atk:
-			explode()
-	pass
-
-func blood_splash():
-	gibbies.emitting = true
-	blood.emitting = true
-	pass
-
-func tazer_hit(damage,volts):
+func tazer_hit(damage,volts) -> void:
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
@@ -120,9 +98,12 @@ func tazer_hit(damage,volts):
 	status = "Normal"
 	pass
 
-func di_form_hit(damage, burns) -> void:
+func di_form_hit(damage, burn) -> void:
 	blood_splash()
-	HEALTH -= damage * 2
+	HEALTH -= damage
+	status = "Burned"
+	await get_tree().create_timer(3).timeout
+	status = "Normal"
 	pass
 
 func saw_blade_hit(damage) -> void:
@@ -143,5 +124,5 @@ func chainsaw_hit(damage) -> void:
 
 func exp_damage(dmg, pos)  -> void:
 	blood_splash()
-	HEALTH -= dmg * 2
+	HEALTH -= dmg
 	pass

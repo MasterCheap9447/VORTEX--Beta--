@@ -17,7 +17,7 @@ var weapon_count : int
 
 func _ready() -> void:
 	weapon = 1
-	weapon_type = false
+	weapon_type = true
 	pass
 
 

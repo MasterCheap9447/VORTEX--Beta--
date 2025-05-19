@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://bmerraoq64qq3"]
 
-[ext_resource type="Script" uid="uid://chbduwjxelrvh" path="res://assets/scripts/enemies/SHELLED/Lower Shelled/gomme.gd" id="1_4saki"]
+[ext_resource type="Script" uid="uid://chbduwjxelrvh" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/gomme.gd" id="1_4saki"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_s3ja0"]
 height = 3.5

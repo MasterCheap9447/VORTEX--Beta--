@@ -9,7 +9,7 @@ var player = null
 
 @export var player_path := "/root/Endless Mode/player"
 
-@onready var model: Node3D = $export
+@onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
 
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
@@ -24,14 +24,12 @@ var dead : bool
 var instance
 
 var status : String = "Normal"
+var can_atk : bool = true
 
 
 func _ready() -> void:
 	global_variables.enemies_alive += 1
 	player = get_node(player_path)
-	pass
-
-func _process(delta: float) -> void:
 	pass
 
 
@@ -53,7 +51,11 @@ func _physics_process(delta: float) -> void:
 
 func death():
 	if HEALTH <= 0:
-		dead
+		model.visible = false
+		dead = true
+		await get_tree().create_timer(0.2).timeout
+		global_variables.enemies_alive = global_variables.enemies_alive - 1
+		global_variables.kills = global_variables.kills + 1
 		queue_free()
 	pass
 
@@ -91,10 +93,19 @@ func di_form_hit(damage, burns) -> void:
 	pass
 
 func saw_blade_hit(damage) -> void:
-	HEALTH -= damage
-	velocity /= 2
 	blood_splash()
+	HEALTH -= damage
+	can_atk = false
+	await get_tree().create_timer(0.5).timeout
+	can_atk = true
 	pass
+
+func chainsaw_hit(damage) -> void:
+	blood_splash()
+	HEALTH -= damage
+	can_atk = false
+	await get_tree().create_timer(0.5).timeout
+	can_atk = true
 
 func exp_damage(dmg, pos)  -> void:
 	blood_splash()
@@ -102,8 +113,8 @@ func exp_damage(dmg, pos)  -> void:
 	pass
 
 
-
 func _on_cooldown_timeout() -> void:
 	if !dead && status != "Shocked":
-		attack()
+		if can_atk:
+			attack()
 	pass

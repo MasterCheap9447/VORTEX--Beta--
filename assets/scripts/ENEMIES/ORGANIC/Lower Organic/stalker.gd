@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 @export var MAX_SPEED : float = 20
 @export var ACCELERATION: float = 5
-@export var HEALTH: float = 99
+@export var HEALTH: float = 3
 @export var DAMAGE: float = 5
 
 var player = null
@@ -74,6 +74,8 @@ func death():
 		model.visible = false
 		dead = true
 		await get_tree().create_timer(0.2).timeout
+		global_variables.enemies_alive = global_variables.enemies_alive - 1
+		global_variables.kills = global_variables.kills + 1
 		queue_free()
 	pass
 

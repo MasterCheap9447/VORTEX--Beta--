@@ -3,7 +3,7 @@ extends Node
 
 var kills: int
 var enemies_alive : int = 0
-var diff : int = 1
+var difficulty : int = 1
 
 var is_paused : bool
 

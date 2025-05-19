@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://do2g6xewxiv7v" path="res://assets/scripts/SHADERS/player/movement/sparks.tres" id="7_hla24"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qoxfe"]
+cull_mode = 2
 diffuse_mode = 3
 specular_mode = 1
 albedo_texture = ExtResource("5_w4sus")
@@ -1653,7 +1654,7 @@ shader_parameter/Explosion_Colour = Color(1, 0.152941, 0, 1)
 _data = [Vector2(0.420091, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_w4sus"]
+[sub_resource type="CurveTexture" id="CurveTexture_s5wll"]
 texture_mode = 1
 curve = SubResource("Curve_kf2ur")
 
@@ -1661,21 +1662,21 @@ curve = SubResource("Curve_kf2ur")
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_v45wn"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xomr7"]
 gradient = SubResource("Gradient_w4sus")
 
 [sub_resource type="Curve" id="Curve_7r2yl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.442922, 0.235955), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_qoxfe"]
+[sub_resource type="CurveTexture" id="CurveTexture_jannd"]
 curve = SubResource("Curve_7r2yl")
 
 [sub_resource type="Curve" id="Curve_v45wn"]
 _data = [Vector2(0, 0.359551), 0.0, 3.00749, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_hla24"]
+[sub_resource type="CurveTexture" id="CurveTexture_8mfnd"]
 curve = SubResource("Curve_v45wn")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hla24"]
@@ -1683,15 +1684,15 @@ emission_shape = 1
 emission_sphere_radius = 0.2
 initial_velocity_min = 6.5
 initial_velocity_max = 7.5
-radial_velocity_curve = SubResource("CurveTexture_qoxfe")
+radial_velocity_curve = SubResource("CurveTexture_jannd")
 gravity = Vector3(0, 0, 0)
 scale_min = 1.7
 scale_max = 1.8
-scale_curve = SubResource("CurveTexture_hla24")
-color_ramp = SubResource("GradientTexture1D_v45wn")
-alpha_curve = SubResource("CurveTexture_w4sus")
+scale_curve = SubResource("CurveTexture_8mfnd")
+color_ramp = SubResource("GradientTexture1D_xomr7")
+alpha_curve = SubResource("CurveTexture_s5wll")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8235"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1ucd"]
 render_priority = 0
 shader = ExtResource("6_kf2ur")
 shader_parameter/Cloud_Velocity = Vector2(0, 0)
@@ -1699,7 +1700,7 @@ shader_parameter/Cloud_Intensity = 0.0
 shader_parameter/Explosion_Colour = Color(1, 0.152941, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_evi0q"]
-material = SubResource("ShaderMaterial_y8235")
+material = SubResource("ShaderMaterial_a1ucd")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_evi0q"]
 render_priority = -1
@@ -1710,14 +1711,14 @@ shader_parameter/Spark_Colour = Color(4, 0.8, 0.2, 1)
 _data = [Vector2(0, 0), 0.0, 2.46067, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_evi0q"]
+[sub_resource type="CurveTexture" id="CurveTexture_hows5"]
 curve = SubResource("Curve_ef40f")
 
 [sub_resource type="Curve" id="Curve_nxglh"]
 _data = [Vector2(0, 0.483146), 0.0, 1.30271, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_nxglh"]
+[sub_resource type="CurveTexture" id="CurveTexture_o2miw"]
 curve = SubResource("Curve_nxglh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oeig1"]
@@ -1729,9 +1730,9 @@ initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
 scale_min = 5.0
 scale_max = 7.0
-scale_curve = SubResource("CurveTexture_nxglh")
+scale_curve = SubResource("CurveTexture_o2miw")
 color = Color(1, 0, 0, 1)
-alpha_curve = SubResource("CurveTexture_evi0q")
+alpha_curve = SubResource("CurveTexture_hows5")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
