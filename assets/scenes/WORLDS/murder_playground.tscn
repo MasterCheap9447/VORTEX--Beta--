@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bub2mo0ytmhub"]
+[gd_scene load_steps=12 format=3 uid="uid://bub2mo0ytmhub"]
 
 [ext_resource type="Script" uid="uid://t67j7d062qvi" path="res://assets/scripts/WORLDS/simulation.gd" id="1_k8ot1"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/ENTITIES/player.tscn" id="1_os12c"]
 [ext_resource type="Texture2D" uid="uid://cw014iga5punt" path="res://assets/textures/skyboxes/murder_playground_skybox.jpg" id="2_t46py"]
 [ext_resource type="Texture2D" uid="uid://cwo03741xsgwf" path="res://assets/textures/maps/grid/grid_texture.png" id="4_tewiu"]
 [ext_resource type="Texture2D" uid="uid://d06brifjdukxf" path="res://assets/textures/maps/grid/grid_emission.png" id="5_tewiu"]
+[ext_resource type="PackedScene" uid="uid://d3xfpwpxu2fif" path="res://assets/scenes/ENVIRONMENTAL OBJECTS/bloodtscn.tscn" id="6_7ft21"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tewiu"]
 panorama = ExtResource("2_t46py")
@@ -56,7 +57,7 @@ directional_shadow_mode = 1
 environment = SubResource("Environment_03ywe")
 
 [node name="player" parent="." instance=ExtResource("1_os12c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147e-06, -51.5101, 0.2225)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147e-06, -67.8613, 21.278)
 
 [node name="navigation mesh" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_t46py")
@@ -130,18 +131,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6797, 7.32677, 19.6135)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5349, 17.372, 12.2648)
 
 [node name="enemy spawn time 1" type="Timer" parent="."]
-autostart = true
 
 [node name="enemy spawn time 2" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 autostart = true
 
 [node name="enemy spawn time 3" type="Timer" parent="."]
 wait_time = 3.0
-autostart = true
 
 [node name="enemy spawn time 4" type="Timer" parent="."]
-autostart = true
+
+[node name="blood collision" type="GPUParticlesCollisionBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0411158, -72.6121, 0.167892)
+size = Vector3(61.0566, 2.7439, 60.9075)
+
+[node name="blood VFX" parent="." instance=ExtResource("6_7ft21")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57119, -68.6363, 10.7106)
+visible = false
 
 [connection signal="timeout" from="enemy spawn time 1" to="." method="_on_enemy_spawn_time_timeout"]
 [connection signal="timeout" from="enemy spawn time 2" to="." method="_on_enemy_spawn_time_2_timeout"]

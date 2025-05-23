@@ -1,20 +1,21 @@
 extends CharacterBody3D
 
 
+
 @export var SPEED: float = 5
 @export var HEALTH: float = 5
 @export var DAMAGE: float = 2
 
 var player = null
+var world = null
 
 @export var player_path := "/root/Endless Mode/player"
+@export var world_path := "/root/Endless Mode"
 
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
 
-@onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
-@onready var blood: GPUParticles3D = $"Blood Splatter/blood"
-
+@onready var blood_animation: AnimationPlayer = $"Blood Splatter/blood animation"
 
 var eye = load("res://assets/scenes/projectiles/eye.tscn")
 
@@ -28,8 +29,11 @@ var can_atk : bool = true
 
 
 func _ready() -> void:
-	global_variables.enemies_alive += 1
+	world = get_node(world_path)
 	player = get_node(player_path)
+	DAMAGE = 2 * global_variables.difficulty
+	HEALTH = 5 * global_variables.difficulty
+	SPEED = 5 * global_variables.difficulty
 	pass
 
 
@@ -54,14 +58,12 @@ func death():
 		model.visible = false
 		dead = true
 		await get_tree().create_timer(0.2).timeout
-		global_variables.enemies_alive = global_variables.enemies_alive - 1
-		global_variables.kills = global_variables.kills + 1
+		world.add_kill()
 		queue_free()
 	pass
 
 func blood_splash():
-	gibbies.emitting = true
-	blood.emitting = true
+	blood_animation.play("blood splash")
 	pass
 
 func attack() -> void:
@@ -75,24 +77,26 @@ func attack() -> void:
 				get_parent().add_child(instance)
 	pass
 
-func tazer_hit(damage,volts):
+func tazer_hit(damage,volts) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
-	await get_tree().create_timer(volts / 2).timeout
+	await get_tree().create_timer(volts / 4).timeout
 	status = "Normal"
 	pass
 
-func di_form_hit(damage, burns) -> void:
+func di_form_hit(damage, burn) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
-	HEALTH -= damage * 2
+	HEALTH -= damage
 	status = "Burned"
-	status = "Shocked"
 	await get_tree().create_timer(3).timeout
 	status = "Normal"
 	pass
 
 func saw_blade_hit(damage) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -101,15 +105,18 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
+	global_variables.STYLE += 0
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
 	await get_tree().create_timer(0.5).timeout
 	can_atk = true
+	pass
 
 func exp_damage(dmg, pos)  -> void:
+	global_variables.STYLE += 20
 	blood_splash()
-	HEALTH -= dmg * 2
+	HEALTH -= dmg
 	pass
 
 

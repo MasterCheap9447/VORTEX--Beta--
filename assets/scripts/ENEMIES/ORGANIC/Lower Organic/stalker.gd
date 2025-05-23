@@ -1,14 +1,17 @@
 extends CharacterBody3D
 
 
+
 @export var MAX_SPEED : float = 20
 @export var ACCELERATION: float = 5
 @export var HEALTH: float = 3
 @export var DAMAGE: float = 5
 
 var player = null
+var world = null
 
 @export var player_path := "/root/Endless Mode/player"
+@export var world_path := "/root/Endless Mode"
 
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
@@ -16,6 +19,7 @@ var player = null
 
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
 @onready var blood: GPUParticles3D = $"Blood Splatter/blood"
+@onready var blood_splash_vfx: GPUParticles3D = $"blood splash VFX"
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -28,8 +32,10 @@ var can_atk : bool = true
 
 func _ready() -> void:
 	player = get_node(player_path)
-	look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-	global_variables.enemies_alive += 1
+	world = get_node(world_path)
+	DAMAGE = 5 * global_variables.difficulty
+	HEALTH = 3 * global_variables.difficulty
+	MAX_SPEED = 20 * global_variables.difficulty
 	pass
 
 
@@ -39,6 +45,11 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
+	## GORE SYSTEM ##
+	if HEALTH < 3:
+		blood_splash_vfx.emitting = true
+	
 	delt = delta
 	if !is_on_floor():
 		velocity.y -= 12
@@ -74,8 +85,7 @@ func death():
 		model.visible = false
 		dead = true
 		await get_tree().create_timer(0.2).timeout
-		global_variables.enemies_alive = global_variables.enemies_alive - 1
-		global_variables.kills = global_variables.kills + 1
+		world.add_kill()
 		queue_free()
 	pass
 
@@ -85,6 +95,7 @@ func attack(trg):
 	pass
 
 func tazer_hit(damage,volts) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
@@ -93,6 +104,7 @@ func tazer_hit(damage,volts) -> void:
 	pass
 
 func di_form_hit(damage, burn) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Burned"
@@ -101,6 +113,7 @@ func di_form_hit(damage, burn) -> void:
 	pass
 
 func saw_blade_hit(damage) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -109,6 +122,7 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
+	global_variables.STYLE += 0 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -117,6 +131,7 @@ func chainsaw_hit(damage) -> void:
 	pass
 
 func exp_damage(dmg, pos)  -> void:
+	global_variables.STYLE += 20 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
 	pass

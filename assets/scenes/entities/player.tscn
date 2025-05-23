@@ -1,4 +1,4 @@
-[gd_scene load_steps=327 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=329 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/PLAYER/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/PLAYER/HUD/neck.gd" id="2_3r6y4"]
@@ -54,6 +54,8 @@
 [ext_resource type="Texture2D" uid="uid://cmou43j1ggcps" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_normal.png" id="36_3a880"]
 [ext_resource type="Texture2D" uid="uid://cvujwhea234h0" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_clicked.png" id="37_3r6y4"]
 [ext_resource type="Texture2D" uid="uid://bu5okqb5e8ns5" path="res://assets/textures/ui/pause screen/buttons/exit/exit_button_hover.png" id="38_jaq6q"]
+[ext_resource type="Texture2D" uid="uid://duqmtr6ermg" path="res://assets/textures/ui/style/style_bar_over.png" id="39_tjfuy"]
+[ext_resource type="Texture2D" uid="uid://dk2j1up0ln0se" path="res://assets/textures/ui/style/style_bar_fill.png" id="40_7w2s0"]
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/GENERAL/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://cql28pe5tjrvw" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
 [ext_resource type="AudioStream" uid="uid://dr2qrjgn6s6vw" path="res://assets/sounds/player/movement/dash_audio.mp3" id="53_31l51"]
@@ -4906,7 +4908,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470498, -0.601621)
 script = ExtResource("8_mebfi")
 
 [node name="model" type="Node3D" parent="NECK/camera/grippers"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0703125, -0.176488, 0.763898)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.0703125, -0.783617, 0.763898)
 
 [node name="model" type="Node3D" parent="NECK/camera/grippers/model"]
 transform = Transform3D(0.5373, -0.253613, 0.804356, 0.843391, 0.161569, -0.512432, 4.17233e-07, 0.953717, 0.300707, 0.218003, -1.96266, -3.21776)
@@ -5820,9 +5822,9 @@ texture = ExtResource("35_yj401")
 [node name="speedometer" type="TextureRect" parent="UI/Container/Control"]
 layout_mode = 0
 offset_left = 558.667
-offset_top = -38.6667
+offset_top = -84.0
 offset_right = 705.667
-offset_bottom = 1.33333
+offset_bottom = -44.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("32_qgm2p")
 
@@ -5834,6 +5836,90 @@ offset_right = 1282.0
 offset_bottom = 71.0
 theme_override_font_sizes/normal_font_size = 28
 text = "420 m/s"
+
+[node name="style" type="Control" parent="UI/Container/Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+
+[node name="E" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 100
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(0.478431, 0, 1, 1)
+
+[node name="D" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 101
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(0, 1, 1, 1)
+
+[node name="C" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 102
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(0, 1, 0.215686, 1)
+
+[node name="B" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 103
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(1, 1, 0, 1)
+
+[node name="A" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 104
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(1, 0.54902, 0, 1)
+
+[node name="S" type="TextureProgressBar" parent="UI/Container/Control/style"]
+z_index = 105
+z_as_relative = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = -28.0
+offset_right = 430.0
+offset_bottom = 12.0
+fill_mode = 6
+texture_over = ExtResource("39_tjfuy")
+texture_progress = ExtResource("40_7w2s0")
+tint_progress = Color(1, 0, 0, 1)
 
 [node name="hit crosshair" type="TextureRect" parent="UI"]
 visible = false
@@ -5957,6 +6043,7 @@ texture_pressed = ExtResource("37_3r6y4")
 texture_hover = ExtResource("38_jaq6q")
 
 [node name="death screen" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

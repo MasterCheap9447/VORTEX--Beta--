@@ -1,46 +1,12 @@
-[gd_scene load_steps=25 format=3 uid="uid://euqsrn247k3j"]
+[gd_scene load_steps=31 format=3 uid="uid://euqsrn247k3j"]
 
 [ext_resource type="Script" uid="uid://cnylyde53kdv0" path="res://assets/scripts/ENEMIES/ORGANIC/Lower Organic/stalker.gd" id="1_6ntl0"]
 [ext_resource type="PackedScene" uid="uid://cvuf6a7m623ve" path="res://stalker test model/source/scene.gltf" id="2_060bn"]
+[ext_resource type="Shader" uid="uid://bpjs62fji2he0" path="res://assets/scripts/SHADERS/general/blood_splatter.tres" id="3_1eaed"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6ntl0"]
 radius = 1.00174
 height = 3.48597
-
-[sub_resource type="Curve" id="Curve_6ntl0"]
-_data = [Vector2(0, 0), 0.0, 2.96825, 0, 0, Vector2(0.829493, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.12022, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_nkhws"]
-curve = SubResource("Curve_6ntl0")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tj8v2"]
-lifetime_randomness = 1.0
-particle_flag_align_y = true
-particle_flag_rotate_y = true
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
-direction = Vector3(0, 1, 0)
-spread = 180.0
-initial_velocity_min = 3.0
-initial_velocity_max = 7.0
-scale_min = 0.5
-scale_max = 1.5
-scale_curve = SubResource("CurveTexture_nkhws")
-collision_mode = 1
-collision_friction = 0.0
-collision_bounce = 0.0
-sub_emitter_mode = 3
-sub_emitter_amount_at_collision = 1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1eaed"]
-albedo_color = Color(0.69246, 1.841e-06, 7.70092e-07, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_tj8v2"]
-material = SubResource("StandardMaterial3D_1eaed")
-radius = 0.25
-height = 0.5
-rings = 16
 
 [sub_resource type="Gradient" id="Gradient_xg36g"]
 colors = PackedColorArray(0.20868, 1.51913e-07, 2.40654e-08, 1, 1, 0, 0, 1)
@@ -133,6 +99,50 @@ collision_mode = 2
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_8atxo"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_81sid"]
+render_priority = 0
+shader = ExtResource("3_1eaed")
+
+[sub_resource type="Curve" id="Curve_3fvie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505618), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wunt7"]
+curve = SubResource("Curve_3fvie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0qluo"]
+particle_flag_align_y = true
+spread = 2.25
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_wunt7")
+collision_mode = 2
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_c4hlo"]
+size = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1eaed"]
+
+[sub_resource type="Curve" id="Curve_1eaed"]
+_data = [Vector2(0, 0.516854), 0.0, 0.0, 0, 0, Vector2(0.260274, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_81sid"]
+curve = SubResource("Curve_1eaed")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3fvie"]
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_81sid")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1eaed"]
+orientation = 1
+
 [node name="stalker" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
 axis_lock_angular_z = true
 script = ExtResource("1_6ntl0")
@@ -144,17 +154,6 @@ transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, 0)
 transform = Transform3D(4.57522e-15, -4.37114e-08, 1, -1, -4.37114e-08, 2.66454e-15, 4.37114e-08, -1, -4.37114e-08, 0, 1.01861, -0.437688)
 shape = SubResource("CapsuleShape3D_6ntl0")
 
-[node name="blood particles" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35159, 0)
-emitting = false
-amount = 128
-lifetime = 0.4
-explosiveness = 1.0
-randomness = 1.0
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_tj8v2")
-draw_pass_1 = SubResource("SphereMesh_tj8v2")
-
 [node name="checker" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 target_position = Vector3(0, 0, -3)
@@ -162,6 +161,7 @@ collide_with_areas = true
 
 [node name="Blood Splatter" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 2.14123, 0.363672)
+visible = false
 
 [node name="gibbies" type="GPUParticles3D" parent="Blood Splatter"]
 material_override = SubResource("StandardMaterial3D_1bstw")
@@ -188,5 +188,24 @@ draw_pass_1 = SubResource("RibbonTrailMesh_8atxo")
 
 [node name="stun" type="Timer" parent="."]
 one_shot = true
+
+[node name="blood splash VFX" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0586481, 0.783178, -2.24134)
+visible = false
+material_override = SubResource("ShaderMaterial_81sid")
+amount = 200
+sub_emitter = NodePath("../blood remainings VFX")
+randomness = 1.0
+fixed_fps = 144
+process_material = SubResource("ParticleProcessMaterial_0qluo")
+draw_pass_1 = SubResource("QuadMesh_c4hlo")
+
+[node name="blood remainings VFX" type="GPUParticles3D" parent="."]
+visible = false
+material_override = SubResource("ShaderMaterial_1eaed")
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_3fvie")
+draw_pass_1 = SubResource("QuadMesh_1eaed")
 
 [connection signal="timeout" from="stun" to="." method="_on_stun_timeout"]

@@ -17,6 +17,7 @@ extends CharacterBody3D
 
 @export var FUEL : float = 200.0
 @export var HEALTH : float = 400.0
+@export var STYLE : float = 0.0
 
 @export var SENSITIVITY : float = 0.5
 @export var WEAPON_SWAY_AMMOUNT : float = 0.01
@@ -37,6 +38,12 @@ extends CharacterBody3D
 @onready var health: TextureProgressBar = $UI/Container/Control/health
 @onready var h_percentage: RichTextLabel = $UI/Container/Control/health/percentage
 @onready var speed: RichTextLabel = $UI/Container/Control/speedometer/speed
+@onready var e: TextureProgressBar = $UI/Container/Control/style/E
+@onready var d: TextureProgressBar = $UI/Container/Control/style/D
+@onready var c: TextureProgressBar = $UI/Container/Control/style/C
+@onready var b: TextureProgressBar = $UI/Container/Control/style/B
+@onready var a: TextureProgressBar = $UI/Container/Control/style/A
+@onready var s: TextureProgressBar = $UI/Container/Control/style/S
 
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var death_screen: Control = $"UI/death screen"
@@ -60,6 +67,8 @@ var weapon_rotate : float = 0.005
 var mouse_input : Vector2
 var is_paused : bool
 var is_alive : bool = true
+var locational_multiplier : float = 1.0
+var state_multiplier : float = 1.0
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -72,7 +81,7 @@ func _input(event: InputEvent) -> void:
 	pass
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	audio()
 	GUN_CAMERA.global_transform = CAMERA.global_transform
 	global_variables.is_paused = is_paused
@@ -86,13 +95,14 @@ func _process(_delta: float) -> void:
 	
 		if !is_paused:
 			audio()
-			speed.text = (str(snapped(global_variables.enemies_alive, 0.1)) + " m/s" )
+			speed.text = (str(snapped(velocity.length(), 0.1)) + " m/s" )
 			FUEL = clamp(FUEL, 0.0, 200.0)
 			HEALTH = clamp(HEALTH, 0.0, 400.0)
 			fuel.value = floor(int(FUEL))
 			f_percentage.text = (str(floor(int(FUEL))) + " %")
 			health.value = floor(int(HEALTH))
 			h_percentage.text = (str(floor(int(HEALTH))) + " %")
+			style(delta)
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if Input.is_action_just_pressed("exit"):
@@ -167,7 +177,7 @@ func _physics_process(delta):
 						var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
 						accelerate = min(accelerate, add_speed)
 						velocity += accelerate * direction
-			#JUICE(input_dir.x, delta)
+			JUICE(input_dir.x, delta)
 	move_and_slide()
 	pass
 
@@ -366,6 +376,44 @@ func audio() -> void:
 			thrust_sfx.play()
 		else:
 			thrust_sfx.stop()
+	pass
+
+
+func style(delta) -> void:
+	global_variables.STYLE -= 0.1
+	
+	global_variables.STYLE_MULTIPLIER = clamp(global_variables.STYLE_MULTIPLIER, 0.0, 3.0)
+	STYLE = clamp(STYLE, 0.0, INF)
+	global_variables.STYLE = clamp(global_variables.STYLE, 0.0, INF)
+	
+	STYLE = global_variables.STYLE
+	global_variables.STYLE_MULTIPLIER = locational_multiplier * state_multiplier
+	if is_on_floor():
+		locational_multiplier = 1
+	else:
+		locational_multiplier = 1.5
+	
+	if is_sliding:
+		state_multiplier = 3.0
+	if is_dashing:
+		state_multiplier = 2.5
+	if is_slamming:
+		state_multiplier = 1.5
+	
+	#global_variables.STYLE += 10
+	
+	if STYLE <= 100 && STYLE >= 0:
+		e.value = STYLE
+	if STYLE <= 200 && STYLE >= 100:
+		d.value = STYLE - 100
+	if STYLE <= 300 && STYLE >= 200:
+		c.value = STYLE - 200
+	if STYLE <= 400 && STYLE >= 300:
+		b.value = STYLE - 300
+	if STYLE <= 500 && STYLE >= 400:
+		a.value = STYLE - 400
+	if STYLE <= 600 && STYLE >= 500:
+		s.value = STYLE - 500
 	pass
 
 

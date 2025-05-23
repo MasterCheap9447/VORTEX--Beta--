@@ -6,15 +6,16 @@ extends CharacterBody3D
 @export var DAMAGE: float = 5
 
 var player = null
+var world = null
 
 @export var player_path := "/root/Endless Mode/player"
+@export var world_path := "/root/Endless Mode"
 
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
 @onready var checker: RayCast3D = $checker
 
-@onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
-@onready var blood: GPUParticles3D = $"Blood Splatter/blood"
+@onready var blood_animation: AnimationPlayer = $"Blood Splatter/blood animation"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
 
@@ -29,8 +30,10 @@ var can_atk : bool = true
 
 func _ready() -> void:
 	player = get_node(player_path)
-	look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z), Vector3.UP)
-	global_variables.enemies_alive += 1
+	world = get_node(world_path)
+	DAMAGE = 1 * global_variables.difficulty
+	HEALTH = 1 * global_variables.difficulty
+	SPEED = 10 * global_variables.difficulty
 	pass
 
 
@@ -68,8 +71,7 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func blood_splash():
-	gibbies.emitting = true
-	blood.emitting = true
+	blood_animation.play("blood splash")
 	pass
 
 func death():
@@ -85,20 +87,21 @@ func explode():
 	await get_tree().create_timer(0.9).timeout
 	global_position = Vector3(69420, 69420, 69420)
 	await get_tree().create_timer(0.1).timeout
-	global_variables.kills = global_variables.kills + 1
-	global_variables.enemies_alive = global_variables.enemies_alive - 1
+	world.add_kill()
 	queue_free()
 	pass
 
 func tazer_hit(damage,volts) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
-	await get_tree().create_timer(volts / 2).timeout
+	await get_tree().create_timer(volts / 4).timeout
 	status = "Normal"
 	pass
 
 func di_form_hit(damage, burn) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	status = "Burned"
@@ -107,6 +110,7 @@ func di_form_hit(damage, burn) -> void:
 	pass
 
 func saw_blade_hit(damage) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -115,6 +119,7 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
+	global_variables.STYLE += 0
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -123,6 +128,7 @@ func chainsaw_hit(damage) -> void:
 	pass
 
 func exp_damage(dmg, pos)  -> void:
+	global_variables.STYLE += 20
 	blood_splash()
 	HEALTH -= dmg
 	pass

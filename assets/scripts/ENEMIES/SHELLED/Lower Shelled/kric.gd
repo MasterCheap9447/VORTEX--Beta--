@@ -1,13 +1,16 @@
 extends CharacterBody3D
 
 
+
 @export var SPEED: float = 5
 @export var HEALTH: float = 1
 @export var DAMAGE: float = 1
 
 var player = null
+var world = null
 
 @export var player_path := "/root/Endless Mode/player"
+@export var world_path := "/root/Endless Mode"
 
 @onready var path_finder: NavigationAgent3D = $"path finder"
 @onready var animation: AnimationPlayer = $export/animation
@@ -16,8 +19,7 @@ var player = null
 
 @onready var smoke: GPUParticles3D = $explosion/smoke
 
-@onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
-@onready var blood: GPUParticles3D = $"Blood Splatter/blood"
+@onready var blood_animation: AnimationPlayer = $"Blood Splatter/blood animation"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
 
 @onready var explosion_area: Area3D = $"explosion area"
@@ -34,8 +36,11 @@ var can_atk : bool = true
 
 
 func _ready() -> void:
-	global_variables.enemies_alive += 1
 	player = get_node(player_path)
+	world = get_node(world_path)
+	DAMAGE = 1 * global_variables.difficulty
+	HEALTH = 1 * global_variables.difficulty
+	SPEED = 5 * global_variables.difficulty
 	pass
 
 func _process(_delta: float) -> void:
@@ -80,6 +85,7 @@ func _physics_process(_delta: float) -> void:
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 			if can_atk:
 				if check.is_colliding():
+					velocity.y += SPEED
 					var target = check.get_collider()
 					if target != null:
 						if target.is_in_group("Player"):
@@ -96,8 +102,7 @@ func explode():
 	await get_tree().create_timer(0.9).timeout
 	global_position = Vector3(69420, 69420, 69420)
 	await get_tree().create_timer(0.1).timeout
-	global_variables.kills = global_variables.kills + 1
-	global_variables.enemies_alive = global_variables.enemies_alive - 1
+	world.add_kill()
 	queue_free()
 	pass
 
@@ -108,24 +113,29 @@ func death():
 	pass
 
 func blood_splash():
-	gibbies.emitting = true
-	blood.emitting = true
+	blood_animation.play("blood splash")
 	pass
 
-func tazer_hit(damage,volts):
+func tazer_hit(damage,volts) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
-	await get_tree().create_timer(volts / 2).timeout
+	await get_tree().create_timer(volts / 4).timeout
 	status = "Normal"
 	pass
 
-func di_form_hit(damage, burns) -> void:
+func di_form_hit(damage, burn) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
-	HEALTH -= damage * 2
+	HEALTH -= damage
+	status = "Burned"
+	await get_tree().create_timer(3).timeout
+	status = "Normal"
 	pass
 
 func saw_blade_hit(damage) -> void:
+	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -134,6 +144,7 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
+	global_variables.STYLE += 0
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -142,6 +153,7 @@ func chainsaw_hit(damage) -> void:
 	pass
 
 func exp_damage(dmg, pos)  -> void:
+	global_variables.STYLE += 20
 	blood_splash()
-	HEALTH -= dmg * 2
+	HEALTH -= dmg
 	pass

@@ -10,6 +10,8 @@ var is_paused : bool
 var secrets : int = 0
 
 var PLAYER = load("res://assets/scenes/entities/player.tscn")
+var STYLE : float
+var STYLE_MULTIPLIER : float = 1.0
 
 var is_player_sliding: bool
 
