@@ -90,6 +90,8 @@ func _physics_process(_delta: float) -> void:
 					if target != null:
 						if target.is_in_group("Player"):
 							explode()
+				else:
+					velocity.y -= 12
 	
 		move_and_slide()
 	pass

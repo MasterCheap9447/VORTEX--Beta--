@@ -50,7 +50,7 @@ _limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_di7vp"]
+[sub_resource type="CurveTexture" id="CurveTexture_p63nm"]
 curve = SubResource("Curve_mkkbc")
 
 [sub_resource type="Curve" id="Curve_lxumm"]
@@ -66,7 +66,7 @@ point_count = 2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_85n0q"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mkkbc"]
 curve_x = SubResource("Curve_lxumm")
 curve_y = SubResource("Curve_5mhah")
 curve_z = SubResource("Curve_0iae0")
@@ -75,7 +75,7 @@ curve_z = SubResource("Curve_0iae0")
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_k8gpd"]
+[sub_resource type="CurveTexture" id="CurveTexture_lxumm"]
 curve = SubResource("Curve_wdjg6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g2wsa"]
@@ -87,13 +87,13 @@ initial_velocity_min = 24.0
 initial_velocity_max = 40.0
 directional_velocity_min = 20.0
 directional_velocity_max = 45.0
-directional_velocity_curve = SubResource("CurveXYZTexture_85n0q")
+directional_velocity_curve = SubResource("CurveXYZTexture_mkkbc")
 damping_min = 1.0
 damping_max = 2.0
-damping_curve = SubResource("CurveTexture_di7vp")
+damping_curve = SubResource("CurveTexture_p63nm")
 scale_min = 0.5
 scale_max = 2.0
-scale_curve = SubResource("CurveTexture_k8gpd")
+scale_curve = SubResource("CurveTexture_lxumm")
 collision_mode = 2
 sub_emitter_mode = 1
 sub_emitter_frequency = 100.0

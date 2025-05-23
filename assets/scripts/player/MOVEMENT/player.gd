@@ -33,6 +33,10 @@ extends CharacterBody3D
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
 @onready var slam_area: Area3D = $"NECK/SLAM/slam area"
 
+@onready var tazer_model: Node3D = $NECK/camera/WEAPONS/tazer/model
+@onready var bi_form_model: Node3D = $NECK/camera/WEAPONS/tri_form/model
+@onready var chainsaw_gauntlets_model: Node3D = $"NECK/camera/FORCE/chainsaw gauntlets/model"
+
 @onready var fuel: TextureProgressBar = $UI/Container/Control/fuel
 @onready var f_percentage: RichTextLabel = $UI/Container/Control/fuel/percentage
 @onready var health: TextureProgressBar = $UI/Container/Control/health
@@ -318,35 +322,13 @@ func nrml_damage(magnitude) -> void:
 	$"hurt stop".start()
 	pass
 
+func heal(magnitude) -> void:
+	HEALTH += magnitude
+	pass  
+
 
 func JUICE(input_x, delta) -> void:
 	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25, 2 * delta)
-	
-	WEAPONS.rotation.z = lerp(WEAPONS.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, delta)
-	WEAPONS.rotation.x = lerp(WEAPONS.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, delta * 0.5)
-	WEAPONS.rotation.y = lerp(WEAPONS.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, delta * 0.5)
-	
-	if velocity.length() > 0 && is_on_floor():
-		var bob_ammount : float = 0.5
-		var bob_frequency : float = 0.01
-		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
-		WEAPONS.position.x = lerp(WEAPONS.position.x, 0 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
-	else:
-		WEAPONS.position.y = lerp(WEAPONS.position.y, -0.47, 10 * delta)
-		WEAPONS.position.x = lerp(WEAPONS.position.x, 0.0, 10 * delta)
-	
-	FORCE.rotation.z = lerp(FORCE.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, delta)
-	FORCE.rotation.x = lerp(FORCE.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, delta * 0.5)
-	FORCE.rotation.y = lerp(FORCE.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, delta * 0.5)
-	
-	if velocity.length() > 0 && is_on_floor():
-		var bob_ammount : float = 0.5
-		var bob_frequency : float = 0.01
-		FORCE.position.y = lerp(FORCE.position.y, -0.47 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
-		FORCE.position.x = lerp(FORCE.position.x, 0 + sin(Time.get_ticks_msec() * bob_frequency) * bob_ammount, 2 * delta)
-	else:
-		FORCE.position.y = lerp(FORCE.position.y, -0.47, 10 * delta)
-		FORCE.position.x = lerp(WEAPONS.position.x, 0.0, 10 * delta)
 	pass
 
 

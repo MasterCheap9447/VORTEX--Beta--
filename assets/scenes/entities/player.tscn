@@ -5556,7 +5556,7 @@ mesh = SubResource("ArrayMesh_7rtfd")
 skeleton = NodePath("")
 
 [node name="di form primary fire SFX" type="AudioStreamPlayer3D" parent="NECK/camera/WEAPONS/tri_form/model"]
-transform = Transform3D(4.7619, -3.01571e-07, 1.70299e-05, 3.01571e-07, 4.7619, 1.09168e-12, -1.70299e-05, -1.31821e-14, 4.7619, 7.68351, -0.00355911, 2.02987)
+transform = Transform3D(4.7619, -3.01571e-07, 1.70299e-05, 3.01571e-07, 4.7619, 1.09169e-12, -1.70299e-05, -1.31821e-14, 4.7619, 7.68351, -0.00355911, 2.02987)
 stream = ExtResource("21_iwly2")
 volume_db = 30.0
 panning_strength = 0.0
@@ -5624,7 +5624,7 @@ script = ExtResource("25_4yjtm")
 transform = Transform3D(-0.3, 0, -4.52987e-08, 0, 0.3, 0, 4.52987e-08, 0, -0.3, 0, -2.45044, -0.189759)
 
 [node name="chainsaw gauntlet 1" type="Node3D" parent="NECK/camera/FORCE/chainsaw gauntlets/model"]
-transform = Transform3D(-0.928664, 0.313213, -0.198697, -0.124417, -0.767686, -0.628632, -0.349432, -0.559066, 0.751892, 3.7625, 5.5, 0.93125)
+transform = Transform3D(-0.928664, 0.313212, -0.198697, -0.124417, -0.767686, -0.628632, -0.349432, -0.559066, 0.751892, 3.7625, 5.5, 0.93125)
 
 [node name="gauntlet 1" type="MeshInstance3D" parent="NECK/camera/FORCE/chainsaw gauntlets/model/chainsaw gauntlet 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125, -1, 0)

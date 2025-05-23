@@ -38,6 +38,8 @@ func _ready() -> void:
 	ran.randomize()
 	wave_no = 1
 	spawn_enemies = true
+	_on_enemy_spawn_time_timeout()
+	_on_enemy_spawn_time_4_timeout()
 	pass
 
 
@@ -45,28 +47,6 @@ func _process(_delta: float) -> void:
 	difficulty = global_variables.difficulty
 	global_variables.enemies_alive = count
 	maximum = 8 * difficulty
-	
-	## WAVE-LIKE ENEMY SPAWNING ##
-	count = clamp(count, 0, INF)
-	
-	if count == 0:
-		spawn_enemies = true
-		wave_no += 1
-	if count < 0:
-		spawn_enemies = false
-	
-	if spawn_enemies == true:
-		await get_tree().create_timer(0.5).timeout
-		for i in range(1, wave_no * difficulty):
-			var rng = ran.randi_range(1, wave_no)
-			if rng <= 1 && rng > 3:
-				kric_spawn()
-				troll_spawn()
-			if rng <= 3:
-				kric_spawn()
-				troll_spawn()
-				gomme_spawn()
-				stalker_spawn()
 	pass
 
 

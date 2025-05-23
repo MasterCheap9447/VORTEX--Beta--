@@ -18,7 +18,6 @@ var world = null
 @onready var checker: RayCast3D = $checker
 
 @onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
-@onready var blood: GPUParticles3D = $"Blood Splatter/blood"
 @onready var blood_splash_vfx: GPUParticles3D = $"blood splash VFX"
 
 var ran := RandomNumberGenerator.new()
@@ -29,6 +28,7 @@ var delt
 var status : String = "Normal"
 var can_atk : bool = true
 
+var blood = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood.tscn")
 
 func _ready() -> void:
 	player = get_node(player_path)
@@ -41,14 +41,11 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	death()
+	HEALTH = 9999
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	
-	## GORE SYSTEM ##
-	if HEALTH < 3:
-		blood_splash_vfx.emitting = true
 	
 	delt = delta
 	if !is_on_floor():
@@ -60,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			var plr_x = lerp(position.x, player.global_position.x, 0.5)
 			var plr_y = global_position.y
 			var plr_z = lerp(position.z, player.global_position.z, 0.5) 
-			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
+			#look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
 			if is_on_floor():
 				velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
 			if can_atk:
@@ -76,8 +73,10 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func blood_splash():
-	gibbies.emitting = true
-	blood.emitting = true
+	for i in range(1, randf_range(10, 14)):
+		instance = blood.instantiate()
+		instance.position = $"blood spawn point".global_position
+		world.add_child(instance)
 	pass
 
 func death():
