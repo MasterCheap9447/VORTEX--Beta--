@@ -5843,7 +5843,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(2, 2)
 
-[node name="E" type="TextureProgressBar" parent="UI/Container/Control/style"]
+[node name="bar" type="TextureProgressBar" parent="UI/Container/Control/style"]
 z_index = 100
 z_as_relative = false
 layout_mode = 0
@@ -5855,71 +5855,6 @@ fill_mode = 6
 texture_over = ExtResource("39_tjfuy")
 texture_progress = ExtResource("40_7w2s0")
 tint_progress = Color(0.478431, 0, 1, 1)
-
-[node name="D" type="TextureProgressBar" parent="UI/Container/Control/style"]
-z_index = 101
-z_as_relative = false
-layout_mode = 0
-offset_left = 230.0
-offset_top = -28.0
-offset_right = 430.0
-offset_bottom = 12.0
-fill_mode = 6
-texture_over = ExtResource("39_tjfuy")
-texture_progress = ExtResource("40_7w2s0")
-tint_progress = Color(0, 1, 1, 1)
-
-[node name="C" type="TextureProgressBar" parent="UI/Container/Control/style"]
-z_index = 102
-z_as_relative = false
-layout_mode = 0
-offset_left = 230.0
-offset_top = -28.0
-offset_right = 430.0
-offset_bottom = 12.0
-fill_mode = 6
-texture_over = ExtResource("39_tjfuy")
-texture_progress = ExtResource("40_7w2s0")
-tint_progress = Color(0, 1, 0.215686, 1)
-
-[node name="B" type="TextureProgressBar" parent="UI/Container/Control/style"]
-z_index = 103
-z_as_relative = false
-layout_mode = 0
-offset_left = 230.0
-offset_top = -28.0
-offset_right = 430.0
-offset_bottom = 12.0
-fill_mode = 6
-texture_over = ExtResource("39_tjfuy")
-texture_progress = ExtResource("40_7w2s0")
-tint_progress = Color(1, 1, 0, 1)
-
-[node name="A" type="TextureProgressBar" parent="UI/Container/Control/style"]
-z_index = 104
-z_as_relative = false
-layout_mode = 0
-offset_left = 230.0
-offset_top = -28.0
-offset_right = 430.0
-offset_bottom = 12.0
-fill_mode = 6
-texture_over = ExtResource("39_tjfuy")
-texture_progress = ExtResource("40_7w2s0")
-tint_progress = Color(1, 0.54902, 0, 1)
-
-[node name="S" type="TextureProgressBar" parent="UI/Container/Control/style"]
-z_index = 105
-z_as_relative = false
-layout_mode = 0
-offset_left = 230.0
-offset_top = -28.0
-offset_right = 430.0
-offset_bottom = 12.0
-fill_mode = 6
-texture_over = ExtResource("39_tjfuy")
-texture_progress = ExtResource("40_7w2s0")
-tint_progress = Color(1, 0, 0, 1)
 
 [node name="hit crosshair" type="TextureRect" parent="UI"]
 visible = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bmerraoq64qq3"]
+[gd_scene load_steps=20 format=3 uid="uid://bmerraoq64qq3"]
 
 [ext_resource type="Script" uid="uid://chbduwjxelrvh" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/gomme.gd" id="1_4saki"]
+[ext_resource type="Script" uid="uid://b7i1vaqs6dpf2" path="res://assets/scripts/ENVIRONMENTAL OBJECTS/blood.gd" id="2_mkkbc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_s3ja0"]
 height = 3.5
@@ -36,7 +37,7 @@ _data = {
 &"blood splash": SubResource("Animation_ndiq7")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p63nm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2cuf"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
@@ -45,40 +46,40 @@ specular_mode = 1
 albedo_color = Color(1, 0, 0.0166664, 1)
 metallic_specular = 1.0
 
-[sub_resource type="Curve" id="Curve_mkkbc"]
+[sub_resource type="Curve" id="Curve_6cgr4"]
 _limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_p63nm"]
-curve = SubResource("Curve_mkkbc")
+curve = SubResource("Curve_6cgr4")
 
-[sub_resource type="Curve" id="Curve_lxumm"]
+[sub_resource type="Curve" id="Curve_88mh7"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_5mhah"]
+[sub_resource type="Curve" id="Curve_cf812"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.511415, -1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Curve" id="Curve_0iae0"]
+[sub_resource type="Curve" id="Curve_0r4b2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mkkbc"]
-curve_x = SubResource("Curve_lxumm")
-curve_y = SubResource("Curve_5mhah")
-curve_z = SubResource("Curve_0iae0")
+curve_x = SubResource("Curve_88mh7")
+curve_y = SubResource("Curve_cf812")
+curve_z = SubResource("Curve_0r4b2")
 
-[sub_resource type="Curve" id="Curve_wdjg6"]
+[sub_resource type="Curve" id="Curve_tsoga"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_lxumm"]
-curve = SubResource("Curve_wdjg6")
+curve = SubResource("Curve_tsoga")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g2wsa"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u4tbh"]
 emission_shape = 1
 emission_sphere_radius = 1.0
 direction = Vector3(0, 1, 0)
@@ -99,7 +100,7 @@ sub_emitter_mode = 1
 sub_emitter_frequency = 100.0
 sub_emitter_keep_velocity = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_mtr04"]
+[sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="gomme" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
@@ -121,25 +122,27 @@ mesh = SubResource("BoxMesh_s3ja0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -1)
 target_position = Vector3(0, 0, -32)
 
-[node name="Blood Splatter" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035264, 2.34384, 0.363672)
+[node name="Blood Splash" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_mkkbc")
 
-[node name="blood animation" type="AnimationPlayer" parent="Blood Splatter"]
+[node name="blood animation" type="AnimationPlayer" parent="Blood Splash"]
 libraries = {
 &"": SubResource("AnimationLibrary_k7ya0")
 }
 
-[node name="blood" type="GPUParticles3D" parent="Blood Splatter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.102295, 0)
-material_override = SubResource("StandardMaterial3D_p63nm")
+[node name="blood" type="GPUParticles3D" parent="Blood Splash"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_m2cuf")
 emitting = false
 amount = 256
 lifetime = 0.2
 one_shot = true
+explosiveness = 1.0
 fixed_fps = 144
 trail_lifetime = 0.01
-process_material = SubResource("ParticleProcessMaterial_g2wsa")
-draw_pass_1 = SubResource("BoxMesh_mtr04")
+process_material = SubResource("ParticleProcessMaterial_u4tbh")
+draw_pass_1 = SubResource("BoxMesh_6h5lr")
 
 [node name="cooldown" type="Timer" parent="."]
 autostart = true

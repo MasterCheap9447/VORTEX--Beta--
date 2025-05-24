@@ -12,10 +12,8 @@ var world = null
 @export var world_path := "/root/Endless Mode"
 
 @onready var model: Node3D = $model
-@onready var check: RayCast3D = $check
 @onready var checker: RayCast3D = $checker
 
-@onready var blood_animation: AnimationPlayer = $"Blood Splatter/blood animation"
 @onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
 
@@ -56,7 +54,7 @@ func _physics_process(delta: float) -> void:
 			var plr_y = lerp(position.y, player.global_position.y, 0.5)
 			var plr_z = lerp(position.z, player.global_position.z, 0.5)
 			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
-			checker.look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
+			checker.target_position = Vector3(plr_x, plr_y, plr_z).normalized() * 2
 			velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), SPEED, delta))
 			if can_atk:
 				if checker.is_colliding():
@@ -71,7 +69,7 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func blood_splash():
-	blood_animation.play("blood splash")
+	$"Blood Splash/blood animation".play("blood splash")
 	pass
 
 func death():

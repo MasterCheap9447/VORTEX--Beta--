@@ -15,8 +15,6 @@ var world = null
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
 
-@onready var blood_animation: AnimationPlayer = $"Blood Splatter/blood animation"
-
 var eye = load("res://assets/scenes/projectiles/eye.tscn")
 
 
@@ -63,7 +61,7 @@ func death():
 	pass
 
 func blood_splash():
-	blood_animation.play("blood splash")
+	$"Blood Splash/blood animation".play("blood splash")
 	pass
 
 func attack() -> void:

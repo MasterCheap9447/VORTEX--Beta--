@@ -10,7 +10,7 @@ extends CharacterBody3D
 @export var AIR_ACCELERATION : float = 800.0
 @export var SLAM_FORCE : float = 100.0
 @export var SLIDE_MAX_SPEED : float = 24.0
-@export var SLIDE_ACCELERATION : float = 0.125
+@export var SLIDE_ACCELERATION : float = 1.0
 @export var DASH_FORCE : float = 24.0
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
@@ -42,12 +42,8 @@ extends CharacterBody3D
 @onready var health: TextureProgressBar = $UI/Container/Control/health
 @onready var h_percentage: RichTextLabel = $UI/Container/Control/health/percentage
 @onready var speed: RichTextLabel = $UI/Container/Control/speedometer/speed
-@onready var e: TextureProgressBar = $UI/Container/Control/style/E
-@onready var d: TextureProgressBar = $UI/Container/Control/style/D
-@onready var c: TextureProgressBar = $UI/Container/Control/style/C
-@onready var b: TextureProgressBar = $UI/Container/Control/style/B
-@onready var a: TextureProgressBar = $UI/Container/Control/style/A
-@onready var s: TextureProgressBar = $UI/Container/Control/style/S
+@onready var style: TextureProgressBar = $UI/Container/Control/style/bar
+
 
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var death_screen: Control = $"UI/death screen"
@@ -73,6 +69,7 @@ var is_paused : bool
 var is_alive : bool = true
 var locational_multiplier : float = 1.0
 var state_multiplier : float = 1.0
+var d : float = 0.0
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -87,6 +84,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	audio()
+	d = delta
 	GUN_CAMERA.global_transform = CAMERA.global_transform
 	global_variables.is_paused = is_paused
 	global_variables.is_player_alive = is_alive
@@ -106,7 +104,7 @@ func _process(delta: float) -> void:
 			f_percentage.text = (str(floor(int(FUEL))) + " %")
 			health.value = floor(int(HEALTH))
 			h_percentage.text = (str(floor(int(HEALTH))) + " %")
-			style(delta)
+			_style(delta)
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if Input.is_action_just_pressed("exit"):
@@ -200,7 +198,7 @@ func _slide(delta) -> void:
 				if slide_speed < SLIDE_MAX_SPEED:
 					slide_speed += SLIDE_ACCELERATION
 				velocity.x = slide_direction.x * slide_speed
-				velocity.z =slide_direction.z * slide_speed
+				velocity.z = slide_direction.z * slide_speed
 			else:
 				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0,0,-SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
 		else:
@@ -218,7 +216,7 @@ func _slide(delta) -> void:
 	else:
 		scrath_vfx.emitting = false
 		scale = lerp(scale, Vector3(1,1,1), delta)
-		CAMERA.rotation.z = move_toward(CAMERA.rotation.z, 0.0, delta * 20)
+		CAMERA.rotation.z = move_toward(CAMERA.rotation.z, 0.0, delta * 10)
 		
 	if !is_on_floor():
 		scrath_vfx.emitting = false
@@ -315,10 +313,12 @@ func exp_damage(magnitude, pos : Vector3) -> void:
 	var dir = (pos - global_position).normalized()
 	velocity += dir * magnitude
 	$"hurt stop".start()
+	camera_shake(0.1, 0.2, d)
 	pass
 
 func nrml_damage(magnitude) -> void:
 	HEALTH -= magnitude
+	camera_shake(0.1,0.2,d)
 	$"hurt stop".start()
 	pass
 
@@ -331,14 +331,13 @@ func JUICE(input_x, delta) -> void:
 	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25, 2 * delta)
 	pass
 
-
 func camera_shake(magnitude, amplitude, delta):
 	var rng
 	rng = RandomNumberGenerator.new()
 	rng = randf_range(-magnitude, magnitude)
-	CAMERA.rotation.z = lerp(CAMERA.rotation.z, rng, delta * amplitude)
-	CAMERA.rotation.x = lerp(CAMERA.rotation.x, rng, delta * amplitude)
-	CAMERA.rotation.y = lerp(CAMERA.rotation.y, rng, delta * amplitude)
+	CAMERA.rotation.z = lerp(CAMERA.rotation.z, rad_to_deg(rng), delta * amplitude)
+	CAMERA.rotation.x = lerp(CAMERA.rotation.x, rad_to_deg(rng), delta * amplitude)
+	CAMERA.rotation.y = lerp(CAMERA.rotation.y, rad_to_deg(rng), delta * amplitude)
 	pass
 
 
@@ -361,12 +360,12 @@ func audio() -> void:
 	pass
 
 
-func style(delta) -> void:
+func _style(delta) -> void:
 	global_variables.STYLE -= 0.1
 	
-	global_variables.STYLE_MULTIPLIER = clamp(global_variables.STYLE_MULTIPLIER, 0.0, 3.0)
-	STYLE = clamp(STYLE, 0.0, INF)
-	global_variables.STYLE = clamp(global_variables.STYLE, 0.0, INF)
+	global_variables.STYLE_MULTIPLIER = clamp(global_variables.STYLE_MULTIPLIER, 0.0, 4.5)
+	STYLE = clamp(STYLE, 0.0, 100.0)
+	global_variables.STYLE = clamp(global_variables.STYLE, 0.0, 100.0)
 	
 	STYLE = global_variables.STYLE
 	global_variables.STYLE_MULTIPLIER = locational_multiplier * state_multiplier
@@ -382,20 +381,7 @@ func style(delta) -> void:
 	if is_slamming:
 		state_multiplier = 1.5
 	
-	#global_variables.STYLE += 10
-	
-	if STYLE <= 100 && STYLE >= 0:
-		e.value = STYLE
-	if STYLE <= 200 && STYLE >= 100:
-		d.value = STYLE - 100
-	if STYLE <= 300 && STYLE >= 200:
-		c.value = STYLE - 200
-	if STYLE <= 400 && STYLE >= 300:
-		b.value = STYLE - 300
-	if STYLE <= 500 && STYLE >= 400:
-		a.value = STYLE - 400
-	if STYLE <= 600 && STYLE >= 500:
-		s.value = STYLE - 500
+	style.value = STYLE
 	pass
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://my2ppbf0t3jr"]
+[gd_scene load_steps=54 format=3 uid="uid://my2ppbf0t3jr"]
 
 [ext_resource type="Script" uid="uid://k1sq7praj2te" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/troll.gd" id="1_ywbab"]
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_di7vp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_3fnkm"]
 [ext_resource type="Shader" uid="uid://do2g6xewxiv7v" path="res://assets/scripts/SHADERS/player/movement/sparks.tres" id="3_k7ya0"]
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_3fnkm"]
+[ext_resource type="Script" uid="uid://b7i1vaqs6dpf2" path="res://assets/scripts/ENVIRONMENTAL OBJECTS/blood.gd" id="7_88maa"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_shedy"]
 
@@ -42,92 +43,8 @@ shader_parameter/flags = 40
 [sub_resource type="QuadMesh" id="QuadMesh_7iko1"]
 material = SubResource("ShaderMaterial_aht4j")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndiq7"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(1, 0, 0.0166664, 1)
-metallic_specular = 1.0
-
-[sub_resource type="Curve" id="Curve_k7ya0"]
-_limits = [0.0, 100.0, 0.0, 1.0]
-_data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_3fnkm"]
-curve = SubResource("Curve_k7ya0")
-
-[sub_resource type="Curve" id="Curve_88maa"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_eaaka"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.511415, -1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_60lym"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_88maa"]
-curve_x = SubResource("Curve_88maa")
-curve_y = SubResource("Curve_eaaka")
-curve_z = SubResource("Curve_60lym")
-
-[sub_resource type="Curve" id="Curve_v12pw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_v12pw"]
-curve = SubResource("Curve_v12pw")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_akans"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 1, 0)
-spread = 90.0
-initial_velocity_min = 24.0
-initial_velocity_max = 40.0
-directional_velocity_min = 20.0
-directional_velocity_max = 45.0
-directional_velocity_curve = SubResource("CurveXYZTexture_88maa")
-damping_min = 1.0
-damping_max = 2.0
-damping_curve = SubResource("CurveTexture_3fnkm")
-scale_min = 0.5
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_v12pw")
-collision_mode = 2
-sub_emitter_mode = 1
-sub_emitter_frequency = 100.0
-sub_emitter_keep_velocity = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_ndiq7"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="Animation" id="Animation_ndiq7"]
-resource_name = "blood splash"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("blood:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7ya0"]
-_data = {
-&"blood splash": SubResource("Animation_ndiq7")
-}
+[sub_resource type="SphereShape3D" id="SphereShape3D_tgnla"]
+radius = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_di7vp"]
 render_priority = 0
@@ -335,11 +252,95 @@ _data = {
 &"boom": SubResource("Animation_rujbu")
 }
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_tgnla"]
-radius = 1.5
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_ndiq7"]
 radius = 2.1907
+
+[sub_resource type="Animation" id="Animation_ndiq7"]
+resource_name = "blood splash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blood:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7ya0"]
+_data = {
+&"blood splash": SubResource("Animation_ndiq7")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2cuf"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0.0166664, 1)
+metallic_specular = 1.0
+
+[sub_resource type="Curve" id="Curve_6cgr4"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p63nm"]
+curve = SubResource("Curve_6cgr4")
+
+[sub_resource type="Curve" id="Curve_88mh7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cf812"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.511415, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0r4b2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mkkbc"]
+curve_x = SubResource("Curve_88mh7")
+curve_y = SubResource("Curve_cf812")
+curve_z = SubResource("Curve_0r4b2")
+
+[sub_resource type="Curve" id="Curve_tsoga"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lxumm"]
+curve = SubResource("Curve_tsoga")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u4tbh"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 24.0
+initial_velocity_max = 40.0
+directional_velocity_min = 20.0
+directional_velocity_max = 45.0
+directional_velocity_curve = SubResource("CurveXYZTexture_mkkbc")
+damping_min = 1.0
+damping_max = 2.0
+damping_curve = SubResource("CurveTexture_p63nm")
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_lxumm")
+collision_mode = 2
+sub_emitter_mode = 1
+sub_emitter_frequency = 100.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="troll" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
 motion_mode = 1
@@ -371,27 +372,10 @@ metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 target_position = Vector3(0, 0, -3)
 collide_with_areas = true
 
-[node name="Blood Splatter" type="Node3D" parent="."]
+[node name="threat area" type="Area3D" parent="."]
 
-[node name="blood" type="GPUParticles3D" parent="Blood Splatter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.102295, 0)
-material_override = SubResource("StandardMaterial3D_ndiq7")
-emitting = false
-amount = 256
-lifetime = 0.2
-one_shot = true
-fixed_fps = 144
-trail_lifetime = 0.01
-process_material = SubResource("ParticleProcessMaterial_akans")
-draw_pass_1 = SubResource("BoxMesh_ndiq7")
-
-[node name="blood animation" type="AnimationPlayer" parent="Blood Splatter"]
-libraries = {
-&"": SubResource("AnimationLibrary_k7ya0")
-}
-
-[node name="stun" type="Timer" parent="."]
-one_shot = true
+[node name="threat collision" type="CollisionShape3D" parent="threat area" groups=["Enemy"]]
+shape = SubResource("SphereShape3D_tgnla")
 
 [node name="explosion" type="Node3D" parent="."]
 
@@ -427,12 +411,31 @@ light_color = Color(1, 0.27451, 0, 1)
 light_energy = 0.0
 omni_range = 10.0
 
-[node name="threat area" type="Area3D" parent="."]
-
-[node name="threat collision" type="CollisionShape3D" parent="threat area" groups=["Enemy"]]
-shape = SubResource("SphereShape3D_tgnla")
-
 [node name="explosion area" type="Area3D" parent="." groups=["Xplodable"]]
 
 [node name="explosion collision" type="CollisionShape3D" parent="explosion area"]
 shape = SubResource("SphereShape3D_ndiq7")
+
+[node name="Blood Splash" type="Node3D" parent="."]
+script = ExtResource("7_88maa")
+
+[node name="blood animation" type="AnimationPlayer" parent="Blood Splash"]
+libraries = {
+&"": SubResource("AnimationLibrary_k7ya0")
+}
+
+[node name="blood" type="GPUParticles3D" parent="Blood Splash"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_m2cuf")
+emitting = false
+amount = 256
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 144
+trail_lifetime = 0.01
+process_material = SubResource("ParticleProcessMaterial_u4tbh")
+draw_pass_1 = SubResource("BoxMesh_6h5lr")
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true

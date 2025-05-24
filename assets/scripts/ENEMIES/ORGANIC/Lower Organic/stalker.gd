@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 
 @export var MAX_SPEED : float = 20
-@export var ACCELERATION: float = 5
+@export var ACCELERATION: float = 1
 @export var HEALTH: float = 3
 @export var DAMAGE: float = 5
 
@@ -13,12 +13,13 @@ var world = null
 @export var player_path := "/root/Endless Mode/player"
 @export var world_path := "/root/Endless Mode"
 
-@onready var model: Node3D = $model
-@onready var check: RayCast3D = $check
-@onready var checker: RayCast3D = $checker
+@onready var mesh: Node3D = $mesh
+@onready var model_animation: AnimationPlayer = $"mesh/model animation"
 
-@onready var gibbies: GPUParticles3D = $"Blood Splatter/gibbies"
-@onready var blood_splash_vfx: GPUParticles3D = $"blood splash VFX"
+@onready var checker: RayCast3D = $checker
+@onready var navigator: NavigationAgent3D = $navigator
+
+@onready var blood_spawn_point: Node3D = $"blood spawn point"
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -41,33 +42,31 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	death()
-	HEALTH = 9999
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	
-	delt = delta
 	if !is_on_floor():
 		velocity.y -= 12
-	if !global_variables.is_paused:
-		if !is_on_floor():
-			velocity.y -= 12
-		if !dead && status != "Shocked":
-			var plr_x = lerp(position.x, player.global_position.x, 0.5)
-			var plr_y = global_position.y
-			var plr_z = lerp(position.z, player.global_position.z, 0.5) 
-			#look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
-			if is_on_floor():
-				velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_SPEED, ACCELERATION * delta))
-			if can_atk:
-				if checker.is_colliding():
-					var target = checker.get_collider()
-					if target != null:
-						if target.is_in_group("Player"):
-							attack(target)
-	if status == "Shocked":
-		velocity = Vector3.ZERO
+	
+	velocity = Vector3.ZERO
+	
+	if !dead:
+		if status != "Shocked":
+			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			
+			navigator.set_target_position(player.global_position)
+			var next_target = navigator.get_next_path_position()
+			#velocity = (next_target - global_position).normalized() * move_toward(velocity.length(), MAX_SPEED, ACCELERATION)
+			if !model_animation.is_playing():
+				model_animation.play("walk")
+			
+			if checker.is_colliding():
+				var pablo = checker.get_collider()
+				if pablo.is_in_group("Player"):
+					velocity = Vector3.ZERO
+					model_animation.play("attack")
+
 	
 	move_and_slide()
 	pass
@@ -75,13 +74,12 @@ func _physics_process(delta: float) -> void:
 func blood_splash():
 	for i in range(1, randf_range(10, 14)):
 		instance = blood.instantiate()
-		instance.position = $"blood spawn point".global_position
+		instance.position = blood_spawn_point.global_position + Vector3(randf_range(-1,1), randf_range(-1,1), randf_range(-1,1))
 		world.add_child(instance)
 	pass
 
 func death():
 	if HEALTH <= 0:
-		model.visible = false
 		dead = true
 		await get_tree().create_timer(0.2).timeout
 		world.add_kill()
@@ -103,16 +101,16 @@ func tazer_hit(damage,volts) -> void:
 	pass
 
 func di_form_hit(damage, burn) -> void:
-	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.STYLE += 10/6 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
-	HEALTH -= damage
+	HEALTH -= damage/6
 	status = "Burned"
 	await get_tree().create_timer(3).timeout
 	status = "Normal"
 	pass
 
 func saw_blade_hit(damage) -> void:
-	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.STYLE += 0 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false

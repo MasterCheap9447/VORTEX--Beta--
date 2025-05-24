@@ -1,16 +1,16 @@
 extends Node3D
 
 
-@export var world_size : Vector3 = Vector3(16, 16, 16)
-@export_range(-1, 1) var cut_off : float = 0.5
 
 @onready var enemy_spawn_points: Node3D = $"navigation mesh/enemy spawn points"
 @onready var kric_point: Node3D = $"navigation mesh/enemy spawn points/kric point"
 @onready var stalker_point: Node3D = $"navigation mesh/enemy spawn points/stalker point"
 @onready var gomme_point: Node3D = $"navigation mesh/enemy spawn points/gomme point"
 @onready var troll_point: Node3D = $"navigation mesh/enemy spawn points/troll point"
+@onready var player: CharacterBody3D = $player
 
 @onready var navigation_mesh: NavigationRegion3D = $"navigation mesh"
+@onready var death_area: Area3D = $"death area"
 
 @onready var enemy_spawn_time_1: Timer = $"enemy spawn time 1"
 @onready var enemy_spawn_time_2: Timer = $"enemy spawn time 2"
@@ -38,15 +38,20 @@ func _ready() -> void:
 	ran.randomize()
 	wave_no = 1
 	spawn_enemies = true
-	_on_enemy_spawn_time_timeout()
-	_on_enemy_spawn_time_4_timeout()
 	pass
 
 
 func _process(_delta: float) -> void:
 	difficulty = global_variables.difficulty
 	global_variables.enemies_alive = count
-	maximum = 8 * difficulty
+	maximum = 7 * difficulty
+	
+	death_area.position.x = player.global_position.x
+	death_area.position.z = player.global_position.z 
+	for i in death_area.get_overlapping_bodies():
+		if i.is_in_group("Player"):
+			player.nrml_damage(999999)
+			player.velocity = Vector3.ZERO
 	pass
 
 
