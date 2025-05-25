@@ -1,9 +1,7 @@
-[gd_scene load_steps=58 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=73 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://hiepjbp48lvq" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/kric.gd" id="1_pmvch"]
 [ext_resource type="Texture2D" uid="uid://dtlhooemyov3a" path="res://assets/models/ENEMIES/SHELLED/Lower Shelled/KRIC/texture/kric_texture.png" id="2_8dce7"]
-[ext_resource type="Texture2D" uid="uid://cab4fqwf7nsuy" path="res://assets/textures/effects/explosion/explosion_cloud.png" id="6_jannd"]
-[ext_resource type="Texture2D" uid="uid://c7nw2r1um32if" path="res://assets/textures/effects/explosion/explosion_shockwave.png" id="7_8mfnd"]
 [ext_resource type="AudioStream" uid="uid://iuafcjxv121u" path="res://assets/sounds/effects/explosion/light_explosion_audio.mp3" id="8_a1ucd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5wll"]
@@ -1332,25 +1330,110 @@ _data = {
 radius = 0.34598
 height = 1.31911
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1v76"]
+shading_mode = 0
+albedo_color = Color(1, 0.47451, 0, 1)
+
+[sub_resource type="Curve" id="Curve_3nihb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.297297, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.44462, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wssax"]
+curve = SubResource("Curve_3nihb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8dce7"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_wssax")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s5wll"]
+top_radius = 0.1
+bottom_radius = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xomr7"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_jannd"]
+offsets = PackedFloat32Array(0, 0.520408, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.470588, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8mfnd"]
+gradient = SubResource("Gradient_jannd")
+
+[sub_resource type="Curve" id="Curve_a1ucd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.274775, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.26593, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hows5"]
+curve = SubResource("Curve_a1ucd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o2miw"]
+emission_shape = 1
+emission_sphere_radius = 0.7
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_hows5")
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("GradientTexture1D_8mfnd")
+
+[sub_resource type="SphereMesh" id="SphereMesh_csgr5"]
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_urr0t"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.156863, 0.156863, 0.156863, 0.862745)
+
+[sub_resource type="Curve" id="Curve_dy3la"]
+_data = [Vector2(0, 0), 0.0, 3.11798, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ufv02"]
+curve = SubResource("Curve_dy3la")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_av40p"]
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 6, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_ufv02")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vs7h6"]
+radial_segments = 8
+rings = 4
+
 [sub_resource type="Animation" id="Animation_sqf2h"]
 resource_name = "BOOM"
-length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("cloud:frame")
+tracks/0/path = NodePath("BOOM SFX:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.05, 0.0666667, 0.0833333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("cloud:visible")
+tracks/1/path = NodePath("fire:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1362,38 +1445,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("shockwave:frame")
+tracks/2/path = NodePath("debris:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0166667, 0.0333333, 0.05, 0.0666667, 0.0833333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("shockwave:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.0152656),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("BOOM SFX:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.166667),
-"transitions": PackedFloat32Array(1, 1),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("smoke:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.102696),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_htl28"]
@@ -1401,46 +1472,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("cloud:frame")
+tracks/0/path = NodePath("BOOM SFX:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("shockwave:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("shockwave:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BOOM SFX:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1544,7 +1579,12 @@ sub_emitter_keep_velocity = true
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="kric" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_pmvch")
+
+[node name="navigator" type="NavigationAgent3D" parent="."]
+path_height_offset = 1.0
 
 [node name="mesh" type="Node3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
@@ -1671,32 +1711,42 @@ transform = Transform3D(0.2, 0.000179134, -0.000263756, -0.000180667, 0.199997, 
 target_position = Vector3(0, 0, -10)
 
 [node name="Light Explosion" type="Node3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0324368, 0.0146921, -0.00130892)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)
 
-[node name="cloud" type="Sprite3D" parent="Light Explosion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-visible = false
-billboard = 2
-texture_filter = 2
-texture = ExtResource("6_jannd")
-hframes = 3
-vframes = 2
-frame = 1
+[node name="debris" type="GPUParticles3D" parent="Light Explosion"]
+material_override = SubResource("StandardMaterial3D_r1v76")
+emitting = false
+amount = 24
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8dce7")
+draw_pass_1 = SubResource("CylinderMesh_s5wll")
 
-[node name="shockwave" type="Sprite3D" parent="Light Explosion"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.238056, 0)
-visible = false
-axis = 1
-texture_filter = 2
-texture = ExtResource("7_8mfnd")
-hframes = 3
-vframes = 2
+[node name="fire" type="GPUParticles3D" parent="Light Explosion"]
+material_override = SubResource("StandardMaterial3D_xomr7")
+emitting = false
+amount = 12
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_o2miw")
+draw_pass_1 = SubResource("SphereMesh_csgr5")
+
+[node name="smoke" type="GPUParticles3D" parent="Light Explosion"]
+material_override = SubResource("StandardMaterial3D_urr0t")
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_av40p")
+draw_pass_1 = SubResource("SphereMesh_vs7h6")
 
 [node name="BOOM SFX" type="AudioStreamPlayer3D" parent="Light Explosion"]
 stream = ExtResource("8_a1ucd")
 volume_db = 40.0
 
-[node name="animation" type="AnimationPlayer" parent="Light Explosion"]
+[node name="explosion animation" type="AnimationPlayer" parent="Light Explosion"]
 libraries = {
 &"": SubResource("AnimationLibrary_c8cgf")
 }
@@ -1728,3 +1778,5 @@ fixed_fps = 144
 trail_lifetime = 0.01
 process_material = SubResource("ParticleProcessMaterial_u4tbh")
 draw_pass_1 = SubResource("BoxMesh_6h5lr")
+
+[connection signal="add_kill" from="." to="." method="_on_add_kill"]

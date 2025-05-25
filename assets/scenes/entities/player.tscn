@@ -1,11 +1,14 @@
-[gd_scene load_steps=329 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=339 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/PLAYER/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/PLAYER/HUD/neck.gd" id="2_3r6y4"]
+[ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_4rbgn"]
 [ext_resource type="Script" uid="uid://bq8posj7myuxu" path="res://assets/scripts/PLAYER/WEAPONS/tazer.gd" id="2_bfnip"]
 [ext_resource type="Shader" uid="uid://cvtfolf7ktb3b" path="res://assets/scripts/SHADERS/player/movement/thrust_flame.tres" id="2_u8sbn"]
+[ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_2wml6"]
 [ext_resource type="Texture2D" uid="uid://dd7x18hqvaji3" path="res://assets/textures/ui/crosshairs/tazer_crosshair.png" id="3_iphvx"]
 [ext_resource type="Texture2D" uid="uid://ctuw8qjulcqri" path="res://assets/textures/effects/thruster/Fire_Textures/Voronoi01.png" id="3_oa2pr"]
+[ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_06gy3"]
 [ext_resource type="Texture2D" uid="uid://bh1cm6dq15ljc" path="res://assets/textures/ui/crosshairs/di_form_crosshair.png" id="4_dpfgd"]
 [ext_resource type="Texture2D" uid="uid://bdok2lvbc721a" path="res://assets/textures/effects/thruster/Fire_Textures/Flame01.png" id="4_ejv5b"]
 [ext_resource type="Texture2D" uid="uid://dr35o04aijs26" path="res://assets/textures/effects/thruster/Fire_Textures/Flame02.png" id="5_34owt"]
@@ -4745,6 +4748,37 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_4yjtm"]
 size = Vector3(1.99927, 3.00342, 2.99561)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5j3v"]
+shader = ExtResource("2_4rbgn")
+
+[sub_resource type="Gradient" id="Gradient_tio7e"]
+offsets = PackedFloat32Array(0, 0.520833, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.498039, 0, 0.784314, 1, 0, 0, 0.470588)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_anq1u"]
+gradient = SubResource("Gradient_tio7e")
+
+[sub_resource type="Curve" id="Curve_7di7x"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dbq3r"]
+curve = SubResource("Curve_7di7x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ri0je"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_2wml6")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_anq1u")
+shader_parameter/curve = SubResource("CurveTexture_dbq3r")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_jcu2l"]
+material = SubResource("ShaderMaterial_ri0je")
+
 [sub_resource type="Curve" id="Curve_ejv5b"]
 _data = [Vector2(0, 0.168539), 0.0, 0.0, 0, 0, Vector2(0.509709, 0.606742), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.15498, 0.0, 0, 0]
 point_count = 3
@@ -5711,8 +5745,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.480599, 0.237823)
 target_position = Vector3(0, 0, -500)
 
 [node name="cooldown" type="Timer" parent="NECK/camera/FORCE/chainsaw gauntlets"]
-wait_time = 0.5
+wait_time = 4.0
 one_shot = true
+
+[node name="trail" type="GPUParticles3D" parent="NECK"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, -0.864321, 0.803847)
+amount = 99
+lifetime = 99.0
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ShaderMaterial_b5j3v")
+draw_pass_1 = SubResource("QuadMesh_jcu2l")
+script = ExtResource("4_06gy3")
+length = 99
+length_seconds = 0.6875
+color_ramp = SubResource("GradientTexture1D_anq1u")
+curve = SubResource("CurveTexture_dbq3r")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 
 [node name="slide direction" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)

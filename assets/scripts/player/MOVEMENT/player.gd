@@ -70,6 +70,7 @@ var is_alive : bool = true
 var locational_multiplier : float = 1.0
 var state_multiplier : float = 1.0
 var d : float = 0.0
+var c_gravity : float
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -135,11 +136,6 @@ func _physics_process(delta):
 			var input_dir = Input.get_vector("left", "right", "forward", "backward")
 			var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			
-			if is_slamming:
-				for body in slam_area.get_overlapping_bodies():
-					if body.is_in_group("Enemy"):
-						body.HEALTH -= floor(abs(velocity.length() / 20))
-			
 			if FUEL >= 5:
 				_dash(direction)
 			if FUEL > 0:
@@ -159,7 +155,7 @@ func _physics_process(delta):
 				is_slamming = false
 				is_sliding = false
 			
-			_jump()
+			_jump(delta)
 			
 			if !is_sliding && !is_dashing:
 				if is_on_floor():
@@ -225,26 +221,37 @@ func _slide(delta) -> void:
 func _slam(_delta) -> void:
 	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
 	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
+	var slam_force : bool
+	var power_slam : bool
+	
 	if !is_on_floor():
 		if Input.is_action_just_pressed("slide"):
-			FUEL -= 15
-			velocity.y = 0
 			is_slamming = true
+			await get_tree().create_timer(0.1).timeout
+			if Input.is_action_pressed("slide"):
+				power_slam = true
+			else:
+				power_slam = false
+		if Input.is_action_just_released("slide"):
+			power_slam = false
+			is_slamming = false
+			slam_force = false
 	else:
-		if is_on_floor():
-			await  get_tree().create_timer(0.3).timeout
-			is_slamming = false
-		else:
-			is_slamming = false
+		is_slamming = false
+		slam_force = false
+	
 	if is_slamming:
-		if !is_on_floor():
+		sparks.emitting = true
+		air.emitting = true
+		if power_slam:
 			velocity = Vector3.ZERO
-			sparks.emitting = true
-			air.emitting = true
-			velocity.y -= SLAM_FORCE
+			velocity.y = -SLAM_FORCE
+		else:
+			velocity.y = -SLAM_FORCE
 	else:
-		sparks.emitting =  false
+		sparks.emitting = false
 		air.emitting = false
+	
 	pass
 
 func _dash(dir) -> void:
@@ -279,7 +286,7 @@ func _thrust(_dir : Vector3) -> void:
 		velocity.y = move_toward(velocity.y, 0.0, velocity.y/1.5) 
 	pass
 
-func _jump() -> void:
+func _jump(delta) -> void:
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			wall_jump_no = 0
@@ -292,9 +299,8 @@ func _jump() -> void:
 				velocity.y = JUMP_FORCE * 10 + nrg_conserved
 		if is_on_wall_only() && FUEL > 0 && wall_jump_no <= 3:
 			var normal = get_wall_normal()
-			velocity = Vector3.ZERO
-			velocity = normal * JUMP_FORCE / 1.5
-			velocity.y += JUMP_FORCE + nrg_conserved
+			velocity = normal * JUMP_FORCE
+			velocity.y = JUMP_FORCE + nrg_conserved
 			wall_jump_no += 1
 			if !Input.is_action_just_pressed("jump"):
 				BUFFER.start()

@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 
 
+signal add_kill
+
 @export var SPEED: float = 3
 @export var HEALTH: float = 1
 @export var DAMAGE: float = 1
@@ -15,8 +17,9 @@ var world = null
 @onready var mesh: Node3D = $mesh
 @onready var model_animation: AnimationPlayer = $"mesh/model animation"
 @onready var check: RayCast3D = $check
+@onready var navigator: NavigationAgent3D = $navigator
 
-@onready var explosion_animation: AnimationPlayer = $"Light Explosion/animation"
+@onready var explosion_animation: AnimationPlayer = $"Light Explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
 
 
@@ -55,12 +58,18 @@ func _physics_process(_delta: float) -> void:
 			if body.is_in_group("Xplodable"):
 				body.exp_damage(DAMAGE, explosion_area.global_position)
 	
-	if dead == false: 
+	if dead == false:
+		collision_layer = 1
+		collision_mask = 1
 		if status != "Shocked":
 			if !model_animation.is_playing():
 				model_animation.play("walk")
 			if is_on_floor():
-				velocity = transform.basis * Vector3(0, 0, -SPEED)
+				navigator.set_target_position(player.global_position)
+				var next_target = navigator.get_next_path_position()
+				velocity = (next_target - global_position).normalized() * SPEED
+				if !model_animation.is_playing():
+					model_animation.play("walk")
 			else:
 				velocity -= transform.basis * Vector3(0, 12, 0)
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
@@ -71,10 +80,13 @@ func _physics_process(_delta: float) -> void:
 					if target != null:
 						if target.is_in_group("Player"):
 							explode()
+							await get_tree().create_timer(0.2).timeout
 		else:
 			model_animation.play("shocked")
 	else:
 		velocity = Vector3.ZERO
+		collision_layer = 4
+		collision_mask = 4
 	
 	move_and_slide()
 	pass
@@ -82,14 +94,11 @@ func _physics_process(_delta: float) -> void:
 func explode():
 	dead == true
 	velocity = Vector3.ZERO
-	if !model_animation.is_playing():
-		model_animation.play("explode")
+	model_animation.play("explode")
 	await get_tree().create_timer(0.5).timeout
 	mesh.visible = false
-	if !explosion_animation.is_playing():
-		explosion_animation.play("BOOM")
-	await get_tree().create_timer(0.2).timeout
-	world.add_kill()
+	explosion_animation.play("BOOM")
+	await get_tree().create_timer(1).timeout
 	queue_free()
 	pass
 
@@ -97,6 +106,7 @@ func death():
 	if HEALTH <= 0:
 		velocity = Vector3.ZERO
 		var ran = randi_range(1,2)
+		world.add_kill()
 		if dead == false:
 			dead = true
 			if ran == 1:

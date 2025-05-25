@@ -12,10 +12,10 @@ extends Node3D
 @onready var navigation_mesh: NavigationRegion3D = $"navigation mesh"
 @onready var death_area: Area3D = $"death area"
 
-@onready var enemy_spawn_time_1: Timer = $"enemy spawn time 1"
-@onready var enemy_spawn_time_2: Timer = $"enemy spawn time 2"
-@onready var enemy_spawn_time_3: Timer = $"enemy spawn time 3"
-@onready var enemy_spawn_time_4: Timer = $"enemy spawn time 4"
+@onready var est_1: Timer = $"enemy spawn time 1"
+@onready var est_2: Timer = $"enemy spawn time 2"
+@onready var est_3: Timer = $"enemy spawn time 3"
+@onready var est_4: Timer = $"enemy spawn time 4"
 
 
 var wave_no : int = 1
@@ -33,18 +33,21 @@ var stalker = load("res://assets/scenes/ENTITIES/enemies/ORGANIC/Lower Organic/s
 var gomme = load("res://assets/scenes/ENTITIES/enemies/SHELLED/Lower Shelled/gomme.tscn")
 var troll = load("res://assets/scenes/ENTITIES/enemies/SHELLED/Lower Shelled/troll.tscn")
 
+
 func _ready() -> void:
 	randomize()
 	ran.randomize()
 	wave_no = 1
 	spawn_enemies = true
+	count = 0
+	global_variables.STYLE = 0.0
 	pass
 
 
 func _process(_delta: float) -> void:
 	difficulty = global_variables.difficulty
 	global_variables.enemies_alive = count
-	maximum = 7 * difficulty
+	maximum = 2 * difficulty
 	
 	death_area.position.x = player.global_position.x
 	death_area.position.z = player.global_position.z 
@@ -63,44 +66,6 @@ func _physics_process(_delta: float) -> void:
 func _get_random_child(parent_node):
 	var random_id  = randi() % parent_node.get_child_count()
 	return parent_node.get_child(random_id)
-
-
-func kric_spawn():
-	if !global_variables.is_paused:
-		var spawn_point = _get_random_child(kric_point).global_position
-		if count < maximum:
-			instance = kric.instantiate()
-			instance.global_position = spawn_point
-			navigation_mesh.add_child(instance)
-			count += 1
-	pass
-func stalker_spawn():
-	if !global_variables.is_paused:
-		var spawn_point = _get_random_child(stalker_point).global_position
-		if count < maximum:
-			instance = stalker.instantiate()
-			instance.global_position = spawn_point
-			navigation_mesh.add_child(instance)
-			count += 1
-	pass
-func gomme_spawn():
-	if !global_variables.is_paused:
-		var spawn_point = _get_random_child(gomme_point).global_position
-		if count < maximum:
-			instance = gomme.instantiate()
-			instance.global_position = spawn_point
-			navigation_mesh.add_child(instance)
-			count += 1
-	pass
-func troll_spawn():
-	if !global_variables.is_paused:
-		var spawn_point = _get_random_child(troll_point).global_position
-		if count < maximum:
-			instance = troll.instantiate()
-			instance.global_position = spawn_point
-			navigation_mesh.add_child(instance)
-			count += 1
-	pass
 
 
 func _on_enemy_spawn_time_timeout() -> void:

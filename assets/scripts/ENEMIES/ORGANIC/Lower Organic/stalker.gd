@@ -1,8 +1,9 @@
-extends CharacterBody3D
+extends RigidBody3D
 
 
 
-@export var MAX_SPEED : float = 20
+signal add_kill
+
 @export var ACCELERATION: float = 1
 @export var HEALTH: float = 3
 @export var DAMAGE: float = 5
@@ -18,8 +19,10 @@ var world = null
 
 @onready var checker: RayCast3D = $checker
 @onready var navigator: NavigationAgent3D = $navigator
+@onready var bite_area: Area3D = $"mesh/model/torso/head/bite area"
 
 @onready var blood_spawn_point: Node3D = $"blood spawn point"
+@onready var decay: Timer = $decay
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -34,9 +37,12 @@ var blood = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood.tscn")
 func _ready() -> void:
 	player = get_node(player_path)
 	world = get_node(world_path)
+	
 	DAMAGE = 5 * global_variables.difficulty
 	HEALTH = 3 * global_variables.difficulty
-	MAX_SPEED = 20 * global_variables.difficulty
+	ACCELERATION = 1 * global_variables.difficulty
+	
+	model_animation.play("spawn")
 	pass
 
 
@@ -46,49 +52,63 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !is_on_floor():
-		velocity.y -= 12
-	
-	velocity = Vector3.ZERO
-	
 	if !dead:
+		sleeping = false
+		collision_layer = 1
+		collision_mask = 1
 		if status != "Shocked":
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 			
 			navigator.set_target_position(player.global_position)
 			var next_target = navigator.get_next_path_position()
-			#velocity = (next_target - global_position).normalized() * move_toward(velocity.length(), MAX_SPEED, ACCELERATION)
+			apply_impulse((next_target - global_position).normalized() * ACCELERATION)
 			if !model_animation.is_playing():
 				model_animation.play("walk")
 			
 			if checker.is_colliding():
 				var pablo = checker.get_collider()
 				if pablo.is_in_group("Player"):
-					velocity = Vector3.ZERO
 					model_animation.play("attack")
-
-	
-	move_and_slide()
+					attack()
+					await get_tree().create_timer(0.6667).timeout
+		else:
+			sleeping = true
+			model_animation.play("shocked")
+	else:
+		sleeping = true
+		collision_layer = 4
+		collision_mask = 4
 	pass
 
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var velocity = state.linear_velocity
+	if velocity.length() > 10:
+		velocity = velocity.normalized() * 10
+		state.linear_velocity = velocity
+		pass
+
+
 func blood_splash():
-	for i in range(1, randf_range(10, 14)):
-		instance = blood.instantiate()
-		instance.position = blood_spawn_point.global_position + Vector3(randf_range(-1,1), randf_range(-1,1), randf_range(-1,1))
-		world.add_child(instance)
 	pass
 
 func death():
 	if HEALTH <= 0:
-		dead = true
-		await get_tree().create_timer(0.2).timeout
-		world.add_kill()
-		queue_free()
+		var ran = randi_range(1,2)
+		if dead == false:
+			dead = true
+			world.add_kill()
+			if ran == 1:
+				model_animation.play("death 1")
+			if ran == 2:
+				model_animation.play("death 2")
 	pass
 
-func attack(trg):
-	trg.nrml_damage(DAMAGE)
-	velocity += transform.basis * Vector3(0, 0, MAX_SPEED / 2)
+func attack():
+	if can_atk:
+		for trg in bite_area.get_overlapping_bodies():
+			if trg.is_in_group("Player"):
+				trg.nrml_damage(DAMAGE)
 	pass
 
 func tazer_hit(damage,volts) -> void:
