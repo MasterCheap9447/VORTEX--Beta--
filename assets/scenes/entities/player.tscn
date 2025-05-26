@@ -4462,7 +4462,7 @@ floor_block_on_wall = false
 floor_max_angle = 1.0472
 script = ExtResource("1_34owt")
 
-[node name="collision" type="CollisionShape3D" parent="." groups=["Player", "Xplodable"]]
+[node name="collision" type="CollisionShape3D" parent="." groups=["Xplodable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 shape = SubResource("CapsuleShape3D_5elu0")
 
@@ -4476,10 +4476,10 @@ script = ExtResource("2_3r6y4")
 
 [node name="SLAM" type="Node3D" parent="NECK"]
 
-[node name="slam area" type="Area3D" parent="NECK/SLAM" groups=["Player"]]
+[node name="slam area" type="Area3D" parent="NECK/SLAM"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="slam collision" type="CollisionShape3D" parent="NECK/SLAM/slam area" groups=["Player"]]
+[node name="slam collision" type="CollisionShape3D" parent="NECK/SLAM/slam area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.90386, 0)
 shape = SubResource("CylinderShape3D_2wml6")
 
@@ -5088,10 +5088,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315875, -0.236167, -63.89
 [node name="barrel position 1" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.894513, -0.508362, -3.05897)
 
-[node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer" groups=["Player"]]
+[node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2677, 0)
 
-[node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area" groups=["Player"]]
+[node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 shape = SubResource("BoxShape3D_2wml6")
 
@@ -5336,7 +5336,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_244k0")
 }
 
-[node name="chainsaw attack area" type="Area3D" parent="NECK/camera/FORCE/chainsaw gauntlets" groups=["Player"]]
+[node name="chainsaw attack area" type="Area3D" parent="NECK/camera/FORCE/chainsaw gauntlets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0628986, -2.02849)
 
 [node name="chainsaw attack collision" type="CollisionShape3D" parent="NECK/camera/FORCE/chainsaw gauntlets/chainsaw attack area"]

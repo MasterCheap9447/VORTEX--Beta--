@@ -1,0 +1,1468 @@
+[gd_scene load_steps=57 format=4 uid="uid://my2ppbf0t3jr"]
+
+[ext_resource type="Script" uid="uid://k1sq7praj2te" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/troll.gd" id="1_dm8nh"]
+[ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_gbmpr"]
+[ext_resource type="Texture2D" uid="uid://ohho160m3c50" path="res://assets/models/ENEMIES/ORGANIC/Lower Organic/TROLL/texture/troll_texture.png" id="2_vl8se"]
+[ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_psny2"]
+[ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_dlkae"]
+[ext_resource type="Script" uid="uid://b7i1vaqs6dpf2" path="res://assets/scripts/ENVIRONMENTAL OBJECTS/blood.gd" id="7_4m02t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm8nh"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_vl8se")
+metallic_specular = 1.0
+roughness = 0.0
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hr4so"]
+resource_name = "troll_texture.png"
+vertex_color_use_as_albedo = true
+emission_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tr450"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1hj56"]
+resource_name = "cuboid_4"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AAAQPgAAoD4AABA+AACAPgAAUD4AAIA+AABQPgAAoD4AAIQ+AAAAAAAApD4AAAAAAACkPgAAgD0AAIQ+AACAPQAAsD4AAJA9AACwPgAACD4AAJA+AAAIPgAAkD4AAJA9AACQPgAAED4AALA+AAAQPgAAsD4AAFA+AACQPgAAUD4AAFg+AACQPgAAjD4AAJA+AACMPgAAsD4AAFg+AACwPgAAkD4AAIw+AACQPgAAWD4AALA+AABYPgAAsD4AAIw+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_tr450")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_47qrw"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vy5rw"]
+resource_name = "cuboid"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AAC0PgAAUD4AALQ+AAAQPgAA1D4AABA+AADUPgAAUD4AAFg+AAC0PgAAjD4AALQ+AACMPgAA1D4AAFg+AADUPgAA1D4AAFg+AADUPgAAjD4AALQ+AACMPgAAtD4AAFg+AACQPgAAtD4AALA+AAC0PgAAsD4AANQ+AACQPgAA1D4AALQ+AACQPgAA1D4AAJA+AADUPgAAsD4AALQ+AACwPgAAtD4AANQ+AAC0PgAAtD4AANQ+AAC0PgAA1D4AANQ+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_47qrw")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_yu37j"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_e0cx5"]
+resource_name = "cuboid_1"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AADYPgAA+D4AANg+AADYPgAA+D4AANg+AAD4PgAA+D4AAAAAAADsPgAAgD0AAOw+AACAPQAABj8AAAAAAAAGPwAACD4AAOw+AAAIPgAABj8AAJA9AAAGPwAAkD0AAOw+AAAQPgAA7D4AAFA+AADsPgAAUD4AAAY/AAAQPgAABj8AAPA+AAAAAAAACD8AAAAAAAAIPwAAgD0AAPA+AACAPQAA/D4AAAg+AAD8PgAAkD0AAA4/AACQPQAADj8AAAg+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_yu37j")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lcfss"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_osu8n"]
+resource_name = "cuboid_3"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AAAAAAAA6D4AAAAAAADIPgAAgD0AAMg+AACAPQAA6D4AAJA9AADIPgAACD4AAMg+AAAIPgAA6D4AAJA9AADoPgAAUD4AAMg+AABQPgAA6D4AABA+AADoPgAAED4AAMg+AADMPgAAAAAAAOw+AAAAAAAA7D4AAIA9AADMPgAAgD0AANg+AACQPQAA+D4AAJA9AAD4PgAACD4AANg+AAAIPgAA2D4AAFA+AADYPgAAED4AAPg+AAAQPgAA+D4AAFA+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lcfss")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wgcy7"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_m0isn"]
+resource_name = "cuboid_2"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AABYPgAA+D4AAFg+AADYPgAAjD4AANg+AACMPgAA+D4AANg+AABYPgAA+D4AAFg+AAD4PgAAjD4AANg+AACMPgAAsD4AANg+AACwPgAA+D4AAJA+AAD4PgAAkD4AANg+AADYPgAAkD4AAPg+AACQPgAA+D4AALA+AADYPgAAsD4AALQ+AADYPgAA1D4AANg+AADUPgAA+D4AALQ+AAD4PgAA2D4AANQ+AADYPgAAtD4AAPg+AAC0PgAA+D4AANQ+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_wgcy7")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0l1cp"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_s3rm4"]
+resource_name = "cuboid_7"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AABAPgAAgD0AAEA+AAAAAAAAgD4AAAAAAACAPgAAgD0AAFg+AACQPQAAjD4AAJA9AACMPgAACD4AAFg+AAAIPgAAjD4AABA+AACMPgAAUD4AAFg+AABQPgAAWD4AABA+AABYPgAAWD4AAIw+AABYPgAAjD4AAIw+AABYPgAAjD4AAAAAAACAPgAAgD0AAIA+AACAPQAAoD4AAAAAAACgPgAAkD0AAKA+AACQPQAAgD4AAAg+AACAPgAACD4AAKA+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0l1cp")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xorrd"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ltijw"]
+resource_name = "cuboid_5"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AACQPgAAsD4AAJA+AACQPgAAsD4AAJA+AACwPgAAsD4AAAAAAACkPgAAgD0AAKQ+AACAPQAAxD4AAAAAAADEPgAACD4AAKQ+AAAIPgAAxD4AAJA9AADEPgAAkD0AAKQ+AAAQPgAApD4AAFA+AACkPgAAUD4AAMQ+AAAQPgAAxD4AAKg+AAAAAAAAyD4AAAAAAADIPgAAgD0AAKg+AACAPQAAtD4AAAg+AAC0PgAAkD0AANQ+AACQPQAA1D4AAAg+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_xorrd")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fx6ao"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAvwAAAEAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_61ade"]
+resource_name = "cuboid_6"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("AAAAAAAAMD4AAAAAAADgPQAAgD0AAOA9AACAPQAAMD4AAJA9AADgPQAACD4AAOA9AAAIPgAAMD4AAJA9AAAwPgAAUD4AAOA9AABQPgAAMD4AABA+AAAwPgAAED4AAOA9AAAAAAAAOD4AAIA9AAA4PgAAgD0AAHg+AAAAAAAAeD4AAJA9AAA4PgAACD4AADg+AAAIPgAAeD4AAJA9AAB4PgAAED4AAHg+AAAQPgAAOD4AAFA+AAA4PgAAUD4AAHg+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAPwAAAAAAAIA/AACAPwAAAEAAAIA/AACAPwAAAEAAAIC/AACAPwAAAAAAAIC/AACAvwAAAEAAAIC/AACAvwAAAEAAAIA/AACAvwAAAAAAAIA/AACAvwAAAAAAAIC/AACAPwAAAEAAAIC/AACAPwAAAEAAAIA/AACAvwAAAEAAAIA/AACAvwAAAEAAAIC/AACAvwAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAIC/AACAvwAAAAAAAIC/AACAvwAAAEAAAIA/AACAPwAAAEAAAIA/AACAPwAAAAAAAIA/AACAvwAAAAAAAIA/AACAPwAAAAAAAIC/AACAPwAAAEAAAIC/AACAvwAAAEAAAIC/AACAvwAAAAAAAIC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_fx6ao")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_44esr"]
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 4, 0.5, 0.5),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AABwQAAAAAAAAIA+AABwQAAAAD8AAIA+AABwQAAAAD8AAIC+AACAvgAAAD8AAIA+AABwQAAAAAAAAIC+AACAvgAAAAAAAIA+AACAvgAAAD8AAIC+AACAvgAAAAAAAIC+")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_emnjj"]
+resource_name = "cuboid_9"
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 4, 0.5, 0.5),
+"attribute_data": PackedByteArray("AABAPgAAsD0AAEA+AACQPQAAUD4AAJA9AABQPgAAsD0AAPw+AACkPgAAAj8AAKQ+AAACPwAArD4AAPw+AACsPgAArD4AAPw+AACsPgAAAj8AAFg+AAACPwAAWD4AAPw+AAD8PgAAgD4AAB4/AACAPgAAHj8AAIg+AAD8PgAAiD4AAPw+AACMPgAAHj8AAIw+AAAePwAAlD4AAPw+AACUPgAA/D4AAKA+AAD8PgAAmD4AAB4/AACYPgAAHj8AAKA+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AABwQAAAAAAAAIA+AABwQAAAAD8AAIA+AABwQAAAAD8AAIC+AABwQAAAAAAAAIC+AACAvgAAAD8AAIC+AACAvgAAAD8AAIA+AACAvgAAAAAAAIA+AACAvgAAAAAAAIC+AABwQAAAAD8AAIC+AABwQAAAAD8AAIA+AACAvgAAAD8AAIA+AACAvgAAAD8AAIC+AACAvgAAAAAAAIA+AABwQAAAAAAAAIA+AABwQAAAAAAAAIC+AACAvgAAAAAAAIC+AACAvgAAAD8AAIA+AABwQAAAAD8AAIA+AABwQAAAAAAAAIA+AACAvgAAAAAAAIA+AABwQAAAAAAAAIC+AABwQAAAAD8AAIC+AACAvgAAAD8AAIC+AACAvgAAAAAAAIC+////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_44esr")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1gkxh"]
+_surfaces = [{
+"aabb": AABB(-1, 0.25, -0.75, 2.75, 1.5, 1.5),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMABQAAAAQAAwAGAAIABgADAAUABAACAAYABQAHAAYABgAHAAQABAAHAAUA"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AADgPwAAgD4AAEA/AADgPwAA4D8AAEA/AADgPwAA4D8AAEC/AACAvwAA4D8AAEA/AADgPwAAgD4AAEC/AACAvwAAgD4AAEA/AACAvwAA4D8AAEC/AACAvwAAgD4AAEC/")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ugqem"]
+resource_name = "cuboid_8"
+_surfaces = [{
+"aabb": AABB(-1, 0.25, -0.75, 2.75, 1.5, 1.5),
+"attribute_data": PackedByteArray("AAD8PgAAQD4AAPw+AAAQPgAACj8AABA+AAAKPwAAQD4AAPw+AABIPgAACj8AAEg+AAAKPwAAeD4AAPw+AAB4PgAAsD0AAAAAAACwPQAAQD0AAAAAAABAPQAAAAAAAAAAAAAAAAAAYD0AALA9AABgPQAAsD0AANA9AAAAAAAA0D0AAMA9AAAAAAAAOD4AAAAAAAA4PgAAQD0AAMA9AABAPQAAwD0AANA9AADAPQAAYD0AADg+AABgPQAAOD4AANA9"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQA"),
+"material": SubResource("StandardMaterial3D_hr4so"),
+"name": "troll_texture.png",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AADgPwAAgD4AAEA/AADgPwAA4D8AAEA/AADgPwAA4D8AAEC/AADgPwAAgD4AAEC/AACAvwAA4D8AAEC/AACAvwAA4D8AAEA/AACAvwAAgD4AAEA/AACAvwAAgD4AAEC/AADgPwAA4D8AAEC/AADgPwAA4D8AAEA/AACAvwAA4D8AAEA/AACAvwAA4D8AAEC/AACAvwAAgD4AAEA/AADgPwAAgD4AAEA/AADgPwAAgD4AAEC/AACAvwAAgD4AAEC/AACAvwAA4D8AAEA/AADgPwAA4D8AAEA/AADgPwAAgD4AAEA/AACAvwAAgD4AAEA/AADgPwAAgD4AAEC/AADgPwAA4D8AAEC/AACAvwAA4D8AAEC/AACAvwAAgD4AAEC/////f/////////9//////////3//////////f/////8AAP9//3//vwAA/3//f/+/AAD/f/9//78AAP9//3//v/9///////+//3///////7//f///////v/9///////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//f/9/////v/9//3////+//3//f////7//f/9/////v/////8AAP+//////wAA/7//////AAD/v/////8AAP+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1gkxh")
+
+[sub_resource type="Animation" id="Animation_s4m2s"]
+resource_name = "moving"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.0654031, 0, 0.997859, 0.1, 1, 0, -0.0130896, 0, 0.999914, 0.133333, 1, 0, 0.00436331, 0, 0.99999, 0.266667, 1, 0, 0.0566928, 0, 0.998392, 0.333333, 1, 0, 0.0218149, 0, 0.999762, 0.366667, 1, 0, 0.0043633, 0, 0.99999, 0.5, 1, 0, -0.0654031, 0, 0.997859)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/tail/girth")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.5, 0, 0)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/tail/girth")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.237686, 0.971342, 0.1, 1, 0, 0, -0.0479781, 0.998848, 0.266667, 1, 0, 0, 0.206489, 0.978449, 0.366667, 1, 0, 0, 0.0159981, 0.999872, 0.5, 1, 0, 0, -0.237686, 0.971342)
+tracks/4/type = "position_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/tail/girth/extension")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 2.52825, -0.115437, 0)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/tail/girth/extension")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0.346117, 0.938191, 0.1, 1, 0, 0, 0.0654031, 0.997859, 0.266667, 1, 0, 0, -0.313164, 0.949699, 0.366667, 1, 0, 0, -0.0305385, 0.999534, 0.5, 1, 0, 0, 0.346117, 0.938191)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/tail")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 4")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 1, 1, -1)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/eye/part 4")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/9/type = "position_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/eye/part 5")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -1, 1, -1)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/eye/part 5")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/11/type = "position_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/eye/part 6")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye/part 6")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/13/type = "position_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye/part 8")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, -1.25, 1, 1)
+tracks/14/type = "rotation_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/eye/part 8")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/15/type = "position_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 1")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/eye/part 1")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/17/type = "position_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/eye/part 2")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/eye/part 2")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/19/type = "position_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/eye/part 3")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
+tracks/20/type = "rotation_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye/part 3")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/21/type = "position_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye/part 7")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
+tracks/22/type = "rotation_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/eye/part 7")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_bhid6"]
+resource_name = "death 1"
+length = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.25, 1, -3.25, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.25, 1, 0, 0, 0.707107, 0.707107)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/tail")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 0, 0, 0.25, 1, 1, -1.25, 0)
+tracks/3/type = "position_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/tail/girth")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 1, 0, 0, 0.25, 1, 3.5, 0, 0)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/tail/girth")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.25, 1, 0, 0, 0.130526, 0.991445)
+tracks/5/type = "position_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/tail/girth/extension")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 2.75, 0, 0)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/tail/girth/extension")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.25, 1, 0, 0, -0.279829, 0.96005)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 4")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 1, 1, -1)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/eye/part 4")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/9/type = "position_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/eye/part 5")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -1, 1, -1)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/eye/part 5")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/11/type = "position_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/eye/part 6")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye/part 6")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/13/type = "position_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye/part 8")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, -1.25, 1, 1)
+tracks/14/type = "rotation_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/eye/part 8")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/15/type = "position_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 1")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/eye/part 1")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/17/type = "position_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/eye/part 2")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/eye/part 2")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/19/type = "position_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/eye/part 3")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
+tracks/20/type = "rotation_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye/part 3")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/21/type = "position_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye/part 7")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
+tracks/22/type = "rotation_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/eye/part 7")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_33ni3"]
+resource_name = "death 2"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye/part 4")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, -1, 0.125, 1, 5, 5, -5, 0.25, 1, 8.75, -1, -7)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye/part 4")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, -0.120624, -0.0793461, 0.0722783, 0.986879, 0.0666667, 1, -0.224193, -0.173646, 0.121979, 0.95116, 0.1, 1, -0.306732, -0.275992, 0.146001, 0.899126, 0.125, 1, -0.353553, -0.353553, 0.146447, 0.853553, 0.166667, 1, -0.723656, -0.180855, 0.102981, 0.658033, 0.2, 1, -0.898334, -0.0561317, 0.167424, 0.402261, 0.25, 1, -0.924923, -5.17423e-05, 0.380155, -0.000237543)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/eye/part 5")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -1, 1, -1, 0.125, 1, -5, 5, -5, 0.25, 1, -8, -1, -5)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/eye/part 5")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.125, 1, -0.353553, 0.353553, 0.146447, 0.853553, 0.2, 1, -0.154508, 0.154508, 0.0244717, 0.975528, 0.25, 1, 0, 0, 0, 1)
+tracks/4/type = "position_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/eye/part 6")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.125, 1, 5, 5, 5, 0.25, 1, 11.25, -1.25, 8)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/eye/part 6")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0.120624, -0.0793461, -0.0722783, 0.986879, 0.0666667, 1, 0.224193, -0.173646, -0.121979, 0.95116, 0.1, 1, 0.306732, -0.275992, -0.146001, 0.899126, 0.125, 1, 0.353553, -0.353553, -0.146447, 0.853553, 0.166667, 1, 0.417125, -0.372359, -0.285037, 0.778531, 0.2, 1, 0.461323, -0.410028, -0.384725, 0.686327, 0.25, 1, 0.501507, -0.498729, -0.498532, 0.501225)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/eye/part 8")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -1.25, 1, 1, 0.125, 1, -5.25, 5, 5, 0.25, 1, -9.5, -1.25, 8)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 8")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.0333333, 1, 0.129734, 0.0956484, 0.0923783, 0.982592, 0.0666667, 1, 0.23362, 0.211153, 0.154001, 0.936547, 0.1, 1, 0.30636, 0.335196, 0.180437, 0.872485, 0.125, 1, 0.339444, 0.4266, 0.176704, 0.819491, 0.166667, 1, 0.265001, 0.368905, 0.370354, 0.81026, 0.2, 1, 0.218904, 0.303947, 0.5106, 0.773941, 0.25, 1, 0.18101, 0.185006, 0.685006, 0.68101)
+tracks/8/type = "position_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/tail/girth")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 1, 0, 0, 0.0416667, 1, 1, -1.25, 0)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/tail/girth")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/10/type = "position_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/tail/girth/extension")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 2.75, 0, 0)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/tail/girth/extension")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.125, 1, 0, 0, -0.0654031, 0.997859)
+tracks/12/type = "position_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/13/type = "rotation_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/14/type = "position_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/tail")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/15/type = "position_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 1")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/eye/part 1")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/17/type = "position_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/eye/part 2")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/eye/part 2")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/19/type = "position_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/eye/part 3")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
+tracks/20/type = "rotation_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye/part 3")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/21/type = "position_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye/part 7")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
+tracks/22/type = "rotation_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/eye/part 7")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_ff378"]
+resource_name = "shocked"
+length = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.0654031, 0, 0.997859, 0.0333333, 1, 0, -0.0305385, 0, 0.999534, 0.0666667, 1, 0, 0.00436331, 0, 0.99999, 0.166667, 1, 0, 0.0218149, 0, 0.999762, 0.25, 1, 0, -0.0654031, 0, 0.997859)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/tail")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/3/type = "position_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/tail/girth")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/tail/girth")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/5/type = "position_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/tail/girth/extension")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 2.75, 0, 0)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/tail/girth/extension")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 4")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 1, 1, -1)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/eye/part 4")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/9/type = "position_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/eye/part 5")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -1, 1, -1)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/eye/part 5")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/11/type = "position_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/eye/part 6")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye/part 6")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/13/type = "position_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye/part 8")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, -1.25, 1, 1)
+tracks/14/type = "rotation_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/eye/part 8")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/15/type = "position_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 1")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/eye/part 1")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/17/type = "position_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/eye/part 2")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/eye/part 2")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/19/type = "position_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/eye/part 3")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
+tracks/20/type = "rotation_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye/part 3")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/21/type = "position_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye/part 7")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
+tracks/22/type = "rotation_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/eye/part 7")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_fv1dl"]
+resource_name = "spawn"
+length = 0.25
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye/part 1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -5, -5, 5, 0.25, 1, -1, -1, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye/part 1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/eye/part 2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 5, -5, -5, 0.25, 1, 1, -1, -1)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/eye/part 2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/4/type = "position_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/eye/part 3")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -5, -5, -5, 0.25, 1, -1, -1, -1)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/eye/part 3")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/eye/part 4")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 5, 5, -5, 0.25, 1, 1, 1, -1)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 4")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/8/type = "position_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/eye/part 5")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, -5, 5, -5, 0.25, 1, -1, 1, -1)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/eye/part 5")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/10/type = "position_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/eye/part 6")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 5, 5, 5, 0.25, 1, 1, 1, 1)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/eye/part 6")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/12/type = "position_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye/part 7")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 5, -5, 5, 0.25, 1, 1, -1, 1)
+tracks/13/type = "rotation_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye/part 7")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/14/type = "position_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/eye/part 8")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, -5.25, 5, 5, 0.25, 1, -1.25, 1, 1)
+tracks/15/type = "rotation_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 8")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, 0.146447, -0.353553, 0.353553, 0.853553, 0.166667, 1, 0.0170371, -0.12941, 0.12941, 0.982963, 0.2, 1, 0.00615583, -0.0782172, 0.0782172, 0.993844, 0.25, 1, 0, 0, 0, 1)
+tracks/16/type = "position_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/tail/girth")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 2.25, 0, 0, 0.25, 1, 1, 0, 0)
+tracks/17/type = "rotation_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/tail/girth")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/18/type = "position_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/tail/girth/extension")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 10.25, 0, 0, 0.25, 1, 2.75, 0, 0)
+tracks/19/type = "rotation_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/tail/girth/extension")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/20/type = "position_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/21/type = "rotation_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/22/type = "position_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/tail")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5emy"]
+_data = {
+&"death 1": SubResource("Animation_bhid6"),
+&"death 2": SubResource("Animation_33ni3"),
+&"moving": SubResource("Animation_s4m2s"),
+&"shocked": SubResource("Animation_ff378"),
+&"spawn": SubResource("Animation_fv1dl")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ywbab"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_88maa"]
+shader = ExtResource("2_gbmpr")
+
+[sub_resource type="Gradient" id="Gradient_v12pw"]
+offsets = PackedFloat32Array(0, 0.632911)
+colors = PackedColorArray(0.672447, 0.397105, 0.266336, 0.729412, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k8gpd"]
+gradient = SubResource("Gradient_v12pw")
+
+[sub_resource type="Curve" id="Curve_85n0q"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_akans"]
+curve = SubResource("Curve_85n0q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aht4j"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_psny2")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_k8gpd")
+shader_parameter/curve = SubResource("CurveTexture_akans")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_7iko1"]
+material = SubResource("ShaderMaterial_aht4j")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tgnla"]
+radius = 1.5
+
+[sub_resource type="Animation" id="Animation_ndiq7"]
+resource_name = "blood splash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blood:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7ya0"]
+_data = {
+&"blood splash": SubResource("Animation_ndiq7")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2cuf"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0, 0.0166664, 1)
+metallic_specular = 1.0
+
+[sub_resource type="Curve" id="Curve_6cgr4"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p63nm"]
+curve = SubResource("Curve_6cgr4")
+
+[sub_resource type="Curve" id="Curve_88mh7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cf812"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.511415, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0r4b2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mkkbc"]
+curve_x = SubResource("Curve_88mh7")
+curve_y = SubResource("Curve_cf812")
+curve_z = SubResource("Curve_0r4b2")
+
+[sub_resource type="Curve" id="Curve_tsoga"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lxumm"]
+curve = SubResource("Curve_tsoga")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u4tbh"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 24.0
+initial_velocity_max = 40.0
+directional_velocity_min = 20.0
+directional_velocity_max = 45.0
+directional_velocity_curve = SubResource("CurveXYZTexture_mkkbc")
+damping_min = 1.0
+damping_max = 2.0
+damping_curve = SubResource("CurveTexture_p63nm")
+scale_min = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_lxumm")
+collision_mode = 2
+sub_emitter_mode = 1
+sub_emitter_frequency = 100.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="troll" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
+collision_layer = 8
+collision_mask = 8
+motion_mode = 1
+script = ExtResource("1_dm8nh")
+
+[node name="mesh" type="Node3D" parent="."]
+transform = Transform3D(-6.55671e-09, 0, -0.15, 0, 0.15, 0, 0.15, 0, -6.55671e-09, 0, 0, 0)
+
+[node name="model" type="Node3D" parent="mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="eye" type="Node3D" parent="mesh/model"]
+
+[node name="part 1" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 1)
+
+[node name="cuboid_4" type="MeshInstance3D" parent="mesh/model/eye/part 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_1hj56")
+skeleton = NodePath("")
+
+[node name="part 2" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -1)
+
+[node name="cuboid" type="MeshInstance3D" parent="mesh/model/eye/part 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_vy5rw")
+skeleton = NodePath("")
+
+[node name="part 3" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -1)
+
+[node name="cuboid_1" type="MeshInstance3D" parent="mesh/model/eye/part 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_e0cx5")
+skeleton = NodePath("")
+
+[node name="part 4" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+
+[node name="cuboid_3" type="MeshInstance3D" parent="mesh/model/eye/part 4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_osu8n")
+skeleton = NodePath("")
+
+[node name="part 5" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
+
+[node name="cuboid_2" type="MeshInstance3D" parent="mesh/model/eye/part 5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_m0isn")
+skeleton = NodePath("")
+
+[node name="part 6" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
+
+[node name="cuboid_7" type="MeshInstance3D" parent="mesh/model/eye/part 6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_s3rm4")
+skeleton = NodePath("")
+
+[node name="part 7" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1)
+
+[node name="cuboid_5" type="MeshInstance3D" parent="mesh/model/eye/part 7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_ltijw")
+skeleton = NodePath("")
+
+[node name="part 8" type="Node3D" parent="mesh/model/eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, 1)
+
+[node name="cuboid_6" type="MeshInstance3D" parent="mesh/model/eye/part 8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_61ade")
+skeleton = NodePath("")
+
+[node name="tail" type="Node3D" parent="mesh/model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="girth" type="Node3D" parent="mesh/model/tail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="extension" type="Node3D" parent="mesh/model/tail/girth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0, 0)
+
+[node name="cuboid_9" type="MeshInstance3D" parent="mesh/model/tail/girth/extension"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_emnjj")
+skeleton = NodePath("")
+
+[node name="cuboid_8" type="MeshInstance3D" parent="mesh/model/tail/girth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0)
+material_override = SubResource("StandardMaterial3D_dm8nh")
+mesh = SubResource("ArrayMesh_ugqem")
+skeleton = NodePath("")
+
+[node name="model animation" type="AnimationPlayer" parent="mesh"]
+libraries = {
+&"": SubResource("AnimationLibrary_a5emy")
+}
+
+[node name="collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("SphereShape3D_ywbab")
+
+[node name="trail" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+amount = 720
+lifetime = 720.0
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ShaderMaterial_88maa")
+draw_pass_1 = SubResource("QuadMesh_7iko1")
+script = ExtResource("4_dlkae")
+length = 720
+length_seconds = 5.0
+color_ramp = SubResource("GradientTexture1D_k8gpd")
+curve = SubResource("CurveTexture_akans")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
+
+[node name="checker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302065, 0)
+target_position = Vector3(0, 0, -3)
+collide_with_areas = true
+
+[node name="threat area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="threat collision" type="CollisionShape3D" parent="threat area" groups=["Enemy"]]
+shape = SubResource("SphereShape3D_tgnla")
+
+[node name="Blood Splash" type="Node3D" parent="."]
+script = ExtResource("7_4m02t")
+
+[node name="blood animation" type="AnimationPlayer" parent="Blood Splash"]
+libraries = {
+&"": SubResource("AnimationLibrary_k7ya0")
+}
+
+[node name="blood" type="GPUParticles3D" parent="Blood Splash"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_m2cuf")
+emitting = false
+amount = 256
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 144
+trail_lifetime = 0.01
+process_material = SubResource("ParticleProcessMaterial_u4tbh")
+draw_pass_1 = SubResource("BoxMesh_6h5lr")
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true

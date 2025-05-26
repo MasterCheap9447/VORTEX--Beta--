@@ -11,16 +11,13 @@ var world = null
 @export var player_path := "/root/Endless Mode/player"
 @export var world_path := "/root/Endless Mode"
 
-@onready var model: Node3D = $model
+@onready var mesh: Node3D = $mesh
 @onready var checker: RayCast3D = $checker
+@onready var model_animation: AnimationPlayer = $"mesh/model animation"
 
-@onready var explosion_animation: AnimationPlayer = $"explosion/explosion animation"
-@onready var explosion_area: Area3D = $"explosion area"
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
-var instance
-var delt
 
 var status : String = "Normal"
 var can_atk : bool = true
@@ -29,9 +26,11 @@ var can_atk : bool = true
 func _ready() -> void:
 	player = get_node(player_path)
 	world = get_node(world_path)
+	
 	DAMAGE = 1 * global_variables.difficulty
 	HEALTH = 1 * global_variables.difficulty
 	SPEED = 10 * global_variables.difficulty
+	
 	pass
 
 
@@ -41,53 +40,53 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	delt = delta
-	
-	if !model.visible:
-		for body in explosion_area.get_overlapping_bodies():
-			if body.is_in_group("Xplodable"):
-				body.exp_damage(DAMAGE, explosion_area.global_position)
-	
-	if !global_variables.is_paused:
-		if !dead && status != "Shocked":
-			var plr_x = lerp(position.x, player.global_position.x, 0.5)
-			var plr_y = lerp(position.y, player.global_position.y, 0.5)
-			var plr_z = lerp(position.z, player.global_position.z, 0.5)
-			look_at(Vector3(plr_x, plr_y, plr_z), Vector3.UP)
-			checker.target_position = Vector3(plr_x, plr_y, plr_z).normalized() * 2
-			velocity = transform.basis * Vector3(0, 0, -move_toward(velocity.length(), SPEED, delta))
-			if can_atk:
-				if checker.is_colliding():
-					var target = checker.get_collider()
-					if target != null:
-						if target.is_in_group("Player"):
-							explode()
-	if status == "Shocked":
+	if !dead:
+		if status != "Shocked":
+			if checker.is_colliding():
+				if !checker.get_collider().is_in_group("Player"):
+					velocity.y = SPEED
+					player.enable_FUEL()
+				else:
+					velocity = Vector3.ZERO
+					look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z))
+					attack()
+			else:
+				player.enable_FUEL()
+				velocity = transform.basis * Vector3(0, 0, -SPEED)
+				look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z))
+			if !model_animation.is_playing():
+				model_animation.play("moving")
+		else:
+			velocity = Vector3.ZERO
+	else:
+		rotation.x = 0
+		rotation.z = 0
 		velocity = Vector3.ZERO
+		if !is_on_floor():
+			velocity.y -= 12
 	
 	move_and_slide()
 	pass
 
 func blood_splash():
-	$"Blood Splash/blood animation".play("blood splash")
 	pass
 
 func death():
 	if HEALTH <= 0:
-		explode()
+		var ran = randi_range(1,2)
+		if dead == false:
+			dead = true
+			world.add_kill()
+			if ran == 1:
+				model_animation.play("death 1")
+			if ran == 2:
+				model_animation.play("death 2")
 	pass
 
-func explode():
-	velocity = Vector3.ZERO
-	dead = true
-	explosion_animation.play("boom")
-	model.visible = false
-	await get_tree().create_timer(0.9).timeout
-	global_position = Vector3(69420, 69420, 69420)
-	await get_tree().create_timer(0.1).timeout
-	world.add_kill()
-	queue_free()
+func attack() -> void:
+	player.disable_FUEL()
 	pass
+
 
 func tazer_hit(damage,volts) -> void:
 	global_variables.STYLE += 10

@@ -31,7 +31,7 @@ var maximum : int = 5
 var kric = load("res://assets/scenes/ENTITIES/enemies/SHELLED/Lower Shelled/kric.tscn")
 var stalker = load("res://assets/scenes/ENTITIES/enemies/ORGANIC/Lower Organic/stalker.tscn")
 var gomme = load("res://assets/scenes/ENTITIES/enemies/SHELLED/Lower Shelled/gomme.tscn")
-var troll = load("res://assets/scenes/ENTITIES/enemies/SHELLED/Lower Shelled/troll.tscn")
+var troll = load("res://assets/scenes/ENTITIES/enemies/ORGANIC/Lower Organic/troll.tscn")
 
 
 func _ready() -> void:

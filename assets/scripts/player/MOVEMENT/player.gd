@@ -64,6 +64,7 @@ var is_dashing : bool = false
 var is_slamming : bool = false
 var is_sliding : bool = false
 var is_flying : bool = false
+var fuel_enabled : bool = true
 
 var weapon_sway : float = 5
 var weapon_rotate : float = 0.005
@@ -161,24 +162,25 @@ func _physics_process(delta):
 						accelerate = min(accelerate, add_speed)
 						velocity += accelerate * direction
 			
-			if FUEL >= 5:
-				_dash(direction)
-			if FUEL > 0:
-				_slide(delta)
-			if FUEL >= 15:
-				_slam(delta)
-			if FUEL >= 0.5:
-				_thrust(delta)
-			if FUEL < 5:
-				is_dashing = false
-			if FUEL < 15:
-				is_slamming = false
-			if FUEL < 0 && !is_slamming:
-				is_sliding = false
-			if FUEL == 0:
-				is_dashing = false
-				is_slamming = false
-				is_sliding = false
+			if fuel_enabled:
+				if FUEL >= 5:
+					_dash(direction)
+				if FUEL > 0:
+					_slide(delta)
+				if FUEL >= 15:
+					_slam(delta)
+				if FUEL >= 0.5:
+					_thrust(delta)
+				if FUEL < 5:
+					is_dashing = false
+				if FUEL < 15:
+					is_slamming = false
+				if FUEL < 0 && !is_slamming:
+					is_sliding = false
+				if FUEL == 0:
+					is_dashing = false
+					is_slamming = false
+					is_sliding = false
 			
 	
 	move_and_slide()
@@ -339,6 +341,13 @@ func nrml_damage(magnitude) -> void:
 	HEALTH -= magnitude
 	camera_shake(0.1,0.2,d)
 	$"hurt stop".start()
+	pass
+
+func disable_FUEL() -> void:
+	fuel_enabled = false
+	pass
+func enable_FUEL() -> void:
+	fuel_enabled = true
 	pass
 
 func heal(magnitude) -> void:
