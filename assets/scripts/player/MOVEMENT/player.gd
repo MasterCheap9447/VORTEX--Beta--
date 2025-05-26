@@ -59,9 +59,12 @@ var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
 var air_jump_no : int = 0
 var wall_jump_no : int = 0
+
 var is_dashing : bool = false
 var is_slamming : bool = false
 var is_sliding : bool = false
+var is_flying : bool = false
+
 var weapon_sway : float = 5
 var weapon_rotate : float = 0.005
 var mouse_input : Vector2
@@ -121,7 +124,6 @@ func _physics_process(delta):
 	
 	if is_alive:
 		if !is_paused:
-			
 			death()
 			
 			GUN_CAMERA.global_transform = CAMERA.global_transform
@@ -136,24 +138,7 @@ func _physics_process(delta):
 			var input_dir = Input.get_vector("left", "right", "forward", "backward")
 			var direction = (NECK.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			
-			if FUEL >= 5:
-				_dash(direction)
-			if FUEL > 0:
-				_slide(delta)
-			if FUEL >= 15:
-				_slam(delta)
-			if FUEL >= 0.5:
-				_thrust(direction)
-			if FUEL < 5:
-				is_dashing = false
-			if FUEL < 15:
-				is_slamming = false
-			if FUEL < 0 && !is_slamming:
-				is_sliding = false
-			if FUEL == 0:
-				is_dashing = false
-				is_slamming = false
-				is_sliding = false
+			JUICE(input_dir.x, delta)
 			
 			_jump(delta)
 			
@@ -175,7 +160,27 @@ func _physics_process(delta):
 						var accelerate = AIR_ACCELERATION * AIR_SPEED * delta
 						accelerate = min(accelerate, add_speed)
 						velocity += accelerate * direction
-			JUICE(input_dir.x, delta)
+			
+			if FUEL >= 5:
+				_dash(direction)
+			if FUEL > 0:
+				_slide(delta)
+			if FUEL >= 15:
+				_slam(delta)
+			if FUEL >= 0.5:
+				_thrust(delta)
+			if FUEL < 5:
+				is_dashing = false
+			if FUEL < 15:
+				is_slamming = false
+			if FUEL < 0 && !is_slamming:
+				is_sliding = false
+			if FUEL == 0:
+				is_dashing = false
+				is_slamming = false
+				is_sliding = false
+			
+	
 	move_and_slide()
 	pass
 
@@ -256,10 +261,6 @@ func _slam(_delta) -> void:
 
 func _dash(dir) -> void:
 	var dust: GPUParticles3D = $"NECK/VFX/Dash effect/dust"
-	if is_on_floor():
-		DASH_FORCE = 30.0
-	else:
-		DASH_FORCE = 15.0
 	
 	if Input.is_action_just_pressed("dash"):
 		FUEL -= 5
@@ -270,21 +271,33 @@ func _dash(dir) -> void:
 		dust.emitting = true
 		velocity.y = 0
 		if dir:
-			velocity.x += dir.x * DASH_FORCE
-			velocity.z += dir.z * DASH_FORCE
+			if velocity.length() <= 72:
+				velocity.x += dir.x * DASH_FORCE
+				velocity.z += dir.z * DASH_FORCE
 		else:
-			velocity += NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
+			if velocity.length() <= 72:
+				velocity += NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
+		await get_tree().create_timer(0.3).timeout
+		velocity.z = 0
+		velocity.x = 0
 	else:
 		dust.emitting = false
 	pass
 
-func _thrust(_dir : Vector3) -> void:
+func _thrust(delta) -> void:
 	if Input.is_action_pressed("thrust"):
-		FUEL -= 0.5
-		velocity.y = move_toward(velocity.y, MAX_THRUST, THRUST) 
-	if Input.is_action_just_released("thrust"):
-		velocity.y = move_toward(velocity.y, 0.0, velocity.y/1.5) 
-	pass
+		is_flying = true
+	else:
+		is_flying = false
+	
+	if is_flying:
+		var inp_d = Input.get_vector("left", "right", "forward", "backward")
+		var d = (NECK.transform.basis * CAMERA.transform.basis * Vector3(inp_d.x, 0, inp_d.y)).normalized()
+		FUEL -= 1
+		if d:
+			velocity = d * move_toward(velocity.length(), MAX_THRUST, THRUST)
+		else:
+			velocity = NECK.transform.basis * CAMERA.transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_THRUST, THRUST))
 
 func _jump(delta) -> void:
 	if Input.is_action_just_pressed("jump"):
@@ -358,11 +371,6 @@ func death() -> void:
 
 
 func audio() -> void:
-	if FUEL > 1:
-		if Input.is_action_pressed("thrust"):
-			thrust_sfx.play()
-		else:
-			thrust_sfx.stop()
 	pass
 
 
