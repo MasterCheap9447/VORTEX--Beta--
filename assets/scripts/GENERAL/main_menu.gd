@@ -63,6 +63,6 @@ func _on_bomboclat_pressed() -> void:
 
 
 func _on_kys_pressed() -> void:
-	global_variables.difficulty = 4
+	global_variables.difficulty = 3
 	get_tree().change_scene_to_file("res://assets/scenes/WORLDS/murder_playground.tscn")
 	pass

@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends StaticBody3D
 
 
 
@@ -42,13 +42,9 @@ func _physics_process(delta: float) -> void:
 		dead = true
 	
 	if !global_variables.is_paused:
-		if !is_on_floor():
-			velocity.y -= 12
 		if !dead && status != "Shocked":
 			check.look_at(Vector3(player.global_position.x, player.global_position.y + 1, player.global_position.z), Vector3.UP)
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-	
-	move_and_slide()
 	pass
 
 func death():
@@ -81,6 +77,16 @@ func tazer_hit(damage,volts) -> void:
 	HEALTH -= damage
 	status = "Shocked"
 	await get_tree().create_timer(volts / 4).timeout
+	status = "Normal"
+	pass
+
+func tazer_pierce_hit(damage,volts) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	blood_splash()
+	HEALTH -= damage
+	status = "Shocked"
+	volts = clamp(volts, 3/4, 5.0)
+	await get_tree().create_timer(volts).timeout
 	status = "Normal"
 	pass
 

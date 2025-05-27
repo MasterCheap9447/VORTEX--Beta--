@@ -35,19 +35,19 @@ var troll = load("res://assets/scenes/ENTITIES/enemies/ORGANIC/Lower Organic/tro
 
 
 func _ready() -> void:
-	randomize()
-	ran.randomize()
-	wave_no = 1
-	spawn_enemies = true
-	count = 0
 	global_variables.STYLE = 0.0
+	ran.randomize()
+	randomize()
+	await get_tree().create_timer(0.5).timeout
+	spawn_enemies = true
+	wave_no = 1
+	count = 0
 	pass
 
 
 func _process(_delta: float) -> void:
 	difficulty = global_variables.difficulty
 	global_variables.enemies_alive = count
-	maximum = 2 * difficulty
 	
 	death_area.position.x = player.global_position.x
 	death_area.position.z = player.global_position.z 
@@ -55,6 +55,22 @@ func _process(_delta: float) -> void:
 		if i.is_in_group("Player"):
 			player.nrml_damage(999999)
 			player.velocity = Vector3.ZERO
+	
+	## WAVE-LIKE SPAWNING ##
+	maximum = ceil(wave_no * difficulty * 2)
+	if count == 0:
+		spawn_enemies = true
+		wave_no += 1
+		global_variables.difficulty += 0.25
+	else:
+		spawn_enemies = false
+	
+	if spawn_enemies:
+		for i in range(1, maximum):
+			spawn_kric()
+			spawn_troll()
+			spawn_gomme()
+			spawn_stalker()
 	pass
 
 
@@ -68,7 +84,7 @@ func _get_random_child(parent_node):
 	return parent_node.get_child(random_id)
 
 
-func _on_enemy_spawn_time_timeout() -> void:
+func spawn_kric() -> void:
 	if !global_variables.is_paused:
 		var spawn_point = _get_random_child(kric_point).global_position
 		if count < maximum:
@@ -78,8 +94,7 @@ func _on_enemy_spawn_time_timeout() -> void:
 			count += 1
 	pass
 
-
-func _on_enemy_spawn_time_2_timeout() -> void:
+func spawn_stalker() -> void:
 	if !global_variables.is_paused:
 		var spawn_point = _get_random_child(stalker_point).global_position
 		if count < maximum:
@@ -89,8 +104,7 @@ func _on_enemy_spawn_time_2_timeout() -> void:
 			count += 1
 	pass
 
-
-func _on_enemy_spawn_time_3_timeout() -> void:
+func spawn_gomme() -> void:
 	if !global_variables.is_paused:
 		var spawn_point = _get_random_child(gomme_point).global_position
 		if count < maximum:
@@ -100,8 +114,7 @@ func _on_enemy_spawn_time_3_timeout() -> void:
 			count += 1
 	pass
 
-
-func _on_enemy_spawn_time_4_timeout() -> void:
+func spawn_troll() -> void:
 	if !global_variables.is_paused:
 		var spawn_point = _get_random_child(troll_point).global_position
 		if count < maximum:

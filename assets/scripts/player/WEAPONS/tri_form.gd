@@ -5,7 +5,6 @@ var equiped : bool
 var instance
 var done
 
-@onready var model: Node3D = $export/model
 @onready var animation: AnimationPlayer = $model/animation
 @onready var rays: RayCast3D = $rays
 @onready var player: CharacterBody3D = $"../../../.."

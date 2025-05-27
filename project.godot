@@ -44,11 +44,8 @@ Xplodable=""
 
 [gui]
 
-fonts/dynamic_fonts/use_oversampling=false
-theme/custom_font="uid://cmbw8tjh5eq1v"
-theme/default_font_antialiasing=0
-theme/default_font_subpixel_positioning=3
-theme/default_font_generate_mipmaps=true
+theme/custom_font="uid://dij4j0j2k3ssn"
+theme/default_font_antialiasing=2
 
 [input]
 

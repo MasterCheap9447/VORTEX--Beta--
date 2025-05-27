@@ -28,6 +28,7 @@ var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
 var delt
+var trigger_once : bool
 
 var status : String = "Normal"
 var can_atk : bool = true
@@ -96,12 +97,14 @@ func death():
 	if HEALTH <= 0:
 		var ran = randi_range(1,2)
 		if dead == false:
-			dead = true
-			world.add_kill()
 			if ran == 1:
 				model_animation.play("death 1")
 			if ran == 2:
 				model_animation.play("death 2")
+			world.add_kill()
+			dead = true
+		else:
+			return
 	pass
 
 func attack():
@@ -117,6 +120,16 @@ func tazer_hit(damage,volts) -> void:
 	HEALTH -= damage
 	status = "Shocked"
 	await get_tree().create_timer(volts / 4).timeout
+	status = "Normal"
+	pass
+
+func tazer_pierce_hit(damage,volts) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	blood_splash()
+	HEALTH -= damage
+	status = "Shocked"
+	volts = clamp(volts, 3/4, 5.0)
+	await get_tree().create_timer(volts).timeout
 	status = "Normal"
 	pass
 

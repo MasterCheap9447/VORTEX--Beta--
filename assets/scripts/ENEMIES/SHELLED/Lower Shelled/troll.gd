@@ -48,12 +48,12 @@ func _physics_process(delta: float) -> void:
 					player.enable_FUEL()
 				else:
 					velocity = Vector3.ZERO
-					look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z))
+					look_at(player.global_position)
 					attack()
 			else:
 				player.enable_FUEL()
 				velocity = transform.basis * Vector3(0, 0, -SPEED)
-				look_at(Vector3(player.global_position.x, player.global_position.y, player.global_position.z))
+				look_at(player.global_position)
 			if !model_animation.is_playing():
 				model_animation.play("moving")
 		else:
@@ -61,7 +61,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		rotation.x = 0
 		rotation.z = 0
-		velocity = Vector3.ZERO
+		velocity.x = 0
+		velocity.z = 0
 		if !is_on_floor():
 			velocity.y -= 12
 	
@@ -75,17 +76,18 @@ func death():
 	if HEALTH <= 0:
 		var ran = randi_range(1,2)
 		if dead == false:
-			dead = true
-			world.add_kill()
 			if ran == 1:
 				model_animation.play("death 1")
 			if ran == 2:
 				model_animation.play("death 2")
+			world.add_kill()
+			dead = true
+		else:
+			return
 	pass
 
 func attack() -> void:
 	player.disable_FUEL()
-	pass
 
 
 func tazer_hit(damage,volts) -> void:
@@ -94,6 +96,16 @@ func tazer_hit(damage,volts) -> void:
 	HEALTH -= damage
 	status = "Shocked"
 	await get_tree().create_timer(volts / 4).timeout
+	status = "Normal"
+	pass
+
+func tazer_pierce_hit(damage,volts) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	blood_splash()
+	HEALTH -= damage
+	status = "Shocked"
+	volts = clamp(volts, 3/4, 5.0)
+	await get_tree().create_timer(volts).timeout
 	status = "Normal"
 	pass
 

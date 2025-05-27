@@ -17,7 +17,6 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @export var voltage: float = 3.0
 
 @onready var animation: AnimationPlayer = $model/animation
-@onready var zap_effect: AudioStreamPlayer3D = $model/tazer_zap_effect
 @onready var zap: Node3D = $model/node/arm/shoulder/bicep/forearm/hand/tazer/zap
 @onready var model: Node3D = $model
 
@@ -99,8 +98,8 @@ func alternate_frie() -> void:
 	global_variables.hit_stop(1)
 	for target in pierce_area.get_overlapping_bodies():
 		if target.is_in_group("Enemy"):
-			if target.has_method("tazer_hit"):
-				target.tazer_hit(damage, voltage * 2)
+			if target.has_method("tazer_pierce_hit("):
+				target.tazer_pierce_hit(damage, voltage)
 	if ray.is_colliding():
 		instance.init(barrel_position_1.global_position, ray.get_collision_point())
 		collision_effect.position = ray.get_collision_point()

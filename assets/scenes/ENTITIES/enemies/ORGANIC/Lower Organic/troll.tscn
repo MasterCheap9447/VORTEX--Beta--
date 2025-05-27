@@ -1,11 +1,11 @@
-[gd_scene load_steps=57 format=4 uid="uid://my2ppbf0t3jr"]
+[gd_scene load_steps=43 format=4 uid="uid://my2ppbf0t3jr"]
 
 [ext_resource type="Script" uid="uid://k1sq7praj2te" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/troll.gd" id="1_dm8nh"]
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_gbmpr"]
 [ext_resource type="Texture2D" uid="uid://ohho160m3c50" path="res://assets/models/ENEMIES/ORGANIC/Lower Organic/TROLL/texture/troll_texture.png" id="2_vl8se"]
 [ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_psny2"]
+[ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_vl8se"]
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_dlkae"]
-[ext_resource type="Script" uid="uid://b7i1vaqs6dpf2" path="res://assets/scripts/ENVIRONMENTAL OBJECTS/blood.gd" id="7_4m02t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm8nh"]
 transparency = 2
@@ -343,171 +343,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1gkxh")
 
-[sub_resource type="Animation" id="Animation_s4m2s"]
-resource_name = "moving"
-length = 0.5
-tracks/0/type = "position_3d"
-tracks/0/imported = true
-tracks/0/enabled = true
-tracks/0/path = NodePath("model/eye")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = true
-tracks/1/enabled = true
-tracks/1/path = NodePath("model/eye")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.0654031, 0, 0.997859, 0.1, 1, 0, -0.0130896, 0, 0.999914, 0.133333, 1, 0, 0.00436331, 0, 0.99999, 0.266667, 1, 0, 0.0566928, 0, 0.998392, 0.333333, 1, 0, 0.0218149, 0, 0.999762, 0.366667, 1, 0, 0.0043633, 0, 0.99999, 0.5, 1, 0, -0.0654031, 0, 0.997859)
-tracks/2/type = "position_3d"
-tracks/2/imported = true
-tracks/2/enabled = true
-tracks/2/path = NodePath("model/tail/girth")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, 0.5, 0, 0)
-tracks/3/type = "rotation_3d"
-tracks/3/imported = true
-tracks/3/enabled = true
-tracks/3/path = NodePath("model/tail/girth")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.237686, 0.971342, 0.1, 1, 0, 0, -0.0479781, 0.998848, 0.266667, 1, 0, 0, 0.206489, 0.978449, 0.366667, 1, 0, 0, 0.0159981, 0.999872, 0.5, 1, 0, 0, -0.237686, 0.971342)
-tracks/4/type = "position_3d"
-tracks/4/imported = true
-tracks/4/enabled = true
-tracks/4/path = NodePath("model/tail/girth/extension")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 2.52825, -0.115437, 0)
-tracks/5/type = "rotation_3d"
-tracks/5/imported = true
-tracks/5/enabled = true
-tracks/5/path = NodePath("model/tail/girth/extension")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0.346117, 0.938191, 0.1, 1, 0, 0, 0.0654031, 0.997859, 0.266667, 1, 0, 0, -0.313164, 0.949699, 0.366667, 1, 0, 0, -0.0305385, 0.999534, 0.5, 1, 0, 0, 0.346117, 0.938191)
-tracks/6/type = "position_3d"
-tracks/6/imported = true
-tracks/6/enabled = true
-tracks/6/path = NodePath("model/tail")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 1, 0, 0)
-tracks/7/type = "position_3d"
-tracks/7/imported = true
-tracks/7/enabled = true
-tracks/7/path = NodePath("model/eye/part 4")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 1, 1, -1)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = true
-tracks/8/enabled = true
-tracks/8/path = NodePath("model/eye/part 4")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/9/type = "position_3d"
-tracks/9/imported = true
-tracks/9/enabled = true
-tracks/9/path = NodePath("model/eye/part 5")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, -1, 1, -1)
-tracks/10/type = "rotation_3d"
-tracks/10/imported = true
-tracks/10/enabled = true
-tracks/10/path = NodePath("model/eye/part 5")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/11/type = "position_3d"
-tracks/11/imported = true
-tracks/11/enabled = true
-tracks/11/path = NodePath("model/eye/part 6")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, 1, 1, 1)
-tracks/12/type = "rotation_3d"
-tracks/12/imported = true
-tracks/12/enabled = true
-tracks/12/path = NodePath("model/eye/part 6")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/13/type = "position_3d"
-tracks/13/imported = true
-tracks/13/enabled = true
-tracks/13/path = NodePath("model/eye/part 8")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, -1.25, 1, 1)
-tracks/14/type = "rotation_3d"
-tracks/14/imported = true
-tracks/14/enabled = true
-tracks/14/path = NodePath("model/eye/part 8")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/15/type = "position_3d"
-tracks/15/imported = true
-tracks/15/enabled = true
-tracks/15/path = NodePath("model/eye/part 1")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
-tracks/16/type = "rotation_3d"
-tracks/16/imported = true
-tracks/16/enabled = true
-tracks/16/path = NodePath("model/eye/part 1")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/17/type = "position_3d"
-tracks/17/imported = true
-tracks/17/enabled = true
-tracks/17/path = NodePath("model/eye/part 2")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
-tracks/18/type = "rotation_3d"
-tracks/18/imported = true
-tracks/18/enabled = true
-tracks/18/path = NodePath("model/eye/part 2")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/19/type = "position_3d"
-tracks/19/imported = true
-tracks/19/enabled = true
-tracks/19/path = NodePath("model/eye/part 3")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
-tracks/20/type = "rotation_3d"
-tracks/20/imported = true
-tracks/20/enabled = true
-tracks/20/path = NodePath("model/eye/part 3")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/21/type = "position_3d"
-tracks/21/imported = true
-tracks/21/enabled = true
-tracks/21/path = NodePath("model/eye/part 7")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
-tracks/22/type = "rotation_3d"
-tracks/22/imported = true
-tracks/22/enabled = true
-tracks/22/path = NodePath("model/eye/part 7")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-
 [sub_resource type="Animation" id="Animation_bhid6"]
 resource_name = "death 1"
 length = 0.25
@@ -781,6 +616,171 @@ tracks/14/path = NodePath("model/tail")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/15/type = "position_3d"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("model/eye/part 1")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -1, -1, 1)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("model/eye/part 1")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/17/type = "position_3d"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("model/eye/part 2")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 1, -1, -1)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("model/eye/part 2")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/19/type = "position_3d"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("model/eye/part 3")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, -1, -1, -1)
+tracks/20/type = "rotation_3d"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("model/eye/part 3")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/21/type = "position_3d"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("model/eye/part 7")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 1, -1, 1)
+tracks/22/type = "rotation_3d"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("model/eye/part 7")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_s4m2s"]
+resource_name = "moving"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("model/eye")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("model/eye")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.0654031, 0, 0.997859, 0.1, 1, 0, -0.0130896, 0, 0.999914, 0.133333, 1, 0, 0.00436331, 0, 0.99999, 0.266667, 1, 0, 0.0566928, 0, 0.998392, 0.333333, 1, 0, 0.0218149, 0, 0.999762, 0.366667, 1, 0, 0.0043633, 0, 0.99999, 0.5, 1, 0, -0.0654031, 0, 0.997859)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("model/tail/girth")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.5, 0, 0)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("model/tail/girth")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.237686, 0.971342, 0.1, 1, 0, 0, -0.0479781, 0.998848, 0.266667, 1, 0, 0, 0.206489, 0.978449, 0.366667, 1, 0, 0, 0.0159981, 0.999872, 0.5, 1, 0, 0, -0.237686, 0.971342)
+tracks/4/type = "position_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("model/tail/girth/extension")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 2.52825, -0.115437, 0)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("model/tail/girth/extension")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0.346117, 0.938191, 0.1, 1, 0, 0, 0.0654031, 0.997859, 0.266667, 1, 0, 0, -0.313164, 0.949699, 0.366667, 1, 0, 0, -0.0305385, 0.999534, 0.5, 1, 0, 0, 0.346117, 0.938191)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("model/tail")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("model/eye/part 4")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 1, 1, -1)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("model/eye/part 4")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/9/type = "position_3d"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("model/eye/part 5")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -1, 1, -1)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("model/eye/part 5")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/11/type = "position_3d"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("model/eye/part 6")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("model/eye/part 6")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/13/type = "position_3d"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("model/eye/part 8")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, -1.25, 1, 1)
+tracks/14/type = "rotation_3d"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("model/eye/part 8")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 tracks/15/type = "position_3d"
 tracks/15/imported = true
 tracks/15/enabled = true
@@ -1167,6 +1167,18 @@ tracks/22/path = NodePath("model/tail")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = PackedFloat32Array(0, 1, 1, 0, 0)
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("../spawn SFX:playing")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a5emy"]
 _data = {
@@ -1209,96 +1221,6 @@ shader_parameter/flags = 40
 
 [sub_resource type="QuadMesh" id="QuadMesh_7iko1"]
 material = SubResource("ShaderMaterial_aht4j")
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_tgnla"]
-radius = 1.5
-
-[sub_resource type="Animation" id="Animation_ndiq7"]
-resource_name = "blood splash"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("blood:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k7ya0"]
-_data = {
-&"blood splash": SubResource("Animation_ndiq7")
-}
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2cuf"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-specular_mode = 1
-albedo_color = Color(1, 0, 0.0166664, 1)
-metallic_specular = 1.0
-
-[sub_resource type="Curve" id="Curve_6cgr4"]
-_limits = [0.0, 100.0, 0.0, 1.0]
-_data = [Vector2(0, 29.2135), 0.0, 0.0, 0, 0, Vector2(0.388128, 16.8539), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_p63nm"]
-curve = SubResource("Curve_6cgr4")
-
-[sub_resource type="Curve" id="Curve_88mh7"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_cf812"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.511415, -1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_0r4b2"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mkkbc"]
-curve_x = SubResource("Curve_88mh7")
-curve_y = SubResource("Curve_cf812")
-curve_z = SubResource("Curve_0r4b2")
-
-[sub_resource type="Curve" id="Curve_tsoga"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150685, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_lxumm"]
-curve = SubResource("Curve_tsoga")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u4tbh"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 1, 0)
-spread = 90.0
-initial_velocity_min = 24.0
-initial_velocity_max = 40.0
-directional_velocity_min = 20.0
-directional_velocity_max = 45.0
-directional_velocity_curve = SubResource("CurveXYZTexture_mkkbc")
-damping_min = 1.0
-damping_max = 2.0
-damping_curve = SubResource("CurveTexture_p63nm")
-scale_min = 0.5
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_lxumm")
-collision_mode = 2
-sub_emitter_mode = 1
-sub_emitter_frequency = 100.0
-sub_emitter_keep_velocity = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
-size = Vector3(0.5, 0.5, 0.5)
 
 [node name="troll" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
 collision_layer = 8
@@ -1416,6 +1338,11 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("SphereShape3D_ywbab")
 
+[node name="spawn SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_vl8se")
+volume_db = 80.0
+max_db = 6.0
+
 [node name="trail" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
 amount = 720
@@ -1436,33 +1363,3 @@ metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302065, 0)
 target_position = Vector3(0, 0, -3)
 collide_with_areas = true
-
-[node name="threat area" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-
-[node name="threat collision" type="CollisionShape3D" parent="threat area" groups=["Enemy"]]
-shape = SubResource("SphereShape3D_tgnla")
-
-[node name="Blood Splash" type="Node3D" parent="."]
-script = ExtResource("7_4m02t")
-
-[node name="blood animation" type="AnimationPlayer" parent="Blood Splash"]
-libraries = {
-&"": SubResource("AnimationLibrary_k7ya0")
-}
-
-[node name="blood" type="GPUParticles3D" parent="Blood Splash"]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 2, 0)
-material_override = SubResource("StandardMaterial3D_m2cuf")
-emitting = false
-amount = 256
-lifetime = 0.2
-one_shot = true
-explosiveness = 1.0
-fixed_fps = 144
-trail_lifetime = 0.01
-process_material = SubResource("ParticleProcessMaterial_u4tbh")
-draw_pass_1 = SubResource("BoxMesh_6h5lr")
-
-[node name="stun" type="Timer" parent="."]
-one_shot = true

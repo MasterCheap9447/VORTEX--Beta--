@@ -1,8 +1,0 @@
-Model Information:
-* title:	Zoochosis - Infected Hippo
-* source:	https://sketchfab.com/3d-models/zoochosis-infected-hippo-44d0b215bf5e4f808769933aa6d66336
-* author:	MG Rips (https://sketchfab.com/MG_GameRips)
-
-Model License:
-* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
-* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

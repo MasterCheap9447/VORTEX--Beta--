@@ -48,9 +48,6 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if !is_on_floor():
-		velocity.y -= 12
-	
 	death()
 	
 	if !mesh.visible:
@@ -106,13 +103,15 @@ func death():
 	if HEALTH <= 0:
 		velocity = Vector3.ZERO
 		var ran = randi_range(1,2)
-		world.add_kill()
 		if dead == false:
-			dead = true
 			if ran == 1:
 				model_animation.play("death 1")
 			if ran == 2:
 				model_animation.play("death 2")
+			world.add_kill()
+			dead = true
+		else:
+			return
 	pass
 
 func blood_splash():
@@ -125,6 +124,16 @@ func tazer_hit(damage,volts) -> void:
 	HEALTH -= damage
 	status = "Shocked"
 	await get_tree().create_timer(volts / 4).timeout
+	status = "Normal"
+	pass
+
+func tazer_pierce_hit(damage,volts) -> void:
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	blood_splash()
+	HEALTH -= damage
+	status = "Shocked"
+	volts = clamp(volts, 3/4, 5.0)
+	await get_tree().create_timer(volts).timeout
 	status = "Normal"
 	pass
 

@@ -22,7 +22,7 @@ func _ready() -> void:
 
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	
 	# SYNCHRONIZING GLOBAL VARIABLES #
 	global_variables.weapon_type = weapon_type
@@ -57,7 +57,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		weapon = weapon_count
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	## WEAPON EQUIPMENT ##
 	if weapon_type:

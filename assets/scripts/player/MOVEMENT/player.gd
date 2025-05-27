@@ -73,8 +73,8 @@ var is_paused : bool
 var is_alive : bool = true
 var locational_multiplier : float = 1.0
 var state_multiplier : float = 1.0
-var d : float = 0.0
 var c_gravity : float
+var del
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -88,8 +88,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	del = delta
 	audio()
-	d = delta
 	GUN_CAMERA.global_transform = CAMERA.global_transform
 	global_variables.is_paused = is_paused
 	global_variables.is_player_alive = is_alive
@@ -228,7 +228,6 @@ func _slide(delta) -> void:
 func _slam(_delta) -> void:
 	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
 	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
-	var slam_force : bool
 	var power_slam : bool
 	
 	if !is_on_floor():
@@ -242,10 +241,8 @@ func _slam(_delta) -> void:
 		if Input.is_action_just_released("slide"):
 			power_slam = false
 			is_slamming = false
-			slam_force = false
 	else:
 		is_slamming = false
-		slam_force = false
 	
 	if is_slamming:
 		sparks.emitting = true
@@ -286,7 +283,7 @@ func _dash(dir) -> void:
 		dust.emitting = false
 	pass
 
-func _thrust(delta) -> void:
+func _thrust(_delta) -> void:
 	if Input.is_action_pressed("thrust"):
 		is_flying = true
 	else:
@@ -296,12 +293,17 @@ func _thrust(delta) -> void:
 		var inp_d = Input.get_vector("left", "right", "forward", "backward")
 		var d = (NECK.transform.basis * CAMERA.transform.basis * Vector3(inp_d.x, 0, inp_d.y)).normalized()
 		FUEL -= 1
+		if Input.is_action_pressed("jump"):
+			velocity.y = move_toward(velocity.length(), MAX_THRUST, THRUST)
 		if d:
 			velocity = d * move_toward(velocity.length(), MAX_THRUST, THRUST)
 		else:
-			velocity = NECK.transform.basis * CAMERA.transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_THRUST, THRUST))
+			if Input.is_action_pressed("jump"):
+				velocity.y = move_toward(velocity.length(), MAX_THRUST, THRUST)
+			else:
+				velocity = NECK.transform.basis * CAMERA.transform.basis * Vector3(0, 0, -move_toward(velocity.length(), MAX_THRUST, THRUST))
 
-func _jump(delta) -> void:
+func _jump(_delta) -> void:
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			wall_jump_no = 0
@@ -326,6 +328,11 @@ func _jump(delta) -> void:
 				if is_slamming or is_dashing:
 					air_jump_no = 0
 					velocity.y = JUMP_FORCE * 10 + nrg_conserved
+	else:
+		if is_on_wall_only():
+			if wall_jump_no <= 3:
+				velocity.y = 0
+				velocity.y -= 2.4
 	pass
 
 
@@ -334,12 +341,12 @@ func exp_damage(magnitude, pos : Vector3) -> void:
 	var dir = (pos - global_position).normalized()
 	velocity += dir * magnitude
 	$"hurt stop".start()
-	camera_shake(0.1, 0.2, d)
+	camera_shake(0.1, 0.2, del)
 	pass
 
 func nrml_damage(magnitude) -> void:
 	HEALTH -= magnitude
-	camera_shake(0.1,0.2,d)
+	camera_shake(0.1,0.2,del)
 	$"hurt stop".start()
 	pass
 
@@ -383,7 +390,7 @@ func audio() -> void:
 	pass
 
 
-func _style(delta) -> void:
+func _style(_delta) -> void:
 	global_variables.STYLE -= 0.1
 	
 	global_variables.STYLE_MULTIPLIER = clamp(global_variables.STYLE_MULTIPLIER, 0.0, 4.5)

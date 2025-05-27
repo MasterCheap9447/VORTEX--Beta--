@@ -103,7 +103,7 @@ sub_emitter_keep_velocity = true
 [sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="gomme" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
+[node name="gomme" type="StaticBody3D" groups=["Enemy", "Xplodable"]]
 script = ExtResource("1_4saki")
 
 [node name="model" type="MeshInstance3D" parent="."]

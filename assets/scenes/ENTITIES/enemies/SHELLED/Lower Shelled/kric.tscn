@@ -1,7 +1,8 @@
-[gd_scene load_steps=73 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=74 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://hiepjbp48lvq" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/kric.gd" id="1_pmvch"]
 [ext_resource type="Texture2D" uid="uid://dtlhooemyov3a" path="res://assets/models/ENEMIES/SHELLED/Lower Shelled/KRIC/texture/kric_texture.png" id="2_8dce7"]
+[ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_3nihb"]
 [ext_resource type="AudioStream" uid="uid://iuafcjxv121u" path="res://assets/sounds/effects/explosion/light_explosion_audio.mp3" id="8_a1ucd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5wll"]
@@ -1164,6 +1165,18 @@ tracks/20/path = NodePath("model/body/right leg/right calf")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = PackedFloat32Array(0.5, 1, 0, 0, -0.866025, 0.5)
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("../spawn SFX:playing")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(-0.266667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_5nlfn"]
 resource_name = "walk"
@@ -1596,7 +1609,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0.25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
 [node name="torso" type="Node3D" parent="mesh/model/body"]
-transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [node name="cuboid" type="MeshInstance3D" parent="mesh/model/body/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.25)
@@ -1617,7 +1630,7 @@ mesh = SubResource("ArrayMesh_6lowd")
 skeleton = NodePath("")
 
 [node name="shell" type="Node3D" parent="mesh/model/body"]
-transform = Transform3D(0.976296, 0, -0.21644, 0, 1, 0, 0.21644, 0, 0.976296, 0, 0.25, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
 
 [node name="cuboid_3" type="MeshInstance3D" parent="mesh/model/body/shell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 1)
@@ -1709,6 +1722,11 @@ shape = SubResource("CapsuleShape3D_kf2ur")
 [node name="check" type="RayCast3D" parent="."]
 transform = Transform3D(0.2, 0.000179134, -0.000263756, -0.000180667, 0.199997, -0.0011648, 0.000262707, 0.00116503, 0.199996, -5.29396e-23, 0.353449, 0.00735807)
 target_position = Vector3(0, 0, -10)
+
+[node name="spawn SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_3nihb")
+volume_db = 80.0
+max_db = 6.0
 
 [node name="Light Explosion" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)
