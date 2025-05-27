@@ -1,4 +1,4 @@
-[gd_scene load_steps=313 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=314 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/PLAYER/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/PLAYER/HUD/neck.gd" id="2_3r6y4"]
@@ -58,6 +58,7 @@
 [ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/GENERAL/settings_tab.tscn" id="50_31l51"]
 [ext_resource type="Texture2D" uid="uid://cql28pe5tjrvw" path="res://assets/textures/ui/pause screen/pause.png" id="52_2wml6"]
 [ext_resource type="AudioStream" uid="uid://dr2qrjgn6s6vw" path="res://assets/sounds/player/movement/dash_audio.mp3" id="53_31l51"]
+[ext_resource type="Texture2D" uid="uid://cwbsj5y3vpsj0" path="res://assets/textures/ui/win screen/cursor.png" id="56_tjfuy"]
 [ext_resource type="Texture2D" uid="uid://ce45dw6y3a4be" path="res://assets/textures/ui/death screen/black_screen.png" id="62_06gy3"]
 [ext_resource type="Texture2D" uid="uid://kgobs5dlqitf" path="res://assets/textures/ui/death screen/text.png" id="63_b5j3v"]
 
@@ -5114,7 +5115,6 @@ draw_pass_1 = SubResource("SphereMesh_qgm2p")
 
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, 0, 0)
-visible = false
 script = ExtResource("6_p1n6j")
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
@@ -5637,6 +5637,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="black screen" type="Sprite2D" parent="UI/death screen"]
+visible = false
 z_index = 33
 z_as_relative = false
 position = Vector2(961, 543)
@@ -5659,6 +5660,86 @@ offset_bottom = 639.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 19
 text = "420"
+
+[node name="win screen" type="Control" parent="UI"]
+visible = false
+z_index = 999
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="stats background" type="Sprite2D" parent="UI/win screen"]
+z_index = 33
+z_as_relative = false
+position = Vector2(961, 543)
+texture = ExtResource("56_tjfuy")
+
+[node name="kills text" type="RichTextLabel" parent="UI/win screen"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 685.0
+offset_top = 338.0
+offset_right = 880.0
+offset_bottom = 392.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("32_58lx2")
+theme_override_font_sizes/normal_font_size = 19
+text = "420"
+
+[node name="aura text" type="RichTextLabel" parent="UI/win screen"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 675.0
+offset_top = 450.0
+offset_right = 870.0
+offset_bottom = 504.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("32_58lx2")
+theme_override_font_sizes/normal_font_size = 19
+text = "69"
+
+[node name="minute_text" type="RichTextLabel" parent="UI/win screen"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 664.0
+offset_top = 562.0
+offset_right = 748.0
+offset_bottom = 616.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("32_58lx2")
+theme_override_font_sizes/normal_font_size = 19
+text = "99:"
+
+[node name="seconds_text" type="RichTextLabel" parent="UI/win screen"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 735.0
+offset_top = 562.0
+offset_right = 819.0
+offset_bottom = 616.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("32_58lx2")
+theme_override_font_sizes/normal_font_size = 19
+text = "99:"
+
+[node name="milliseconds_text" type="RichTextLabel" parent="UI/win screen"]
+z_index = 34
+z_as_relative = false
+layout_mode = 0
+offset_left = 804.0
+offset_top = 562.0
+offset_right = 911.0
+offset_bottom = 616.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("32_58lx2")
+theme_override_font_sizes/normal_font_size = 19
+text = "999"
 
 [node name="settings tab" parent="UI" instance=ExtResource("50_31l51")]
 visible = false

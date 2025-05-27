@@ -46,9 +46,8 @@ extends CharacterBody3D
 
 
 @onready var pause_menu: Control = $"UI/pause menu"
-@onready var death_screen: Control = $"UI/death screen"
-@onready var blue_screen: Sprite2D = $"UI/death screen/blue screen"
-@onready var black_screen: Sprite2D = $"UI/death screen/black screen"
+@onready var win_screen: Control = $"UI/win screen"
+
 
 @onready var jump_sfx: AudioStreamPlayer3D = $"jump SFX"
 @onready var walk_sfx: AudioStreamPlayer3D = $"walk SFX"
@@ -378,10 +377,10 @@ func camera_shake(magnitude, amplitude, delta):
 
 func death() -> void:
 	if HEALTH <= 0:
-		death_screen.show()
+		win_screen.show()
 		is_alive = false
 	else:
-		death_screen.hide()
+		win_screen.hide()
 		is_alive = true
 	pass
 

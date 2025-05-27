@@ -63,8 +63,13 @@ func _physics_process(delta: float) -> void:
 		rotation.z = 0
 		velocity.x = 0
 		velocity.z = 0
+		collision_layer = 4
+		collision_mask = 4
 		if !is_on_floor():
 			velocity.y -= 12
+		if is_on_floor():
+			set_process(false)
+			set_physics_process(false)
 	
 	move_and_slide()
 	pass
@@ -82,8 +87,6 @@ func death():
 				model_animation.play("death 2")
 			world.add_kill()
 			dead = true
-		else:
-			return
 	pass
 
 func attack() -> void:
@@ -101,6 +104,7 @@ func tazer_hit(damage,volts) -> void:
 
 func tazer_pierce_hit(damage,volts) -> void:
 	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
@@ -110,7 +114,8 @@ func tazer_pierce_hit(damage,volts) -> void:
 	pass
 
 func di_form_hit(damage, burn) -> void:
-	global_variables.STYLE += 10
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Burned"
@@ -119,7 +124,6 @@ func di_form_hit(damage, burn) -> void:
 	pass
 
 func saw_blade_hit(damage) -> void:
-	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -128,7 +132,6 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
-	global_variables.STYLE += 0
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -137,7 +140,8 @@ func chainsaw_hit(damage) -> void:
 	pass
 
 func exp_damage(dmg, pos)  -> void:
-	global_variables.STYLE += 20
+	global_variables.STYLE += 20 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 20 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
 	pass

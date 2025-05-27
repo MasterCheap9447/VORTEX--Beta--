@@ -6,15 +6,35 @@ extends CanvasLayer
 @onready var settings_tab: Control = $"settings tab"
 @onready var kill_count: RichTextLabel = $"death screen/kill count"
 @onready var death_screen: Control = $"death screen"
+@onready var win_screen: Control = $"win screen"
+@onready var kills_text: RichTextLabel = $"win screen/kills text"
+@onready var aura_text: RichTextLabel = $"win screen/aura text"
+@onready var milliseconds_text: RichTextLabel = $"win screen/milliseconds_text"
+@onready var seconds_text: RichTextLabel = $"win screen/seconds_text"
+@onready var minute_text: RichTextLabel = $"win screen/minute_text"
+
+var time : float
+var min : int
+var sec : int
+var msec : int
 
 func _ready() -> void:
 	unpause()
 	pass
 
 
-func _process(_delta: float) -> void:
-	if death_screen.visible == false:
-		kill_count.text = str(global_variables.kills)
+func _process(delta: float) -> void:
+	time += delta
+	msec = fmod(time, 1) * 100
+	sec = fmod(time, 60)
+	min = fmod(time, 3600) / 60
+	
+	if win_screen.visible == false:
+		kills_text.text = str(global_variables.kills)
+		aura_text.text = str(int(floor(global_variables.aura_gained)))
+		minute_text.text = "%02d:" % min
+		seconds_text.text = "%02d:" % sec
+		milliseconds_text.text = "%03d" % msec
 	
 	if global_variables.is_player_alive:
 		if Input.is_action_just_pressed("exit"):

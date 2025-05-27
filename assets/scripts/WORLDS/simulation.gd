@@ -35,6 +35,9 @@ var troll = load("res://assets/scenes/ENTITIES/enemies/ORGANIC/Lower Organic/tro
 
 
 func _ready() -> void:
+	global_variables.kills = 0
+	global_variables.aura_gained = 0.0
+	global_variables.time_taken = "00:00:000"
 	global_variables.STYLE = 0.0
 	ran.randomize()
 	randomize()

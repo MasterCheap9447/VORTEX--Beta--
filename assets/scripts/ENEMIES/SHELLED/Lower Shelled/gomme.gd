@@ -73,6 +73,7 @@ func attack() -> void:
 
 func tazer_hit(damage,volts) -> void:
 	global_variables.STYLE += 10
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
@@ -82,6 +83,7 @@ func tazer_hit(damage,volts) -> void:
 
 func tazer_pierce_hit(damage,volts) -> void:
 	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
@@ -91,7 +93,8 @@ func tazer_pierce_hit(damage,volts) -> void:
 	pass
 
 func di_form_hit(damage, burn) -> void:
-	global_variables.STYLE += 10
+	global_variables.STYLE += 10 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage
 	status = "Burned"
@@ -100,7 +103,6 @@ func di_form_hit(damage, burn) -> void:
 	pass
 
 func saw_blade_hit(damage) -> void:
-	global_variables.STYLE += 10
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -109,7 +111,6 @@ func saw_blade_hit(damage) -> void:
 	pass
 
 func chainsaw_hit(damage) -> void:
-	global_variables.STYLE += 0
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false
@@ -118,7 +119,8 @@ func chainsaw_hit(damage) -> void:
 	pass
 
 func exp_damage(dmg, pos)  -> void:
-	global_variables.STYLE += 20
+	global_variables.STYLE += 20 * global_variables.STYLE_MULTIPLIER
+	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
 	pass

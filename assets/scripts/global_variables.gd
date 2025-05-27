@@ -2,6 +2,9 @@ extends Node
 
 
 var kills: int
+var aura_gained : float
+var time_taken : String
+
 var enemies_alive : int = 0
 var difficulty : int = 1
 
