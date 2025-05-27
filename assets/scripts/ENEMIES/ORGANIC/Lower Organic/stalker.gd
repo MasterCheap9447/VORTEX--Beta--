@@ -22,6 +22,7 @@ var world = null
 @onready var navigator: NavigationAgent3D = $navigator
 @onready var bite_area: Area3D = $"mesh/model/torso/head/bite area"
 
+@onready var collectable_spawn: Node3D = $"collectable spawn"
 @onready var blood_spawn_point: Node3D = $"blood spawn point"
 @onready var decay: Timer = $decay
 
@@ -35,6 +36,7 @@ var status : String = "Normal"
 var can_atk : bool = true
 
 var blood = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood.tscn")
+var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 
 func _ready() -> void:
 	player = get_node(player_path)
@@ -93,6 +95,7 @@ func blood_splash():
 func death():
 	if HEALTH <= 0:
 		var ran = randi_range(1,2)
+		position.y -= 1.25
 		if dead == false:
 			if ran == 1:
 				model_animation.play("death 1")
@@ -112,6 +115,10 @@ func attack():
 		for trg in bite_area.get_overlapping_bodies():
 			if trg.is_in_group("Player"):
 				trg.nrml_damage(DAMAGE)
+	pass
+
+func kick_hit(damage) -> void:
+	HEALTH -= damage
 	pass
 
 func tazer_hit(damage,volts) -> void:

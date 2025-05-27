@@ -14,6 +14,7 @@ var world = null
 
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
+@onready var collectable_spawn: Node3D = $"collectable spawn"
 
 var eye = load("res://assets/scenes/projectiles/eye.tscn")
 
@@ -24,6 +25,8 @@ var instance
 
 var status : String = "Normal"
 var can_atk : bool = true
+
+var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 
 
 func _ready() -> void:
@@ -69,6 +72,10 @@ func attack() -> void:
 				instance.position = check.global_position
 				instance.transform.basis = check.global_transform.basis
 				get_parent().add_child(instance)
+	pass
+
+func kick_hit(damage) -> void:
+	HEALTH -= damage
 	pass
 
 func tazer_hit(damage,volts) -> void:

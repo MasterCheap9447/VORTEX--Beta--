@@ -1,11 +1,8 @@
-[gd_scene load_steps=43 format=4 uid="uid://my2ppbf0t3jr"]
+[gd_scene load_steps=33 format=4 uid="uid://my2ppbf0t3jr"]
 
 [ext_resource type="Script" uid="uid://k1sq7praj2te" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/troll.gd" id="1_dm8nh"]
-[ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_gbmpr"]
 [ext_resource type="Texture2D" uid="uid://ohho160m3c50" path="res://assets/models/ENEMIES/ORGANIC/Lower Organic/TROLL/texture/troll_texture.png" id="2_vl8se"]
-[ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_psny2"]
 [ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_vl8se"]
-[ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_dlkae"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm8nh"]
 transparency = 2
@@ -1190,39 +1187,9 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ywbab"]
+radius = 1.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_88maa"]
-shader = ExtResource("2_gbmpr")
-
-[sub_resource type="Gradient" id="Gradient_v12pw"]
-offsets = PackedFloat32Array(0, 0.632911)
-colors = PackedColorArray(0.672447, 0.397105, 0.266336, 0.729412, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k8gpd"]
-gradient = SubResource("Gradient_v12pw")
-
-[sub_resource type="Curve" id="Curve_85n0q"]
-bake_resolution = 16
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_akans"]
-curve = SubResource("Curve_85n0q")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aht4j"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("3_psny2")
-shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/color_ramp = SubResource("GradientTexture1D_k8gpd")
-shader_parameter/curve = SubResource("CurveTexture_akans")
-shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 40
-
-[sub_resource type="QuadMesh" id="QuadMesh_7iko1"]
-material = SubResource("ShaderMaterial_aht4j")
-
-[node name="troll" type="CharacterBody3D" groups=["Enemy", "Xplodable"]]
+[node name="troll" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 8
 collision_mask = 8
 motion_mode = 1
@@ -1343,23 +1310,13 @@ stream = ExtResource("3_vl8se")
 volume_db = 80.0
 max_db = 6.0
 
-[node name="trail" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
-amount = 720
-lifetime = 720.0
-explosiveness = 1.0
-fixed_fps = 144
-process_material = SubResource("ShaderMaterial_88maa")
-draw_pass_1 = SubResource("QuadMesh_7iko1")
-script = ExtResource("4_dlkae")
-length = 720
-length_seconds = 5.0
-color_ramp = SubResource("GradientTexture1D_k8gpd")
-curve = SubResource("CurveTexture_akans")
-_defaults_have_been_set = true
-metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
-
 [node name="checker" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.302065, 0)
 target_position = Vector3(0, 0, -3)
 collide_with_areas = true
+
+[node name="ray" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -16)
+
+[node name="collectable spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998115, 0)

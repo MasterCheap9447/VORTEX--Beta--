@@ -2018,10 +2018,8 @@ stream = ExtResource("3_1eaed")
 volume_db = 80.0
 max_db = 6.0
 
+[node name="collectable spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998115, 0)
+
 [node name="stun" type="Timer" parent="."]
 one_shot = true
-
-[node name="decay" type="Timer" parent="."]
-wait_time = 0.1
-
-[connection signal="timeout" from="decay" to="." method="_on_decay_timeout"]

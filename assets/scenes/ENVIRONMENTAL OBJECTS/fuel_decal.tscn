@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyqjigjy5lncf"]
+
+[ext_resource type="Texture2D" uid="uid://cnug5k432ke2l" path="res://assets/textures/stains/oil_stain/oil_splatter.png" id="1_jy0ls"]
+
+[node name="fuel stain" type="Node3D"]
+
+[node name="sprite" type="Decal" parent="."]
+texture_albedo = ExtResource("1_jy0ls")

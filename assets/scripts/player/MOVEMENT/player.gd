@@ -113,6 +113,8 @@ func _process(delta: float) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if Input.is_action_just_pressed("exit"):
 			get_tree().change_scene_to_file("res://assets/scenes/GENERAL/menu.tscn")
+		if Input.is_action_just_pressed("respawn"):
+			get_tree().change_scene_to_file("res://assets/scenes/WORLDS/murder_playground.tscn")
 	pass
 
 
@@ -327,11 +329,6 @@ func _jump(_delta) -> void:
 				if is_slamming or is_dashing:
 					air_jump_no = 0
 					velocity.y = JUMP_FORCE * 10 + nrg_conserved
-	else:
-		if is_on_wall_only():
-			if wall_jump_no <= 3:
-				velocity.y = 0
-				velocity.y -= 2.4
 	pass
 
 
@@ -398,17 +395,22 @@ func _style(_delta) -> void:
 	
 	STYLE = global_variables.STYLE
 	global_variables.STYLE_MULTIPLIER = locational_multiplier * state_multiplier
-	if is_on_floor():
-		locational_multiplier = 1
-	else:
-		locational_multiplier = 1.5
 	
-	if is_sliding:
-		state_multiplier = 3.0
-	if is_dashing:
-		state_multiplier = 2.5
-	if is_slamming:
-		state_multiplier = 1.5
+	if velocity.length() != 0:
+		global_variables.STYLE_MULTIPLIER = locational_multiplier * state_multiplier
+		if is_on_floor():
+			locational_multiplier = 1
+		else:
+			locational_multiplier = 1.5
+		
+		if is_sliding:
+			state_multiplier = 3.0
+		if is_dashing:
+			state_multiplier = 2.5
+		if is_slamming:
+			state_multiplier = 1.5
+	else:
+		global_variables.STYLE_MULTIPLIER = 0.0
 	
 	style.value = STYLE
 	pass

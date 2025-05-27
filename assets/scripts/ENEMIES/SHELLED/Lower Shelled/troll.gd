@@ -14,13 +14,18 @@ var world = null
 @onready var mesh: Node3D = $mesh
 @onready var checker: RayCast3D = $checker
 @onready var model_animation: AnimationPlayer = $"mesh/model animation"
+@onready var collectable_spawn: Node3D = $"collectable spawn"
+@onready var ray: RayCast3D = $ray
 
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
+var instance
 
 var status : String = "Normal"
 var can_atk : bool = true
+
+var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 
 
 func _ready() -> void:
@@ -35,6 +40,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	ray.look_at(player.global_position)
 	death()
 	pass
 
@@ -42,22 +48,23 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if !dead:
 		if status != "Shocked":
+			attack()
 			if checker.is_colliding():
-				if !checker.get_collider().is_in_group("Player"):
+				if checker.get_collider().is_in_group("Player"):
+					velocity = lerp(velocity, Vector3.ZERO, delta * 10)
+					look_at(player.global_position)
+				else:
 					velocity.y = SPEED
 					player.enable_FUEL()
-				else:
-					velocity = Vector3.ZERO
-					look_at(player.global_position)
-					attack()
 			else:
 				player.enable_FUEL()
-				velocity = transform.basis * Vector3(0, 0, -SPEED)
+				velocity = lerp(velocity, transform.basis * Vector3(0, 0, -SPEED), delta * 10)
 				look_at(player.global_position)
 			if !model_animation.is_playing():
 				model_animation.play("moving")
 		else:
 			velocity = Vector3.ZERO
+			model_animation.play("shocked")
 	else:
 		rotation.x = 0
 		rotation.z = 0
@@ -90,8 +97,15 @@ func death():
 	pass
 
 func attack() -> void:
-	player.disable_FUEL()
+	if ray.is_colliding():
+		var target = ray.get_collider()
+		if target.is_in_group("Player"):
+			player.disable_FUEL()
+	pass
 
+func kick_hit(damage) -> void:
+	HEALTH -= damage
+	pass
 
 func tazer_hit(damage,volts) -> void:
 	global_variables.STYLE += 10

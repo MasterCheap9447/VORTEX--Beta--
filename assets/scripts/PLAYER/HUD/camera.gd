@@ -24,9 +24,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	#if player.is_on_floor():
-		#if !global_variables.is_player_sliding:
-			#_headbob_effect(delta)
+	if player.is_on_floor():
+		if !global_variables.is_player_sliding:
+			_headbob_effect(delta)
 	_fov_alter(delta)
 	pass
 
@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					rotate_x(-event.relative.y * SENSITIVITY)
 				if !global_variables.invert_x:
 					rotate_x(event.relative.y * SENSITIVITY)
-				rotation.x = clamp(rotation.x, deg_to_rad(-88), deg_to_rad(88))
+				rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
 
 

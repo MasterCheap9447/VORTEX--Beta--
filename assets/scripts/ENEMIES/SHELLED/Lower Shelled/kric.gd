@@ -18,6 +18,7 @@ var world = null
 @onready var model_animation: AnimationPlayer = $"mesh/model animation"
 @onready var check: RayCast3D = $check
 @onready var navigator: NavigationAgent3D = $navigator
+@onready var collectable_spawn: Node3D = $"collectable spawn"
 
 @onready var explosion_animation: AnimationPlayer = $"Light Explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
@@ -30,6 +31,8 @@ var player_position : Vector3
 
 var status : String = "Normal"
 var can_atk : bool = true
+
+var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 
 
 func _ready() -> void:
@@ -115,6 +118,10 @@ func death():
 
 func blood_splash():
 	$"Blood Splash/blood animation".play("blood splash")
+	pass
+
+func kick_hit(damage) -> void:
+	HEALTH -= damage
 	pass
 
 func tazer_hit(damage,volts) -> void:

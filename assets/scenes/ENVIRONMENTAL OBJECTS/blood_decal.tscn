@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dyfxydq3y70qs"]
 
-[ext_resource type="Texture2D" uid="uid://bxsb835h70slg" path="res://assets/textures/blood/splatter/blood_splatter_texture.png" id="1_1eupv"]
+[ext_resource type="Texture2D" uid="uid://bxsb835h70slg" path="res://assets/textures/stains/blood_stain/blood_splatter_texture.png" id="1_1eupv"]
 
 [node name="Blood Decal" type="Node3D"]
 

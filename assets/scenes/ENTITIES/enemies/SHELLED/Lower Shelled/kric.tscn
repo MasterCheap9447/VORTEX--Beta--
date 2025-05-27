@@ -1797,4 +1797,7 @@ trail_lifetime = 0.01
 process_material = SubResource("ParticleProcessMaterial_u4tbh")
 draw_pass_1 = SubResource("BoxMesh_6h5lr")
 
+[node name="collectable spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998115, 0)
+
 [connection signal="add_kill" from="." to="." method="_on_add_kill"]

@@ -12,11 +12,6 @@ extends Node3D
 @onready var navigation_mesh: NavigationRegion3D = $"navigation mesh"
 @onready var death_area: Area3D = $"death area"
 
-@onready var est_1: Timer = $"enemy spawn time 1"
-@onready var est_2: Timer = $"enemy spawn time 2"
-@onready var est_3: Timer = $"enemy spawn time 3"
-@onready var est_4: Timer = $"enemy spawn time 4"
-
 
 var wave_no : int = 1
 var difficulty : int = 1
@@ -60,8 +55,8 @@ func _process(_delta: float) -> void:
 			player.velocity = Vector3.ZERO
 	
 	## WAVE-LIKE SPAWNING ##
-	maximum = ceil(wave_no * difficulty * 2)
-	if count == 0:
+	maximum = ceil(wave_no * difficulty * 2) - 2
+	if count <= 0:
 		spawn_enemies = true
 		wave_no += 1
 		global_variables.difficulty += 0.25
@@ -74,6 +69,9 @@ func _process(_delta: float) -> void:
 			spawn_troll()
 			spawn_gomme()
 			spawn_stalker()
+	pass
+
+func wave_spawn(am):
 	pass
 
 
