@@ -24,8 +24,8 @@ global_variables="*res://assets/scripts/global_variables.gd"
 
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1440
+window/size/viewport_width=1280
+window/size/viewport_height=960
 window/size/mode=4
 window/size/borderless=true
 mouse_cursor/custom_image="uid://cb3aqsuldll1f"
@@ -41,6 +41,7 @@ Player=""
 Enemy=""
 door=""
 Xplodable=""
+Projectile=""
 
 [gui]
 
@@ -174,7 +175,7 @@ health={
 
 [rendering]
 
-occlusion_culling/jitter_projection=false
+occlusion_culling/bvh_build_quality=0
 textures/canvas_textures/default_texture_filter=3
 textures/default_filters/anisotropic_filtering_level=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false
@@ -182,4 +183,3 @@ anti_aliasing/screen_space_roughness_limiter/amount=0.01
 anti_aliasing/screen_space_roughness_limiter/limit=1.0
 textures/decals/filter=2
 textures/light_projectors/filter=2
-occlusion_culling/use_occlusion_culling=true

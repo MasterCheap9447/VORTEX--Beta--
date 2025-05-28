@@ -7,6 +7,7 @@ extends Node3D
 @onready var hit_area: Area3D = $"hit area"
 @onready var camera: Camera3D = $".."
 @onready var mesh: Node3D = $mesh
+@onready var look_direction: RayCast3D = $"../look direction"
 
 const PUSH = 16
 
@@ -30,12 +31,12 @@ func _process(_delta: float) -> void:
 		for target in hit_area.get_overlapping_bodies():
 			if target.is_in_group("Enemy"):
 				target.position += target.transform.basis * Vector3(0, 0, -PUSH)
-				target.HEALTH -= PUSH
+				target.kick_hit(PUSH/4)
 			if target.is_in_group("Projectile"):
-				target.position += target.transform.basis * Vector3(0, 0, -PUSH)
+				target.position += camera.transform.basis * Vector3(0, 0, -PUSH)
 			else:
 				if !target.is_in_group("Player"):
 					var clamped_vel = clamp(player.velocity.length(), 1.0, 3.0)
-					player.velocity = camera.transform.basis * Vector3(0, 0, PUSH * clamped_vel)
+					player.velocity = look_direction.transform.basis * Vector3(0, 0, PUSH * clamped_vel * 2)
 	
 	pass

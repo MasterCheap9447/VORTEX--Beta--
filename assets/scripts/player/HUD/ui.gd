@@ -12,6 +12,8 @@ extends CanvasLayer
 @onready var milliseconds_text: RichTextLabel = $"win screen/milliseconds_text"
 @onready var seconds_text: RichTextLabel = $"win screen/seconds_text"
 @onready var minute_text: RichTextLabel = $"win screen/minute_text"
+@onready var fps: RichTextLabel = $fps
+
 
 var time : float
 var min : int
@@ -35,6 +37,7 @@ func _process(delta: float) -> void:
 		minute_text.text = "%02d:" % min
 		seconds_text.text = "%02d:" % sec
 		milliseconds_text.text = "%03d" % msec
+	fps.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 	
 	if global_variables.is_player_alive:
 		if Input.is_action_just_pressed("exit"):

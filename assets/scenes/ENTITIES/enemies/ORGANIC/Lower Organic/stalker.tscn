@@ -1,6 +1,7 @@
-[gd_scene load_steps=46 format=4 uid="uid://euqsrn247k3j"]
+[gd_scene load_steps=47 format=4 uid="uid://euqsrn247k3j"]
 
 [ext_resource type="Script" uid="uid://cnylyde53kdv0" path="res://assets/scripts/ENEMIES/ORGANIC/Lower Organic/stalker.gd" id="1_6ntl0"]
+[ext_resource type="Shader" uid="uid://bm1tedpkkww0p" path="res://assets/scripts/SHADERS/general/psx_shader.gdshader" id="2_81sid"]
 [ext_resource type="Texture2D" uid="uid://dnm1psxk2278" path="res://assets/models/ENEMIES/ORGANIC/Lower Organic/STALKER/texture/stalker_texture.png" id="2_nkhws"]
 [ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_1eaed"]
 
@@ -8,16 +9,14 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nkhws"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1eaed"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = ExtResource("2_nkhws")
-metallic_specular = 1.0
-roughness = 0.0
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3fvie"]
+render_priority = 0
+shader = ExtResource("2_81sid")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = ExtResource("2_nkhws")
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/jitter = 0.5
+shader_parameter/resolution = Vector2i(1280, 960)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4pj2"]
 resource_name = "stalker_texture.png"
@@ -1857,7 +1856,7 @@ shape = SubResource("BoxShape3D_nkhws")
 
 [node name="cuboid_8" type="MeshInstance3D" parent="mesh/model/torso/head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_l4jlg")
 skeleton = NodePath("")
 
@@ -1878,37 +1877,37 @@ transform = Transform3D(0.99999, -0.00436331, 0, 0.00436331, 0.999991, 0, 0, 0, 
 
 [node name="tail eye" type="MeshInstance3D" parent="mesh/model/torso/tail/tail bone 1/tail bone 2/tail bone 3/tail bone 4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_nkawo")
 skeleton = NodePath("")
 
 [node name="tail 3 mesh" type="MeshInstance3D" parent="mesh/model/torso/tail/tail bone 1/tail bone 2/tail bone 3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_fnhfo")
 skeleton = NodePath("")
 
 [node name="tail 2 mesh" type="MeshInstance3D" parent="mesh/model/torso/tail/tail bone 1/tail bone 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_gleqr")
 skeleton = NodePath("")
 
 [node name="tail 1 mesh" type="MeshInstance3D" parent="mesh/model/torso/tail/tail bone 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_bgf8w")
 skeleton = NodePath("")
 
 [node name="abdomin mesh" type="MeshInstance3D" parent="mesh/model/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_prl15")
 skeleton = NodePath("")
 
 [node name="chest mesh" type="MeshInstance3D" parent="mesh/model/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_4lkkt")
 skeleton = NodePath("")
 
@@ -1932,25 +1931,25 @@ transform = Transform3D(-5.26724e-09, 0.642788, -0.766045, -1, -4.37114e-08, -2.
 
 [node name="cuboid_3" type="MeshInstance3D" parent="mesh/model/left arm/left shoulder/left bicep/left forearm/left hand/left finger 1"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_dr5er")
 skeleton = NodePath("")
 
 [node name="cuboid_2" type="MeshInstance3D" parent="mesh/model/left arm/left shoulder/left bicep/left forearm"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1.5)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_7d1bj")
 skeleton = NodePath("")
 
 [node name="cuboid_1" type="MeshInstance3D" parent="mesh/model/left arm/left shoulder/left bicep"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_cmxnp")
 skeleton = NodePath("")
 
 [node name="cuboid" type="MeshInstance3D" parent="mesh/model/left arm/left shoulder"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1.5)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_is6j6")
 skeleton = NodePath("")
 
@@ -1974,25 +1973,25 @@ transform = Transform3D(8.28043e-05, -0.642794, 0.766039, 1, 5.28852e-05, -6.371
 
 [node name="cuboid_7" type="MeshInstance3D" parent="mesh/model/right arm/right shoulder/right bicep/right forearm/right hande/right finger 1"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_eo0ba")
 skeleton = NodePath("")
 
 [node name="cuboid_6" type="MeshInstance3D" parent="mesh/model/right arm/right shoulder/right bicep/right forearm"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1.5)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_of45f")
 skeleton = NodePath("")
 
 [node name="cuboid_5" type="MeshInstance3D" parent="mesh/model/right arm/right shoulder/right bicep"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_ytt00")
 skeleton = NodePath("")
 
 [node name="cuboid_4" type="MeshInstance3D" parent="mesh/model/right arm/right shoulder"]
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -1, -1.5)
-material_override = SubResource("StandardMaterial3D_1eaed")
+material_override = SubResource("ShaderMaterial_3fvie")
 mesh = SubResource("ArrayMesh_ecjvv")
 skeleton = NodePath("")
 

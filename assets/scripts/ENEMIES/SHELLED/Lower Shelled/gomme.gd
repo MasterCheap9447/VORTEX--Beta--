@@ -15,6 +15,7 @@ var world = null
 @onready var model: Node3D = $model
 @onready var check: RayCast3D = $check
 @onready var collectable_spawn: Node3D = $"collectable spawn"
+@onready var cooldown: Timer = $cooldown
 
 var eye = load("res://assets/scenes/projectiles/eye.tscn")
 
@@ -32,9 +33,11 @@ var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 func _ready() -> void:
 	world = get_node(world_path)
 	player = get_node(player_path)
+	
 	DAMAGE = 2 * global_variables.difficulty
 	HEALTH = 5 * global_variables.difficulty
 	SPEED = 5 * global_variables.difficulty
+	cooldown.wait_time = 1 * global_variables.difficulty
 	pass
 
 

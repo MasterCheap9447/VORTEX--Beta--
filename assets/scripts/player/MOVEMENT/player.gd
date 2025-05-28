@@ -44,15 +44,16 @@ extends CharacterBody3D
 @onready var speed: RichTextLabel = $UI/Container/Control/speedometer/speed
 @onready var style: TextureProgressBar = $UI/Container/Control/style/bar
 
-
 @onready var pause_menu: Control = $"UI/pause menu"
 @onready var win_screen: Control = $"UI/win screen"
-
 
 @onready var jump_sfx: AudioStreamPlayer3D = $"jump SFX"
 @onready var walk_sfx: AudioStreamPlayer3D = $"walk SFX"
 @onready var thrust_sfx: AudioStreamPlayer3D = $"thrust SFX"
 @onready var dash_sfx: AudioStreamPlayer3D = $"dash SFX"
+
+@onready var hurt_sfx: AudioStreamPlayer = $"hurt SFX"
+
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
@@ -333,17 +334,21 @@ func _jump(_delta) -> void:
 
 
 func exp_damage(magnitude, pos : Vector3) -> void:
-	HEALTH -= magnitude
-	var dir = (pos - global_position).normalized()
-	velocity += dir * magnitude
-	$"hurt stop".start()
-	camera_shake(0.1, 0.2, del)
+	if !is_dashing:
+		HEALTH -= magnitude
+		var dir = (pos - global_position).normalized()
+		velocity += dir * magnitude
+		hurt_sfx.play()
+		$"hurt stop".start()
+		camera_shake(0.1, 0.2, del)
 	pass
 
 func nrml_damage(magnitude) -> void:
-	HEALTH -= magnitude
-	camera_shake(0.1,0.2,del)
-	$"hurt stop".start()
+	if !is_dashing:
+		HEALTH -= magnitude
+		camera_shake(0.1,0.2,del)
+		hurt_sfx.play()
+		$"hurt stop".start()
 	pass
 
 func disable_FUEL() -> void:

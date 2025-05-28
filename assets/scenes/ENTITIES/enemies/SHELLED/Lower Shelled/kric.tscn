@@ -1,19 +1,21 @@
-[gd_scene load_steps=74 format=4 uid="uid://dc2nx6yiirfm"]
+[gd_scene load_steps=77 format=4 uid="uid://dc2nx6yiirfm"]
 
 [ext_resource type="Script" uid="uid://hiepjbp48lvq" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/kric.gd" id="1_pmvch"]
-[ext_resource type="Texture2D" uid="uid://dtlhooemyov3a" path="res://assets/models/ENEMIES/SHELLED/Lower Shelled/KRIC/texture/kric_texture.png" id="2_8dce7"]
 [ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_3nihb"]
+[ext_resource type="Shader" uid="uid://bm1tedpkkww0p" path="res://assets/scripts/SHADERS/general/psx_shader.gdshader" id="3_wssax"]
 [ext_resource type="AudioStream" uid="uid://iuafcjxv121u" path="res://assets/sounds/effects/explosion/light_explosion_audio.mp3" id="8_a1ucd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5wll"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-albedo_texture = ExtResource("2_8dce7")
-metallic_specular = 1.0
-roughness = 0.0
-texture_filter = 2
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3nihb"]
+load_path = "res://.godot/imported/kric_texture.png-07a216b3bc33c3360ff216189c414957.s3tc.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8dce7"]
+render_priority = 0
+shader = ExtResource("3_wssax")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = SubResource("CompressedTexture2D_3nihb")
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/jitter = 0.5
+shader_parameter/resolution = Vector2i(1280, 960)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xomr7"]
 load_path = "res://.godot/imported/kric_model_0.png-81c9d6a1301efd6f6ad19325208bdaca.s3tc.ctex"
@@ -1343,9 +1345,20 @@ _data = {
 radius = 0.34598
 height = 1.31911
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1v76"]
-shading_mode = 0
-albedo_color = Color(1, 0.47451, 0, 1)
+[sub_resource type="Gradient" id="Gradient_wssax"]
+colors = PackedColorArray(1, 0.498039, 0, 1, 1, 0.498039, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8dce7"]
+gradient = SubResource("Gradient_wssax")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5wll"]
+render_priority = 0
+shader = ExtResource("3_wssax")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = SubResource("GradientTexture1D_8dce7")
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/jitter = 0.5
+shader_parameter/resolution = Vector2i(1280, 960)
 
 [sub_resource type="Curve" id="Curve_3nihb"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.297297, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.44462, 0.0, 0, 0]
@@ -1613,19 +1626,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 
 [node name="cuboid" type="MeshInstance3D" parent="mesh/model/body/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -0.25)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_xceg2")
 skeleton = NodePath("")
 
 [node name="cuboid_1" type="MeshInstance3D" parent="mesh/model/body/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1, -1)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_s7pyx")
 skeleton = NodePath("")
 
 [node name="cuboid_2" type="MeshInstance3D" parent="mesh/model/body/torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, -1)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_6lowd")
 skeleton = NodePath("")
 
@@ -1634,7 +1647,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
 
 [node name="cuboid_3" type="MeshInstance3D" parent="mesh/model/body/shell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 1)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_2n8xd")
 skeleton = NodePath("")
 
@@ -1646,13 +1659,13 @@ transform = Transform3D(-0.499999, -0.866025, 0, 0.866025, -0.499999, 0, 0, 0, 1
 
 [node name="cuboid_7" type="MeshInstance3D" parent="mesh/model/body/left arm/left forearm"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_d2nyt")
 skeleton = NodePath("")
 
 [node name="cuboid_4" type="MeshInstance3D" parent="mesh/model/body/left arm"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.25, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_klu67")
 skeleton = NodePath("")
 
@@ -1664,13 +1677,13 @@ transform = Transform3D(-0.499999, -0.866025, 0, 0.866025, -0.499999, 0, 0, 0, 1
 
 [node name="cuboid_5" type="MeshInstance3D" parent="mesh/model/body/left leg/left calf"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_3hgiq")
 skeleton = NodePath("")
 
 [node name="cuboid_6" type="MeshInstance3D" parent="mesh/model/body/left leg"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, -1.25, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_ttsop")
 skeleton = NodePath("")
 
@@ -1682,13 +1695,13 @@ transform = Transform3D(-0.499999, 0.866025, 0, -0.866025, -0.499999, 0, 0, 0, 1
 
 [node name="cuboid_8" type="MeshInstance3D" parent="mesh/model/body/right arm/right forearm"]
 transform = Transform3D(0, -1, 0, -1, 0, 1.22461e-16, -1.22461e-16, 0, -1, 1.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_ifeda")
 skeleton = NodePath("")
 
 [node name="cuboid_9" type="MeshInstance3D" parent="mesh/model/body/right arm"]
 transform = Transform3D(0, -1, 0, -1, 0, 1.22461e-16, -1.22461e-16, 0, -1, 1.25, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_65voa")
 skeleton = NodePath("")
 
@@ -1700,13 +1713,13 @@ transform = Transform3D(-0.499999, 0.866025, 0, -0.866025, -0.499999, 0, 0, 0, 1
 
 [node name="cuboid_11" type="MeshInstance3D" parent="mesh/model/body/right leg/right calf"]
 transform = Transform3D(0, -1, 0, -1, 0, 1.22461e-16, -1.22461e-16, 0, -1, 1.5, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_cla75")
 skeleton = NodePath("")
 
 [node name="cuboid_10" type="MeshInstance3D" parent="mesh/model/body/right leg"]
 transform = Transform3D(0, -1, 0, -1, 0, 1.22461e-16, -1.22461e-16, 0, -1, 1.25, 0, 0)
-material_override = SubResource("StandardMaterial3D_s5wll")
+material_override = SubResource("ShaderMaterial_8dce7")
 mesh = SubResource("ArrayMesh_rhyxj")
 skeleton = NodePath("")
 
@@ -1732,7 +1745,7 @@ max_db = 6.0
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.5, 0)
 
 [node name="debris" type="GPUParticles3D" parent="Light Explosion"]
-material_override = SubResource("StandardMaterial3D_r1v76")
+material_override = SubResource("ShaderMaterial_s5wll")
 emitting = false
 amount = 24
 lifetime = 0.2

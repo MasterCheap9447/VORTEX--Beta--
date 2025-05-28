@@ -1,19 +1,18 @@
-[gd_scene load_steps=33 format=4 uid="uid://my2ppbf0t3jr"]
+[gd_scene load_steps=34 format=4 uid="uid://my2ppbf0t3jr"]
 
 [ext_resource type="Script" uid="uid://k1sq7praj2te" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/troll.gd" id="1_dm8nh"]
+[ext_resource type="Shader" uid="uid://bm1tedpkkww0p" path="res://assets/scripts/SHADERS/general/psx_shader.gdshader" id="2_mmvdn"]
 [ext_resource type="Texture2D" uid="uid://ohho160m3c50" path="res://assets/models/ENEMIES/ORGANIC/Lower Organic/TROLL/texture/troll_texture.png" id="2_vl8se"]
 [ext_resource type="AudioStream" uid="uid://jacnwdvdja2q" path="res://assets/sounds/enemies/spawn.mp3" id="3_vl8se"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dm8nh"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = ExtResource("2_vl8se")
-metallic_specular = 1.0
-roughness = 0.0
-texture_filter = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8smhd"]
+render_priority = 0
+shader = ExtResource("2_mmvdn")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = ExtResource("2_vl8se")
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/jitter = 0.5
+shader_parameter/resolution = Vector2i(1280, 960)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hr4so"]
 resource_name = "troll_texture.png"
@@ -1187,7 +1186,6 @@ _data = {
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ywbab"]
-radius = 1.5
 
 [node name="troll" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 8
@@ -1208,7 +1206,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 1)
 
 [node name="cuboid_4" type="MeshInstance3D" parent="mesh/model/eye/part 1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_1hj56")
 skeleton = NodePath("")
 
@@ -1217,7 +1215,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, -1)
 
 [node name="cuboid" type="MeshInstance3D" parent="mesh/model/eye/part 2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_vy5rw")
 skeleton = NodePath("")
 
@@ -1226,7 +1224,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, -1)
 
 [node name="cuboid_1" type="MeshInstance3D" parent="mesh/model/eye/part 3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_e0cx5")
 skeleton = NodePath("")
 
@@ -1235,7 +1233,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
 
 [node name="cuboid_3" type="MeshInstance3D" parent="mesh/model/eye/part 4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_osu8n")
 skeleton = NodePath("")
 
@@ -1244,7 +1242,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -1)
 
 [node name="cuboid_2" type="MeshInstance3D" parent="mesh/model/eye/part 5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_m0isn")
 skeleton = NodePath("")
 
@@ -1253,7 +1251,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
 
 [node name="cuboid_7" type="MeshInstance3D" parent="mesh/model/eye/part 6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_s3rm4")
 skeleton = NodePath("")
 
@@ -1262,7 +1260,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1)
 
 [node name="cuboid_5" type="MeshInstance3D" parent="mesh/model/eye/part 7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_ltijw")
 skeleton = NodePath("")
 
@@ -1271,7 +1269,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1, 1)
 
 [node name="cuboid_6" type="MeshInstance3D" parent="mesh/model/eye/part 8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_61ade")
 skeleton = NodePath("")
 
@@ -1286,13 +1284,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0, 0)
 
 [node name="cuboid_9" type="MeshInstance3D" parent="mesh/model/tail/girth/extension"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.25, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_emnjj")
 skeleton = NodePath("")
 
 [node name="cuboid_8" type="MeshInstance3D" parent="mesh/model/tail/girth"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0)
-material_override = SubResource("StandardMaterial3D_dm8nh")
+material_override = SubResource("ShaderMaterial_8smhd")
 mesh = SubResource("ArrayMesh_ugqem")
 skeleton = NodePath("")
 
