@@ -24,8 +24,8 @@ global_variables="*res://assets/scripts/global_variables.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=960
+window/size/viewport_width=320
+window/size/viewport_height=240
 window/size/mode=4
 window/size/borderless=true
 mouse_cursor/custom_image="uid://cb3aqsuldll1f"
@@ -36,12 +36,12 @@ enabled=PackedStringArray("res://addons/trail/plugin.cfg")
 
 [global_group]
 
-1arena1.1=""
 Player=""
 Enemy=""
-door=""
 Xplodable=""
 Projectile=""
+Shelled=""
+Organic=""
 
 [gui]
 
@@ -168,6 +168,16 @@ health={
 
 3d_render/layer_1="Environment"
 3d_render/layer_2="Weapons"
+3d_physics/layer_2="Player Collision"
+3d_physics/layer_3="Player Hitbox"
+3d_physics/layer_4="Player Hurtbox"
+3d_physics/layer_6="Enemy Collision"
+3d_physics/layer_7="Enemy Hitbox"
+3d_physics/layer_8="Enemy Hurtbox"
+3d_physics/layer_10="Projectile"
+3d_physics/layer_12="Environment Collision"
+3d_physics/layer_13="Environment Hitbox"
+3d_physics/layer_14="Environment Hurtbox"
 
 [physics]
 

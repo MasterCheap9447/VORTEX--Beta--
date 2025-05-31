@@ -1,4 +1,4 @@
-[gd_scene load_steps=316 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=317 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/PLAYER/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/PLAYER/HUD/neck.gd" id="2_3r6y4"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://b7n3j475fkv4m" path="res://assets/textures/ui/fuel/fuel_symbol.png" id="28_qgm2p"]
 [ext_resource type="AudioStream" uid="uid://4dss7i4gsdyo" path="res://assets/sounds/player/weapons/chainsaw_gauntlets/chainsaw_rev.mp3" id="28_r7ahv"]
 [ext_resource type="AudioStream" uid="uid://0inhcn1lbkui" path="res://assets/sounds/player/weapons/chainsaw_gauntlets/idle.mp3" id="29_pb3sf"]
+[ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/SHADERS/player/weapons/tri_form_explosive.tres" id="29_udhm6"]
 [ext_resource type="FontFile" uid="uid://dij4j0j2k3ssn" path="res://assets/textures/ui/FONT.ttf" id="32_58lx2"]
 [ext_resource type="Texture2D" uid="uid://bn3sexip6716g" path="res://assets/textures/ui/crosshairs/hit_effect.png" id="32_kv1c2"]
 [ext_resource type="Texture2D" uid="uid://dqma07ulebgfg" path="res://assets/textures/ui/speedometer/symbol.png" id="32_qgm2p"]
@@ -70,8 +71,8 @@ height = 2.5
 height = 2.5
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2wml6"]
-height = 2.13843
-radius = 2.71924
+height = 1.81336
+radius = 5.41357
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5qhp"]
 render_priority = 0
@@ -4410,6 +4411,12 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_4yjtm"]
 size = Vector3(1.99927, 3.00342, 2.99561)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o62l6"]
+render_priority = 0
+shader = ExtResource("29_udhm6")
+shader_parameter/Ball_Colour = Color(1, 0.458824, 0, 1)
+shader_parameter/Fresnel_Power = 1.0
+
 [sub_resource type="Curve" id="Curve_ejv5b"]
 _data = [Vector2(0, 0.168539), 0.0, 0.0, 0, 0, Vector2(0.509709, 0.606742), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.15498, 0.0, 0, 0]
 point_count = 3
@@ -4426,17 +4433,13 @@ linear_accel_min = -4.1
 linear_accel_max = -4.1
 scale_curve = SubResource("CurveTexture_34owt")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_34owt"]
-transparency = 1
-shading_mode = 0
-disable_fog = true
-albedo_color = Color(6.077, 0.537, 0, 0.392)
-
-[sub_resource type="BoxMesh" id="BoxMesh_uylfy"]
-material = SubResource("StandardMaterial3D_34owt")
-size = Vector3(0.05, 3, 0.05)
+[sub_resource type="QuadMesh" id="QuadMesh_7e6im"]
+size = Vector2(0.25, 3)
+center_offset = Vector3(0, 1.5, 0)
 
 [node name="player" type="CharacterBody3D" groups=["Player", "Xplodable"]]
+collision_layer = 2058
+collision_mask = 2058
 floor_stop_on_slope = false
 floor_block_on_wall = false
 floor_max_angle = 1.0472
@@ -4458,9 +4461,11 @@ script = ExtResource("2_3r6y4")
 
 [node name="slam area" type="Area3D" parent="NECK/SLAM"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 132
+collision_mask = 132
 
 [node name="slam collision" type="CollisionShape3D" parent="NECK/SLAM/slam area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.63396, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.76542, 0)
 shape = SubResource("CylinderShape3D_2wml6")
 
 [node name="VFX" type="Node3D" parent="NECK"]
@@ -5069,22 +5074,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315875, -0.236167, -63.89
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.894513, -0.508362, -3.05897)
 
 [node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2677, 0)
+collision_layer = 132
+collision_mask = 132
 
 [node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
 shape = SubResource("BoxShape3D_2wml6")
 
 [node name="ray 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2677, 0)
 target_position = Vector3(0, 0, -64)
-collision_mask = 15
+collision_mask = 132
 
 [node name="ray 2" type="ShapeCast3D" parent="NECK/camera/WEAPONS/tazer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2677, 0)
 shape = SubResource("SphereShape3D_p5rfm")
 target_position = Vector3(0, 0, -64)
-collision_mask = 15
+collision_mask = 132
 
 [node name="tazer collision effect" type="GPUParticles3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.19279, 0.190072)
@@ -5207,40 +5211,48 @@ libraries = {
 }
 
 [node name="rays" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5204, -9.59918, -43.6874)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1382, -9.59918, -43.6874)
 target_position = Vector3(0, 0, -5)
+collision_mask = 132
 
 [node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.25841, 0.0798531, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="barrel 5" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="barrel 6" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 128
 
 [node name="saw ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 14.4226, -9.44597, -43.7252)
+transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 12.1608, -9.44597, -43.7252)
 target_position = Vector3(0, 0, -1)
+collision_mask = 132
 
 [node name="ideal ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.82429, 0)
 target_position = Vector3(0, 0, -1000)
+collision_mask = 132
 
 [node name="barrel position" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.82429, -1000)
@@ -5323,6 +5335,8 @@ libraries = {
 
 [node name="chainsaw attack area" type="Area3D" parent="NECK/camera/FORCE/chainsaw gauntlets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0628986, -2.02849)
+collision_layer = 132
+collision_mask = 132
 
 [node name="chainsaw attack collision" type="CollisionShape3D" parent="NECK/camera/FORCE/chainsaw gauntlets/chainsaw attack area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00598145, -0.194092, -0.490479)
@@ -5352,17 +5366,16 @@ target_position = Vector3(0, 0, -1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)
 
 [node name="Scraps" type="Node3D" parent="slide direction"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.249219, -2.26181, 0.761605)
+transform = Transform3D(-4.37114e-08, 0, -1, 0.707107, 0.707107, -3.09086e-08, 0.707107, -0.707107, -3.09086e-08, 0, -2, 0.5)
 
 [node name="Scrath VFX" type="GPUParticles3D" parent="slide direction/Scraps"]
-transform = Transform3D(1.19422e-07, 1, -4.37114e-08, 0.5, -2.18557e-08, 0.866025, 0.866025, -1.25278e-07, -0.5, 0.254133, 0.33231, -2.7238)
 layers = 1048575
-emitting = false
+material_override = SubResource("ShaderMaterial_o62l6")
 amount = 16
 lifetime = 0.03
 fixed_fps = 120
 process_material = SubResource("ParticleProcessMaterial_ejv5b")
-draw_pass_1 = SubResource("BoxMesh_uylfy")
+draw_pass_1 = SubResource("QuadMesh_7e6im")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("22_4yn3y")
@@ -5551,7 +5564,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="UI/view container"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1280, 960)
+size = Vector2i(320, 240)
 render_target_update_mode = 4
 
 [node name="gun camera" type="Camera3D" parent="UI/view container/SubViewport"]

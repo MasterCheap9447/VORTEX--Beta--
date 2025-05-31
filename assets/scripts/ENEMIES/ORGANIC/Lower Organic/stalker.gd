@@ -20,7 +20,7 @@ var world = null
 
 @onready var checker: RayCast3D = $checker
 @onready var navigator: NavigationAgent3D = $navigator
-@onready var bite_area: Area3D = $"mesh/model/torso/head/bite area"
+@onready var bite_area: Area3D = $"bite area"
 
 @onready var collectable_spawn: Node3D = $"collectable spawn"
 @onready var blood_spawn_point: Node3D = $"blood spawn point"
@@ -58,8 +58,6 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if !dead:
 		sleeping = false
-		collision_layer = 1
-		collision_mask = 1
 		if status != "Shocked":
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 			
@@ -95,7 +93,6 @@ func blood_splash():
 func death():
 	if HEALTH <= 0:
 		var ran = randi_range(1,2)
-		position.y -= 1.25
 		if dead == false:
 			if ran == 1:
 				model_animation.play("death 1")
@@ -104,8 +101,6 @@ func death():
 			world.add_kill()
 			dead = true
 			sleeping = true
-			collision_layer = 4
-			collision_mask = 4
 			set_process(false)
 			set_physics_process(false)
 	pass
@@ -115,6 +110,11 @@ func attack():
 		for trg in bite_area.get_overlapping_bodies():
 			if trg.is_in_group("Player"):
 				trg.nrml_damage(DAMAGE)
+	pass
+
+func slam_damage(damage):
+	HEALTH -= damage
+	apply_force(abs(player.global_position - position) * damage)
 	pass
 
 func kick_hit(damage) -> void:

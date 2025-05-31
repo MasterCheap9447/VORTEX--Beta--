@@ -11,7 +11,7 @@ parameter_name = "Fresnel_Power"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled, fog_disabled;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded, ambient_light_disabled, fog_disabled;
 
 uniform vec4 Ball_Colour : source_color;
 uniform float Fresnel_Power;
@@ -38,8 +38,8 @@ void fragment() {
 
 }
 "
+modes/cull = 2
 flags/unshaded = true
-flags/shadows_disabled = true
 flags/ambient_light_disabled = true
 flags/fog_disabled = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_onr1i")

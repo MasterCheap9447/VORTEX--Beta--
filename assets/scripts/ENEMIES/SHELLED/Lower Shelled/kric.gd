@@ -18,7 +18,7 @@ var world = null
 @onready var model_animation: AnimationPlayer = $"mesh/model animation"
 @onready var check: RayCast3D = $check
 @onready var navigator: NavigationAgent3D = $navigator
-@onready var collectable_spawn: Node3D = $"collectable spawn"
+@onready var wall_check: RayCast3D = $"wall check"
 
 @onready var explosion_animation: AnimationPlayer = $"Light Explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
@@ -58,9 +58,7 @@ func _physics_process(_delta: float) -> void:
 			if body.is_in_group("Xplodable"):
 				body.exp_damage(DAMAGE, explosion_area.global_position)
 	
-	if dead == false:
-		collision_layer = 1
-		collision_mask = 1
+	if !dead:
 		if status != "Shocked":
 			if !model_animation.is_playing():
 				model_animation.play("walk")
@@ -110,14 +108,16 @@ func death():
 			world.add_kill()
 			dead = true
 			velocity = Vector3.ZERO
-			collision_layer = 4
-			collision_mask = 4
 			set_process(false)
 			set_physics_process(false)
 	pass
 
 func blood_splash():
-	$"Blood Splash/blood animation".play("blood splash")
+	pass
+
+func slam_damage(damage):
+	HEALTH -= damage
+	velocity = abs(player.global_position - position) * damage
 	pass
 
 func kick_hit(damage) -> void:

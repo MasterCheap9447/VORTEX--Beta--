@@ -12,7 +12,8 @@ var world = null
 @export var player_path := "/root/Endless Mode/player"
 @export var world_path := "/root/Endless Mode"
 
-@onready var model: Node3D = $model
+@onready var mesh: Node3D = $mesh
+@onready var model_animation: AnimationPlayer = $"mesh/model animation"
 @onready var check: RayCast3D = $check
 @onready var collectable_spawn: Node3D = $"collectable spawn"
 @onready var cooldown: Timer = $cooldown
@@ -38,32 +39,41 @@ func _ready() -> void:
 	HEALTH = 5 * global_variables.difficulty
 	SPEED = 5 * global_variables.difficulty
 	cooldown.wait_time = 1 * global_variables.difficulty
+	
+	model_animation.play("spawn")
+	pass
+
+
+func _process(delta: float) -> void:
+	death()
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	death()
 	
-	if HEALTH <= 0:
-		dead = true
-	
-	if !global_variables.is_paused:
-		if !dead && status != "Shocked":
-			check.look_at(Vector3(player.global_position.x, player.global_position.y + 1, player.global_position.z), Vector3.UP)
+	if !dead:
+		if status != "Shocked":
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+			attack()
+		else:
+			model_animation.play("shocked")
 	pass
 
 func death():
 	if HEALTH <= 0:
-		model.visible = false
-		dead = true
-		await get_tree().create_timer(0.2).timeout
-		world.add_kill()
-		queue_free()
+		var ran = randi_range(1,2)
+		if dead == false:
+			if ran == 1:
+				model_animation.play("death 1")
+			if ran == 2:
+				model_animation.play("death 2")
+			world.add_kill()
+			dead = true
+			set_process(false)
+			set_physics_process(false)
 	pass
 
 func blood_splash():
-	$"Blood Splash/blood animation".play("blood splash")
 	pass
 
 func attack() -> void:
@@ -71,10 +81,16 @@ func attack() -> void:
 		var target = check.get_collider()
 		if target != null:
 			if target.is_in_group("Player"):
-				instance = eye.instantiate()
-				instance.position = check.global_position
-				instance.transform.basis = check.global_transform.basis
-				get_parent().add_child(instance)
+				if !model_animation.is_playing():
+					model_animation.play("attack")
+					instance = eye.instantiate()
+					instance.position = check.global_position
+					instance.transform.basis = check.global_transform.basis
+					get_parent().add_child(instance)
+	pass
+
+func slam_damage(damage):
+	HEALTH -= damage
 	pass
 
 func kick_hit(damage) -> void:

@@ -18,7 +18,7 @@ var trail = load("res://assets/scenes/projectiles/bullet_trail.tscn")
 @export var damage: float = 1.0
 @export var voltage: float = 3.0
 
-@onready var animation: AnimationPlayer = $model/animation
+@onready var animation: AnimationPlayer = $"model/animation"
 @onready var model: Node3D = $model
 
 @onready var ray1: RayCast3D = $"ray 1"

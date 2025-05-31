@@ -1,28 +1,61 @@
-[gd_scene load_steps=18 format=3 uid="uid://wws61o4j5q0n"]
+[gd_scene load_steps=24 format=3 uid="uid://wws61o4j5q0n"]
 
-[ext_resource type="Script" uid="uid://b23kalktpnv1c" path="res://assets/scripts/general/eye_projectile.gd" id="1_u550f"]
+[ext_resource type="Script" uid="uid://b23kalktpnv1c" path="res://assets/scripts/GENERAL/eye_projectile.gd" id="1_u550f"]
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="2_5qqv4"]
+[ext_resource type="Shader" uid="uid://bm1tedpkkww0p" path="res://assets/scripts/SHADERS/general/psx_shader.gdshader" id="2_wlmau"]
 [ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="3_bmk6p"]
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="4_pwwuy"]
 
-[sub_resource type="Gradient" id="Gradient_u550f"]
-offsets = PackedFloat32Array(0.37561, 1)
-colors = PackedColorArray(0.584314, 0, 0, 1, 2.21, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_6oy16"]
+offsets = PackedFloat32Array(0.298077, 1)
+colors = PackedColorArray(0.231373, 0, 0, 1, 1, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_vojp0"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yibs5"]
 noise_type = 2
-frequency = 0.011
-fractal_type = 2
+frequency = 0.0026
+fractal_type = 3
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m2fen"]
-normalize = false
-color_ramp = SubResource("Gradient_u550f")
-noise = SubResource("FastNoiseLite_vojp0")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0ryaq"]
+seamless = true
+color_ramp = SubResource("Gradient_6oy16")
+noise = SubResource("FastNoiseLite_yibs5")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qqv4"]
-albedo_texture = SubResource("NoiseTexture2D_m2fen")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3a5p7"]
+render_priority = 0
+shader = ExtResource("2_wlmau")
+shader_parameter/affine_mapping = true
+shader_parameter/albedo = SubResource("NoiseTexture2D_0ryaq")
+shader_parameter/alpha_scissor = 1.0
+shader_parameter/jitter = 0.7
+shader_parameter/resolution = Vector2i(320, 240)
+
+[sub_resource type="BoxMesh" id="BoxMesh_snivj"]
+
+[sub_resource type="Gradient" id="Gradient_osthl"]
+offsets = PackedFloat32Array(0.0144231, 1)
+colors = PackedColorArray(1.105, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dfn5u"]
+noise_type = 3
+frequency = 0.0243
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tjftf"]
+seamless = true
+color_ramp = SubResource("Gradient_osthl")
+noise = SubResource("FastNoiseLite_dfn5u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qina1"]
+render_priority = 0
+shader = ExtResource("2_wlmau")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = SubResource("NoiseTexture2D_tjftf")
+shader_parameter/alpha_scissor = 0.625
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
 
 [sub_resource type="BoxMesh" id="BoxMesh_46jsu"]
+size = Vector3(1.2, 1.2, 1.2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_av6cg"]
 shader = ExtResource("2_5qqv4")
@@ -62,7 +95,11 @@ radius = 1.2
 script = ExtResource("1_u550f")
 
 [node name="mesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_5qqv4")
+material_override = SubResource("ShaderMaterial_3a5p7")
+mesh = SubResource("BoxMesh_snivj")
+
+[node name="aura" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_qina1")
 mesh = SubResource("BoxMesh_46jsu")
 
 [node name="trail" type="GPUParticles3D" parent="."]
@@ -82,6 +119,8 @@ _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 
 [node name="damage area" type="Area3D" parent="."]
+collision_layer = 2560
+collision_mask = 2560
 
 [node name="damage collsion" type="CollisionShape3D" parent="damage area"]
 shape = SubResource("SphereShape3D_g3axv")

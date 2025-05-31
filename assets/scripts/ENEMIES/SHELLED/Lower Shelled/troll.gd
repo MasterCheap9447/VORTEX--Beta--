@@ -70,8 +70,7 @@ func _physics_process(delta: float) -> void:
 		rotation.z = 0
 		velocity.x = 0
 		velocity.z = 0
-		collision_layer = 4
-		collision_mask = 4
+		player.enable_FUEL()
 		if !is_on_floor():
 			velocity.y -= 12
 		if is_on_floor():
@@ -101,6 +100,11 @@ func attack() -> void:
 		var target = ray.get_collider()
 		if target.is_in_group("Player"):
 			player.disable_FUEL()
+	pass
+
+func slam_damage(damage):
+	HEALTH -= damage
+	velocity = abs(player.global_position - position) * damage
 	pass
 
 func kick_hit(damage) -> void:

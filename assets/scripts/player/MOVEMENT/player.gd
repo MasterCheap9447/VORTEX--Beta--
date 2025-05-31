@@ -31,7 +31,7 @@ extends CharacterBody3D
 @onready var WEAPONS: Node3D = $NECK/camera/WEAPONS
 @onready var FORCE: Node3D = $NECK/camera/FORCE
 @onready var scrath_vfx: GPUParticles3D = $"slide direction/Scraps/Scrath VFX"
-@onready var slam_area: Area3D = $"NECK/SLAM/slam area"
+@onready var SLAM_AREA: Area3D = $"NECK/SLAM/slam area"
 
 @onready var tazer_model: Node3D = $NECK/camera/WEAPONS/tazer/model
 @onready var bi_form_model: Node3D = $NECK/camera/WEAPONS/tri_form/model
@@ -183,7 +183,6 @@ func _physics_process(delta):
 					is_dashing = false
 					is_slamming = false
 					is_sliding = false
-			
 	
 	move_and_slide()
 	pass
@@ -196,18 +195,16 @@ func _slide(delta) -> void:
 		slide_direction = (SLIDE_DIRECTION.transform.basis * Vector3(inp_dih.x, 0, inp_dih.y)).normalized()
 	
 	if Input.is_action_pressed("slide"):
-		if is_on_floor() && !is_slamming:
+		if is_on_floor():
 			is_sliding = true
 			var slide_speed : float = 0.0
 			if slide_direction:
-				if slide_speed < SLIDE_MAX_SPEED:
-					slide_speed += SLIDE_ACCELERATION
-				velocity.x = slide_direction.x * slide_speed
-				velocity.z = slide_direction.z * slide_speed
+				velocity.x = move_toward(velocity.x, slide_direction.x * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
+				velocity.z =move_toward(velocity.z, slide_direction.z * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
 			else:
-				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0,0,-SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
+				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0 ,0, -SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
 		else:
-			is_dashing = false
+			is_sliding = false
 	if !Input.is_action_pressed("slide"):
 		is_sliding = false
 		SLIDE_DIRECTION.rotation = NECK.rotation
@@ -222,7 +219,7 @@ func _slide(delta) -> void:
 		scrath_vfx.emitting = false
 		scale = lerp(scale, Vector3(1,1,1), delta)
 		CAMERA.rotation.z = move_toward(CAMERA.rotation.z, 0.0, delta * 10)
-		
+	
 	if !is_on_floor():
 		scrath_vfx.emitting = false
 	pass
@@ -235,16 +232,18 @@ func _slam(_delta) -> void:
 	if !is_on_floor():
 		if Input.is_action_just_pressed("slide"):
 			is_slamming = true
-			await get_tree().create_timer(0.1).timeout
-			if Input.is_action_pressed("slide"):
-				power_slam = true
-			else:
-				power_slam = false
+			FUEL -= 15
 		if Input.is_action_just_released("slide"):
 			power_slam = false
 			is_slamming = false
 	else:
 		is_slamming = false
+	if is_slamming:
+		await get_tree().create_timer(0.02).timeout
+		if Input.is_action_pressed("slide"):
+			power_slam = true
+		else:
+			power_slam = false
 	
 	if is_slamming:
 		sparks.emitting = true
@@ -252,11 +251,19 @@ func _slam(_delta) -> void:
 		if power_slam:
 			velocity = Vector3.ZERO
 			velocity.y = -SLAM_FORCE
+			for e in SLAM_AREA.get_overlapping_bodies():
+				if e.is_in_group("Enemy"):
+					e.slam_damage(velocity.y)
 		else:
 			velocity.y = -SLAM_FORCE
 	else:
 		sparks.emitting = false
 		air.emitting = false
+	
+	if power_slam:
+		for e in SLAM_AREA.get_overlapping_bodies():
+			if e.is_in_group("Enemy"):
+				e.slam_damage(velocity.y)
 	
 	pass
 
