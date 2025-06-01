@@ -15,9 +15,8 @@ var done
 
 @export var RECOIL : float = 5.0
 @export var SPREAD : float = 0.01
-
-var damage : float = 3
-var temperature : float = 3
+@export var damage : float = 3
+@export var temperature : float = 3
 
 var ammo : int = 3
 var time : float = 0.0

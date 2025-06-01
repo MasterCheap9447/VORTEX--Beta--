@@ -55,8 +55,8 @@ func _process(_delta: float) -> void:
 			player.velocity = Vector3.ZERO
 	
 	## WAVE-LIKE SPAWNING ##
-	maximum = ceil(wave_no * difficulty * 2) - 2
-	if count <= 0:
+	maximum = ceil(wave_no * difficulty * 1)
+	if count <= 2:
 		spawn_enemies = true
 		wave_no += 1
 		global_variables.difficulty += 0.25

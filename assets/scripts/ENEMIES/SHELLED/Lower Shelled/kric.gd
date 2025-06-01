@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 signal add_kill
 
-@export var SPEED: float = 3
+@export var SPEED: float = 5
 @export var HEALTH: float = 1
 @export var DAMAGE: float = 1
 
@@ -41,7 +41,7 @@ func _ready() -> void:
 	
 	DAMAGE = 1 * global_variables.difficulty
 	HEALTH = 1 * global_variables.difficulty
-	SPEED = 3 * global_variables.difficulty
+	SPEED = 5 * global_variables.difficulty
 	
 	model_animation.play("spawning")
 	pass
@@ -175,4 +175,9 @@ func exp_damage(dmg, pos)  -> void:
 	global_variables.aura_gained += 20 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
+	pass
+
+
+func isnt_on_screen() -> void:
+	model_animation.stop()
 	pass

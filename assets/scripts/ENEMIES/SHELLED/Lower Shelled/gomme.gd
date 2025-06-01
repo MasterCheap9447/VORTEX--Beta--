@@ -157,3 +157,11 @@ func _on_cooldown_timeout() -> void:
 		if can_atk:
 			attack()
 	pass
+
+
+
+func isnt_on_screen() -> void:
+	model_animation.stop()
+	if !dead:
+		position += transform.basis * Vector3(0, 0, -1)
+	pass

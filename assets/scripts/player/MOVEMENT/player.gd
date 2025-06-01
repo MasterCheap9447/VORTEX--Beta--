@@ -105,10 +105,8 @@ func _process(delta: float) -> void:
 			speed.text = (str(snapped(velocity.length(), 0.1)) + " m/s" )
 			FUEL = clamp(FUEL, 0.0, 200.0)
 			HEALTH = clamp(HEALTH, 0.0, 400.0)
-			fuel.value = floor(int(FUEL))
-			f_percentage.text = (str(floor(int(FUEL))) + " %")
-			health.value = floor(int(HEALTH))
-			h_percentage.text = (str(floor(int(HEALTH))) + " %")
+			_fuel()
+			_health(delta)
 			_style(delta)
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -347,7 +345,7 @@ func exp_damage(magnitude, pos : Vector3) -> void:
 		velocity += dir * magnitude
 		hurt_sfx.play()
 		$"hurt stop".start()
-		camera_shake(0.1, 0.2, del)
+		camera_shake(0.2, 0.4, del)
 	pass
 
 func nrml_damage(magnitude) -> void:
@@ -397,6 +395,35 @@ func death() -> void:
 func audio() -> void:
 	pass
 
+
+
+func _fuel() -> void:
+	f_percentage.text = (str(floor(int(FUEL))) + " %")
+	
+	if FUEL >= 0 && FUEL <= 100:
+		fuel.value = FUEL
+		fuel.tint_progress = Color("red")
+	if FUEL > 100 && FUEL <= 200:
+		fuel.value = FUEL - 100
+		fuel.tint_progress = Color("gold")
+	pass
+
+func _health(delta) -> void:
+	h_percentage.text = (str(floor(int(HEALTH))) + " %")
+	
+	if HEALTH >= 0 && HEALTH <= 100:
+		health.value = HEALTH
+		health.tint_progress = Color("red")
+	if HEALTH > 100 && HEALTH <= 200:
+		health.value = HEALTH - 100
+		health.tint_progress = Color("yellow")
+	if HEALTH > 200 && HEALTH <= 300:
+		health.value = HEALTH - 200
+		health.tint_progress = Color("green")
+	if HEALTH > 300 && HEALTH <= 400:
+		health.value = HEALTH - 300
+		health.tint_progress = Color("blue")
+	pass
 
 func _style(_delta) -> void:
 	global_variables.STYLE -= 0.1

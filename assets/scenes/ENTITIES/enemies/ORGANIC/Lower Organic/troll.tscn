@@ -1059,3 +1059,11 @@ collision_mask = 72
 
 [node name="collectable spawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998115, 0)
+
+[node name="watcher" type="VisibleOnScreenEnabler3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.454725, 2.30508, 0)
+layers = 1048575
+aabb = AABB(-3.5, -2.5, -2.5, 7, 5.5, 5)
+enable_mode = 1
+
+[connection signal="screen_exited" from="watcher" to="." method="isnt_on_screen"]

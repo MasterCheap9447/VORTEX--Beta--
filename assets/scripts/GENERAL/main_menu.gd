@@ -5,7 +5,11 @@ extends Control
 @onready var settings_tab: Control = $"settings tab"
 @onready var difficulty_select: Node2D = $"difficulty select"
 @onready var button_press_sfx: AudioStreamPlayer = $"button press SFX"
+@onready var catalogue: Control = $catalogue
 
+@onready var tazer_info: RichTextLabel = $"catalogue/tazer info"
+@onready var tri_form_info: RichTextLabel = $"catalogue/tri form info"
+ 
 var cur_screen : String
 
 func _ready() -> void:
@@ -23,18 +27,22 @@ func _process(_delta: float) -> void:
 		start.visible = true
 		settings_tab.visible = false
 		difficulty_select.visible = false
+		catalogue.visible = false
 	if cur_screen == "difficulty":
 		start.visible = false
 		settings_tab.visible = false
 		difficulty_select.visible = true
+		catalogue.visible = false
 	if cur_screen == "settings":
 		start.visible = false
 		settings_tab.visible = true
 		difficulty_select.visible = false
-	
-	
-	if cur_screen == "antarctic levels":
+		catalogue.visible = false
+	if cur_screen == "catalogue":
 		start.visible = false
+		settings_tab.visible = false
+		difficulty_select.visible = false
+		catalogue.visible = true
 	pass
 
 
@@ -65,4 +73,22 @@ func _on_bomboclat_pressed() -> void:
 func _on_kys_pressed() -> void:
 	global_variables.difficulty = 2
 	get_tree().change_scene_to_file("res://assets/scenes/WORLDS/murder_playground.tscn")
+	pass
+
+
+func _on_catalogue_pressed() -> void:
+	button_press_sfx.play()
+	cur_screen = "catalogue"
+	pass
+
+
+func _on_tazer_pressed() -> void:
+	tazer_info.show()
+	tri_form_info.hide()
+	pass
+
+
+func _on_tri_form_pressed() -> void:
+	tazer_info.hide()
+	tri_form_info.show()
 	pass

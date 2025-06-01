@@ -88,8 +88,8 @@ shader_parameter/flags = 40
 [sub_resource type="QuadMesh" id="QuadMesh_euy0y"]
 material = SubResource("ShaderMaterial_31f0b")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_g3axv"]
-radius = 1.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_wlmau"]
+size = Vector3(1.2, 1.2, 1.2)
 
 [node name="eye" type="Node3D" groups=["Projectile"]]
 script = ExtResource("1_u550f")
@@ -123,8 +123,11 @@ collision_layer = 2560
 collision_mask = 2560
 
 [node name="damage collsion" type="CollisionShape3D" parent="damage area"]
-shape = SubResource("SphereShape3D_g3axv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00299072)
+shape = SubResource("BoxShape3D_wlmau")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

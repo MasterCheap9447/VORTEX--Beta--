@@ -163,3 +163,8 @@ func exp_damage(dmg, pos)  -> void:
 	blood_splash()
 	HEALTH -= dmg
 	pass
+
+
+func isnt_on_screen() -> void:
+	model_animation.stop()
+	pass

@@ -1,12 +1,14 @@
 extends Node3D
 
 
-@export var VELOCITY : float = 0.2
-@export var DAMAGE : float = 1
+@export var VELOCITY : float = 0.5
+@export var DAMAGE : float = 5
 
 @onready var damage_area: Area3D = $"damage area"
 
 func _ready() -> void:
+	VELOCITY = 0.5 * global_variables.difficulty
+	DAMAGE = 5 * global_variables.difficulty
 	pass
 
 

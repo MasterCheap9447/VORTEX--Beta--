@@ -1,11 +1,11 @@
 [gd_scene load_steps=24 format=3 uid="uid://c1ysgvjsmrc42"]
 
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="1_6fp56"]
-[ext_resource type="Script" uid="uid://eueaprarvy4w" path="res://assets/scripts/player/WEAPONS/tri_form_saw_blade.gd" id="1_8g1ti"]
+[ext_resource type="Script" uid="uid://eueaprarvy4w" path="res://assets/scripts/PLAYER/WEAPONS/tri_form_saw_blade.gd" id="1_8g1ti"]
 [ext_resource type="Shader" uid="uid://c551xnrdooi38" path="res://addons/trail/shaders/trail_draw_pass.gdshader" id="2_8g1ti"]
 [ext_resource type="Script" uid="uid://k5ck7x0rbxwj" path="res://addons/trail/GPUTrail3D.gd" id="3_5uhih"]
-[ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/shaders/tri_form_explosive.tres" id="5_5uhih"]
-[ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/player/weapons/di_form/source/Projectiles/saw_blade.obj" id="6_flp2q"]
+[ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/SHADERS/player/weapons/tri_form_explosive.tres" id="5_5uhih"]
+[ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/PLAYER/weapons/RANGED WEAPONS/di form/source/Projectiles/saw_blade.obj" id="6_flp2q"]
 [ext_resource type="AudioStream" uid="uid://cukr5m1mkvhhe" path="res://assets/sounds/player/weapons/di_form/saw_blade_launch_audio.mp3" id="7_8vocw"]
 
 [sub_resource type="Gradient" id="Gradient_flp2q"]
@@ -99,6 +99,8 @@ tangential_accel_max = 9.06
 size = Vector3(0.2, 1, 0.2)
 
 [node name="Saw Blade" type="CharacterBody3D"]
+collision_layer = 2048
+collision_mask = 2048
 axis_lock_angular_z = true
 script = ExtResource("1_8g1ti")
 SPEED = 150.0
@@ -130,6 +132,8 @@ metadata/_custom_type_script = "uid://k5ck7x0rbxwj"
 
 [node name="hit area" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.00146267, 0.00146267, 0)
+collision_layer = 2180
+collision_mask = 2180
 
 [node name="hit collsion" type="CollisionShape3D" parent="hit area"]
 shape = SubResource("CylinderShape3D_7vbpc")

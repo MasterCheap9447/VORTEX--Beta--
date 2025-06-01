@@ -7,10 +7,8 @@ var done : bool
 var rng : int
 var can_atk : bool = true
 
-const DAMAGE : float = 40
-
 @onready var player: CharacterBody3D = $"../../../.."
-@export var damage: float = 1.0
+@export var DAMAGE: float = 40.0
 
 @onready var animation: AnimationPlayer = $model/animation
 @onready var attack_area: Area3D = $"chainsaw attack area"

@@ -1462,4 +1462,11 @@ trail_lifetime = 0.01
 process_material = SubResource("ParticleProcessMaterial_u4tbh")
 draw_pass_1 = SubResource("BoxMesh_6h5lr")
 
+[node name="watcher" type="VisibleOnScreenEnabler3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.454725, 2.30508, 0)
+layers = 1048575
+aabb = AABB(-3.5, -2.5, -2.5, 7, 5.5, 5)
+enable_mode = 1
+
 [connection signal="add_kill" from="." to="." method="_on_add_kill"]
+[connection signal="screen_exited" from="watcher" to="." method="isnt_on_screen"]

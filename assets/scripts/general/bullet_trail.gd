@@ -9,6 +9,7 @@ func init(pos1, pos2) -> void:
 	draw_mesh.surface_add_vertex(pos1)
 	draw_mesh.surface_add_vertex(pos2)
 	draw_mesh.surface_end()
+	pass
 
 func _on_half_life_timeout() -> void:
 	queue_free()

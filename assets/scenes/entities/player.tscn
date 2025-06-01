@@ -3240,6 +3240,7 @@ _data = {
 size = Vector3(0.5, 0.5, 64)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_p5rfm"]
+radius = 0.125
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwly2"]
 shading_mode = 0
@@ -4649,6 +4650,7 @@ shape = SubResource("BoxShape3D_7w2s0")
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 script = ExtResource("2_bfnip")
+damage = 5.0
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(0.3, 2.79397e-10, -2.23517e-09, -2.79397e-10, 0.3, 0, 2.23517e-09, 2.08167e-18, 0.3, 0.360043, -1.66065, 0.190687)
@@ -5104,6 +5106,7 @@ draw_pass_1 = SubResource("SphereMesh_qgm2p")
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, 0, 0)
 script = ExtResource("6_p1n6j")
+damage = 5.0
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 6.1422, -9.78016, -20.6351)
@@ -5356,7 +5359,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.480599, 0.237823)
 target_position = Vector3(0, 0, -500)
 
 [node name="cooldown" type="Timer" parent="NECK/camera/FORCE/chainsaw gauntlets"]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [node name="look direction" type="RayCast3D" parent="NECK/camera"]
@@ -5408,8 +5411,7 @@ offset_top = -122.667
 offset_right = 277.0
 offset_bottom = -82.6667
 scale = Vector2(1.5, 1.5)
-max_value = 200.0
-value = 69.0
+value = 100.0
 texture_over = ExtResource("13_bfnip")
 texture_progress = ExtResource("14_p1n6j")
 
@@ -5444,10 +5446,10 @@ offset_top = -76.6667
 offset_right = 276.333
 offset_bottom = -36.6667
 scale = Vector2(1.5, 1.5)
-max_value = 400.0
-value = 69.0
+value = 100.0
 texture_over = ExtResource("33_qgm2p")
 texture_progress = ExtResource("34_31l51")
+tint_progress = Color(0, 0, 1, 1)
 
 [node name="percentage" type="RichTextLabel" parent="UI/Container/Control/health"]
 z_index = 1
@@ -5564,7 +5566,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="UI/view container"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(320, 240)
+size = Vector2i(1280, 960)
 render_target_update_mode = 4
 
 [node name="gun camera" type="Camera3D" parent="UI/view container/SubViewport"]
