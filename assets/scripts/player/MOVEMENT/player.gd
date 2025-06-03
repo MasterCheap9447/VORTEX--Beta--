@@ -15,8 +15,8 @@ extends CharacterBody3D
 @export var THRUST : float = 5.0
 @export var MAX_THRUST : float = 50.0
 
-@export var FUEL : float = 200.0
-@export var HEALTH : float = 400.0
+@export var FUEL : float = 100.0
+@export var HEALTH : float = 100.0
 @export var STYLE : float = 0.0
 
 @export var SENSITIVITY : float = 0.5
@@ -399,30 +399,14 @@ func audio() -> void:
 
 func _fuel() -> void:
 	f_percentage.text = (str(floor(int(FUEL))) + " %")
-	
-	if FUEL >= 0 && FUEL <= 100:
-		fuel.value = FUEL
-		fuel.tint_progress = Color("red")
-	if FUEL > 100 && FUEL <= 200:
-		fuel.value = FUEL - 100
-		fuel.tint_progress = Color("gold")
+	fuel.tint_progress = Color("red")
+	fuel.value = FUEL
 	pass
 
 func _health(delta) -> void:
 	h_percentage.text = (str(floor(int(HEALTH))) + " %")
-	
-	if HEALTH >= 0 && HEALTH <= 100:
-		health.value = HEALTH
-		health.tint_progress = Color("red")
-	if HEALTH > 100 && HEALTH <= 200:
-		health.value = HEALTH - 100
-		health.tint_progress = Color("yellow")
-	if HEALTH > 200 && HEALTH <= 300:
-		health.value = HEALTH - 200
-		health.tint_progress = Color("green")
-	if HEALTH > 300 && HEALTH <= 400:
-		health.value = HEALTH - 300
-		health.tint_progress = Color("blue")
+	health.tint_progress = Color("blue")
+	health.value = HEALTH
 	pass
 
 func _style(_delta) -> void:

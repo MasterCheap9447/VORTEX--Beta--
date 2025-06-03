@@ -48,6 +48,28 @@ Organic=""
 theme/custom_font="uid://dij4j0j2k3ssn"
 theme/default_font_antialiasing=2
 
+[importer_defaults]
+
+texture={
+"compress/channel_pack": 0,
+"compress/hdr_compression": 1,
+"compress/high_quality": false,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d/compress_to": 0,
+"mipmaps/generate": false,
+"mipmaps/limit": -1,
+"process/fix_alpha_border": true,
+"process/hdr_as_srgb": false,
+"process/hdr_clamp_exposure": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"process/size_limit": 0,
+"roughness/mode": 0,
+"roughness/src_normal": ""
+}
+
 [input]
 
 jump={
@@ -168,6 +190,10 @@ health={
 
 3d_render/layer_1="Environment"
 3d_render/layer_2="Weapons"
+3d_render/layer_4="Liquid Stains"
+3d_render/layer_6="Enemies"
+3d_render/layer_7="Player"
+3d_render/layer_9="Projectiles"
 3d_physics/layer_2="Player Collision"
 3d_physics/layer_3="Player Hitbox"
 3d_physics/layer_4="Player Hurtbox"
@@ -181,6 +207,7 @@ health={
 
 [physics]
 
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=24.0
 
 [rendering]

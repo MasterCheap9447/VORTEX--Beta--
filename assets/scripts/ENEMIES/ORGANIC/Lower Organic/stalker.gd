@@ -2,7 +2,6 @@ extends RigidBody3D
 
 
 
-signal add_kill
 
 @export var MAX_SPEED : float = 15
 @export var ACCELERATION : float = 1
@@ -22,21 +21,21 @@ var world = null
 @onready var navigator: NavigationAgent3D = $navigator
 @onready var bite_area: Area3D = $"bite area"
 
-@onready var collectable_spawn: Node3D = $"collectable spawn"
-@onready var blood_spawn_point: Node3D = $"blood spawn point"
-@onready var decay: Timer = $decay
+@onready var blood_animation: AnimationPlayer = $"blood splash/blood_animation"
+@onready var blood_decals: Node3D = $"blood splash/blood decals"
+
+var blood_stain = preload("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood_stain.tscn")
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
 var instance
-var delt
+var delt : float
 var trigger_once : bool
 
 var status : String = "Normal"
 var can_atk : bool = true
 
-var blood = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood.tscn")
-var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
+
 
 func _ready() -> void:
 	player = get_node(player_path)
@@ -88,15 +87,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 
 
 func blood_splash():
+	blood_animation.play("splash")
+	await get_tree().create_timer(1).timeout
+	for b in blood_decals.get_children():
+		instance = blood_stain.instantiate()
+		instance.position = b.global_position
+		instance.rotation = b.global_rotation
+		world.add_child(instance)
 	pass
 
 func death():
 	if HEALTH <= 0:
-		var ran = randi_range(1,2)
+		var rng
+		rng = randi_range(1,2)
 		if dead == false:
-			if ran == 1:
+			if rng == 1:
 				model_animation.play("death 1")
-			if ran == 2:
+			if rng == 2:
 				model_animation.play("death 2")
 			world.add_kill()
 			dead = true
@@ -137,13 +144,13 @@ func tazer_pierce_hit(damage,volts) -> void:
 	blood_splash()
 	HEALTH -= damage
 	status = "Shocked"
-	volts = clamp(volts, 3/4, 5.0)
+	volts = clamp(volts, 1.0, 5.0)
 	await get_tree().create_timer(volts).timeout
 	status = "Normal"
 	pass
 
 func di_form_hit(damage, burn) -> void:
-	global_variables.STYLE += 10/6 * global_variables.STYLE_MULTIPLIER
+	global_variables.STYLE += 10.0/6.0 * global_variables.STYLE_MULTIPLIER
 	global_variables.aura_gained += 10 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= damage/6
@@ -173,9 +180,4 @@ func exp_damage(dmg, pos)  -> void:
 	global_variables.aura_gained += 20 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
-	pass
-
-
-func isnt_on_screen() -> void:
-	model_animation.stop()
 	pass

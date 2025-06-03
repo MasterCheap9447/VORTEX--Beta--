@@ -4641,6 +4641,8 @@ libraries = {
 }
 
 [node name="hit area" type="Area3D" parent="NECK/camera/grippers"]
+collision_layer = 4
+collision_mask = 128
 
 [node name="hit collision" type="CollisionShape3D" parent="NECK/camera/grippers/hit area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485046, -0.33374, -0.645193)
@@ -4650,7 +4652,6 @@ shape = SubResource("BoxShape3D_7w2s0")
 
 [node name="tazer" type="Node3D" parent="NECK/camera/WEAPONS"]
 script = ExtResource("2_bfnip")
-damage = 5.0
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(0.3, 2.79397e-10, -2.23517e-09, -2.79397e-10, 0.3, 0, 2.23517e-09, 2.08167e-18, 0.3, 0.360043, -1.66065, 0.190687)
@@ -5076,8 +5077,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315875, -0.236167, -63.89
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.894513, -0.508362, -3.05897)
 
 [node name="pierce area" type="Area3D" parent="NECK/camera/WEAPONS/tazer"]
-collision_layer = 132
-collision_mask = 132
+collision_layer = 4
+collision_mask = 128
 
 [node name="pierce collision" type="CollisionShape3D" parent="NECK/camera/WEAPONS/tazer/pierce area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
@@ -5085,12 +5086,14 @@ shape = SubResource("BoxShape3D_2wml6")
 
 [node name="ray 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tazer"]
 target_position = Vector3(0, 0, -64)
-collision_mask = 132
+collision_mask = 128
+collide_with_areas = true
 
 [node name="ray 2" type="ShapeCast3D" parent="NECK/camera/WEAPONS/tazer"]
 shape = SubResource("SphereShape3D_p5rfm")
 target_position = Vector3(0, 0, -64)
-collision_mask = 132
+collision_mask = 128
+collide_with_areas = true
 
 [node name="tazer collision effect" type="GPUParticles3D" parent="NECK/camera/WEAPONS/tazer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.19279, 0.190072)
@@ -5106,7 +5109,6 @@ draw_pass_1 = SubResource("SphereMesh_qgm2p")
 [node name="tri_form" type="Node3D" parent="NECK/camera/WEAPONS"]
 transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, 0, 0)
 script = ExtResource("6_p1n6j")
-damage = 5.0
 
 [node name="model" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 6.1422, -9.78016, -20.6351)
@@ -5216,46 +5218,55 @@ libraries = {
 [node name="rays" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1382, -9.59918, -43.6874)
 target_position = Vector3(0, 0, -5)
-collision_mask = 132
+collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 1" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.25841, 0.0798531, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 2" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 3" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, 2.28008, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 4" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 5" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel 6" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form/rays"]
 transform = Transform3D(1, 0, -5.42101e-20, 0, 1, 0, 5.42101e-20, 0, 1, -2.25616, 0.0616207, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+collide_with_areas = true
 
 [node name="saw ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(3.33333, 0, 0, 0, 3.33333, 0, 0, 0, 3.33333, 12.1608, -9.44597, -43.7252)
 target_position = Vector3(0, 0, -1)
-collision_mask = 132
+collision_mask = 128
+collide_with_areas = true
 
 [node name="ideal ray" type="RayCast3D" parent="NECK/camera/WEAPONS/tri_form"]
 target_position = Vector3(0, 0, -1000)
-collision_mask = 132
+collision_mask = 128
+collide_with_areas = true
 
 [node name="barrel position" type="Node3D" parent="NECK/camera/WEAPONS/tri_form"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.82429, -1000)
@@ -5338,8 +5349,8 @@ libraries = {
 
 [node name="chainsaw attack area" type="Area3D" parent="NECK/camera/FORCE/chainsaw gauntlets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0628986, -2.02849)
-collision_layer = 132
-collision_mask = 132
+collision_layer = 4
+collision_mask = 128
 
 [node name="chainsaw attack collision" type="CollisionShape3D" parent="NECK/camera/FORCE/chainsaw gauntlets/chainsaw attack area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00598145, -0.194092, -0.490479)
@@ -5357,6 +5368,8 @@ parameters/looping = true
 [node name="grapple cast" type="RayCast3D" parent="NECK/camera/FORCE/chainsaw gauntlets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.480599, 0.237823)
 target_position = Vector3(0, 0, -500)
+collision_mask = 128
+collide_with_areas = true
 
 [node name="cooldown" type="Timer" parent="NECK/camera/FORCE/chainsaw gauntlets"]
 wait_time = 2.0

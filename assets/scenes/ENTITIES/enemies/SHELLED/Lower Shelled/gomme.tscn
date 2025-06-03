@@ -1,9 +1,12 @@
-[gd_scene load_steps=29 format=4 uid="uid://bmerraoq64qq3"]
+[gd_scene load_steps=73 format=4 uid="uid://bmerraoq64qq3"]
 
 [ext_resource type="Script" uid="uid://chbduwjxelrvh" path="res://assets/scripts/ENEMIES/SHELLED/Lower Shelled/gomme.gd" id="1_4saki"]
 [ext_resource type="Shader" uid="uid://bm1tedpkkww0p" path="res://assets/scripts/SHADERS/general/psx_shader.gdshader" id="2_5mhah"]
 [ext_resource type="Script" uid="uid://b7i1vaqs6dpf2" path="res://assets/scripts/ENVIRONMENTAL OBJECTS/blood.gd" id="2_mkkbc"]
 [ext_resource type="Texture2D" uid="uid://bpdlnfjjfddwf" path="res://assets/models/ENEMIES/SHELLED/Lower Shelled/GOMME/texture/gomme_texture.png" id="3_0iae0"]
+[ext_resource type="Texture2D" uid="uid://b0bmmr188s487" path="res://assets/textures/liquid/drop.png" id="5_wdjg6"]
+[ext_resource type="Texture2D" uid="uid://d1b00pgkh2h57" path="res://assets/textures/liquid/stream.png" id="6_g2wsa"]
+[ext_resource type="Texture2D" uid="uid://b2yjim3myaude" path="res://assets/textures/liquid/stain.png" id="7_g2wsa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wdjg6"]
 render_priority = 0
@@ -141,6 +144,39 @@ bind/30/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.5, 2.5)
 bind/31/name = &"r-2"
 bind/31/bone = -1
 bind/31/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.5, -2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2wsa"]
+size = Vector3(1.86798, 0.668823, 1.87598)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mtr04"]
+size = Vector3(1.28851, 1.38635, 1.48444)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_22yrg"]
+size = Vector3(1, 1.9646, 0.861938)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tmvk2"]
+size = Vector3(1.30121, 1.26367, 0.814941)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yi1df"]
+size = Vector3(2.64722, 2.66919, 1.75903)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ms1e2"]
+size = Vector3(1.30817, 1.61487, 1.29871)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7ikp"]
+size = Vector3(2.64793, 2.66602, 1.77124)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c1fhj"]
+size = Vector3(1.63367, 2.39258, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_me753"]
+size = Vector3(1.86011, 2.39258, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c55uw"]
+size = Vector3(1.67529, 2.39258, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1krc8"]
+size = Vector3(1.79517, 2.39258, 1)
 
 [sub_resource type="Animation" id="Animation_7n430"]
 resource_name = "attack"
@@ -1067,9 +1103,211 @@ sub_emitter_keep_velocity = true
 [sub_resource type="BoxMesh" id="BoxMesh_6h5lr"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtr04"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_wdjg6")
+texture_filter = 2
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="Curve" id="Curve_22yrg"]
+_data = [Vector2(0.72973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wdjg6"]
+curve = SubResource("Curve_22yrg")
+
+[sub_resource type="Curve" id="Curve_yi1df"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252252, 0.0561798), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_g2wsa"]
+curve_y = SubResource("Curve_yi1df")
+
+[sub_resource type="Curve" id="Curve_h7ikp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.87079, -0.383774, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mtr04"]
+curve = SubResource("Curve_h7ikp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_me753"]
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 6.0
+initial_velocity_max = 12.0
+directional_velocity_min = 3.99998
+directional_velocity_max = 7.99998
+directional_velocity_curve = SubResource("CurveXYZTexture_g2wsa")
+gravity = Vector3(0, -12, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_mtr04")
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_wdjg6")
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_c55uw"]
+
+[sub_resource type="Curve" id="Curve_1krc8"]
+_data = [Vector2(0.72973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_22yrg"]
+curve = SubResource("Curve_1krc8")
+
+[sub_resource type="Curve" id="Curve_tt5am"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252252, 0.0561798), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_tmvk2"]
+curve_y = SubResource("Curve_tt5am")
+
+[sub_resource type="Curve" id="Curve_aheyu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.87079, -0.383774, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yi1df"]
+curve = SubResource("Curve_aheyu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ti0i"]
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 6.0
+initial_velocity_max = 12.0
+directional_velocity_min = 3.99998
+directional_velocity_max = 7.99998
+directional_velocity_curve = SubResource("CurveXYZTexture_tmvk2")
+gravity = Vector3(0, -12, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_yi1df")
+color = Color(0.501961, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_22yrg")
+collision_mode = 2
+collision_use_scale = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irf2q"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_g2wsa")
+texture_filter = 2
+billboard_keep_scale = true
+proximity_fade_enabled = true
+
+[sub_resource type="Curve" id="Curve_21t6q"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.460674), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ms1e2"]
+curve = SubResource("Curve_21t6q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oc4of"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 24.0
+scale_max = 1.5
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_ms1e2")
+collision_mode = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ppfl3"]
+sections = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22yrg"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_g2wsa")
+texture_filter = 2
+
+[sub_resource type="Curve" id="Curve_tmvk2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.95045, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jannd"]
+curve = SubResource("Curve_tmvk2")
+
+[sub_resource type="Curve" id="Curve_ms1e2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.972973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_urr0t"]
+curve = SubResource("Curve_ms1e2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h7ikp"]
+particle_flag_rotate_y = true
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_urr0t")
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_jannd")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+
+[sub_resource type="QuadMesh" id="QuadMesh_c1fhj"]
+orientation = 1
+
+[sub_resource type="Animation" id="Animation_jannd"]
+resource_name = "splash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../blood drop dark:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../blood stream:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8mfnd"]
+_data = {
+&"splash": SubResource("Animation_jannd")
+}
+
 [node name="gomme" type="StaticBody3D" groups=["Enemy", "Xplodable"]]
-collision_layer = 2212
-collision_mask = 2212
+collision_layer = 32
+collision_mask = 2048
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_4saki")
 
 [node name="mesh" type="Node3D" parent="."]
@@ -1083,7 +1321,7 @@ bones/0/name = "model_2"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 bones/0/enabled = true
-bones/0/position = Vector3(0, 0, 0)
+bones/0/position = Vector3(0, 0, 0.5)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "core"
@@ -1305,9 +1543,188 @@ bones/31/rotation = Quaternion(0, 0, 0.173648, 0.984808)
 bones/31/scale = Vector3(1, 1, 1)
 
 [node name="model" type="MeshInstance3D" parent="mesh/model/Skeleton3D"]
+layers = 32
 material_override = SubResource("ShaderMaterial_wdjg6")
 mesh = SubResource("ArrayMesh_hpmde")
 skin = SubResource("Skin_tegfe")
+
+[node name="physical bones" type="PhysicalBoneSimulator3D" parent="mesh/model/Skeleton3D"]
+
+[node name="core bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, -2.84217e-14, 0, 0, 0, -3.33333, 2.84217e-14, 3.33333, 0, 1.82201e-09, 1.00003, -1)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.46601e-10, -6.25849e-08, 0.300009)
+body_offset = Transform3D(3.33333, -2.84217e-14, 0, 0, 0, -3.33333, 2.84217e-14, 3.33333, 0, 1.822e-09, 1.00003, 2.08616e-07)
+bone_name = "core"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/core bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.00369266, 0.437988, 0.00494379)
+shape = SubResource("BoxShape3D_g2wsa")
+
+[node name="waist bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, -1.79386e-07, -4.12115e-13, -4.12115e-13, 1.53525e-21, -3.33333, 1.79386e-07, 3.33333, -2.0643e-20, 7.45058e-08, 4.12495, -0.999986)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23519e-08, -4.13954e-06, 0.637485)
+body_offset = Transform3D(3.33333, -1.79386e-07, -4.12115e-13, -4.12115e-13, 1.53525e-21, -3.33333, 1.79386e-07, 3.33333, -2.0643e-20, 7.45058e-08, 2.12495, 1.37985e-05)
+bone_name = "waist"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/waist bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.000152584, 0.383881, 0.022644)
+shape = SubResource("BoxShape3D_mtr04")
+
+[node name="anchor bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, -1.79402e-07, 1.21482e-13, 1.27898e-13, 1.19209e-07, -3.33333, 1.79402e-07, 3.33333, 1.19209e-07, 5.96046e-08, 6.49996, -0.999979)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78817e-08, -6.28799e-06, 0.0749867)
+body_offset = Transform3D(3.33333, -1.79402e-07, 1.21482e-13, 1.27898e-13, 1.19209e-07, -3.33333, 1.79402e-07, 3.33333, 1.19209e-07, 5.96046e-08, 0.249956, 2.0951e-05)
+bone_name = "anchor"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/anchor bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -2.54907e-12, -0.0509644, 0.34436)
+shape = SubResource("BoxShape3D_22yrg")
+
+[node name="bush bone 1" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Organic"]]
+transform = Transform3D(-9.53679e-07, 1.99303e-07, -3.33333, -1.54972e-06, 3.33333, 1.99304e-07, 3.33333, 1.54972e-06, -9.53679e-07, -1.12505, 11.4998, -1.00062)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000185609, -0.299937, 0.262484)
+body_offset = Transform3D(-9.53679e-07, 1.99303e-07, -3.33333, -1.54972e-06, 3.33333, 1.99304e-07, 3.33333, 1.54972e-06, -9.53679e-07, 0.874948, 0.999788, -0.000617981)
+bone_name = "anchor bush 1"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/bush bone 1"]
+transform = Transform3D(1, 0, 6.32383e-13, 0, 1, 0, -5.64881e-13, 0, 1, -0.00793421, 0.302734, -0.0925293)
+shape = SubResource("BoxShape3D_tmvk2")
+
+[node name="massive bush bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Organic"]]
+transform = Transform3D(3.33333, 5.02916e-08, -9.53677e-07, -5.02915e-08, 3.33333, 5.96048e-07, 9.53677e-07, -5.96048e-07, 3.33333, 1.94106, 11.1249, -0.500015)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.657318, 0.412536, -0.149995)
+body_offset = Transform3D(3.33333, 5.02916e-08, -9.53677e-07, -5.02914e-08, 3.33333, 5.96048e-07, 9.53677e-07, -5.96048e-07, 3.33333, 2.19106, -1.37512, 0.499985)
+bone_name = "massive bush 1"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/massive bush bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.617239, 0.403198, -0.155395)
+shape = SubResource("BoxShape3D_yi1df")
+
+[node name="anchor bush 2" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Organic"]]
+transform = Transform3D(3.33333, 3.06196e-06, -1.10269e-06, -3.06196e-06, 3.33333, 6.81733e-07, 1.10269e-06, -6.81732e-07, 3.33333, -1.23018, 9.49982, -0.999956)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.144054, -0.449946, -1.33272e-05)
+body_offset = Transform3D(3.33333, 3.06196e-06, -1.10269e-06, -3.06196e-06, 3.33333, 6.81733e-07, 1.10269e-06, -6.81732e-07, 3.33333, -0.480179, 1.49982, 4.39584e-05)
+bone_name = "anchor bush 2"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/anchor bush 2"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.450876, 0.149353, -0.00177008)
+shape = SubResource("BoxShape3D_ms1e2")
+
+[node name="massive bush 2" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Organic"]]
+transform = Transform3D(3.33333, 3.06196e-06, -1.10269e-06, -3.06196e-06, 3.33333, 6.81733e-07, 1.10269e-06, -6.81732e-07, 3.33333, -4.12485, 8.24957, -0.488325)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.712454, 0.82513, -0.153503)
+body_offset = Transform3D(3.33333, 3.06196e-06, -1.10269e-06, -3.06196e-06, 3.33333, 6.81733e-07, 1.10269e-06, -6.81732e-07, 3.33333, -2.37485, -2.75043, 0.511675)
+bone_name = "massive bush 2"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/massive bush 2"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.566277, 0.012085, -0.172898)
+shape = SubResource("BoxShape3D_h7ikp")
+
+[node name="front root bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, -0.9375, 5.50003, 3.49172)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31875, 1.49999, 0.00248466)
+body_offset = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, -1.0625, -4.99997, -0.00828218)
+bone_name = "front"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/front root bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.316833, -1.4604, 0.696289)
+shape = SubResource("BoxShape3D_c1fhj")
+
+[node name="left  root bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, 2.96025, 5.50003, -0.747516)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0119259, 1.49999, 0.374255)
+body_offset = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, -0.039753, -4.99997, -1.24752)
+bone_name = "left"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/left  root bone"]
+transform = Transform3D(-4.37114e-08, -1, 0, 7.10543e-15, 0, 1, -1, 4.37114e-08, 0, -2.85977, -1.35152, 0.360678)
+shape = SubResource("BoxShape3D_me753")
+
+[node name="back root bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, 1.16638, 5.50003, -2.5)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.312414, 1.49999, -3.57628e-08)
+body_offset = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, 1.04138, -4.99997, 1.19209e-07)
+bone_name = "back"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/back root bone"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.349732, -1.54859, -0.586879)
+shape = SubResource("BoxShape3D_c55uw")
+
+[node name="righ root bone" type="PhysicalBone3D" parent="mesh/model/Skeleton3D/physical bones" groups=["Enemy", "Shelled"]]
+transform = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, -3, 5.50003, -0.73017)
+collision_layer = 128
+collision_mask = 64
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86102e-07, 1.49999, 0.369051)
+body_offset = Transform3D(3.33333, 0, -2.84217e-14, 0, 3.33333, 0, 2.84217e-14, 0, 3.33333, -9.53674e-07, -4.99997, -1.23017)
+bone_name = "right"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="collision" type="CollisionShape3D" parent="mesh/model/Skeleton3D/physical bones/righ root bone"]
+transform = Transform3D(-4.37114e-08, -1, 0, 0, 0, 1, -1, 4.37114e-08, 0, 2.87702, -1.51234, 0.375544)
+shape = SubResource("BoxShape3D_1krc8")
 
 [node name="model animation" type="AnimationPlayer" parent="mesh"]
 libraries = {
@@ -1316,6 +1733,7 @@ libraries = {
 
 [node name="collision" type="CollisionShape3D" parent="." groups=["Enemy", "Xplodable"]]
 transform = Transform3D(4.57522e-15, -4.37114e-08, 1, 8.74228e-08, -1, -4.37114e-08, 1, 8.74228e-08, -7.53854e-16, 0, 2.245, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_4saki")
 
 [node name="check" type="RayCast3D" parent="."]
@@ -1353,6 +1771,89 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.454725, 2.30508, 0)
 layers = 1048575
 aabb = AABB(-3.5, -2.5, -2.5, 7, 5.5, 5)
 enable_mode = 1
+
+[node name="blood splash" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.842492, 0)
+
+[node name="blood drop light" type="GPUParticles3D" parent="blood splash"]
+layers = 1048573
+material_override = SubResource("StandardMaterial3D_mtr04")
+emitting = false
+sub_emitter = NodePath("../blood stain")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_me753")
+draw_pass_1 = SubResource("QuadMesh_c55uw")
+
+[node name="blood drop dark" type="GPUParticles3D" parent="blood splash"]
+layers = 1048573
+material_override = SubResource("StandardMaterial3D_mtr04")
+emitting = false
+sub_emitter = NodePath("../blood stain")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_3ti0i")
+draw_pass_1 = SubResource("QuadMesh_c55uw")
+
+[node name="blood stream" type="GPUParticles3D" parent="blood splash"]
+transform = Transform3D(-0.999224, 0, 0.039382, 0, 1, 0, -0.039382, 0, -0.999224, 0.011385, 0, 0)
+layers = 1048573
+material_override = SubResource("StandardMaterial3D_irf2q")
+emitting = false
+sub_emitter = NodePath("../blood stain")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_oc4of")
+draw_pass_1 = SubResource("RibbonTrailMesh_ppfl3")
+
+[node name="blood stain" type="GPUParticles3D" parent="blood splash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.934635)
+layers = 9
+material_override = SubResource("StandardMaterial3D_22yrg")
+emitting = false
+amount = 1
+lifetime = 600000.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_h7ikp")
+draw_pass_1 = SubResource("QuadMesh_c1fhj")
+
+[node name="blood decals" type="Node3D" parent="blood splash"]
+
+[node name="blood stain 1" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, -0.000156164)
+
+[node name="blood stain 2" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, -0.000156164)
+
+[node name="blood stain 3" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, -0.000156164)
+
+[node name="blood stain 4" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, 2.99984)
+
+[node name="blood stain 5" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, 2.99984)
+
+[node name="blood stain 6" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, 2.99984)
+
+[node name="blood stain 7" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, -3.00016)
+
+[node name="blood stain 8" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, -3.00016)
+
+[node name="blood stain 9" type="Node3D" parent="blood splash/blood decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, -3.00016)
+
+[node name="blood_animation" type="AnimationPlayer" parent="blood splash"]
+root_node = NodePath("../blood drop light")
+libraries = {
+&"": SubResource("AnimationLibrary_8mfnd")
+}
 
 [connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]
 [connection signal="screen_entered" from="watcher" to="." method="is_on_screen"]

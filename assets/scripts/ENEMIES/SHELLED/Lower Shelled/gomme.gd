@@ -18,8 +18,11 @@ var world = null
 @onready var collectable_spawn: Node3D = $"collectable spawn"
 @onready var cooldown: Timer = $cooldown
 
-var eye = load("res://assets/scenes/projectiles/eye.tscn")
+@onready var blood_animation: AnimationPlayer = $"blood splash/blood_animation"
+@onready var blood_decals: Node3D = $"blood splash/blood decals"
 
+var blood_stain = preload("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood_stain.tscn")
+var eye = load("res://assets/scenes/projectiles/eye.tscn")
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -27,8 +30,6 @@ var instance
 
 var status : String = "Normal"
 var can_atk : bool = true
-
-var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
 
 
 func _ready() -> void:
@@ -74,6 +75,13 @@ func death():
 	pass
 
 func blood_splash():
+	blood_animation.play("splash")
+	await get_tree().create_timer(1).timeout
+	for b in blood_decals.get_children():
+		instance = blood_stain.instantiate()
+		instance.position = b.global_position
+		instance.rotation = b.global_rotation
+		world.add_child(instance)
 	pass
 
 func attack() -> void:

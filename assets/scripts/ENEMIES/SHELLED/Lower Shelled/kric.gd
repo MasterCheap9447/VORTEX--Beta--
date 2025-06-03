@@ -23,6 +23,9 @@ var world = null
 @onready var explosion_animation: AnimationPlayer = $"Light Explosion/explosion animation"
 @onready var explosion_area: Area3D = $"explosion area"
 
+@onready var blood_animation: AnimationPlayer = $"blood splash/blood_animation"
+@onready var blood_decals: Node3D = $"blood splash/blood decals"
+
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -32,7 +35,7 @@ var player_position : Vector3
 var status : String = "Normal"
 var can_atk : bool = true
 
-var fuel = load("res://assets/scenes/ENVIRONMENTAL OBJECTS/fuel.tscn")
+var blood_stain = preload("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood_stain.tscn")
 
 
 func _ready() -> void:
@@ -113,6 +116,13 @@ func death():
 	pass
 
 func blood_splash():
+	blood_animation.play("splash")
+	await get_tree().create_timer(1).timeout
+	for b in blood_decals.get_children():
+		instance = blood_stain.instantiate()
+		instance.position = b.global_position
+		instance.rotation = b.global_rotation
+		world.add_child(instance)
 	pass
 
 func slam_damage(damage):
@@ -175,9 +185,4 @@ func exp_damage(dmg, pos)  -> void:
 	global_variables.aura_gained += 20 * global_variables.STYLE_MULTIPLIER
 	blood_splash()
 	HEALTH -= dmg
-	pass
-
-
-func isnt_on_screen() -> void:
-	model_animation.stop()
 	pass
