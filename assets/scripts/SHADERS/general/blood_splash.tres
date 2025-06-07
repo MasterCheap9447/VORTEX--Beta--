@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=31 format=3 uid="uid://b5fvppqpd7vai"]
+[gd_resource type="VisualShader" load_steps=31 format=3 uid="uid://dtharatj55yhp"]
 
 [ext_resource type="Texture2D" uid="uid://bscfj1r221kx1" path="res://assets/textures/effects/blood/T_PerlinNoise_Tiled11_inv.png" id="1_hufx2"]
 [ext_resource type="Texture2D" uid="uid://b521d0dwd8ag2" path="res://assets/textures/effects/blood/T_MarbleNoise5_tiled.png" id="2_0fw2y"]

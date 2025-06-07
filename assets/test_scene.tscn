@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bckd32ceop4kh"]
+
+[ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/ENTITIES/player.tscn" id="1_3s60y"]
+[ext_resource type="Texture2D" uid="uid://c7gc4i6ayl44r" path="res://assets/textures/maps/grid/grid_texture.png" id="1_qub24"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qub24"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_bsukc"]
+sky_material = SubResource("ProceduralSkyMaterial_qub24")
+
+[sub_resource type="Environment" id="Environment_ug5nm"]
+background_mode = 2
+sky = SubResource("Sky_bsukc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bsukc"]
+albedo_texture = ExtResource("1_qub24")
+
+[node name="test scene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ug5nm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_bsukc")
+use_collision = true
+collision_layer = 2049
+collision_mask = 2049
+size = Vector3(100, 1, 100)
+
+[node name="player" parent="." instance=ExtResource("1_3s60y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.677162, 0.815103, -2.05994)

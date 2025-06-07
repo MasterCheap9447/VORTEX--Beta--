@@ -88,6 +88,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	FUEL = 100
+	
 	del = delta
 	audio()
 	GUN_CAMERA.global_transform = CAMERA.global_transform
@@ -299,7 +301,7 @@ func _thrust(_delta) -> void:
 	if is_flying:
 		var inp_d = Input.get_vector("left", "right", "forward", "backward")
 		var d = (NECK.transform.basis * CAMERA.transform.basis * Vector3(inp_d.x, 0, inp_d.y)).normalized()
-		FUEL -= 1
+		FUEL -= 0.5
 		if Input.is_action_pressed("jump"):
 			velocity.y = move_toward(velocity.length(), MAX_THRUST, THRUST)
 		if d:
@@ -369,7 +371,6 @@ func heal(magnitude) -> void:
 
 
 func JUICE(input_x, delta) -> void:
-	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 0.25, 2 * delta)
 	pass
 
 func camera_shake(magnitude, amplitude, delta):

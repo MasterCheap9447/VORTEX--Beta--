@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="VORTEX"
-run/main_scene="uid://k8gi6k1ctg80"
+run/main_scene="uid://dxuecu0tcee5n"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/use_filter=false
@@ -24,8 +24,8 @@ global_variables="*res://assets/scripts/global_variables.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=960
+window/size/viewport_width=2560
+window/size/viewport_height=1280
 window/size/mode=4
 window/size/borderless=true
 mouse_cursor/custom_image="uid://cb3aqsuldll1f"
@@ -45,7 +45,7 @@ Organic=""
 
 [gui]
 
-theme/custom_font="uid://dij4j0j2k3ssn"
+theme/custom_font="uid://bhiiituq7xg3v"
 theme/default_font_antialiasing=2
 
 [importer_defaults]

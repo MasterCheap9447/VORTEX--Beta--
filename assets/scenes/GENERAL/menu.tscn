@@ -1,46 +1,32 @@
-[gd_scene load_steps=34 format=3 uid="uid://k8gi6k1ctg80"]
+[gd_scene load_steps=19 format=3 uid="uid://k8gi6k1ctg80"]
 
 [ext_resource type="Script" uid="uid://cdjihbcc0w337" path="res://assets/scripts/GENERAL/main_menu.gd" id="1_xuqax"]
 [ext_resource type="Texture2D" uid="uid://demal0bwuebs8" path="res://assets/textures/ui/menu/background.png" id="2_c4qlh"]
 [ext_resource type="Texture2D" uid="uid://bvbd08jrp5iwb" path="res://assets/textures/ui/menu/title/play_button_normal.png" id="2_xuqax"]
 [ext_resource type="Texture2D" uid="uid://n1x668ar6vim" path="res://assets/textures/ui/menu/diagram.png" id="3_ujvk5"]
-[ext_resource type="Texture2D" uid="uid://ctcvya3xs1jf1" path="res://assets/textures/ui/credits/credits.png" id="5_c4qlh"]
-[ext_resource type="Texture2D" uid="uid://demd73hraennn" path="res://assets/textures/ui/menu/buttons/play/play_button_normal.png" id="6_nf3ne"]
-[ext_resource type="Texture2D" uid="uid://ckkni6by5cmwr" path="res://assets/textures/ui/menu/buttons/play/play_button_clicked.png" id="7_pw4oi"]
-[ext_resource type="Texture2D" uid="uid://brnnpegv3lmv" path="res://assets/textures/ui/menu/buttons/play/play_button_hover.png" id="8_u7y45"]
-[ext_resource type="Texture2D" uid="uid://c28a5vf7v5xq8" path="res://assets/textures/ui/menu/buttons/settings/settings_button_normal.png" id="9_ia1et"]
-[ext_resource type="Texture2D" uid="uid://by2et7in8ccxq" path="res://assets/textures/ui/menu/buttons/settings/settings_button_clicked.png" id="10_iw1dx"]
-[ext_resource type="Texture2D" uid="uid://cov4eorhadnj1" path="res://assets/textures/ui/menu/buttons/settings/settings_button_hover.png" id="11_doml5"]
-[ext_resource type="Texture2D" uid="uid://b0nol6kaadynh" path="res://assets/textures/ui/menu/buttons/catalogue/catalogue_button_normal.png" id="12_crbc4"]
-[ext_resource type="Texture2D" uid="uid://bq58a0rx73a2t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_normal.png" id="12_ia1et"]
-[ext_resource type="Texture2D" uid="uid://r5qtbhtrjogn" path="res://assets/textures/ui/menu/buttons/catalogue/catalogue_button_clicked.png" id="13_c7e02"]
-[ext_resource type="Texture2D" uid="uid://dybiwfh74o05t" path="res://assets/textures/ui/menu/buttons/exit/exit_button_clicked.png" id="13_iw1dx"]
-[ext_resource type="Texture2D" uid="uid://3lbmxgqdijq1" path="res://assets/textures/ui/menu/buttons/catalogue/catalogue_button_hover.png" id="14_6j4wu"]
-[ext_resource type="Texture2D" uid="uid://ce7qjwwhbyoad" path="res://assets/textures/ui/menu/buttons/exit/exit_button_hover.png" id="14_doml5"]
+[ext_resource type="Texture2D" uid="uid://bgoylvsoxkqq" path="res://assets/textures/ui/menu/buttons/primary/button_normal.png" id="5_lm6yf"]
+[ext_resource type="Texture2D" uid="uid://b48bffcwttatd" path="res://assets/textures/ui/menu/buttons/primary/button_clicked.png" id="6_0mshs"]
+[ext_resource type="Texture2D" uid="uid://dg82u34masfwt" path="res://assets/textures/ui/menu/buttons/primary/button_hover.png" id="7_050r8"]
+[ext_resource type="Texture2D" uid="uid://b1sj77c5khbda" path="res://assets/textures/ui/menu/buttons/secondary/button_normal.png" id="14_bu6sr"]
+[ext_resource type="Texture2D" uid="uid://xmymxbvuraa1" path="res://assets/textures/ui/menu/buttons/secondary/button_clicked.png" id="15_t1vq1"]
+[ext_resource type="Texture2D" uid="uid://bf42p4yo2slu7" path="res://assets/textures/ui/menu/buttons/secondary/button_hover.png" id="16_g3bi6"]
 [ext_resource type="Texture2D" uid="uid://bn426lrr5tb3h" path="res://assets/textures/ui/level select/difficulty/BOMBOCLAT/normal.png" id="16_vafq7"]
 [ext_resource type="Texture2D" uid="uid://db2hintt872qg" path="res://assets/textures/ui/level select/difficulty/BOMBOCLAT/pressed.png" id="17_0hcbe"]
 [ext_resource type="Texture2D" uid="uid://1800tqgjo0rw" path="res://assets/textures/ui/level select/difficulty/BOMBOCLAT/hover.png" id="18_ujawx"]
 [ext_resource type="Texture2D" uid="uid://cbvbgtvrxkk8p" path="res://assets/textures/ui/level select/difficulty/KYS/normal.png" id="19_crbc4"]
 [ext_resource type="Texture2D" uid="uid://w0m7ggn6dox0" path="res://assets/textures/ui/level select/difficulty/KYS/pressed.png" id="20_c7e02"]
 [ext_resource type="Texture2D" uid="uid://rqsblsx4gria" path="res://assets/textures/ui/level select/difficulty/KYS/hover.png" id="21_6j4wu"]
-[ext_resource type="PackedScene" uid="uid://41g4poo0ivlk" path="res://assets/scenes/GENERAL/settings_tab.tscn" id="22_iw1dx"]
 [ext_resource type="AudioStream" uid="uid://bujkuvhkndb1g" path="res://assets/sounds/general/menu/button_click_audio.mp3" id="23_doml5"]
-[ext_resource type="Texture2D" uid="uid://b4d6jvwuh3lx4" path="res://assets/textures/ui/menu/buttons/catalogue/background.png" id="25_555jl"]
-[ext_resource type="Texture2D" uid="uid://7pmlqaeqautg" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tazer info/tazer_button_normal.png" id="26_oco5v"]
-[ext_resource type="Texture2D" uid="uid://l3of2boe27qw" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tazer info/tazer_button_clicked.png" id="27_vkgb3"]
-[ext_resource type="Texture2D" uid="uid://dlchipmq4wf52" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tazer info/tazer_button_hover.png" id="28_iwnrx"]
-[ext_resource type="Texture2D" uid="uid://b0oixbww7mak" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tri form info/tri_form_button_normal.png" id="29_iwnrx"]
-[ext_resource type="Texture2D" uid="uid://cyoaq8infl06p" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tri form info/tri_form_button_clicked.png" id="30_tgd0m"]
-[ext_resource type="Texture2D" uid="uid://bimrw0olk7k3o" path="res://assets/textures/ui/menu/buttons/catalogue/WEAPONS/tri form info/tri_form_button_hover.png" id="31_3xku2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u7y45"]
 light_mode = 1
 
 [node name="menu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 1.356
+anchor_bottom = 1.065
+offset_right = -455.68
+offset_bottom = -62.4
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xuqax")
@@ -67,11 +53,6 @@ position = Vector2(633, 164)
 scale = Vector2(0.666, 0.666)
 texture = ExtResource("2_xuqax")
 
-[node name="credits" type="Sprite2D" parent="start"]
-position = Vector2(302, 709)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_c4qlh")
-
 [node name="play" type="TextureButton" parent="start"]
 texture_filter = 1
 offset_left = 120.0
@@ -79,51 +60,75 @@ offset_top = 280.0
 offset_right = 632.0
 offset_bottom = 360.0
 size_flags_vertical = 0
-texture_normal = ExtResource("6_nf3ne")
-texture_pressed = ExtResource("7_pw4oi")
-texture_hover = ExtResource("8_u7y45")
+texture_normal = ExtResource("5_lm6yf")
+texture_pressed = ExtResource("6_0mshs")
+texture_hover = ExtResource("7_050r8")
 stretch_mode = 0
 
-[node name="settings" type="TextureButton" parent="start"]
+[node name="text 1" type="Label" parent="start/play"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -32.0
+offset_right = 485.0
+offset_bottom = 32.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "PLAY"
+
+[node name="catalogue" type="TextureButton" parent="start"]
 texture_filter = 1
 offset_left = 120.0
 offset_top = 380.0
 offset_right = 632.0
 offset_bottom = 460.0
-texture_normal = ExtResource("9_ia1et")
-texture_pressed = ExtResource("10_iw1dx")
-texture_hover = ExtResource("11_doml5")
+texture_normal = ExtResource("5_lm6yf")
+texture_pressed = ExtResource("6_0mshs")
+texture_hover = ExtResource("7_050r8")
 
-[node name="catalogue" type="TextureButton" parent="start"]
+[node name="text 2" type="Label" parent="start/catalogue"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -32.0
+offset_right = 485.0
+offset_bottom = 32.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "CATALOGUE"
+
+[node name="exit" type="TextureButton" parent="start"]
 texture_filter = 1
 offset_left = 120.0
 offset_top = 480.0
 offset_right = 632.0
 offset_bottom = 560.0
-texture_normal = ExtResource("12_crbc4")
-texture_pressed = ExtResource("13_c7e02")
-texture_hover = ExtResource("14_6j4wu")
+texture_normal = ExtResource("5_lm6yf")
+texture_pressed = ExtResource("6_0mshs")
+texture_hover = ExtResource("7_050r8")
 
-[node name="exit" type="TextureButton" parent="start"]
-texture_filter = 1
-offset_left = 120.0
-offset_top = 580.0
-offset_right = 632.0
-offset_bottom = 660.0
-texture_normal = ExtResource("12_ia1et")
-texture_pressed = ExtResource("13_iw1dx")
-texture_hover = ExtResource("14_doml5")
-
-[node name="settings tab" parent="." instance=ExtResource("22_iw1dx")]
-visible = false
+[node name="text 3" type="Label" parent="start/exit"]
 layout_mode = 1
-offset_left = 319.0
-offset_right = -2241.0
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -32.0
+offset_right = 485.0
+offset_bottom = 32.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "EXIT"
 
 [node name="difficulty select" type="Node2D" parent="."]
 visible = false
 
 [node name="BOMBOCLAT" type="TextureButton" parent="difficulty select"]
+visible = false
 offset_left = 73.0
 offset_top = 85.0
 offset_right = 585.0
@@ -133,6 +138,7 @@ texture_pressed = ExtResource("17_0hcbe")
 texture_hover = ExtResource("18_ujawx")
 
 [node name="KYS" type="TextureButton" parent="difficulty select"]
+visible = false
 offset_left = 73.0
 offset_top = 169.0
 offset_right = 585.0
@@ -147,60 +153,57 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="background" type="Sprite2D" parent="catalogue"]
-texture_filter = 3
-position = Vector2(968.508, 544)
-scale = Vector2(0.995345, 1.00553)
-texture = ExtResource("25_555jl")
-
-[node name="tazer" type="TextureButton" parent="catalogue"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 303.0
-offset_right = 562.0
-offset_bottom = 383.0
-texture_normal = ExtResource("26_oco5v")
-texture_pressed = ExtResource("27_vkgb3")
-texture_hover = ExtResource("28_iwnrx")
-
-[node name="tri form" type="TextureButton" parent="catalogue"]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 403.0
-offset_right = 562.0
-offset_bottom = 483.0
-texture_normal = ExtResource("29_iwnrx")
-texture_pressed = ExtResource("30_tgd0m")
-texture_hover = ExtResource("31_3xku2")
-
 [node name="tazer info" type="RichTextLabel" parent="catalogue"]
 visible = false
-layout_mode = 0
-offset_left = 669.0
-offset_top = 259.0
-offset_right = 1926.0
-offset_bottom = 775.0
-theme_override_font_sizes/normal_font_size = 19
+layout_mode = 2
+offset_left = 76.0
+offset_top = 200.0
+offset_right = 1008.0
+offset_bottom = 460.0
+theme_override_font_sizes/normal_font_size = 40
 text = "A weaon created to imobilize opponents without affecting much damage to the target. It shoots out multiple wires near the speed of light and paralizes the target for a certain period of time."
 
 [node name="tri form info" type="RichTextLabel" parent="catalogue"]
 visible = false
-layout_mode = 0
-offset_left = 669.0
-offset_top = 259.0
-offset_right = 1926.0
-offset_bottom = 775.0
-theme_override_font_sizes/normal_font_size = 19
+layout_mode = 2
+offset_left = 76.0
+offset_top = 200.0
+offset_right = 1008.0
+offset_bottom = 460.0
+theme_override_font_sizes/normal_font_size = 40
 text = "This weapon of mass destruction is created solely to kill shelled creatures. It has a saw blade jammed between both its barrel which can shred thorugh organic creatures."
+
+[node name="margins" type="MarginContainer" parent="catalogue"]
+layout_mode = 1
+offset_right = 1008.0
+offset_bottom = 1018.0
+theme_override_constants/margin_left = 76
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_bottom = 690
+
+[node name="vertical aligner" type="VBoxContainer" parent="catalogue/margins"]
+layout_mode = 2
+alignment = 2
+
+[node name="tazer" type="TextureButton" parent="catalogue/margins/vertical aligner"]
+layout_mode = 2
+texture_normal = ExtResource("14_bu6sr")
+texture_pressed = ExtResource("15_t1vq1")
+texture_hover = ExtResource("16_g3bi6")
+
+[node name="tri form" type="TextureButton" parent="catalogue/margins/vertical aligner"]
+layout_mode = 2
+texture_normal = ExtResource("14_bu6sr")
+texture_pressed = ExtResource("15_t1vq1")
+texture_hover = ExtResource("16_g3bi6")
 
 [node name="button press SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_doml5")
 
 [connection signal="pressed" from="start/play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="start/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="start/catalogue" to="." method="_on_catalogue_pressed"]
 [connection signal="pressed" from="start/exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="difficulty select/BOMBOCLAT" to="." method="_on_bomboclat_pressed"]
 [connection signal="pressed" from="difficulty select/KYS" to="." method="_on_kys_pressed"]
-[connection signal="pressed" from="catalogue/tazer" to="." method="_on_tazer_pressed"]
-[connection signal="pressed" from="catalogue/tri form" to="." method="_on_tri_form_pressed"]
+[connection signal="pressed" from="catalogue/margins/vertical aligner/tazer" to="." method="_on_tazer_pressed"]
+[connection signal="pressed" from="catalogue/margins/vertical aligner/tri form" to="." method="_on_tri_form_pressed"]

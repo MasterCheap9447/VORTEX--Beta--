@@ -41,7 +41,7 @@
 [ext_resource type="AudioStream" uid="uid://4dss7i4gsdyo" path="res://assets/sounds/player/weapons/chainsaw_gauntlets/chainsaw_rev.mp3" id="28_r7ahv"]
 [ext_resource type="AudioStream" uid="uid://0inhcn1lbkui" path="res://assets/sounds/player/weapons/chainsaw_gauntlets/idle.mp3" id="29_pb3sf"]
 [ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/SHADERS/player/weapons/tri_form_explosive.tres" id="29_udhm6"]
-[ext_resource type="FontFile" uid="uid://dij4j0j2k3ssn" path="res://assets/textures/ui/FONT.ttf" id="32_58lx2"]
+[ext_resource type="FontFile" uid="uid://bhiiituq7xg3v" path="res://assets/textures/ui/FONT.ttf" id="32_58lx2"]
 [ext_resource type="Texture2D" uid="uid://bn3sexip6716g" path="res://assets/textures/ui/crosshairs/hit_effect.png" id="32_kv1c2"]
 [ext_resource type="Texture2D" uid="uid://dqma07ulebgfg" path="res://assets/textures/ui/speedometer/symbol.png" id="32_qgm2p"]
 [ext_resource type="Texture2D" uid="uid://c42f28hvvmp4t" path="res://assets/textures/ui/pause screen/buttons/settings/resume_button_normal.png" id="33_5dk77"]
@@ -5427,19 +5427,20 @@ scale = Vector2(1.5, 1.5)
 value = 100.0
 texture_over = ExtResource("13_bfnip")
 texture_progress = ExtResource("14_p1n6j")
+tint_progress = Color(1, 0, 0, 1)
 
 [node name="percentage" type="RichTextLabel" parent="UI/Container/Control/fuel"]
 z_index = 1
 texture_filter = 1
 layout_mode = 0
-offset_left = 12.0
-offset_top = 5.0
-offset_right = 1912.0
-offset_bottom = 475.0
+offset_left = 9.33333
+offset_top = 4.00022
+offset_right = 1909.33
+offset_bottom = 474.0
 scale = Vector2(0.1, 0.1)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("32_58lx2")
-theme_override_font_sizes/normal_font_size = 103
+theme_override_font_sizes/normal_font_size = 200
 bbcode_enabled = true
 text = "69%"
 autowrap_mode = 1
@@ -5468,14 +5469,14 @@ tint_progress = Color(0, 0, 1, 1)
 z_index = 1
 texture_filter = 1
 layout_mode = 0
-offset_left = 12.0
-offset_top = 5.0
-offset_right = 1912.0
-offset_bottom = 475.0
+offset_left = 9.7778
+offset_top = 2.66669
+offset_right = 1909.78
+offset_bottom = 472.667
 scale = Vector2(0.1, 0.1)
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("32_58lx2")
-theme_override_font_sizes/normal_font_size = 103
+theme_override_font_sizes/normal_font_size = 200
 bbcode_enabled = true
 text = "69%"
 autowrap_mode = 1
@@ -5496,12 +5497,12 @@ texture = ExtResource("32_qgm2p")
 
 [node name="speed" type="RichTextLabel" parent="UI/Container/Control/speedometer"]
 layout_mode = 0
-offset_left = 155.0
-offset_top = -2.0
-offset_right = 1282.0
-offset_bottom = 71.0
+offset_left = 159.999
+offset_top = -14.6667
+offset_right = 1287.0
+offset_bottom = 181.333
 theme_override_fonts/normal_font = ExtResource("32_58lx2")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 75
 text = "420 m/s"
 
 [node name="style" type="Control" parent="UI/Container/Control"]
@@ -5579,7 +5580,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="UI/view container"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1280, 960)
+size = Vector2i(2560, 1280)
 render_target_update_mode = 4
 
 [node name="gun camera" type="Camera3D" parent="UI/view container/SubViewport"]

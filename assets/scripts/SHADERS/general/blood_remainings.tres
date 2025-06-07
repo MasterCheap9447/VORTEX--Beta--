@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://cgoh5mg2qmo0o"]
+[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://bwqa8e7lm6uxy"]
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_ib2vs"]
 constant = Color(0.6, 0, 0, 1)

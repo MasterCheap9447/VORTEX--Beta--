@@ -15,8 +15,6 @@ const HEADBOB_AMPLITUDE: float = 0.08
 const HEADBOB_FREQUENCY: float = 1.5
 
 var headbob_time : float = 0.0
-var invertiony : int = -1
-var invertionx : int = -1
 
 
 func _ready() -> void:
@@ -37,13 +35,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			if event is InputEventMouseMotion:
 				if global_variables.invert_y:
-					neck.rotate_y(-event.relative.x * SENSITIVITY)
-				if !global_variables.invert_y:
-					neck.rotate_y(event.relative.x * SENSITIVITY)
-				if global_variables.invert_x:
 					rotate_x(-event.relative.y * SENSITIVITY)
-				if !global_variables.invert_x:
+				if !global_variables.invert_y:
 					rotate_x(event.relative.y * SENSITIVITY)
+				if !global_variables.invert_x:
+					neck.rotate_y(-event.relative.x * SENSITIVITY)
+				if global_variables.invert_x:
+					neck.rotate_y(event.relative.x * SENSITIVITY)
 				rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
 
