@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6s2acspnls8"
-path.s3tc="res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.s3tc.ctex"
+uid="uid://btub0l5fybrt6"
+path="res://.godot/imported/texture.png-d501d6390894d9cf185c79f2b61aec50.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://LOGO.png"
-dest_files=["res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.s3tc.ctex"]
+source_file="res://assets/models/MAPS/Campaign/Sloth/level-1/room-1/texture/texture.png"
+dest_files=["res://.godot/imported/texture.png-d501d6390894d9cf185c79f2b61aec50.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

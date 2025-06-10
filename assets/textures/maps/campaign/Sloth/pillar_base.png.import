@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g6s2acspnls8"
-path.s3tc="res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.s3tc.ctex"
+uid="uid://c4dubntb7x5cq"
+path="res://.godot/imported/pillar_base.png-0dbc1fe6f8124dd0570a3616b6eeb0bf.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://LOGO.png"
-dest_files=["res://.godot/imported/LOGO.png-d64952310586affc9777048ba72b1a55.s3tc.ctex"]
+source_file="res://assets/textures/maps/campaign/Sloth/pillar_base.png"
+dest_files=["res://.godot/imported/pillar_base.png-0dbc1fe6f8124dd0570a3616b6eeb0bf.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

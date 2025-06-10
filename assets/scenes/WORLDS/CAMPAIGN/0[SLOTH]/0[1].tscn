@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c7gc4i6ayl44r" path="res://assets/textures/maps/grid/grid_texture.png" id="1_4ea0p"]
 [ext_resource type="PackedScene" uid="uid://ku6ibvl13qva" path="res://assets/scenes/ENTITIES/player.tscn" id="1_euk5n"]
+[ext_resource type="PackedScene" uid="uid://fp7h5583px1j" path="res://assets/scenes/WORLDS/CAMPAIGN/0[SLOTH]/0[1]/room-1.tscn" id="4_c3wr8"]
+[ext_resource type="PackedScene" uid="uid://d2ad50nqq2ixv" path="res://assets/scenes/GENERAL/automatic_door.tscn" id="5_lkylt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_euk5n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -16,14 +18,6 @@ sky = SubResource("Sky_4ea0p")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ooqd8"]
-albedo_texture = ExtResource("1_4ea0p")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3wr8"]
-albedo_texture = ExtResource("1_4ea0p")
-uv1_triplanar = true
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkylt"]
 albedo_texture = ExtResource("1_4ea0p")
 uv1_triplanar = true
@@ -32,7 +26,7 @@ uv1_triplanar = true
 albedo_texture = ExtResource("1_4ea0p")
 uv1_triplanar = true
 
-[node name="SLOTH - 1" type="Node3D"]
+[node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ooqd8")
@@ -42,60 +36,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="testing map" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-
-[node name="gateway" type="CSGCombiner3D" parent="testing map"]
-material_override = SubResource("StandardMaterial3D_ooqd8")
-use_collision = true
-collision_layer = 2048
-collision_mask = 2048
-
-[node name="CSGBox3D" type="CSGBox3D" parent="testing map/gateway"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.78741, 0)
-size = Vector3(10, 50, 10)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="testing map/gateway"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117188, -16.3874, -21.243)
-size = Vector3(9, 11, 35.9)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="testing map/gateway"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-operation = 2
-size = Vector3(9, 50, 9)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="testing map/gateway"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.5, -21.8024)
-operation = 2
-size = Vector3(8, 10, 36)
-
-[node name="room 1" type="CSGCombiner3D" parent="testing map"]
-material_override = SubResource("StandardMaterial3D_c3wr8")
-use_collision = true
-collision_layer = 2048
-collision_mask = 2048
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="testing map/room 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0222321, -34.1391, -112.093)
-size = Vector3(8.87094, 10.7671, 32.5977)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="testing map/room 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25.4409, -67.51)
-size = Vector3(40, 29.114, 56.656)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="testing map/room 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.288055, -25.3102, -67.4543)
-operation = 2
-size = Vector3(37.8267, 27.7488, 54.521)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="testing map/room 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00769043, -16.4467, -40.3474)
-operation = 2
-size = Vector3(8.05005, 10.0338, 2.40268)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="testing map/room 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00769043, -34.1457, -113.935)
-operation = 2
-size = Vector3(8.05005, 10.0338, 39.3689)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 18.9966, 3.46969)
 
 [node name="room 2" type="CSGCombiner3D" parent="testing map"]
 material_override = SubResource("StandardMaterial3D_lkylt")
@@ -178,4 +119,13 @@ operation = 2
 size = Vector3(73.9208, 49.7085, 74.1173)
 
 [node name="player" parent="." instance=ExtResource("1_euk5n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.578674, 8.25615, 0.000936985)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.578674, 8.25615, -20.3438)
+
+[node name="Room 1" parent="." instance=ExtResource("4_c3wr8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.368027, -0.142902, -33.1056)
+
+[node name="door 1" parent="." instance=ExtResource("5_lkylt")]
+transform = Transform3D(-6.99382e-07, 6.99382e-07, 16, -6.99382e-07, 16, -6.99382e-07, -16, -6.99382e-07, -6.99382e-07, 0, 0.920331, -16.2343)
+
+[node name="door 2" parent="." instance=ExtResource("5_lkylt")]
+transform = Transform3D(-6.99382e-07, 6.99382e-07, 16, -6.99382e-07, 16, -6.99382e-07, -16, -6.99382e-07, -6.99382e-07, 1.43648, -1.00054, -49.3366)

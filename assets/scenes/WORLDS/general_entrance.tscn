@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgr7kbrlja4e2"]
+
+[ext_resource type="Texture2D" uid="uid://g6s2acspnls8" path="res://LOGO.png" id="1_30yj4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30yj4"]
+albedo_texture = ExtResource("1_30yj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8h2c"]
+albedo_texture = ExtResource("1_30yj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4f3ow"]
+albedo_texture = ExtResource("1_30yj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ey7fj"]
+albedo_texture = ExtResource("1_30yj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld3t8"]
+albedo_texture = ExtResource("1_30yj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ogg8"]
+albedo_texture = ExtResource("1_30yj4")
+
+[node name="General Entrance" type="Node3D"]
+
+[node name="combiner 0" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+use_collision = true
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="combiner 0"]
+transform = Transform3D(0.999993, 0.000935307, -0.00357508, -0.000932122, 0.999999, 0.000893769, 0.00357591, -0.000890438, 0.999993, 0, 8, 0)
+material_override = SubResource("StandardMaterial3D_30yj4")
+radius = 4.0
+height = 48.0
+sides = 12
+smooth_faces = false
+material = SubResource("StandardMaterial3D_c8h2c")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="combiner 0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.2625, 0)
+operation = 2
+radius = 3.0
+height = 47.525
+sides = 12
+smooth_faces = false
+material = SubResource("StandardMaterial3D_4f3ow")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="combiner 0"]
+transform = Transform3D(0.999981, 0.00585826, 0.00183737, -0.00585868, 0.999983, 0.000226837, -0.00183601, -0.000237614, 0.999998, 0, -11.4001, -5.5)
+operation = 2
+size = Vector3(6, 8.49951, 10)
+material = SubResource("StandardMaterial3D_ey7fj")
+
+[node name="combiner 1" type="CSGCombiner3D" parent="."]
+use_collision = true
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="CSGBox3D" type="CSGBox3D" parent="combiner 1"]
+transform = Transform3D(1, 0.000419347, 0.000269288, -0.000419985, 0.999997, 0.00235637, -0.000268292, -0.00235649, 0.999997, -1.19209e-07, 4.5, -8)
+size = Vector3(8, 9, 16)
+material = SubResource("StandardMaterial3D_ld3t8")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="combiner 1"]
+transform = Transform3D(0.999999, -0.00158344, 0.00047898, 0.00158349, 0.999999, -0.000111319, -0.000478804, 0.000112075, 1, -1.19209e-07, 4.6, -7.98285)
+operation = 2
+size = Vector3(7.5, 8.5, 16.5)
+material = SubResource("StandardMaterial3D_4ogg8")

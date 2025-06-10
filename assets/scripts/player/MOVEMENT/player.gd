@@ -2,18 +2,17 @@ extends CharacterBody3D
 
 
 
-@export var WALK_SPEED : float = 16.0
-@export var GROUND_ACCELERATION : float = 4.0
-@export var JUMP_FORCE : float = 12.0
-@export var AIR_CAP : float = 0.85
-@export var AIR_SPEED : float = 500.0
-@export var AIR_ACCELERATION : float = 800.0
-@export var SLAM_FORCE : float = 100.0
-@export var SLIDE_MAX_SPEED : float = 24.0
-@export var SLIDE_ACCELERATION : float = 1.0
-@export var DASH_FORCE : float = 24.0
-@export var THRUST : float = 5.0
-@export var MAX_THRUST : float = 50.0
+@export var WALK_SPEED : float = 24.0
+@export var GROUND_ACCELERATION : float = 8.0
+@export var JUMP_FORCE : float = 24.0
+@export var AIR_CAP : float = 1.9
+@export var AIR_SPEED : float = 1000.0
+@export var AIR_ACCELERATION : float = 1600.0
+@export var SLIDE_MAX_SPEED : float = 32.0
+@export var SLIDE_ACCELERATION : float = 2.0
+@export var DASH_FORCE : float = 50.0
+@export var THRUST : float = 10.0
+@export var MAX_THRUST : float = 100.0
 
 @export var FUEL : float = 100.0
 @export var HEALTH : float = 100.0
@@ -169,8 +168,6 @@ func _physics_process(delta):
 					_dash(direction)
 				if FUEL > 0:
 					_slide(delta)
-				if FUEL >= 15:
-					_slam(delta)
 				if FUEL >= 0.5:
 					_thrust(delta)
 				if FUEL < 5:
@@ -194,15 +191,24 @@ func _slide(delta) -> void:
 		var inp_dih = Input.get_vector("left", "right", "forward", "backward")
 		slide_direction = (SLIDE_DIRECTION.transform.basis * Vector3(inp_dih.x, 0, inp_dih.y)).normalized()
 	
+	var hor_vel = velocity.length()
+	
 	if Input.is_action_pressed("slide"):
 		if is_on_floor():
 			is_sliding = true
 			var slide_speed : float = 0.0
 			if slide_direction:
-				velocity.x = move_toward(velocity.x, slide_direction.x * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
-				velocity.z =move_toward(velocity.z, slide_direction.z * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
+				if hor_vel <= SLIDE_MAX_SPEED:
+					velocity.x = move_toward(velocity.x, slide_direction.x * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
+					velocity.z = move_toward(velocity.z, slide_direction.z * SLIDE_MAX_SPEED, SLIDE_ACCELERATION)
+				else:
+					velocity.x = hor_vel * slide_direction.x
+					velocity.z = hor_vel * slide_direction.z
 			else:
-				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0 ,0, -SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
+				if hor_vel <= SLIDE_MAX_SPEED:
+					velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0 ,0, -SLIDE_MAX_SPEED), SLIDE_ACCELERATION)
+				else:
+					velocity = SLIDE_DIRECTION.transform.basis * Vector3(0, 0, -hor_vel)
 		else:
 			is_sliding = false
 	if !Input.is_action_pressed("slide"):
@@ -222,49 +228,6 @@ func _slide(delta) -> void:
 	
 	if !is_on_floor():
 		scrath_vfx.emitting = false
-	pass
-
-func _slam(_delta) -> void:
-	var sparks: GPUParticles3D = $"NECK/VFX/Slam effect/sparks"
-	var air: GPUParticles3D = $"NECK/VFX/Slam effect/air"
-	var power_slam : bool
-	
-	if !is_on_floor():
-		if Input.is_action_just_pressed("slide"):
-			is_slamming = true
-			FUEL -= 15
-		if Input.is_action_just_released("slide"):
-			power_slam = false
-			is_slamming = false
-	else:
-		is_slamming = false
-	if is_slamming:
-		await get_tree().create_timer(0.02).timeout
-		if Input.is_action_pressed("slide"):
-			power_slam = true
-		else:
-			power_slam = false
-	
-	if is_slamming:
-		sparks.emitting = true
-		air.emitting = true
-		if power_slam:
-			velocity = Vector3.ZERO
-			velocity.y = -SLAM_FORCE
-			for e in SLAM_AREA.get_overlapping_bodies():
-				if e.is_in_group("Enemy"):
-					e.slam_damage(velocity.y)
-		else:
-			velocity.y = -SLAM_FORCE
-	else:
-		sparks.emitting = false
-		air.emitting = false
-	
-	if power_slam:
-		for e in SLAM_AREA.get_overlapping_bodies():
-			if e.is_in_group("Enemy"):
-				e.slam_damage(velocity.y)
-	
 	pass
 
 func _dash(dir) -> void:

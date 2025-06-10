@@ -1,4 +1,4 @@
-[gd_scene load_steps=317 format=4 uid="uid://ku6ibvl13qva"]
+[gd_scene load_steps=326 format=4 uid="uid://ku6ibvl13qva"]
 
 [ext_resource type="Script" uid="uid://crmiv6begrnba" path="res://assets/scripts/PLAYER/MOVEMENT/player.gd" id="1_34owt"]
 [ext_resource type="Script" uid="uid://dut0mcapfrcx0" path="res://assets/scripts/PLAYER/HUD/neck.gd" id="2_3r6y4"]
@@ -69,6 +69,42 @@ height = 2.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_quxwc"]
 height = 2.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7e6im"]
+render_priority = 0
+shader = ExtResource("29_udhm6")
+shader_parameter/Ball_Colour = Color(0.377919, 0.377919, 0.377919, 1)
+shader_parameter/Fresnel_Power = 0.5
+
+[sub_resource type="Gradient" id="Gradient_ejg67"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vev0l"]
+frequency = 0.036
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y3rix"]
+color_ramp = SubResource("Gradient_ejg67")
+noise = SubResource("FastNoiseLite_vev0l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pa8tt"]
+transparency = 1
+albedo_texture = SubResource("NoiseTexture2D_y3rix")
+
+[sub_resource type="Curve" id="Curve_udhm6"]
+_limits = [0.0, 4.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 4), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fh6fc"]
+curve = SubResource("Curve_udhm6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5x648"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_fh6fc")
+
+[sub_resource type="TorusMesh" id="TorusMesh_70f05"]
+rings = 16
+ring_segments = 8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2wml6"]
 height = 1.81336
@@ -4460,6 +4496,16 @@ script = ExtResource("2_3r6y4")
 
 [node name="SLAM" type="Node3D" parent="NECK"]
 
+[node name="slam thud VFX" type="GPUParticles3D" parent="NECK/SLAM"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0909412, -2.12262, 0.0506382)
+material_override = SubResource("ShaderMaterial_7e6im")
+material_overlay = SubResource("StandardMaterial3D_pa8tt")
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_5x648")
+draw_pass_1 = SubResource("TorusMesh_70f05")
+
 [node name="slam area" type="Area3D" parent="NECK/SLAM"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 132
@@ -4573,6 +4619,8 @@ cull_mask = 1048573
 current = true
 fov = 100.0
 script = ExtResource("7_oa2pr")
+FOV = null
+FOV_CHANGE = null
 
 [node name="grippers" type="Node3D" parent="NECK/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470498, -0.601621)
