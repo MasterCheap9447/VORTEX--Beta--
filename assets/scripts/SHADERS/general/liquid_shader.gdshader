@@ -16,7 +16,7 @@ void fragment() {
 
     // Sample blood texture (chunky sprite)
     vec4 tex_color = texture(blood_texture, uv);
-    
+
     // Combine with blood color
     vec4 final_color = tex_color * blood_color;
 

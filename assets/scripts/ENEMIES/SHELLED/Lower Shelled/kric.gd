@@ -84,6 +84,9 @@ func _physics_process(_delta: float) -> void:
 							await get_tree().create_timer(0.2).timeout
 		else:
 			model_animation.play("shocked")
+	else:
+		collision_layer = 1
+		collision_mask = 12
 	
 	move_and_slide()
 	pass
@@ -117,12 +120,6 @@ func death():
 
 func blood_splash():
 	blood_animation.play("splash")
-	await get_tree().create_timer(1).timeout
-	for b in blood_decals.get_children():
-		instance = blood_stain.instantiate()
-		instance.position = b.global_position
-		instance.rotation = b.global_rotation
-		world.add_child(instance)
 	pass
 
 func slam_damage(damage):
@@ -170,6 +167,13 @@ func saw_blade_hit(damage) -> void:
 	can_atk = false
 	await get_tree().create_timer(0.5).timeout
 	can_atk = true
+	pass
+
+func equilizer_hit(damge) -> void:
+	blood_splash()
+	global_variables.STYLE += 1
+	global_variables.aura_gained += 1 * global_variables.STYLE_MULTIPLIER
+	HEALTH -= damge
 	pass
 
 func chainsaw_hit(damage) -> void:

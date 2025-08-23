@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bejun74epovxk"]
+
+[ext_resource type="Script" uid="uid://bbaap3q5avxnc" path="res://assets/scripts/GENERAL/bullet_trail.gd" id="1_nt0hy"]
+
+[sub_resource type="Gradient" id="Gradient_nt0hy"]
+offsets = PackedFloat32Array(0, 0.354651, 0.72093, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0.936937, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yx2j1"]
+gradient = SubResource("Gradient_nt0hy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ddjsn"]
+cull_mode = 2
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture1D_yx2j1")
+
+[node name="bullet_trail" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_ddjsn")
+script = ExtResource("1_nt0hy")
+
+[node name="half life" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="half life" to="." method="_on_half_life_timeout"]

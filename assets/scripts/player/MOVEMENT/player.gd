@@ -19,7 +19,7 @@ extends CharacterBody3D
 @export var STYLE : float = 0.0
 
 @export var SENSITIVITY : float = 0.5
-@export var WEAPON_SWAY_AMMOUNT : float = 0.01
+@export var WEAPON_SWAY_AMMOUNT : float = 0.004
 @export var WEAPON_ROTATION_AMMOUNT : float = 0.05
 
 @onready var CAMERA: Camera3D = $NECK/camera
@@ -47,8 +47,7 @@ extends CharacterBody3D
 @onready var win_screen: Control = $"UI/win screen"
 
 @onready var jump_sfx: AudioStreamPlayer3D = $"jump SFX"
-@onready var walk_sfx: AudioStreamPlayer3D = $"walk SFX"
-@onready var thrust_sfx: AudioStreamPlayer3D = $"thrust SFX"
+@onready var slide_sfx: AudioStreamPlayer3D = $"slide SFX"
 @onready var dash_sfx: AudioStreamPlayer3D = $"dash SFX"
 
 @onready var hurt_sfx: AudioStreamPlayer = $"hurt SFX"
@@ -87,7 +86,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	FUEL = 100
 	
 	del = delta
 	audio()
@@ -243,10 +241,12 @@ func _dash(dir) -> void:
 		velocity.y = 0
 		if dir:
 			if velocity.length() <= 72:
+				dash_sfx.play()
 				velocity.x += dir.x * DASH_FORCE
 				velocity.z += dir.z * DASH_FORCE
 		else:
 			if velocity.length() <= 72:
+				dash_sfx.play()
 				velocity += NECK.transform.basis * Vector3(0,0,-DASH_FORCE)
 		await get_tree().create_timer(0.3).timeout
 		velocity.z = 0
@@ -281,14 +281,16 @@ func _jump(_delta) -> void:
 			wall_jump_no = 0
 			air_jump_no = 0
 			wall_jump_no = 0
+			jump_sfx.play()
 			velocity.y = JUMP_FORCE + nrg_conserved
 			if is_slamming or is_dashing:
 				air_jump_no = 0
 				wall_jump_no = 0
 				velocity.y = JUMP_FORCE * 10 + nrg_conserved
-		if is_on_wall_only() && FUEL > 0 && wall_jump_no <= 3:
+		if is_on_wall_only() && FUEL > 0 && wall_jump_no <= INF:
 			var normal = get_wall_normal()
 			velocity = normal * JUMP_FORCE
+			jump_sfx.play()
 			velocity.y = JUMP_FORCE + nrg_conserved
 			wall_jump_no += 1
 			if !Input.is_action_just_pressed("jump"):
@@ -296,9 +298,11 @@ func _jump(_delta) -> void:
 	if !BUFFER.is_stopped():
 		if Input.is_action_pressed("jump"):
 			if is_on_floor():
+				jump_sfx.play()
 				velocity.y = JUMP_FORCE + nrg_conserved
 				if is_slamming or is_dashing:
 					air_jump_no = 0
+					jump_sfx.play()
 					velocity.y = JUMP_FORCE * 10 + nrg_conserved
 	pass
 
@@ -334,7 +338,15 @@ func heal(magnitude) -> void:
 
 
 func JUICE(input_x, delta) -> void:
-	pass
+	CAMERA.rotation.z = lerp(CAMERA.rotation.z, -input_x * 1.015, 10 * delta)
+	WEAPONS.rotation.z = lerp(WEAPONS.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, 10 * delta)
+	FORCE.rotation.z = lerp(FORCE.rotation.z, -input_x * WEAPON_ROTATION_AMMOUNT, 10 * delta)
+	
+	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
+	WEAPONS.rotation.x = lerp(WEAPONS.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, 10 * delta)
+	WEAPONS.rotation.y = lerp(WEAPONS.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, 10 * delta)
+	FORCE.rotation.x = lerp(FORCE.rotation.x, mouse_input.y * WEAPON_SWAY_AMMOUNT, 10 * delta)
+	FORCE.rotation.y = lerp(FORCE.rotation.y, mouse_input.x * WEAPON_SWAY_AMMOUNT, 10 * delta)
 
 func camera_shake(magnitude, amplitude, delta):
 	var rng
@@ -357,8 +369,12 @@ func death() -> void:
 
 
 func audio() -> void:
+	if is_sliding:
+		if slide_sfx.playing == false:
+			slide_sfx.play()
+	else:
+		slide_sfx.stop()
 	pass
-
 
 
 func _fuel() -> void:

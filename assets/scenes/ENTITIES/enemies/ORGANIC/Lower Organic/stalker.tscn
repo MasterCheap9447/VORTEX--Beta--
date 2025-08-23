@@ -1431,21 +1431,21 @@ proximity_fade_enabled = true
 _data = [Vector2(0.72973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_o2miw"]
+[sub_resource type="CurveTexture" id="CurveTexture_c4hlo"]
 curve = SubResource("Curve_o0hfp")
 
 [sub_resource type="Curve" id="Curve_2oqtl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252252, 0.0561798), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_urr0t"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_8iy4u"]
 curve_y = SubResource("Curve_2oqtl")
 
 [sub_resource type="Curve" id="Curve_elbmf"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.87079, -0.383774, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_av40p"]
+[sub_resource type="CurveTexture" id="CurveTexture_o0hfp"]
 curve = SubResource("Curve_elbmf")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0tcxv"]
@@ -1455,12 +1455,12 @@ initial_velocity_min = 3.0
 initial_velocity_max = 6.0
 directional_velocity_min = 1.99998
 directional_velocity_max = 3.99998
-directional_velocity_curve = SubResource("CurveXYZTexture_urr0t")
+directional_velocity_curve = SubResource("CurveXYZTexture_8iy4u")
 gravity = Vector3(0, -12, 0)
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_av40p")
+scale_curve = SubResource("CurveTexture_o0hfp")
 color = Color(1, 0, 0, 1)
-alpha_curve = SubResource("CurveTexture_o2miw")
+alpha_curve = SubResource("CurveTexture_c4hlo")
 collision_mode = 2
 collision_use_scale = true
 
@@ -1471,21 +1471,21 @@ size = Vector2(0.5, 0.5)
 _data = [Vector2(0.72973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_lf3y2"]
+[sub_resource type="CurveTexture" id="CurveTexture_2oqtl"]
 curve = SubResource("Curve_jfb1m")
 
 [sub_resource type="Curve" id="Curve_gjmv6"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.252252, 0.0561798), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_d0asi"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_elbmf"]
 curve_y = SubResource("Curve_gjmv6")
 
 [sub_resource type="Curve" id="Curve_owgth"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.87079, -0.383774, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_6pdhw"]
+[sub_resource type="CurveTexture" id="CurveTexture_0tcxv"]
 curve = SubResource("Curve_owgth")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rbkjm"]
@@ -1495,12 +1495,12 @@ initial_velocity_min = 3.0
 initial_velocity_max = 6.0
 directional_velocity_min = 1.99998
 directional_velocity_max = 3.99998
-directional_velocity_curve = SubResource("CurveXYZTexture_d0asi")
+directional_velocity_curve = SubResource("CurveXYZTexture_elbmf")
 gravity = Vector3(0, -12, 0)
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_6pdhw")
+scale_curve = SubResource("CurveTexture_0tcxv")
 color = Color(0.501961, 0, 0, 1)
-alpha_curve = SubResource("CurveTexture_lf3y2")
+alpha_curve = SubResource("CurveTexture_2oqtl")
 collision_mode = 2
 collision_use_scale = true
 
@@ -1518,7 +1518,7 @@ proximity_fade_enabled = true
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.460674), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_8rc0i"]
+[sub_resource type="CurveTexture" id="CurveTexture_ftv0q"]
 curve = SubResource("Curve_3u6ld")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oroq2"]
@@ -1528,7 +1528,7 @@ initial_velocity_min = 5.0
 initial_velocity_max = 12.0
 scale_max = 1.5
 color = Color(1, 0, 0, 1)
-alpha_curve = SubResource("CurveTexture_8rc0i")
+alpha_curve = SubResource("CurveTexture_ftv0q")
 collision_mode = 2
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_yifxd"]
@@ -1546,14 +1546,14 @@ texture_filter = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.95045, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_c4hlo"]
+[sub_resource type="CurveTexture" id="CurveTexture_jfb1m"]
 curve = SubResource("Curve_0tcxv")
 
 [sub_resource type="Curve" id="Curve_ftv0q"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.972973, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_8iy4u"]
+[sub_resource type="CurveTexture" id="CurveTexture_gjmv6"]
 curve = SubResource("Curve_ftv0q")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jfb1m"]
@@ -1562,9 +1562,9 @@ angle_min = -720.0
 angle_max = 720.0
 gravity = Vector3(0, 0, 0)
 scale_max = 3.0
-scale_curve = SubResource("CurveTexture_8iy4u")
+scale_curve = SubResource("CurveTexture_gjmv6")
 color = Color(1, 0, 0, 1)
-alpha_curve = SubResource("CurveTexture_c4hlo")
+alpha_curve = SubResource("CurveTexture_jfb1m")
 hue_variation_min = -2.23517e-08
 hue_variation_max = -2.23517e-08
 
@@ -1818,7 +1818,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.950701, 0)
 [node name="blood drop light" type="GPUParticles3D" parent="blood splash"]
 material_override = SubResource("StandardMaterial3D_8iy4u")
 emitting = false
-sub_emitter = NodePath("../blood stain")
+amount = 16
 one_shot = true
 explosiveness = 1.0
 randomness = 0.25
@@ -1828,7 +1828,7 @@ draw_pass_1 = SubResource("QuadMesh_ftv0q")
 [node name="blood drop dark" type="GPUParticles3D" parent="blood splash"]
 material_override = SubResource("StandardMaterial3D_8iy4u")
 emitting = false
-sub_emitter = NodePath("../blood stain")
+amount = 16
 one_shot = true
 explosiveness = 1.0
 randomness = 0.25
@@ -1839,7 +1839,7 @@ draw_pass_1 = SubResource("QuadMesh_ftv0q")
 transform = Transform3D(-0.999224, 0, 0.039382, 0, 1, 0, -0.039382, 0, -0.999224, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_h7q7e")
 emitting = false
-sub_emitter = NodePath("../blood stain")
+amount = 16
 one_shot = true
 explosiveness = 1.0
 randomness = 0.25
@@ -1856,35 +1856,6 @@ lifetime = 600000.0
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_jfb1m")
 draw_pass_1 = SubResource("QuadMesh_gjmv6")
-
-[node name="blood decals" type="Node3D" parent="blood splash"]
-
-[node name="blood stain 1" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, -0.000156164)
-
-[node name="blood stain 2" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, -0.000156164)
-
-[node name="blood stain 3" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, -0.000156164)
-
-[node name="blood stain 4" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, 2.99984)
-
-[node name="blood stain 5" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, 2.99984)
-
-[node name="blood stain 6" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, 2.99984)
-
-[node name="blood stain 7" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00649357, -0.000103593, -3.00016)
-
-[node name="blood stain 8" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.97721, -0.000103593, -3.00016)
-
-[node name="blood stain 9" type="Node3D" parent="blood splash/blood decals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.02279, -0.000103593, -3.00016)
 
 [node name="blood_animation" type="AnimationPlayer" parent="blood splash"]
 root_node = NodePath("../blood drop light")

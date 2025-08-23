@@ -93,7 +93,6 @@ func primary_fire() -> void:
 	else:
 		instance.init(barrel_position_1.global_position, barrel_position_2.global_position)
 		collision_effect.global_position = barrel_position_2.global_position
-		collision_effect.emitting = true
 	player.get_parent().add_child(instance)
 	ammo -= 1
 

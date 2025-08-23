@@ -42,9 +42,9 @@ func _physics_process(delta: float) -> void:
 				cooldown.start()
 		
 		if !cooldown.is_stopped():
-			idle.stop()
+			idle.volume_db = -25.0
 		else:
-			idle.play()
+			idle.volume_db = 0.0
 	else:
 		done = false
 		visible = false

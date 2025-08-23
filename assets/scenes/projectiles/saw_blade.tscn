@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1ysgvjsmrc42"]
+[gd_scene load_steps=39 format=3 uid="uid://c1ysgvjsmrc42"]
 
 [ext_resource type="Shader" uid="uid://jqq7njdaxhd5" path="res://addons/trail/shaders/trail.gdshader" id="1_6fp56"]
 [ext_resource type="Script" uid="uid://eueaprarvy4w" path="res://assets/scripts/PLAYER/WEAPONS/tri_form_saw_blade.gd" id="1_8g1ti"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://u65d584i3xt5" path="res://assets/scripts/SHADERS/player/weapons/tri_form_explosive.tres" id="5_5uhih"]
 [ext_resource type="ArrayMesh" uid="uid://3bfk6wi1w63u" path="res://assets/models/PLAYER/weapons/RANGED WEAPONS/di form/source/Projectiles/saw_blade.obj" id="6_flp2q"]
 [ext_resource type="AudioStream" uid="uid://cukr5m1mkvhhe" path="res://assets/sounds/player/weapons/di_form/saw_blade_launch_audio.mp3" id="7_8vocw"]
+[ext_resource type="AudioStream" uid="uid://iuafcjxv121u" path="res://assets/sounds/effects/explosion/light_explosion_audio.mp3" id="8_e2n5o"]
 
 [sub_resource type="Gradient" id="Gradient_flp2q"]
 offsets = PackedFloat32Array(0.00487805, 0.44878, 1)
@@ -72,6 +73,9 @@ material = SubResource("ShaderMaterial_a48td")
 height = 1.0
 radius = 3.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4757a"]
+size = Vector3(8, 14, 14)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8vocw"]
 render_priority = 0
 shader = ExtResource("5_5uhih")
@@ -98,12 +102,130 @@ tangential_accel_max = 9.06
 [sub_resource type="BoxMesh" id="BoxMesh_5uhih"]
 size = Vector3(0.2, 1, 0.2)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6watg"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.607843, 0, 0.490196)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lkm5q"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 16.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_76sxc"]
+top_radius = 0.05
+bottom_radius = 0.0
+height = 1.0
+radial_segments = 4
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sqf2h"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_htl28"]
+offsets = PackedFloat32Array(0.14375, 1)
+colors = PackedColorArray(2.21, 0, 0, 1, 14.364, 3.315, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c8cgf"]
+gradient = SubResource("Gradient_htl28")
+
+[sub_resource type="Curve" id="Curve_onhid"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.258065, 0.764045), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cvvh0"]
+curve = SubResource("Curve_onhid")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_321lb"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1.0
+damping_max = 2.0
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_cvvh0")
+color_ramp = SubResource("GradientTexture1D_c8cgf")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jdt6l"]
+radial_segments = 16
+rings = 8
+
+[sub_resource type="Animation" id="Animation_sqf2h"]
+resource_name = "BOOM"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BOOM SFX:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fire:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sparks:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_htl28"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BOOM SFX:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8cgf"]
+_data = {
+&"BOOM": SubResource("Animation_sqf2h"),
+&"RESET": SubResource("Animation_htl28")
+}
+
 [node name="Saw Blade" type="CharacterBody3D"]
 collision_layer = 2048
 collision_mask = 2048
 axis_lock_angular_z = true
 script = ExtResource("1_8g1ti")
-SPEED = 150.0
+SPEED = 115.0
 
 [node name="model" type="MeshInstance3D" parent="."]
 transform = Transform3D(-2.18557e-07, -5, 0, 5, -2.18557e-07, 0, 0, 0, 5, 0, 0, 0)
@@ -138,6 +260,13 @@ collision_mask = 2180
 [node name="hit collsion" type="CollisionShape3D" parent="hit area"]
 shape = SubResource("CylinderShape3D_7vbpc")
 
+[node name="player_area" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="player_collision" type="CollisionShape3D" parent="player_area"]
+shape = SubResource("BoxShape3D_4757a")
+
 [node name="sparks" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_8vocw")
 emitting = false
@@ -156,6 +285,37 @@ parameters/looping = true
 [node name="destruction" type="Timer" parent="."]
 wait_time = 15.0
 autostart = true
+
+[node name="Light Explosion" type="Node3D" parent="."]
+
+[node name="sparks" type="GPUParticles3D" parent="Light Explosion"]
+material_override = SubResource("StandardMaterial3D_6watg")
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_lkm5q")
+draw_pass_1 = SubResource("CylinderMesh_76sxc")
+
+[node name="fire" type="GPUParticles3D" parent="Light Explosion"]
+material_override = SubResource("StandardMaterial3D_sqf2h")
+emitting = false
+lifetime = 0.3
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_321lb")
+draw_pass_1 = SubResource("SphereMesh_jdt6l")
+
+[node name="BOOM SFX" type="AudioStreamPlayer3D" parent="Light Explosion"]
+stream = ExtResource("8_e2n5o")
+volume_db = 40.0
+
+[node name="animation" type="AnimationPlayer" parent="Light Explosion"]
+libraries = {
+&"": SubResource("AnimationLibrary_c8cgf")
+}
 
 [connection signal="timeout" from="air resistence timer" to="." method="_on_air_resistence_timer_timeout"]
 [connection signal="timeout" from="destruction" to="." method="_on_destruction_timeout"]

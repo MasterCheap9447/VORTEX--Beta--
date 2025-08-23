@@ -4,9 +4,14 @@ extends CharacterBody3D
 @export var SPEED : float = 5
 @export var DAMAGE : float = 0.125
 
+var player = null
+
+@export var player_path := "/root/Endless Mode/player"
 @onready var air_res_timer: Timer = $"air resistence timer"
 @onready var model: MeshInstance3D = $model
 @onready var hit_area: Area3D = $"hit area"
+@onready var player_area: Area3D = $player_area
+@onready var sparks: GPUParticles3D = $sparks
 
 var cant : bool = true
 
@@ -21,11 +26,11 @@ func _physics_process(delta: float) -> void:
 	velocity = transform.basis * Vector3(0, 0, -SPEED) * int(cant)
 	move_and_slide()
 	
-	if $"hit area".has_overlapping_areas():
-		$sparks.emitting = true
+	if hit_area.has_overlapping_areas():
+		sparks.emitting = true
 		air_res_timer.start()
 	else:
-		$sparks.emitting = false
+		sparks.emitting = false
 	
 	for target in hit_area.get_overlapping_bodies():
 		if target.is_in_group("Enemy"):
@@ -34,7 +39,6 @@ func _physics_process(delta: float) -> void:
 				velocity = Vector3.ZERO
 				cant = false
 				air_res_timer.start()
-	pass
 
 
 func _on_air_resistence_timer_timeout() -> void:

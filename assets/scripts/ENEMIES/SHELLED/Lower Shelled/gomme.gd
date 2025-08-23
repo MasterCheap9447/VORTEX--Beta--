@@ -13,6 +13,7 @@ var world = null
 @export var world_path := "/root/Endless Mode"
 
 @onready var mesh: Node3D = $mesh
+@onready var model: MeshInstance3D = $mesh/model/Skeleton3D/model
 @onready var model_animation: AnimationPlayer = $"mesh/model animation"
 @onready var check: RayCast3D = $check
 @onready var collectable_spawn: Node3D = $"collectable spawn"
@@ -23,6 +24,9 @@ var world = null
 
 var blood_stain = preload("res://assets/scenes/ENVIRONMENTAL OBJECTS/blood_stain.tscn")
 var eye = load("res://assets/scenes/projectiles/eye.tscn")
+
+var dead_texture = preload("res://assets/models/ENEMIES/SHELLED/Lower Shelled/GOMME/texture/gomme_texture_dead.png")
+var alive_texture = preload("res://assets/models/ENEMIES/SHELLED/Lower Shelled/GOMME/texture/gomme_texture.png")
 
 var ran := RandomNumberGenerator.new()
 var dead : bool
@@ -58,6 +62,10 @@ func _physics_process(delta: float) -> void:
 			attack()
 		else:
 			model_animation.play("shocked")
+	else:
+		collision_layer = 1
+		collision_mask = 12
+		model.get_surface_override_material(0).albedo_texture = dead_texture
 	pass
 
 func death():
@@ -76,12 +84,6 @@ func death():
 
 func blood_splash():
 	blood_animation.play("splash")
-	await get_tree().create_timer(1).timeout
-	for b in blood_decals.get_children():
-		instance = blood_stain.instantiate()
-		instance.position = b.global_position
-		instance.rotation = b.global_rotation
-		world.add_child(instance)
 	pass
 
 func attack() -> void:
@@ -138,13 +140,24 @@ func di_form_hit(damage, burn) -> void:
 
 func saw_blade_hit(damage) -> void:
 	blood_splash()
+	blood_splash()
 	HEALTH -= damage
 	can_atk = false
 	await get_tree().create_timer(0.5).timeout
 	can_atk = true
 	pass
 
+func equilizer_hit(damge) -> void:
+	global_variables.STYLE += 1
+	global_variables.aura_gained += 1 * global_variables.STYLE_MULTIPLIER
+	blood_splash()
+	HEALTH -= damge
+	pass
+
 func chainsaw_hit(damage) -> void:
+	blood_splash()
+	blood_splash()
+	blood_splash()
 	blood_splash()
 	HEALTH -= damage
 	can_atk = false

@@ -5,6 +5,7 @@ extends Node3D
 @onready var RANGED_WEAPONS: Node3D = $camera/WEAPONS
 @onready var tazer: Node3D = $camera/WEAPONS/tazer
 @onready var tri_form: Node3D = $camera/WEAPONS/tri_form
+@onready var equilizer: Node3D = $camera/WEAPONS/equilizer
 
 ## MELEE WEAPONS ##
 @onready var MELEE_WEAPONS: Node3D = $camera/FORCE
@@ -38,7 +39,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 			weapon_type = true
 	
 	if weapon_type:
-		weapon_count = 2
+		weapon_count = 3
 	else:
 		weapon_count = 1
 	
@@ -46,6 +47,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 		weapon = 1
 	if Input.is_action_just_pressed("2"):
 		weapon = 2
+	if Input.is_action_just_pressed("3"):
+		weapon = 3
 	if Input.is_action_pressed("scroll up"):
 		weapon += 1
 	if Input.is_action_pressed("scroll down"):
@@ -65,12 +68,19 @@ func _process(_delta: float) -> void:
 		if weapon == 1:
 			tazer.equip()
 			tri_form.unequip()
+			equilizer.unequip()
 		if weapon == 2:
 			tazer.unequip()
 			tri_form.equip()
+			equilizer.unequip()
+		if weapon == 3:
+			tazer.unequip()
+			tri_form.unequip()
+			equilizer.equip()
 	else:
 		tazer.unequip()
 		tri_form.unequip()
+		equilizer.unequip()
 		if weapon == 1:
 			chainsaw_gauntlets.equip()
 	pass
