@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk0v0yljljplq"]
+
+[ext_resource type="Script" uid="uid://cvgx00241e641" path="res://assets/scripts/door.gd" id="1_u1njh"]
+[ext_resource type="Texture2D" uid="uid://ca3niv2aqf6jn" path="res://assets/texture/door_texture.png" id="2_ytq3u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7y1hl"]
+albedo_texture = ExtResource("2_ytq3u")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytq3u"]
+size = Vector3(17, 5, 4)
+
+[node name="door" type="Node3D"]
+script = ExtResource("1_u1njh")
+width_height_ratio = Vector2(1, 1)
+size_constant = 2.0
+id_card_lock = true
+
+[node name="model" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_7y1hl")
+use_collision = true
+collision_layer = 2048
+collision_mask = 0
+size = Vector3(2, 2, 0.25)
+
+[node name="player_detection_area" type="Area3D" parent="."]
+collision_layer = 2048
+collision_mask = 2
+
+[node name="player_detection_collision" type="CollisionShape3D" parent="player_detection_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -2)
+shape = SubResource("BoxShape3D_ytq3u")

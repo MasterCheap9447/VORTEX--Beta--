@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bsy75t6lx6fsp"
+path="res://.godot/imported/scalpel.obj-c8a06be00ec6604672fa27e619cccdbd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/scalpel.obj-c8a06be00ec6604672fa27e619cccdbd.mesh"]
+
+source_file="res://assets/models/scalpel.obj"
+dest_files=["res://.godot/imported/scalpel.obj-c8a06be00ec6604672fa27e619cccdbd.mesh", "res://.godot/imported/scalpel.obj-c8a06be00ec6604672fa27e619cccdbd.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

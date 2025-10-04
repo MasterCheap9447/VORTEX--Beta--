@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwpd2pldqxdv0"]
+
+[ext_resource type="Script" uid="uid://b6lalbw4y71k0" path="res://assets/scripts/PLAYER/player.gd" id="1_0gfpk"]
+[ext_resource type="Script" uid="uid://beb0ns51coxla" path="res://assets/scripts/PLAYER/camera.gd" id="2_0hrit"]
+[ext_resource type="Script" uid="uid://cwt03qqvp6ubj" path="res://assets/scripts/neck.gd" id="2_3akop"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5elu0"]
+height = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n052r"]
+shading_mode = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_quxwc"]
+height = 2.5
+
+[node name="player" type="CharacterBody3D" groups=["Player", "Xplodable"]]
+collision_layer = 2058
+collision_mask = 2058
+floor_stop_on_slope = false
+floor_block_on_wall = false
+floor_max_angle = 1.0472
+script = ExtResource("1_0gfpk")
+WALK_SPEED = 16.0
+JUMP_FORCE = 12.0
+AIR_CAP = 1.8
+SLIDE_MAX_SPEED = 24.0
+
+[node name="collision" type="CollisionShape3D" parent="." groups=["Xplodable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+shape = SubResource("CapsuleShape3D_5elu0")
+
+[node name="body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_n052r")
+mesh = SubResource("CapsuleMesh_quxwc")
+
+[node name="NECK" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+script = ExtResource("2_3akop")
+
+[node name="camera" type="Camera3D" parent="NECK"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.154252)
+cull_mask = 1048573
+current = true
+fov = 100.0
+script = ExtResource("2_0hrit")
+
+[node name="mine_spawn" type="Node3D" parent="NECK/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.353881, -0.912766)
+
+[node name="slide direction" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00931, 0)

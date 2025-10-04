@@ -17,6 +17,7 @@ var STYLE : float
 var STYLE_MULTIPLIER : float = 1.0
 
 var is_player_sliding: bool
+var is_player_dashing: bool
 
 var weapon_type : bool = true
 var weapon : int
@@ -29,10 +30,11 @@ var player_spawn_point : Vector3 = Vector3(0,0,0)
 var invert_y : bool = false
 var invert_x : bool = false
 
+var is_mine_spawned: bool = false
 
+var shadow_realm: Vector3 = Vector3(6769420, 6769420, 6768420)
 
 func hit_stop(duration):
 	Engine.time_scale = 0
-	await get_tree().create_timer(duration, true, false, true).timeout
-	Engine.time_scale = 0
-	pass
+	await get_tree().create_timer(duration,true,false,true).timeout
+	Engine.time_scale = 1

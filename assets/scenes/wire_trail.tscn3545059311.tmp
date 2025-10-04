@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://sa5hlrsqiy6y"]
+
+[ext_resource type="Script" uid="uid://qhlwa8vibvhu" path="res://assets/scripts/PLAYER/wire_trail.gd" id="1_wq0f2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wq0f2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(2.7075353, 2.402042, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_wq0f2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wq0f2"]
+radius = 29.0
+
+[node name="wire_trail" type="Node3D"]
+script = ExtResource("1_wq0f2")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-06, 0, -100, 0, 1, 0, 100, 0, -4.371139e-06, 0, 0, -50)
+layers = 2
+material_override = SubResource("StandardMaterial3D_wq0f2")
+mesh = SubResource("QuadMesh_wq0f2")
+
+[node name="life_time" type="Timer" parent="."]
+wait_time = 0.009999999999999998
+one_shot = true
+autostart = true
+
+[node name="bounce_area" type="Area3D" parent="."]
+collision_layer = 2048
+collision_mask = 2048
+
+[node name="bounce_collision" type="CollisionShape3D" parent="bounce_area"]
+shape = SubResource("SphereShape3D_wq0f2")
+
+[node name="bounce_ray_director" type="RayCast3D" parent="."]
+
+[connection signal="timeout" from="life_time" to="." method="_on_life_time_timeout"]

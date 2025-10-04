@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://sa5hlrsqiy6y"]
+
+[ext_resource type="Script" uid="uid://qhlwa8vibvhu" path="res://assets/scripts/PLAYER/wire_trail.gd" id="1_wq0f2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wq0f2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.9666667, 0, 1)
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_wq0f2"]
+
+[node name="wire_trail" type="Node3D"]
+script = ExtResource("1_wq0f2")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -5.7)
+material_override = SubResource("StandardMaterial3D_wq0f2")
+mesh = SubResource("RibbonTrailMesh_wq0f2")
+
+[node name="life_time" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="life_time" to="." method="_on_life_time_timeout"]

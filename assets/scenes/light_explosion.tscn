@@ -1,0 +1,206 @@
+[gd_scene load_steps=25 format=3 uid="uid://d36by5vhg05mt"]
+
+[ext_resource type="Script" uid="uid://0hsmln04ysq4" path="res://assets/scripts/light_explosion.gd" id="1_j55xm"]
+[ext_resource type="AudioStream" uid="uid://chaqsxximufma" path="res://assets/sounds/light_explosion_sfx.mp3" id="1_pei7c"]
+
+[sub_resource type="Gradient" id="Gradient_mu6xl"]
+offsets = PackedFloat32Array(0, 0.690722)
+colors = PackedColorArray(0.87, 0.435, 0, 0.576471, 1, 0.733333, 0, 0.25098)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pei7c"]
+frequency = 0.019
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j55xm"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_pei7c")
+color_ramp = SubResource("Gradient_mu6xl")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oj3p4"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_j55xm")
+
+[sub_resource type="Curve" id="Curve_vo0ts"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.730769, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iwpw3"]
+curve = SubResource("Curve_vo0ts")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5dpx0"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_iwpw3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_564os"]
+radius = 1.0
+height = 2.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol8ce"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.533333, 0, 0.678431)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o2i32"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 12.0
+initial_velocity_max = 16.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sqbl7"]
+top_radius = 0.05
+bottom_radius = 0.0
+height = 1.0
+radial_segments = 16
+rings = 1
+
+[sub_resource type="Gradient" id="Gradient_j55xm"]
+colors = PackedColorArray(0.26, 0.173333, 0, 0.796078, 0.24, 0.16, 0, 0.129412)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oj3p4"]
+noise_type = 0
+frequency = 0.0012
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vo0ts"]
+noise = SubResource("FastNoiseLite_oj3p4")
+color_ramp = SubResource("Gradient_j55xm")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwpw3"]
+albedo_texture = SubResource("NoiseTexture2D_vo0ts")
+
+[sub_resource type="Curve" id="Curve_5dpx0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.254808, 1), 0.0, 0.0, 0, 0, Vector2(0.620192, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_564os"]
+curve = SubResource("Curve_5dpx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ol8ce"]
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -5, 0)
+scale_min = 1.2
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_564os")
+
+[sub_resource type="SphereMesh" id="SphereMesh_lspf0"]
+radius = 0.125
+height = 0.25
+radial_segments = 4
+rings = 2
+
+[sub_resource type="Animation" id="Animation_o2i32"]
+resource_name = "explode"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion_fire:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fire_debris:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dirt_debris:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("explosion_sfx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqbl7"]
+_data = {
+&"explode": SubResource("Animation_o2i32")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j55xm"]
+radius = 1.0
+
+[node name="light_explosion" type="Node3D"]
+script = ExtResource("1_j55xm")
+
+[node name="explosion_fire" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_oj3p4")
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_5dpx0")
+draw_pass_1 = SubResource("SphereMesh_564os")
+
+[node name="fire_debris" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ol8ce")
+emitting = false
+lifetime = 0.13
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_o2i32")
+draw_pass_1 = SubResource("CylinderMesh_sqbl7")
+
+[node name="dirt_debris" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_iwpw3")
+emitting = false
+lifetime = 0.25
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ol8ce")
+draw_pass_1 = SubResource("SphereMesh_lspf0")
+
+[node name="explosion_sfx" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_pei7c")
+
+[node name="explode_animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sqbl7")
+}
+
+[node name="explosion_area" type="Area3D" parent="."]
+collision_layer = 516
+collision_mask = 136
+
+[node name="explosion_collision" type="CollisionShape3D" parent="explosion_area"]
+shape = SubResource("SphereShape3D_j55xm")

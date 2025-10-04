@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://bfvxk43vdmdtc"]
+
+[ext_resource type="Texture2D" uid="uid://buwq66ajcwcd1" path="res://assets/models/mine_texture.png" id="1_b1wab"]
+[ext_resource type="Script" uid="uid://bmlglk40gheyl" path="res://assets/scripts/mine.gd" id="1_nqjb7"]
+[ext_resource type="ArrayMesh" uid="uid://bjhqguv6sovia" path="res://assets/models/mine.obj" id="2_4wjhj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ncf3b"]
+bounce = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p1hu8"]
+depth_draw_mode = 1
+albedo_texture = ExtResource("1_b1wab")
+texture_filter = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ooldu"]
+height = 0.23944
+radius = 0.396716
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ncf3b"]
+radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_ncf3b"]
+offsets = PackedFloat32Array(0.180412, 0.242268)
+colors = PackedColorArray(1, 0.7, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_givp2"]
+frequency = 0.0019
+offset = Vector3(100, 246.91, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_76u1t"]
+noise = SubResource("FastNoiseLite_givp2")
+color_ramp = SubResource("Gradient_ncf3b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y3xxi"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_76u1t")
+billboard_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wl8v8"]
+orientation = 2
+
+[node name="mine" type="RigidBody3D" groups=["Projectile"]]
+collision_layer = 516
+collision_mask = 2688
+physics_material_override = SubResource("PhysicsMaterial_ncf3b")
+script = ExtResource("1_nqjb7")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_p1hu8")
+mesh = ExtResource("2_4wjhj")
+
+[node name="collision zone" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.126151, 0)
+shape = SubResource("CylinderShape3D_ooldu")
+
+[node name="parryable_area" type="Area3D" parent="." groups=["Projectile"]]
+collision_layer = 512
+collision_mask = 512
+
+[node name="parryable_collision" type="CollisionShape3D" parent="parryable_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125463, 0)
+shape = SubResource("SphereShape3D_ncf3b")
+
+[node name="explodable_area" type="Area3D" parent="." groups=["Projectile"]]
+collision_layer = 512
+collision_mask = 2048
+
+[node name="explodable_collision" type="CollisionShape3D" parent="explodable_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125463, 0)
+shape = SubResource("SphereShape3D_ncf3b")
+
+[node name="parry_indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.112549, 0.29075, 0)
+material_override = SubResource("StandardMaterial3D_y3xxi")
+mesh = SubResource("PlaneMesh_wl8v8")
+skeleton = NodePath("")
+
+[node name="parry_window" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="parry_explode" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="parry_window" to="." method="_parry_window_timeout"]
+[connection signal="timeout" from="parry_explode" to="." method="_parry_explode_timeout"]

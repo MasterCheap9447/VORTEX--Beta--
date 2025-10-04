@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://bk0v0yljljplq"]
+
+[ext_resource type="Script" uid="uid://cvgx00241e641" path="res://assets/scripts/door.gd" id="1_u1njh"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u1njh"]
+load_path = "res://.godot/imported/door_texture.png-1bea5c0881a4c943fa1fd57497922365.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytq3u"]
+albedo_texture = SubResource("CompressedTexture2D_u1njh")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+disable_receive_shadows = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ytq3u"]
+size = Vector3(17, 24, 8)
+
+[sub_resource type="Animation" id="Animation_ytq3u"]
+resource_name = "open"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 3, 0), Vector3(0, 9, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7y1hl"]
+resource_name = "close"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 9, 0), Vector3(0, 3, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e7nx7"]
+_data = {
+&"close": SubResource("Animation_7y1hl"),
+&"open": SubResource("Animation_ytq3u")
+}
+
+[node name="door" type="Node3D"]
+script = ExtResource("1_u1njh")
+width_height_ratio = Vector2(1, 1)
+size_constant = 2.0
+id_card_lock = true
+
+[node name="model" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+material_override = SubResource("StandardMaterial3D_ytq3u")
+use_collision = true
+collision_layer = 2048
+collision_mask = 0
+size = Vector3(6, 6, 0.25)
+
+[node name="player_detection_area" type="Area3D" parent="."]
+collision_layer = 2048
+collision_mask = 2
+
+[node name="player_detection_collision" type="CollisionShape3D" parent="player_detection_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+shape = SubResource("BoxShape3D_ytq3u")
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_e7nx7")
+}
+
+[connection signal="body_entered" from="player_detection_area" to="." method="_on_player_enter_detection_area"]
+[connection signal="body_exited" from="player_detection_area" to="." method="_on_player_exit_detection_area"]
