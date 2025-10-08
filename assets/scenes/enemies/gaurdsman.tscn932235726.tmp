@@ -152,7 +152,7 @@ script = ExtResource("1_l2tpb")
 top_part = NodePath("model/tail_part/head_part")
 tail_part = NodePath("model/tail_part")
 tail_guider = NodePath("tail_guider")
-wheel_mesh = NodePath("model/tail_part/wheel_mesh")
+wheel_mesh = NodePath("model/tail_part/wheel")
 
 [node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -165,10 +165,8 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 [node name="tail_part" type="Node3D" parent="model"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="wheel_mesh" type="Node3D" parent="model/tail_part"]
-
-[node name="wheel" type="MeshInstance3D" parent="model/tail_part/wheel_mesh"]
-transform = Transform3D(-4.3711393e-06, -100.00001, -2.6226833e-06, 0, -4.3711393e-06, 60, -100.000015, 4.3711393e-06, 1.1464113e-13, -0.0012010732, 0.0038516521, 0.003908237)
+[node name="wheel" type="MeshInstance3D" parent="model/tail_part"]
+transform = Transform3D(-4.3711393e-06, -100.00001, -7.1525587e-06, 0, -1.1920929e-05, 60, -100.000015, 4.371139e-06, 1.1652995e-12, -0.0012010732, 0.0038516521, 0.003908237)
 material_override = SubResource("StandardMaterial3D_slwwy")
 mesh = SubResource("ArrayMesh_vu3yo")
 skeleton = NodePath("")

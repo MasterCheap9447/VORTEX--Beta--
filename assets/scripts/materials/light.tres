@@ -15,4 +15,3 @@ shading_mode = 0
 albedo_texture = SubResource("GradientTexture2D_iy8m4")
 proximity_fade_distance = 4096.0
 distance_fade_mode = 1
-distance_fade_max_distance = 1.0

@@ -10,7 +10,6 @@ extends CharacterBody3D
 @export var AIR_ACCELERATION : float = 1600.0
 @export var SLIDE_MAX_SPEED : float = 32.0
 @export var SLIDE_ACCELERATION : float = 2.0
-@export var SLAM_FORCE : float = 50.0
 @export var DASH_FORCE : float = 50.0
 
 @export var SENSITIVITY : float = 0.5
@@ -29,7 +28,6 @@ extends CharacterBody3D
 
 var touch_no : float = 0.0
 var nrg_conserved : float = 0.0
-var air_jump_no : int = 0
 var wall_jump_no : int = 0
 
 const max_step_height = 1
@@ -63,9 +61,14 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	
+
+	if velocity.y < 0:
+		gravity = 36.0
+	elif velocity.y > 0:
+		gravity = 24.0
+
 	if is_on_floor(): last_frame_was_on_floor = Engine.get_physics_frames()
-	
+
 	if is_alive:
 		if !is_paused:
 			
@@ -193,31 +196,7 @@ func _slide(delta) -> void:
 				velocity += SLIDE_DIRECTION.transform.basis * Vector3(0, 0, -SLIDE_ACCELERATION)
 			else:
 				velocity = lerp(velocity, SLIDE_DIRECTION.transform.basis * Vector3(0, 0, -SLIDE_MAX_SPEED), delta * 10)
-	
 
-func _slam(delta) -> void:
-	
-	if is_slamming:
-		await get_tree().create_timer(0.1).timeout
-		if is_on_floor():
-			slam_effect_vfx.emitting = true
-			is_sliding = false
-	
-	if !is_on_floor():
-		if Input.is_action_just_pressed("slide"):
-			await get_tree().create_timer(0.1).timeout
-			if !is_on_floor():
-				velocity = Vector3.ZERO
-				is_slamming = true
-				nrg_conserved = 5
-			else:
-				is_slamming = false
-				is_sliding = true
-		else:
-			is_slamming = false
-	
-	if is_slamming:
-		velocity.y = -SLAM_FORCE
 
 func _dash(dir, delta) -> void:
 	global_variables.is_player_dashing = is_dashing
@@ -244,31 +223,19 @@ func _dash(dir, delta) -> void:
 
 
 func _jump(_delta) -> void:
-	if Input.is_action_just_pressed("jump"):
-
+	if Input.is_action_pressed("jump"):
 		if is_on_floor():
 			wall_jump_no = 0
-			air_jump_no = 0
 			wall_jump_no = 0
 			velocity.y = JUMP_FORCE + nrg_conserved
 			if is_dashing:
-				air_jump_no = 0
 				wall_jump_no = 0
 				velocity.y = JUMP_FORCE
-
 		if is_on_wall_only() && wall_jump_no <= INF:
-			air_jump_no = 0
 			var normal = get_wall_normal()
 			velocity = normal * JUMP_FORCE
 			velocity.y = JUMP_FORCE + nrg_conserved
 			wall_jump_no += 1
-
-		else:
-			if air_jump_no <= 1:
-				velocity.y = JUMP_FORCE
-				air_jump_no += 1
-	pass
-
 
 
 func explosion_damage(damage: float, knockback: float, origin_position: Vector3) -> void:

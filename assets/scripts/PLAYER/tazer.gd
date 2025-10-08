@@ -36,7 +36,6 @@ func _physics_process(_delta: float) -> void:
 			equip_anim_done = true
 
 		muzzle_flash.rotation.z = deg_to_rad(randf_range(-360, 360))
-		spin_sfx.pitch_scale = shoot_sfx.pitch_scale + randf_range(-0.06, 0.06)
 
 		shoot_sfx.pitch_scale = randf_range(1, 1.5)
 		if Input.is_action_pressed("primary_fire"):
@@ -45,18 +44,6 @@ func _physics_process(_delta: float) -> void:
 					animation.play("primary_fire")
 					primary_fire()
 					crosshair_animation.play("primary_fire")
-		
-		if Input.is_action_pressed("alt_fire"):
-			if !animation.is_playing():
-				animation.play("alt_fire_continue")
-				crosshair_animation.play("alt_fire_hold")
-
-		if Input.is_action_just_released("alt_fire"):
-			animation.stop()
-			crosshair_animation.stop()
-			animation.play("primary_fire")
-			crosshair_animation.play("primary_fire")
-			primary_fire()
 
 
 func primary_fire():
@@ -69,3 +56,9 @@ func primary_fire():
 		if target.is_in_group("Projectile"):
 			if target.has_method("explode"):
 				target.explode()
+		if target.is_in_group("Enemy"):
+			if target.has_method("blood_splash"):
+				target.blood_splash()
+		instance.start(barrel_pos.global_position, attack_cast.get_collision_point(0))
+	else:
+		instance.start(barrel_pos.global_position, end_pos.global_position)

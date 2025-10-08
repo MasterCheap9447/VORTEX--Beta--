@@ -2,11 +2,11 @@ extends Node3D
 
 
 
-@onready var anchor_animation: AnimationPlayer = $level/beautizers/hallway_1/anchors/anchor_animation
-@onready var grinder_animation: AnimationPlayer = $level/beautizers/hallway_1/grinder/grinder_animation
-@onready var grinder_death_area: Area3D = $level/beautizers/hallway_1/grinder/grinder_death_area
-@onready var fan_animation: AnimationPlayer = $level/beautizers/central_room/central_fan/fan_animation
-@onready var fan_area: Area3D = $level/beautizers/central_room/central_fan/fan_area
+@export var anchor_animation: AnimationPlayer
+@export var grinder_animation: AnimationPlayer
+@export var grinder_death_area: Area3D
+@export var fan_animation: AnimationPlayer
+@export var fan_area: Area3D
 
 
 func _ready() -> void:
